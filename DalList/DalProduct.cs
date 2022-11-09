@@ -45,27 +45,36 @@ public class DalProduct
 
     public void deleteProduct(int _num)
     {
-
+        bool flag = false;
         for (int i = 0; i < DataSource.Config._productIndex; i++)
         {
             if (DataSource._arrProduct[i].ID == _num)
             {
                 DataSource._arrProduct[i] = DataSource._arrProduct[DataSource.Config._productIndex - 1];
                 DataSource.Config._productIndex--;
+                flag = true;
             }
         }
-        throw new Exception("product not exists");
+        if (!flag)
+        {
+            throw new Exception("product not exists, can not delete");
+
+        }
     }
     public void updateProduct(Product _p)
     {
-
+        bool flag=false;
         for (int i = 0; i < DataSource.Config._productIndex; i++)
         {
             if (DataSource._arrProduct[i].ID == _p.ID)
             {
                 DataSource._arrProduct[i] = _p;
+                flag = true;
             }
         }
-        throw new Exception("product not exists can not update");
+        if (!flag)
+        {
+            throw new Exception("product not exists, can not update");
+        }
     }
 }

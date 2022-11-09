@@ -21,13 +21,13 @@ internal static class DataSource
         _arrProduct[Config._productIndex].InStock = newInStock;
         Config._productIndex++;
     }
-    static private void addNewOrder(string newCustomerName, string newCustomerEmail, string newCustomerAdress, DateTime newOrderDate, DateTime newShipDate, DateTime newDeliveryDate)
+    static private void addNewOrder(string newCustomerName, string newCustomerEmail, string newCustomerAdress, DateTime newShipDate, DateTime newDeliveryDate)
     {
         _arrOrder[Config._orderIndex].ID = Config.CalNumOfIDOrder;
         _arrOrder[Config._orderIndex].CustomerName = newCustomerName;
         _arrOrder[Config._orderIndex].CustomerEmail = newCustomerEmail;
         _arrOrder[Config._orderIndex].CustomerAdress = newCustomerAdress;
-        _arrOrder[Config._orderIndex].OrderDate = newOrderDate;
+        _arrOrder[Config._orderIndex].OrderDate = DateTime.Now;
         _arrOrder[Config._orderIndex].ShipDate = newShipDate;
         _arrOrder[Config._orderIndex].DeliveryDate = newDeliveryDate;
         Config._orderIndex++;
