@@ -2,7 +2,7 @@
 using static DO.Enums;
 
 namespace Dal;
-internal static class DataSource
+public static class DataSource
 {
     static readonly internal Random _randNum = new Random();
     static internal Product[] _arrProduct = new Product[50];
@@ -12,7 +12,10 @@ internal static class DataSource
     {
         s_initialize();
     }
-
+    static public void startProgram()
+    {
+        return;
+    }
     static private void addNewProduct(string newName, ECategory newCategory, double newPrice, int newInStock)
     {
         _arrProduct[Config._productIndex].ID = Config.CalNumOfProduct;

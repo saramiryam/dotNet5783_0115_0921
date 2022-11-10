@@ -5,7 +5,7 @@ using DO;
 namespace Dal;
 public class DalOrder
 {
-public int addNewOrder(Order _p)
+public int addOrder(Order _p)
     {
         for (int i = 0; i < DataSource.Config._orderIndex; i++)
         {
@@ -16,6 +16,8 @@ public int addNewOrder(Order _p)
         }
         _p.ID = DataSource.Config.CalNumOfIDOrder;
         _p.OrderDate = DateTime.Now;
+        _p.ShipDate = DateTime.MinValue;
+        _p.DeliveryDate = DateTime.MinValue;    
         DataSource._arrOrder[DataSource.Config._orderIndex++] = _p;
         return _p.ID;
     }

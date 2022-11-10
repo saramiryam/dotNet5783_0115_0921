@@ -5,7 +5,7 @@ namespace Dal;
 
 public class DalOrderItem
 {
-    public int addNewOrderItem(OrderItem _newOrderItem)
+    public int addOrderItem(OrderItem _newOrderItem)
     {
         for (int i = 0; i < DataSource.Config._orderItemIndex; i++)
         {
