@@ -1,5 +1,6 @@
 ﻿using System.Diagnostics;
 using System.Xml.Linq;
+using static DO.Enums;
 
 namespace DO;
 /// <summary>
@@ -13,7 +14,7 @@ public struct Product
     /// the product name - a string
     /// </summary>
     public string Name { get; set; }
-    public Category Category { get; set; }
+    public ECategory Category { get; set; }
     public double Price { get; set; }
     public int InStock { get; set; }
 
