@@ -55,19 +55,33 @@ internal static class DataSource
     }
     static private void s_initialize()
     {
-        addNewProduct("big_notebook", ECategory.Notebooks, 6.9, 5);
-        addNewProduct("small notebook", ECategory.Notebooks, 4.9, 0);
-        addNewProduct("campuse notebook", ECategory.Notebooks, 5.9, 1);
-        addNewProduct("chanan notebook", ECategory.Notebooks, 4.9, 7);
-        addNewProduct("pilot", ECategory.Pens, 9.9, 12);
-        addNewProduct("stabilo pen", ECategory.Pens, 5.6, 20);
-        addNewProduct("chanan pen", ECategory.Pens, 4, 10);
-        addNewProduct("blue diary", ECategory.Diaries, 12.5, 8);
-        addNewProduct("red diary", ECategory.Diaries, 17, 0);
-        addNewProduct("paintbrush", ECategory.ArtMaterials, 7, 0);
-        addNewProduct("Sudoku", ECategory.Games, 9.5, 41);
+        addNewProduct("big_notebook", ECategory.Notebooks, 6.9, 50);     //10000 
+        addNewProduct("small notebook", ECategory.Notebooks, 4.9, 0);       ///10001
+        addNewProduct("campuse notebook", ECategory.Notebooks, 5.9, 35);      //10002
+        addNewProduct("chanan notebook", ECategory.Notebooks, 4.9, 63);       //10003
+        addNewProduct("pilot", ECategory.Pens, 9.9, 12);                    //10004
+        addNewProduct("stabilo pen", ECategory.Pens, 5.6, 20);              //10005
+        addNewProduct("chanan pen", ECategory.Pens, 4, 10);                 //1006
+        addNewProduct("blue diary", ECategory.Diaries, 12.5, 38);           //10007         
+        addNewProduct("red diary", ECategory.Diaries, 17,65);               //10008
+        addNewProduct("paintbrush", ECategory.ArtMaterials, 7, 25);          //10009
+        addNewProduct("Sudoku", ECategory.Games, 9.5, 41);                  //10010
 
-      //  addNewOrder()
+        //  addNewOrder()
+        addNewOrderItem(100000, 200007, 6.9, 3);
+        addNewOrderItem(100002, 200007, 5.9, 1);
+        addNewOrderItem(100009, 200007, 7, 7);
+        addNewOrderItem(100010, 200007, 9.5, 2);
+
+        addNewOrderItem(100000, 200008, 6.9, 3);
+        addNewOrderItem(100002, 200008, 5.9, 1);
+        addNewOrderItem(100003, 200008, 4.9, 1);
+        addNewOrderItem(100004, 200008, 9.9, 2);
+
+        addNewOrderItem(100007, 200009, 6.9, 3);
+        addNewOrderItem(100002, 200009, 5.9, 1);
+        addNewOrderItem(100003, 200009, 4.9, 1);
+        addNewOrderItem(100004, 200009, 9.9, 2);
 
 
     }
