@@ -68,6 +68,36 @@ internal static class DataSource
         addNewProduct("Sudoku", ECategory.Games, 9.5, 41);                  //10010
 
         //  addNewOrder()
+        addNewOrderItem(100000, 200001, 6.9, 3);
+        addNewOrderItem(100002, 200001, 5.9, 1);
+        addNewOrderItem(100009, 200001, 7, 7);
+        addNewOrderItem(100010, 200001, 9.5, 2);
+
+        addNewOrderItem(100000, 200002, 6.9, 3);
+        addNewOrderItem(100002, 200002, 5.9, 1);
+        addNewOrderItem(100003, 200002, 4.9, 1);
+        addNewOrderItem(100004, 200002, 9.9, 2);
+
+        addNewOrderItem(100007, 200003, 6.9, 3);
+        addNewOrderItem(100002, 200003, 5.9, 1);
+        addNewOrderItem(100005, 200003, 5.6, 3);
+        addNewOrderItem(100008, 200003, 17, 2);
+
+        addNewOrderItem(100000, 200004, 6.9, 3);
+        addNewOrderItem(100002, 200004, 5.9, 1);
+        addNewOrderItem(100009, 200004, 7, 7);
+        addNewOrderItem(100010, 200004, 9.5, 2);
+
+        addNewOrderItem(100000, 200005, 6.9, 3);
+        addNewOrderItem(100002, 200005, 5.9, 1);
+        addNewOrderItem(100003, 200005, 4.9, 1);
+        addNewOrderItem(100004, 200005, 9.9, 2);
+
+        addNewOrderItem(100007, 200006, 6.9, 3);
+        addNewOrderItem(100002, 200006, 5.9, 1);
+        addNewOrderItem(100005, 200006, 5.6, 3);
+        addNewOrderItem(100008, 200006, 17, 2);
+
         addNewOrderItem(100000, 200007, 6.9, 3);
         addNewOrderItem(100002, 200007, 5.9, 1);
         addNewOrderItem(100009, 200007, 7, 7);
@@ -80,8 +110,14 @@ internal static class DataSource
 
         addNewOrderItem(100007, 200009, 6.9, 3);
         addNewOrderItem(100002, 200009, 5.9, 1);
-        addNewOrderItem(100003, 200009, 4.9, 1);
-        addNewOrderItem(100004, 200009, 9.9, 2);
+        addNewOrderItem(100005, 200009, 5.6, 3);
+        addNewOrderItem(100008, 200009, 17, 2);
+
+        addNewOrderItem(100000, 200010, 6.9, 3);
+        addNewOrderItem(100002, 200010, 5.9, 1);
+        addNewOrderItem(100009, 200010, 7, 7);
+        addNewOrderItem(100010, 200010, 9.5, 2);
+
 
 
     }
