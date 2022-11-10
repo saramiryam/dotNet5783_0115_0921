@@ -21,16 +21,29 @@ internal static class DataSource
         _arrProduct[Config._productIndex].InStock = newInStock;
         Config._productIndex++;
     }
-    static private void addNewOrder(string newCustomerName, string newCustomerEmail, string newCustomerAdress, DateTime newShipDate, DateTime newDeliveryDate)
+    static private void addNewOrder(string newCustomerName, string newCustomerEmail, string newCustomerAdress, DateTime NewOrderDate, DateTime newShipDate, DateTime newDeliveryDate)
     {
         _arrOrder[Config._orderIndex].ID = Config.CalNumOfIDOrder;
         _arrOrder[Config._orderIndex].CustomerName = newCustomerName;
         _arrOrder[Config._orderIndex].CustomerEmail = newCustomerEmail;
         _arrOrder[Config._orderIndex].CustomerAdress = newCustomerAdress;
-        _arrOrder[Config._orderIndex].OrderDate = DateTime.Now;
+        _arrOrder[Config._orderIndex].OrderDate = NewOrderDate;
         _arrOrder[Config._orderIndex].ShipDate = newShipDate;
         _arrOrder[Config._orderIndex].DeliveryDate = newDeliveryDate;
         Config._orderIndex++;
+    }
+    static private void addNewOrder(string newCustomerName, string newCustomerEmail, string newCustomerAdress)
+    {
+        DateTime _today = DateTime.Now;
+        int daysAgo = new Random().Next(600);
+        DateTime NewOrderDate = _today.AddDays(-daysAgo);
+        int daysbetweenOrderToShip = new Random().Next(10);
+        DateTime newShipDate = NewOrderDate.AddDays(daysbetweenOrderToShip);
+        int daysbetweenDeliveryToShip = new Random().Next(7); 
+        DateTime newDeliveryDate = newShipDate.AddDays(daysbetweenDeliveryToShip);  
+        addNewOrder(newCustomerName, newCustomerEmail, newCustomerAdress,NewOrderDate,newShipDate,newDeliveryDate);
+
+
     }
     static private void addNewOrderItem(int newProductID, int newOrderID, double newPrice, int newAmount)
     {
@@ -56,7 +69,7 @@ internal static class DataSource
     static private void s_initialize()
     {
         #region addNewProduct
-        
+        //להוסיף לפונקציה שתקבל סטרינג
         addNewProduct("big_notebook", ECategory.Notebooks, 6.9, 50);     //10000 
         addNewProduct("small notebook", ECategory.Notebooks, 4.9, 0);       ///10001
         addNewProduct("campuse notebook", ECategory.Notebooks, 5.9, 35);      //10002
@@ -65,7 +78,7 @@ internal static class DataSource
         addNewProduct("stabilo pen", ECategory.Pens, 5.6, 20);              //10005
         addNewProduct("chanan pen", ECategory.Pens, 4, 10);                 //1006
         addNewProduct("blue diary", ECategory.Diaries, 12.5, 38);           //10007         
-        addNewProduct("red diary", ECategory.Diaries, 17,65);               //10008
+        addNewProduct("red diary", ECategory.Diaries, 17, 65);               //10008
         addNewProduct("paintbrush", ECategory.ArtMaterials, 7, 25);          //10009
         addNewProduct("Sudoku", ECategory.Games, 9.5, 41);                  //10010
         #endregion
@@ -123,8 +136,13 @@ internal static class DataSource
 
         #endregion
         #region addNewOrder
-        #endregion
 
+    //    int rnd = new Random();
+        addNewOrder("David Levi", "david@gmail.com", "buksboim 12");
+        addNewOrder("David Levi", "david@gmail.com", "buksboim 12",DateTime.Now.AddDays(-5),DateTime.Now,DateTime.MinValue);
+        //
+        #endregion
+        TimeSpan
     }
 }
 
