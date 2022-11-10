@@ -137,9 +137,9 @@ internal static class DataSource
         #endregion
         #region addNewOrder
 
-    //    int rnd = new Random();
+        Random rnd = new Random();
         addNewOrder("David Levi", "david@gmail.com", "buksboim 12");
-        addNewOrder("David Levi", "david@gmail.com", "buksboim 12",DateTime.Now.AddDays(-5),DateTime.Now,DateTime.MinValue);
+        addNewOrder("David Levi", "david@gmail.com", "buksboim 12",DateTime.Now.AddDays(-(rnd.Next(9))),DateTime.Now,DateTime.MinValue);
         //
         #endregion
         TimeSpan

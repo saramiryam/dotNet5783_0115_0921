@@ -1,12 +1,22 @@
 ﻿
 using DO;
 using System;
+using static DO.Enums;
 
 namespace Dal;
 
 
 public class DalProduct
 {
+    private DalProduct(string newName, string newCategory, double newPrice, int newInStock)
+
+    {
+        //לתקן פה
+        Product p = new Product() {ID=DataSource.Config.CalNumOfProduct,Name=newName,
+            //Category=Tryparse(newCategory,ECategory),
+            Price=newPrice,InStock=newInStock};    
+
+    }
     public int addNewProduct(Product _p)
     {
         for (int i = 0; i < DataSource.Config._productIndex; i++)
