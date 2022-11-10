@@ -69,7 +69,7 @@ internal static class DataSource
         addNewProduct("paintbrush", ECategory.ArtMaterials, 7, 25);          //10009
         addNewProduct("Sudoku", ECategory.Games, 9.5, 41);                  //10010
         #endregion
-        #region
+        #region addNewOrderItem
         //  addNewOrder()
         addNewOrderItem(100000, 200001, 6.9, 3);
         addNewOrderItem(100002, 200001, 5.9, 1);
