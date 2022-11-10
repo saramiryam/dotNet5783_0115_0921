@@ -55,6 +55,8 @@ internal static class DataSource
     }
     static private void s_initialize()
     {
+        #region addNewProduct
+        
         addNewProduct("big_notebook", ECategory.Notebooks, 6.9, 50);     //10000 
         addNewProduct("small notebook", ECategory.Notebooks, 4.9, 0);       ///10001
         addNewProduct("campuse notebook", ECategory.Notebooks, 5.9, 35);      //10002
@@ -66,7 +68,8 @@ internal static class DataSource
         addNewProduct("red diary", ECategory.Diaries, 17,65);               //10008
         addNewProduct("paintbrush", ECategory.ArtMaterials, 7, 25);          //10009
         addNewProduct("Sudoku", ECategory.Games, 9.5, 41);                  //10010
-
+        #endregion
+        #region
         //  addNewOrder()
         addNewOrderItem(100000, 200001, 6.9, 3);
         addNewOrderItem(100002, 200001, 5.9, 1);
@@ -118,7 +121,7 @@ internal static class DataSource
         addNewOrderItem(100009, 200010, 7, 7);
         addNewOrderItem(100010, 200010, 9.5, 2);
 
-
+        #endregion
 
     }
 }
