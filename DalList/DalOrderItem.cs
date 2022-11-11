@@ -17,12 +17,12 @@ public class DalOrderItem
         DataSource._arrOrderItem[DataSource.Config._orderItemIndex++] = _newOrderItem;
         return _newOrderItem.ProductID;
     }
-    public OrderItem getSingleOrederItem(int _prodactNum,int _orderNum)
+    public OrderItem getSingleOrederItem(int _prodactNum, int _orderNum)
     {
-        OrderItem _newOrderItem = new OrderItem();  
+        OrderItem _newOrderItem = new OrderItem();
         for (int i = 0; i < DataSource.Config._orderItemIndex; i++)
         {
-            if (DataSource._arrOrderItem[i].ProductID == _prodactNum&& DataSource._arrOrderItem[i].OrderID == _orderNum)
+            if (DataSource._arrOrderItem[i].ProductID == _prodactNum && DataSource._arrOrderItem[i].OrderID == _orderNum)
             {
                 _newOrderItem = DataSource._arrOrderItem[i];
                 return _newOrderItem;
@@ -49,7 +49,7 @@ public class DalOrderItem
             {
                 DataSource._arrOrderItem[i] = DataSource._arrOrderItem[DataSource.Config._orderItemIndex - 1];
                 DataSource.Config._orderItemIndex--;
-                return; 
+                return;
             }
         }
         throw new Exception("orderItem not exists");
@@ -64,7 +64,26 @@ public class DalOrderItem
                 DataSource._arrOrderItem[i] = _newOrderItem;
                 return;
             }
-           }
+        }
+        throw new Exception("product not exists can not update");
+    }
+
+    public OrderItem[] getAllMyOrdesItem(int orderNum)
+    {
+        int j = 0;
+        OrderItem[] oi = new OrderItem[DataSource.Config._orderItemIndex];
+        for (int i = 0; i < DataSource.Config._orderItemIndex; i++)
+        {
+            if (DataSource._arrOrderItem[i].OrderID == orderNum)
+            {
+                oi[j] = DataSource._arrOrderItem[i];
+                j++;
+
+            }
+        }
+        return oi;
         throw new Exception("product not exists can not update");
     }
 }
+
+

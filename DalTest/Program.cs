@@ -47,7 +47,12 @@ namespace DalTest
         static void productMethod()
         {
 
-            Console.WriteLine("Enter your choice :");
+            Console.WriteLine("Enter your choice " +
+                "1-add,   " +
+                "2-get one product,  " +
+                "3-get all products,   " +
+                "4-delete," +
+                "5-update:");
             int choiceForProduct;
             DalProduct p = new Dal.DalProduct();
             int parse;
@@ -184,7 +189,12 @@ namespace DalTest
         static void orderMethod()
         {
             int parse;
-            Console.WriteLine("Enter your choice:");
+            Console.WriteLine("Enter your choice:" +
+                "1-add,   " +
+                "2-get one product,  " +
+                "3-get all products,   " +
+                "4-delete," +
+                "5-update:");
             int choiceForOrder;
             int.TryParse(Console.ReadLine(), out parse);
             choiceForOrder = parse;
@@ -278,7 +288,13 @@ namespace DalTest
 
         static void orderItemMethod()
         {
-            Console.WriteLine("Enter your choice:");
+            Console.WriteLine("Enter your choice:" +
+           "1-add,   " +
+           "2-get one product,  " +
+           "3-get all products,   " +
+           "4-delete," +
+           "5-update,   " +
+           "6-see al items in order:");
             int parse;
             float parse3;
             int choiceOrderItem;
@@ -368,36 +384,22 @@ namespace DalTest
                     OI.updateOrderItem(orderItem);
                     break;
 
-                //case 6:
-                //    Console.WriteLine("Enter Id of an order and a product:");
-                //    int OrderId = int.Parse(Console.ReadLine());
-                //    int ProductId = int.Parse(Console.ReadLine());
-                //    try
-                //    {
-                //        Console.WriteLine(OI.getOrderItemByOandP(OrderId, ProductId));
-                //    }
-                //    catch (Exception e)
-                //    {
-                //        Console.WriteLine(e);
-
-                //    }
-                //    break;
-
-                //case 7:
-                //    Console.WriteLine("Enter Id of an order:");
-                //    int IdOrder = int.Parse(Console.ReadLine());
-                //    try
-                //    {
-                //        foreach (OrderItem myOrderItem in OI.getOrderItemByOrder(IdOrder))
-                //        {
-                //            Console.WriteLine(myOrderItem);
-                //        }
-                //    }
-                //    catch (Exception e)
-                //    {
-                //        Console.WriteLine(e);
-                //    }
-                //    break;
+                case 6:
+                    Console.WriteLine("Enter Id of an order:");
+                    int IdOrder = int.Parse(Console.ReadLine());
+                    try
+                    {
+                        foreach (OrderItem myOrderItem in OI.getAllMyOrdesItem(IdOrder))
+                        {
+                            if(myOrderItem.OrderID != 0)  
+                            Console.WriteLine(myOrderItem);
+                        }
+                    }
+                    catch (Exception e)
+                    {
+                        Console.WriteLine(e);
+                    }
+                    break;
 
             }
         }
