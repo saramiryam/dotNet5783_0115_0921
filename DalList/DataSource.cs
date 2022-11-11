@@ -54,11 +54,11 @@ public static class DataSource
         _arrOrderItem[Config._orderItemIndex].OrderID = newOrderID;
         _arrOrderItem[Config._orderItemIndex].Price = newPrice;
         _arrOrderItem[Config._orderItemIndex].Amount = newAmount;
-        Config._productIndex++;
+        Config._orderItemIndex++;
     }
     static internal class Config
     {
-        static internal int _productIndex = 0;
+        static public int _productIndex = 0;
         static internal int _orderIndex = 0;
         static internal int _orderItemIndex = 0;
         static private int _calNumOfProduct = 100000;
@@ -145,7 +145,7 @@ public static class DataSource
         addNewOrder("David Levi", "david@gmail.com", "buksboim 12",DateTime.Now.AddDays(-(rnd.Next(9))),DateTime.Now,DateTime.MinValue);
         //
         #endregion
-        TimeSpan
+        
     }
 }
 

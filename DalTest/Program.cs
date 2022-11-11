@@ -22,16 +22,12 @@ namespace DalTest
             Console.WriteLine("Enter a number 1-3 or 0 to exit:");
             int.TryParse(Console.ReadLine(), out choice);
 
-
             while (choice != 0)
             {
 
                 switch (choice)
                 {
-                    //    DateTime.TryParse(Console.ReadLine(), out date);
-                    //order._shippingDate = date;
                     case 1://product
-                           // Console.WriteLine("Enter your choice:");
                         productMethod();
                         break;
 
@@ -46,6 +42,8 @@ namespace DalTest
             }
         }
 
+
+
         static void productMethod()
         {
 
@@ -57,20 +55,41 @@ namespace DalTest
             int.TryParse(Console.ReadLine(), out parse);
             choiceForProduct = parse;
 
-
-
-            switch (choiceForProduct)
+            while (choiceForProduct != 0)
             {
 
-                case 1://add
-                    {
+                switch (choiceForProduct)
+                {
+
+                    case 1://add
                         Console.WriteLine("Enter product details:");
-                        int.TryParse(Console.ReadLine(), out parse);
-                        product.ID = parse;
+                        Console.WriteLine("Name:");
                         product.Name = Console.ReadLine();
+                        Console.WriteLine("Price:");
                         int.TryParse(Console.ReadLine(), out parse);
                         product.Price = parse;
-                      // product.Category = Console.Read();
+                        Console.WriteLine("type 0 for category Notebooks, 1 - Pens, 2 - Diaries, 3 - ArtMaterials, 4-Games");
+                        int category = int.Parse(Console.ReadLine());
+                        switch (category)
+                        {
+                            case 0:
+                                product.Category = Enums.ECategory.Notebooks;
+                                break;
+                            case 1:
+                                product.Category = Enums.ECategory.Pens;
+                                break;
+                            case 2:
+                                product.Category = Enums.ECategory.Diaries;
+                                break;
+                            case 3:
+                                product.Category = Enums.ECategory.ArtMaterials;
+                                break;
+                            case 4:
+                                product.Category = Enums.ECategory.Games;
+                                break;
+
+                        }
+                        Console.WriteLine("Amount in stock:");
                         int.TryParse(Console.ReadLine(), out parse);
                         product.InStock = parse;
                         try
@@ -82,83 +101,86 @@ namespace DalTest
                             Console.WriteLine(e);
                         }
                         break;
-                    }
-                case 2:
-                    {
-                        Console.WriteLine("Enter an Id of product:");
-                        //צריך פו את זה 
-                        int.TryParse(Console.ReadLine(), out parse);
-                        product.ID = parse;
 
+
+
+
+                    case 2:
+                        {
+                            Console.WriteLine("Enter an Id of product:");
+                            //צריך פו את זה 
+                            int.TryParse(Console.ReadLine(), out parse);
+                            product.ID = parse;
+
+                            try
+                            {
+                                Console.WriteLine(p.getSingleProduct(product.ID));
+                            }
+                            catch (Exception e)
+                            {
+                                Console.WriteLine(e);
+                            }
+                            break;
+                        }
+                    case 3:
+                        foreach (Product myProduct in p.getAllProducts())
+                        {
+                            Console.WriteLine(myProduct);//אולי צריך את toString??
+                        }
+                        break;
+                    case 4://delete
+                        Console.WriteLine("Enter an Id of product:");
+                        int id = int.Parse(Console.ReadLine());
                         try
                         {
-                            Console.WriteLine(p.getSingleProduct(product.ID));
+                            p.deleteProduct(id);
                         }
                         catch (Exception e)
                         {
                             Console.WriteLine(e);
                         }
                         break;
-                    }
-                case 3:
-                    foreach (Product myProduct in p.getAllProducts())
-                    {
-                        Console.WriteLine(myProduct);//אולי צריך את toString??
-                    }
-                    break;
-                case 4://delete
-                    Console.WriteLine("Enter an Id of product:");
-                    int id = int.Parse(Console.ReadLine());
-                    try
-                    {
-                        p.deleteProduct(id);
-                    }
-                    catch (Exception e)
-                    {
-                        Console.WriteLine(e);
-                    }
-                    break;
-                case 5://update
-                    {
-
-                        Console.WriteLine("Enter an Id of product:");
-                        int Id = int.Parse(Console.ReadLine());
-                        string name;
-                        double price;
-                        int amountInStock;
-
-                        try
+                    case 5://update
                         {
-                            product = p.getSingleProduct(Id);
-                        }
-                        catch (Exception e)
-                        {
-                            Console.WriteLine(e);
+
+                            Console.WriteLine("Enter an Id of product:");
+                            int Id = int.Parse(Console.ReadLine());
+                            string name;
+                            double price;
+                            int amountInStock;
+
+                            try
+                            {
+                                product = p.getSingleProduct(Id);
+                            }
+                            catch (Exception e)
+                            {
+                                Console.WriteLine(e);
+                            }
+
+                            Console.WriteLine("the product to update is" + product);
+                            Console.WriteLine("Enter the new details of the product:");
+                            //if (Console.ReadLine() != "")
+                            //{
+                            Console.WriteLine("name:");
+                            name = Console.ReadLine();
+                            Console.WriteLine("price:");
+                            double.TryParse(Console.ReadLine(), out parse2);
+                            price = parse2;
+                            Console.WriteLine("amount");
+                            int.TryParse(Console.ReadLine(), out parse);
+                            amountInStock = parse;
+                            Product proTOUpdata = new Product() { ID = Id, Name = name, Price = price, InStock = amountInStock };
+                            p.updateProduct(proTOUpdata);
+                            //}
+                            break;
                         }
 
-                        Console.WriteLine("the product to update is" + product);
-                        Console.WriteLine("Enter the new details of the product:");
-                        //if (Console.ReadLine() != "")
-                        //{
-                        Console.WriteLine("name:");
-                        name = Console.ReadLine();
-                        Console.WriteLine("price:");
-                        double.TryParse(Console.ReadLine(), out parse2);
-                        price = parse2;
-                        Console.WriteLine("amount");
-                        int.TryParse(Console.ReadLine(), out parse);
-                        amountInStock = parse;
-                        Product proTOUpdata = new Product() { ID = Id,Name=name,Price=price,InStock=amountInStock}; 
-                        p.updateProduct(proTOUpdata);
-                        //}
-                        break;
-                    }
 
+                }
 
             }
-
         }
-
         static void orderMethod()
         {
             int parse;
@@ -173,7 +195,7 @@ namespace DalTest
                 case 1://add
                     DateTime date;
                     Console.WriteLine("Enter order details:");
-                    int.TryParse(Console.ReadLine(), out parse);
+                   // int.TryParse(Console.ReadLine(), out parse);
                     order.CustomerName = Console.ReadLine();
                     order.CustomerEmail = Console.ReadLine();
                     order.CustomerAdress = Console.ReadLine();
@@ -301,10 +323,10 @@ namespace DalTest
                     break;
 
                 case 4://delete
-                    Console.WriteLine("Enter an Id of the order of the order item:");
-                    int OrderIdToDelete = int.Parse(Console.ReadLine());
                     Console.WriteLine("Enter an Id of the product of the order item:");
                     int ProductIdToDelete = int.Parse(Console.ReadLine());
+                    Console.WriteLine("Enter an Id of the order of the order item:");
+                    int OrderIdToDelete = int.Parse(Console.ReadLine());
                     try
                     {
                         OI.deleteOrderItem(ProductIdToDelete,OrderIdToDelete);
@@ -331,12 +353,16 @@ namespace DalTest
 
                     Console.WriteLine("the order item to update is" + orderItem);
                     Console.WriteLine("Enter the new details of the order item:");
+                    Console.WriteLine("orderId:");
                     int orderId = int.Parse(Console.ReadLine());
                     orderItem.OrderID = orderId;
+                    Console.WriteLine("productId:");
                     int productId = int.Parse(Console.ReadLine());
                     orderItem.ProductID = productId;
+                    Console.WriteLine("price:");
                     int pricePerUnit = int.Parse(Console.ReadLine());
                     orderItem.Price = pricePerUnit;
+                    Console.WriteLine("amount");
                     int quantity = int.Parse(Console.ReadLine());
                     orderItem.Amount = quantity;
                     OI.updateOrderItem(orderItem);

@@ -19,6 +19,7 @@ public class DalProduct
     //}
     public int addProduct(Product _p)
     {
+        //DataSource.Config._productIndex = 0;
         for (int i = 0; i < DataSource.Config._productIndex; i++)
         {
             if (_p.Name == DataSource._arrProduct[i].Name && _p.InStock == DataSource._arrProduct[i].InStock && _p.Price == DataSource._arrProduct[i].Price)

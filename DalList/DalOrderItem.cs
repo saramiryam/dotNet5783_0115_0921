@@ -49,6 +49,7 @@ public class DalOrderItem
             {
                 DataSource._arrOrderItem[i] = DataSource._arrOrderItem[DataSource.Config._orderItemIndex - 1];
                 DataSource.Config._orderItemIndex--;
+                return; 
             }
         }
         throw new Exception("orderItem not exists");
@@ -61,8 +62,9 @@ public class DalOrderItem
             if (DataSource._arrOrderItem[i].ProductID == _newOrderItem.ProductID && DataSource._arrOrderItem[i].OrderID == _newOrderItem.OrderID)
             {
                 DataSource._arrOrderItem[i] = _newOrderItem;
+                return;
             }
-        }
+           }
         throw new Exception("product not exists can not update");
     }
 }
