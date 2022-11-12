@@ -57,9 +57,9 @@ public class DalOrderItem
     }
     public void updateOrderItem(OrderItem _newOrderItem)
     {
-            if ( _newOrderItem.ProductID==0 || _newOrderItem.OrderID==0||_newOrderItem)
+            if ( _newOrderItem.ProductID==0 || _newOrderItem.OrderID==0||_newOrderItem.ID==0||_newOrderItem.Price==0||_newOrderItem.Amount==0)
         {
-
+            return;
 
         }
             for (int i = 0; i < DataSource.Config._orderItemIndex; i++)
