@@ -19,7 +19,7 @@ namespace DalTest
         {
             DataSource.startProgram();
             int choice;
-            Console.WriteLine("Enter a number 1-3 or 0 to exit:")
+            Console.WriteLine("Enter a number 1-3 or 0 to exit:");
             int.TryParse(Console.ReadLine(), out choice);
 
             while (choice != 0)

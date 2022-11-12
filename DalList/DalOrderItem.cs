@@ -9,20 +9,21 @@ public class DalOrderItem
     {
         for (int i = 0; i < DataSource.Config._orderItemIndex; i++)
         {
-            if (_newOrderItem.ProductID == DataSource._arrOrderItem[i].ProductID && _newOrderItem.OrderID == DataSource._arrOrderItem[i].OrderID)
+            if (_newOrderItem.ID == DataSource._arrOrderItem[i].ID)
             {
                 throw new Exception("orderItem exists");
             }
         }
+        _newOrderItem.ID= DataSource.Config.CalNumOfOrderItem;   
         DataSource._arrOrderItem[DataSource.Config._orderItemIndex++] = _newOrderItem;
         return _newOrderItem.ProductID;
     }
-    public OrderItem getSingleOrederItem(int _prodactNum, int _orderNum)
+    public OrderItem getSingleOrederItem(int orderItemID)
     {
         OrderItem _newOrderItem = new OrderItem();
         for (int i = 0; i < DataSource.Config._orderItemIndex; i++)
         {
-            if (DataSource._arrOrderItem[i].ProductID == _prodactNum && DataSource._arrOrderItem[i].OrderID == _orderNum)
+            if (DataSource._arrOrderItem[i].ID==orderItemID)
             {
                 _newOrderItem = DataSource._arrOrderItem[i];
                 return _newOrderItem;
@@ -40,12 +41,12 @@ public class DalOrderItem
         return _tempArr;
     }
 
-    public void deleteOrderItem(int _prodactNum, int _orderNum)
+    public void deleteOrderItem(int _orderItemID)
     {
 
         for (int i = 0; i < DataSource.Config._orderItemIndex; i++)
         {
-            if (DataSource._arrOrderItem[i].ProductID == _prodactNum && DataSource._arrOrderItem[i].OrderID == _orderNum)
+            if (DataSource._arrOrderItem[i].ID==_orderItemID)
             {
                 DataSource._arrOrderItem[i] = DataSource._arrOrderItem[DataSource.Config._orderItemIndex - 1];
                 DataSource.Config._orderItemIndex--;
@@ -56,8 +57,12 @@ public class DalOrderItem
     }
     public void updateOrderItem(OrderItem _newOrderItem)
     {
+            if ( _newOrderItem.ProductID==0 || _newOrderItem.OrderID==0||_newOrderItem)
+        {
 
-        for (int i = 0; i < DataSource.Config._orderItemIndex; i++)
+
+        }
+            for (int i = 0; i < DataSource.Config._orderItemIndex; i++)
         {
             if (DataSource._arrOrderItem[i].ProductID == _newOrderItem.ProductID && DataSource._arrOrderItem[i].OrderID == _newOrderItem.OrderID)
             {

@@ -50,6 +50,7 @@ public static class DataSource
     }
     static private void addNewOrderItem(int newProductID, int newOrderID, double newPrice, int newAmount)
     {
+        _arrOrderItem[Config._orderItemIndex].ID = Config.CalNumOfOrderItem;
         _arrOrderItem[Config._orderItemIndex].ProductID = newProductID;
         _arrOrderItem[Config._orderItemIndex].OrderID = newOrderID;
         _arrOrderItem[Config._orderItemIndex].Price = newPrice;
@@ -65,6 +66,8 @@ public static class DataSource
         static public int CalNumOfProduct { get { return _calNumOfProduct++; } }
         static private int _calNumOfIDOrder = 200000;
         static public int CalNumOfIDOrder { get { return _calNumOfIDOrder++; } }
+        static private int _calNumOfOrderItem = 300000;
+        static public int CalNumOfOrderItem { get { return _calNumOfOrderItem++; } }
 
 
 
