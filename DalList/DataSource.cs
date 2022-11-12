@@ -165,9 +165,9 @@ public static class DataSource
         DateTime NewOrderDate = _today.AddDays(-daysAgo);
         int daysbetweenOrderToShip = new Random().Next(10);
         DateTime newShipDate = NewOrderDate.AddDays(daysbetweenOrderToShip);
-        int daysbetweenDeliveryToShip = new Random().Next(7); 
-        DateTime newDeliveryDate = newShipDate.AddDays(daysbetweenDeliveryToShip);  
-        addNewOrder(newCustomerName, newCustomerEmail, newCustomerAdress,NewOrderDate,newShipDate,newDeliveryDate);
+        int daysbetweenDeliveryToShip = new Random().Next(7);
+        DateTime newDeliveryDate = newShipDate.AddDays(daysbetweenDeliveryToShip);
+        addNewOrder(newCustomerName, newCustomerEmail, newCustomerAdress, NewOrderDate, newShipDate, newDeliveryDate);
 
 
     }

@@ -12,3 +12,4 @@ public struct Enums
         Games
     };
 }
+

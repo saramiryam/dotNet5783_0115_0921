@@ -44,7 +44,6 @@ public struct Order
 
     #endregion
 
-
     #region methods
 
     /// <summary>

@@ -13,7 +13,6 @@ public struct OrderItem
 
     #endregion
 
-
     #region methods
     /// <summary>
     /// override the string function

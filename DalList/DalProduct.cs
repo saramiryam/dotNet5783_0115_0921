@@ -106,7 +106,7 @@ public class DalProduct
     /// <exception cref="Exception">product not exists, can not update</exception>
     public void updateProduct(Product _p)
     {
-        bool flag=false;
+        bool flag = false;
         for (int i = 0; i < DataSource.Config._productIndex; i++)
         {
             if (DataSource._arrProduct[i].ID == _p.ID)

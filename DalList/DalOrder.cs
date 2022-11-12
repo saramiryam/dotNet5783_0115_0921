@@ -72,7 +72,7 @@ public class DalOrder
     /// <exception cref="Exception">order not exists, can not delete</exception>
     public void deleteOrder(int _num)
     {
-        bool flag = false;  
+        bool flag = false;
         for (int i = 0; i < DataSource.Config._orderIndex; i++)
         {
             if (DataSource._arrOrder[i].ID == _num)
@@ -102,7 +102,7 @@ public class DalOrder
             if (DataSource._arrOrder[i].ID == _p.ID)
             {
                 DataSource._arrOrder[i] = _p;
-                flag= true;
+                flag = true;
             }
         }
         if (!flag)
