@@ -4,74 +4,30 @@ using static DO.Enums;
 namespace Dal;
 public static class DataSource
 {
+
+    #region Class members
+
     static readonly internal Random _randNum = new Random();
     static internal Product[] _arrProduct = new Product[50];
     static internal Order[] _arrOrder = new Order[100];
     static internal OrderItem[] _arrOrderItem = new OrderItem[200];
+
+    #endregion
+
+    #region constructors
+
     static DataSource()
     {
         s_initialize();
     }
-    static public void startProgram()
-    {
-        return;
-    }
-    static private void addNewProduct(string newName, ECategory newCategory, double newPrice, int newInStock)
-    {
-        _arrProduct[Config._productIndex].ID = Config.CalNumOfProduct;
-        _arrProduct[Config._productIndex].Name = newName;
-        _arrProduct[Config._productIndex].Category = newCategory;
-        _arrProduct[Config._productIndex].InStock = newInStock;
-        Config._productIndex++;
-    }
-    static private void addNewOrder(string newCustomerName, string newCustomerEmail, string newCustomerAdress, DateTime NewOrderDate, DateTime newShipDate, DateTime newDeliveryDate)
-    {
-        _arrOrder[Config._orderIndex].ID = Config.CalNumOfIDOrder;
-        _arrOrder[Config._orderIndex].CustomerName = newCustomerName;
-        _arrOrder[Config._orderIndex].CustomerEmail = newCustomerEmail;
-        _arrOrder[Config._orderIndex].CustomerAdress = newCustomerAdress;
-        _arrOrder[Config._orderIndex].OrderDate = NewOrderDate;
-        _arrOrder[Config._orderIndex].ShipDate = newShipDate;
-        _arrOrder[Config._orderIndex].DeliveryDate = newDeliveryDate;
-        Config._orderIndex++;
-    }
-    static private void addNewOrder(string newCustomerName, string newCustomerEmail, string newCustomerAdress)
-    {
-        DateTime _today = DateTime.Now;
-        int daysAgo = new Random().Next(600);
-        DateTime NewOrderDate = _today.AddDays(-daysAgo);
-        int daysbetweenOrderToShip = new Random().Next(10);
-        DateTime newShipDate = NewOrderDate.AddDays(daysbetweenOrderToShip);
-        int daysbetweenDeliveryToShip = new Random().Next(7); 
-        DateTime newDeliveryDate = newShipDate.AddDays(daysbetweenDeliveryToShip);  
-        addNewOrder(newCustomerName, newCustomerEmail, newCustomerAdress,NewOrderDate,newShipDate,newDeliveryDate);
 
+    #endregion
 
-    }
-    static private void addNewOrderItem(int newProductID, int newOrderID, double newPrice, int newAmount)
-    {
-        _arrOrderItem[Config._orderItemIndex].ID = Config.CalNumOfOrderItem;
-        _arrOrderItem[Config._orderItemIndex].ProductID = newProductID;
-        _arrOrderItem[Config._orderItemIndex].OrderID = newOrderID;
-        _arrOrderItem[Config._orderItemIndex].Price = newPrice;
-        _arrOrderItem[Config._orderItemIndex].Amount = newAmount;
-        Config._orderItemIndex++;
-    }
-    static internal class Config
-    {
-        static public int _productIndex = 0;
-        static internal int _orderIndex = 0;
-        static internal int _orderItemIndex = 0;
-        static private int _calNumOfProduct = 100000;
-        static public int CalNumOfProduct { get { return _calNumOfProduct++; } }
-        static private int _calNumOfIDOrder = 200000;
-        static public int CalNumOfIDOrder { get { return _calNumOfIDOrder++; } }
-        static private int _calNumOfOrderItem = 300000;
-        static public int CalNumOfOrderItem { get { return _calNumOfOrderItem++; } }
+    #region methods
 
-
-
-    }
+    /// <summary>
+    /// enter the first orders, products and order item to thier arrey
+    /// </summary>
     static private void s_initialize()
     {
         #region addNewProduct
@@ -145,10 +101,122 @@ public static class DataSource
 
         Random rnd = new Random();
         addNewOrder("David Levi", "david@gmail.com", "buksboim 12");
-        addNewOrder("David Levi", "david@gmail.com", "buksboim 12",DateTime.Now.AddDays(-(rnd.Next(9))),DateTime.Now,DateTime.MinValue);
+        addNewOrder("David Levi", "david@gmail.com", "buksboim 12", DateTime.Now.AddDays(-(rnd.Next(9))), DateTime.Now, DateTime.MinValue);
         //
         #endregion
-        
+
     }
+
+    /// <summary>
+    /// start program for enable enter new items
+    /// </summary>
+    static public void startProgram()
+    {
+        return;
+    }
+
+    /// <summary>
+    /// get information of a product for update the products arrey
+    /// </summary>
+    /// <param name="newName">string - name of product</param>
+    /// <param name="newCategory">enum ECategory - name of category</param>
+    /// <param name="newPrice">double - price of product</param>
+    /// <param name="newInStock">int - amount of product in stock</param>
+    static private void addNewProduct(string newName, ECategory newCategory, double newPrice, int newInStock)
+    {
+        _arrProduct[Config._productIndex].ID = Config.CalNumOfProduct;
+        _arrProduct[Config._productIndex].Name = newName;
+        _arrProduct[Config._productIndex].Category = newCategory;
+        _arrProduct[Config._productIndex].InStock = newInStock;
+        Config._productIndex++;
+    }
+
+    /// <summary>
+    /// get information of a order for update the orders arrey
+    /// </summary>
+    /// <param name="newCustomerName">string - name of inviter</param>
+    /// <param name="newCustomerEmail">string - email of inviter</param>
+    /// <param name="newCustomerAdress">string - adress of inviter</param>
+    /// <param name="NewOrderDate">DateTime - date of order</param>
+    /// <param name="newShipDate">DateTime - date of ship</param>
+    /// <param name="newDeliveryDate">DateTime - date of delivery</param>
+    static private void addNewOrder(string newCustomerName, string newCustomerEmail, string newCustomerAdress, DateTime NewOrderDate, DateTime newShipDate, DateTime newDeliveryDate)
+    {
+        _arrOrder[Config._orderIndex].ID = Config.CalNumOfIDOrder;
+        _arrOrder[Config._orderIndex].CustomerName = newCustomerName;
+        _arrOrder[Config._orderIndex].CustomerEmail = newCustomerEmail;
+        _arrOrder[Config._orderIndex].CustomerAdress = newCustomerAdress;
+        _arrOrder[Config._orderIndex].OrderDate = NewOrderDate;
+        _arrOrder[Config._orderIndex].ShipDate = newShipDate;
+        _arrOrder[Config._orderIndex].DeliveryDate = newDeliveryDate;
+        Config._orderIndex++;
+    }
+
+    /// <summary>
+    /// get information of a programmer order for update the orders arrey, with drawn dates
+    /// </summary>
+    /// <param name="newCustomerName">string - name of inviter</param>
+    /// <param name="newCustomerEmail">string - email of inviter</param>
+    /// <param name="newCustomerAdress">string - adress of inviter</param>
+    static private void addNewOrder(string newCustomerName, string newCustomerEmail, string newCustomerAdress)
+    {
+        DateTime _today = DateTime.Now;
+        int daysAgo = new Random().Next(600);
+        DateTime NewOrderDate = _today.AddDays(-daysAgo);
+        int daysbetweenOrderToShip = new Random().Next(10);
+        DateTime newShipDate = NewOrderDate.AddDays(daysbetweenOrderToShip);
+        int daysbetweenDeliveryToShip = new Random().Next(7); 
+        DateTime newDeliveryDate = newShipDate.AddDays(daysbetweenDeliveryToShip);  
+        addNewOrder(newCustomerName, newCustomerEmail, newCustomerAdress,NewOrderDate,newShipDate,newDeliveryDate);
+
+
+    }
+
+    /// <summary>
+    /// get information of a order item for update the orderItems arrey
+    /// </summary>
+    /// <param name="newProductID">int - id of product</param>
+    /// <param name="newOrderID">int - id of order</param>
+    /// <param name="newPrice">double1 - price of items</param>
+    /// <param name="newAmount">string - amount of items</param>
+    static private void addNewOrderItem(int newProductID, int newOrderID, double newPrice, int newAmount)
+    {
+        _arrOrderItem[Config._orderItemIndex].ID = Config.CalNumOfOrderItem;
+        _arrOrderItem[Config._orderItemIndex].ProductID = newProductID;
+        _arrOrderItem[Config._orderItemIndex].OrderID = newOrderID;
+        _arrOrderItem[Config._orderItemIndex].Price = newPrice;
+        _arrOrderItem[Config._orderItemIndex].Amount = newAmount;
+        Config._orderItemIndex++;
+    }
+
+    #endregion
+
+    #region internally contained class
+
+    static internal class Config
+    {
+        #region internally contained class members
+
+        static public int _productIndex = 0;
+        static internal int _orderIndex = 0;
+        static internal int _orderItemIndex = 0;
+        static private int _calNumOfProduct = 100000;
+
+        #endregion
+
+        #region internally contained class members with thier properties
+
+        static public int CalNumOfProduct { get { return _calNumOfProduct++; } }
+        static private int _calNumOfIDOrder = 200000;
+        static public int CalNumOfIDOrder { get { return _calNumOfIDOrder++; } }
+        static private int _calNumOfOrderItem = 300000;
+        static public int CalNumOfOrderItem { get { return _calNumOfOrderItem++; } }
+
+        #endregion
+
+    }
+
+    #endregion
+
 }
 
