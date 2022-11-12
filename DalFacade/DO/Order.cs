@@ -44,7 +44,7 @@ public struct Order
     /// <summary>
     /// override the string function
     /// </summary>
-    /// <returns>string with the properties of the struct</returns>
+    /// <returns>string with the properties of the Order struct</returns>
     public override string ToString() => $@"
     Order ID={ID}: {CustomerName}, 
     Email - {CustomerEmail}
