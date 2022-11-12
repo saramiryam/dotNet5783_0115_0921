@@ -17,6 +17,15 @@ public class DalProduct
     //        Price=newPrice,InStock=newInStock};    
 
     //}
+
+    #region methods
+
+    /// <summary>
+    /// add a new product to the list of products
+    /// </summary>
+    /// <param name="_p">a product</param>
+    /// <returns>int of the id of the product</returns>
+    /// <exception cref="Exception">product exists</exception>
     public int addProduct(Product _p)
     {
         //DataSource.Config._productIndex = 0;
@@ -31,6 +40,13 @@ public class DalProduct
         DataSource._arrProduct[DataSource.Config._productIndex++] = _p;
         return _p.ID;
     }
+
+    /// <summary>
+    /// check if the product demanded exist and return it or an exception if not
+    /// </summary>
+    /// <param name="_num">the id of the product demanded</param>
+    /// <returns>details of the product demanded</returns>
+    /// <exception cref="Exception">product not exists</exception>
     public Product getSingleProduct(int _num)
     {
         Product _p = new Product();
@@ -44,6 +60,11 @@ public class DalProduct
         }
         throw new Exception("product not exists");
     }
+
+    /// <summary>
+    /// cope the products to a new arrey and return it
+    /// </summary>
+    /// <returns>arrey with all the products</returns>
     public Product[] getAllProducts()
     {
         Product[] _tempArr = new Product[DataSource.Config._productIndex];
@@ -54,6 +75,11 @@ public class DalProduct
         return _tempArr;
     }
 
+    /// <summary>
+    /// check if the product demanded exist and delete it or throw an exception if not
+    /// </summary>
+    /// <param name="_num">id of product to delete</param>
+    /// <exception cref="Exception">product not exists, can not delete</exception>
     public void deleteProduct(int _num)
     {
         bool flag = false;
@@ -72,6 +98,12 @@ public class DalProduct
 
         }
     }
+
+    /// <summary>
+    /// update data of product and throw exception if it does not exist
+    /// </summary>
+    /// <param name="_p"> id of product demanded to change</param>
+    /// <exception cref="Exception">product not exists, can not update</exception>
     public void updateProduct(Product _p)
     {
         bool flag=false;
@@ -88,4 +120,7 @@ public class DalProduct
             throw new Exception("product not exists, can not update");
         }
     }
+
+    #endregion
+
 }

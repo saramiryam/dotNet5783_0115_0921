@@ -107,7 +107,7 @@ public class DalOrder
         }
         if (!flag)
         {
-            throw new Exception("product not exists, can not update");
+            throw new Exception("order not exists, can not update");
         }
     }
 
