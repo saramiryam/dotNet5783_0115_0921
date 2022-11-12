@@ -23,9 +23,10 @@ public struct Order
     #endregion
 
 
-    #region methods
+    #region constructor
+
     /// <summary>
-    /// a constractor how creat a new order
+    /// a constructor how creat a new order
     /// </summary>
     /// <param name="newCustomerName">string of a name</param>
     /// <param name="newCustomerEmail"> string of an email</param>
@@ -40,6 +41,11 @@ public struct Order
         ShipDate = DateTime.MinValue;
         DeliveryDate = DateTime.MinValue;
     }
+
+    #endregion
+
+
+    #region methods
 
     /// <summary>
     /// override the string function
