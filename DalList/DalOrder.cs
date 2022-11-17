@@ -89,7 +89,7 @@ public class DalOrder
     }
 
     /// <summary>
-    /// update data of order and throw exception if it does not exist
+    /// update date of order and throw exception if it does not exist
     /// </summary>
     /// <param name="_p"> id of order demanded to change</param>
     /// <exception cref="Exception">product not exists, can not update</exception>

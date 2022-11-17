@@ -4,16 +4,12 @@ using DO;
 namespace Dal;
 
 public class DalOrderItem
-{
-
-    #region methods
-
-    /// <summary>
-    /// add a new item to the list of orderItems
-    /// </summary>
-    /// <param name="_newOrderItem">an ordertem</param>
-    /// <returns>int of the id of the orderItem</returns>
-    /// <exception cref="Exception">orderItem exists</exception>
+{/// <summary>
+/// add a new orderitem and throw exception if it does not exist
+/// </summary>
+/// <param name="_newOrderItem">new one to add</param>
+/// <returns>new orderIdem id</returns>
+/// <exception cref="Exception"></exception>
     public int addOrderItem(OrderItem _newOrderItem)
     {
         for (int i = 0; i < DataSource.Config._orderItemIndex; i++)
@@ -27,13 +23,12 @@ public class DalOrderItem
         DataSource._arrOrderItem[DataSource.Config._orderItemIndex++] = _newOrderItem;
         return _newOrderItem.ProductID;
     }
-
     /// <summary>
-    /// check if the orderItem demanded exist and return it or an exception if not
+    /// return specific item by id and throw exception if it does not exist 
     /// </summary>
-    /// <param name="orderItemID">the id of the orderItem demanded</param>
-    /// <returns>details of the orderItem demanded</returns>
-    /// <exception cref="Exception">orderItem not exists</exception>
+    /// <param name="orderItemID"></param>
+    /// <returns>order item</returns>
+    /// <exception cref="Exception"></exception>
     public OrderItem getSingleOrederItem(int orderItemID)
     {
         OrderItem _newOrderItem = new OrderItem();
@@ -47,11 +42,10 @@ public class DalOrderItem
         }
         throw new Exception("orderItem not exists");
     }
-
     /// <summary>
-    /// cope the orderItems to a new arrey, sort them by thier orderDates from the later to the current and return it
+    /// return all order items and throw exception if it does not exist
     /// </summary>
-    /// <returns>arrey with all the orderItems</returns>
+    /// <returns>order item arr</returns>
     public OrderItem[] getAllOrderItems()
     {
         //-----------------
@@ -65,12 +59,12 @@ public class DalOrderItem
         }
         return _tempArr;
     }
-
     /// <summary>
-    /// check if the orderItem demanded exist and delete it or throw an exception if not
+    ///  delete order item and throw exception if it does not exist
+    /// 
     /// </summary>
-    /// <param name="_orderItemID">id of orderItem to delete</param>
-    /// <exception cref="Exception">orderItem not exists</exception>
+    /// <param name="_orderItemID">order item to delete</param>
+    /// <exception cref="Exception"></exception>
     public void deleteOrderItem(int _orderItemID)
     {
 
@@ -85,12 +79,11 @@ public class DalOrderItem
         }
         throw new Exception("orderItem not exists");
     }
-
     /// <summary>
-    /// update data of orderItem and throw exception if it does not exist
+    ///  update date of product and throw exception if it does not exist
     /// </summary>
-    /// <param name="_newOrderItem">orderItem demanded to change</param>
-    /// <exception cref="Exception">product not exists can not update</exception>
+    /// <param name="_newOrderItem">order item to update</param>
+    /// <exception cref="Exception"></exception>
     public void updateOrderItem(OrderItem _newOrderItem)
     {
         if (_newOrderItem.ProductID == 0 || _newOrderItem.OrderID == 0 || _newOrderItem.ID == 0 || _newOrderItem.Price == 0 || _newOrderItem.Amount == 0)
@@ -108,15 +101,11 @@ public class DalOrderItem
         }
         throw new Exception("product not exists can not update");
     }
-
-    //----------------
-    // getAllOrderItems? מה ההבדל בין המתודה הזאת לבין המתודה 
-    //----------------
     /// <summary>
-    /// 
+    /// get all items of specific order and throw exception if it does not exist
     /// </summary>
-    /// <param name="orderNum"></param>
-    /// <returns></returns>
+    /// <param name="orderNum">specific</param>
+    /// <returns> all items</returns>
     /// <exception cref="Exception"></exception>
     public OrderItem[] getAllMyOrdesItem(int orderNum)
     {
@@ -134,9 +123,27 @@ public class DalOrderItem
         return oi;
         throw new Exception("product not exists can not update");
     }
+    /// <summary>
+    /// get the order item by productId and orderId
+    /// </summary>
+    /// <param name="orderId">num order of this order item</param>
+    /// <param name="productId">num product of this order item</param>
+    /// <returns>order item</returns>
+    /// <exception cref="Exception"></exception>
+    public OrderItem getSingleOrederItemByProductAndOrder(int orderId, int productId)
+    {
+        OrderItem _newOrderItem = new OrderItem();
+        for (int i = 0; i < DataSource.Config._orderItemIndex; i++)
+        {
+            if (DataSource._arrOrderItem[i].OrderID == orderId && DataSource._arrOrderItem[i].ProductID == productId)
+            {
+                _newOrderItem = DataSource._arrOrderItem[i];
+                return _newOrderItem;
+            }
+        }
+        throw new Exception("orderItem not exists");
 
-    #endregion
-
+    }
 }
 
 
