@@ -1,11 +1,6 @@
 ﻿// See https://aka.ms/new-console-template for more information
 using DO;
-using System.Linq.Expressions;
-using DalList;
 using Dal;
-
-using System.Net.Http.Headers;
-using System.Data.Common;
 
 namespace DalTest
 {

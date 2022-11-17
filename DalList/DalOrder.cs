@@ -6,56 +6,6 @@ namespace Dal;
 public class DalOrder
 {
 
-    #region methods
-
-    /// <summary>
-    /// add a new order to the list of orders
-    /// </summary>
-    /// <param name="_p">an order</param>
-    /// <returns>int of the id of the order</returns>
-    /// <exception cref="Exception">order exists</exception>
-    public int addOrder(Order _p)
-    {
-        for (int i = 0; i < DataSource.Config._orderIndex; i++)
-        {
-            if (_p.CustomerName == DataSource._arrOrder[i].CustomerName && _p.CustomerEmail == DataSource._arrOrder[i].CustomerEmail && _p.CustomerAdress == DataSource._arrOrder[i].CustomerAdress && _p.OrderDate == DataSource._arrOrder[i].OrderDate && _p.ShipDate == DataSource._arrOrder[i].ShipDate && _p.DeliveryDate == DataSource._arrOrder[i].DeliveryDate)
-            {
-                throw new Exception("order exists");
-            }
-        }
-        _p.ID = DataSource.Config.CalNumOfIDOrder;
-        _p.OrderDate = DateTime.Now;
-        _p.ShipDate = DateTime.MinValue;
-        _p.DeliveryDate = DateTime.MinValue;
-        DataSource._arrOrder[DataSource.Config._orderIndex++] = _p;
-        return _p.ID;
-    }
-
-    /// <summary>
-    /// check if the order demanded exist and return it or an exception if not
-    /// </summary>
-    /// <param name="_num">the id of the order demanded</param>
-    /// <returns>details of the order demanded</returns>
-    /// <exception cref="Exception">order not exists</exception>
-    public Order getSingleOrder(int _num)
-    {
-        Order _p = new Order();
-        for (int i = 0; i < DataSource.Config._orderIndex; i++)
-        {
-            if (DataSource._arrOrder[i].ID == _num)
-            {
-                _p = DataSource._arrOrder[i];
-                return _p;
-            }
-        }
-        throw new Exception("order not exists");
-    }
-
-    /// <summary>
-    /// cope the orders to a new arrey and return it
-    /// </summary>
-    /// <returns>arrey with all the orders</returns>
-    public Order[] getAllOrder()
     {
         Order[] _tempArr = new Order[DataSource.Config._orderIndex];
         for (int i = 0; i < DataSource.Config._orderIndex; i++)
