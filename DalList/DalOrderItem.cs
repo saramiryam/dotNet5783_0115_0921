@@ -48,10 +48,6 @@ public class DalOrderItem
     /// <returns>order item arr</returns>
     public OrderItem[] getAllOrderItems()
     {
-        //-----------------
-        //לשלוח לפןנקציה שממינת לפי תאריכים ואת המערך הזה להחזיר
-        //-----------------
-
         OrderItem[] _tempArr = new OrderItem[DataSource.Config._orderItemIndex];
         for (int i = 0; i < DataSource.Config._orderItemIndex; i++)
         {

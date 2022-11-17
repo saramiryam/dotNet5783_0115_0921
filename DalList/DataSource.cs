@@ -5,6 +5,8 @@ namespace Dal;
 public static class DataSource
 {
 
+    #region Class members
+
     static readonly internal Random _randNum = new Random();
     static internal Product[] _arrProduct = new Product[50];
     static internal Order[] _arrOrder = new Order[100];
@@ -122,15 +124,29 @@ public static class DataSource
     /// <param name="newInStock">int - amount of product in stock</param>
     static private void addNewProduct(string newName, ECategory newCategory, double newPrice, int newInStock)
     {
+        _arrProduct[Config._productIndex].ID = Config.CalNumOfProduct;
         _arrProduct[Config._productIndex].Name = newName;
         _arrProduct[Config._productIndex].Category = newCategory;
         _arrProduct[Config._productIndex].InStock = newInStock;
         Config._productIndex++;
     }
+
+    /// <summary>
+    /// get information of a order for update the orders arrey
+    /// </summary>
+    /// <param name="newCustomerName">string - name of inviter</param>
+    /// <param name="newCustomerEmail">string - email of inviter</param>
+    /// <param name="newCustomerAdress">string - adress of inviter</param>
+    /// <param name="NewOrderDate">DateTime - date of order</param>
+    /// <param name="newShipDate">DateTime - date of ship</param>
+    /// <param name="newDeliveryDate">DateTime - date of delivery</param>
+    static private void addNewOrder(string newCustomerName, string newCustomerEmail, string newCustomerAdress, DateTime NewOrderDate, DateTime newShipDate, DateTime newDeliveryDate)
     {
+        _arrOrder[Config._orderIndex].ID = Config.CalNumOfIDOrder;
         _arrOrder[Config._orderIndex].CustomerName = newCustomerName;
         _arrOrder[Config._orderIndex].CustomerEmail = newCustomerEmail;
         _arrOrder[Config._orderIndex].CustomerAdress = newCustomerAdress;
+        _arrOrder[Config._orderIndex].OrderDate = NewOrderDate;
         _arrOrder[Config._orderIndex].ShipDate = newShipDate;
         _arrOrder[Config._orderIndex].DeliveryDate = newDeliveryDate;
         Config._orderIndex++;
@@ -170,7 +186,10 @@ public static class DataSource
         _arrOrderItem[Config._orderItemIndex].OrderID = newOrderID;
         _arrOrderItem[Config._orderItemIndex].Price = newPrice;
         _arrOrderItem[Config._orderItemIndex].Amount = newAmount;
+        Config._orderItemIndex++;
     }
+
+    #endregion
 
     #region internally contained class
 
