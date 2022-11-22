@@ -28,17 +28,14 @@ public class DalProduct
     /// <exception cref="Exception">product exists</exception>
     public int addProduct(Product _p)
     {
-        //DataSource.Config._productIndex = 0;
-        for (int i = 0; i < DataSource.Config._productIndex; i++)
+        if (DataSource._Products.Exists(e => e.Name == _p.Name&&e.Category==_p.Category&&e.Price==_p.Price&&e.InStock==_p.InStock))
+            throw new Exception("product exists");
+        else
         {
-            if (_p.Name == DataSource._arrProduct[i].Name && _p.InStock == DataSource._arrProduct[i].InStock && _p.Price == DataSource._arrProduct[i].Price)
-            {
-                throw new Exception("product exists");
-            }
+            _p.ID = DataSource.Config.CalNumOfProduct;
+            DataSource._Products.Add(_p);
+            return _p.ID;
         }
-        _p.ID = DataSource.Config.CalNumOfProduct;
-        DataSource._arrProduct[DataSource.Config._productIndex++] = _p;
-        return _p.ID;
     }
 
     /// <summary>
@@ -49,30 +46,22 @@ public class DalProduct
     /// <exception cref="Exception">product not exists</exception>
     public Product getSingleProduct(int _num)
     {
-        Product _p = new Product();
-        for (int i = 0; i < DataSource.Config._productIndex; i++)
-        {
-            if (DataSource._arrProduct[i].ID == _num)
-            {
-                _p = DataSource._arrProduct[i];
-                return _p;
-            }
-        }
-        throw new Exception("product not exists");
+        Product _newProduct = new Product();
+        _newProduct = DataSource._Products.Find(e => e.ID == _num);
+        if (_newProduct.ID!=0)
+            return _newProduct;
+        else
+            throw new Exception("product not exists");
+
     }
 
     /// <summary>
     /// cope the products to a new arrey and return it
     /// </summary>
     /// <returns>arrey with all the products</returns>
-    public Product[] getAllProducts()
+    public List<Product> getAllProducts()
     {
-        Product[] _tempArr = new Product[DataSource.Config._productIndex];
-        for (int i = 0; i < DataSource.Config._productIndex; i++)
-        {
-            _tempArr[i] = DataSource._arrProduct[i];
-        }
-        return _tempArr;
+      return DataSource._Products;
     }
 
     /// <summary>
@@ -82,21 +71,12 @@ public class DalProduct
     /// <exception cref="Exception">product not exists, can not delete</exception>
     public void deleteProduct(int _num)
     {
-        bool flag = false;
-        for (int i = 0; i < DataSource.Config._productIndex; i++)
-        {
-            if (DataSource._arrProduct[i].ID == _num)
-            {
-                DataSource._arrProduct[i] = DataSource._arrProduct[DataSource.Config._productIndex - 1];
-                DataSource.Config._productIndex--;
-                flag = true;
-            }
-        }
-        if (!flag)
-        {
+        Product _productToDel = DataSource._Products.Find(e => e.ID == _num);
+        if (_productToDel.ID != 0)
+            DataSource._Products.Remove(_productToDel);
+        else
             throw new Exception("product not exists, can not delete");
 
-        }
     }
 
     /// <summary>
@@ -106,19 +86,20 @@ public class DalProduct
     /// <exception cref="Exception">product not exists, can not update</exception>
     public void updateProduct(Product _p)
     {
-        bool flag = false;
-        for (int i = 0; i < DataSource.Config._productIndex; i++)
+        if (_p.ID == null || _p.Name == null || _p.Category == null || _p.Price == null || _p.InStock == null)
         {
-            if (DataSource._arrProduct[i].ID == _p.ID)
-            {
-                DataSource._arrProduct[i] = _p;
-                flag = true;
-            }
+            return;
+
         }
-        if (!flag)
+        Product _productToUpdate = DataSource._Products.Find(e => e.ID == _p.ID );
+        if (_productToUpdate.ID != 0)
         {
-            throw new Exception("product not exists, can not update");
+            DataSource._Products.Remove(_productToUpdate);
+            DataSource._Products.Add(_p);
         }
+        else
+            throw new Exception("product not exists can not update");
+
     }
 
     #endregion
