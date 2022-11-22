@@ -126,7 +126,6 @@ public static class DataSource
     static private void addNewProduct(string newName, ECategory newCategory, double newPrice, int newInStock)
     {
        Product newProducts = new() { ID = Config.CalNumOfProduct,Name=newName,Category=newCategory,InStock=newInStock };
-    //לבדוק האם זה כבר קיים...
         _arrProduct.Add(newProducts);
     }
 
