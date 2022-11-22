@@ -1,14 +1,19 @@
 ﻿using DalApi;
+using DO;
 using System.Security.Principal;
 
 namespace Dal
 {
     sealed internal class DalList : IDal
     {
-        IProduct product;
-
-        public IProduct Product { get {return new (); };
-            
+        public IProduct Product => new DalProduct();
+        public IOrder Order => new DalOrder();
+        public IOrderItem OrderItem => new DalOrderItem();
 
     }
+
 }
+
+
+
+

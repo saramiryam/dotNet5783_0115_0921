@@ -2,15 +2,17 @@
 using DO;
 
 namespace Dal;
+using DalApi;
+using System.Collections;
 
-public class DalOrderItem
+internal class DalOrderItem:IOrderItem
 {/// <summary>
 /// add a new orderitem and throw exception if it does not exist
 /// </summary>
 /// <param name="_newOrderItem">new one to add</param>
 /// <returns>new orderIdem id</returns>
 /// <exception cref="Exception"></exception>
-    public int addOrderItem(OrderItem _newOrderItem)
+    public int Add(OrderItem _newOrderItem)
     {
         if (DataSource._arrOrderItem.Exists(e => e.OrderID == _newOrderItem.ID && e.ProductID == _newOrderItem.ProductID))
             throw new Exception("orderItem not exists");
@@ -27,7 +29,7 @@ public class DalOrderItem
     /// <param name="orderItemID"></param>
     /// <returns>order item</returns>
     /// <exception cref="Exception"></exception>
-    public OrderItem getSingleOrederItem(int orderItemID)
+    public OrderItem Get(int orderItemID)
     {
         OrderItem _newOrderItem = new OrderItem();
         _newOrderItem = DataSource._arrOrderItem.Find(e => e.ID == orderItemID);
@@ -40,7 +42,7 @@ public class DalOrderItem
     /// return all order items and throw exception if it does not exist
     /// </summary>
     /// <returns>order item arr</returns>
-    public List<OrderItem> getAllOrderItems()
+    public IEnumerable<OrderItem> GetAll()
     {
         
             return DataSource._arrOrderItem;
@@ -51,7 +53,7 @@ public class DalOrderItem
     /// </summary>
     /// <param name="_orderItemID">order item to delete</param>
     /// <exception cref="Exception"></exception>
-    public void deleteOrderItem(int _orderItemID)
+    public void Delete(int _orderItemID)
     {
         OrderItem _orderItemToDel=DataSource._arrOrderItem.Find(e => e.ID == _orderItemID);
         if(_orderItemToDel.ID != 0)
@@ -64,7 +66,7 @@ public class DalOrderItem
     /// </summary>
     /// <param name="_newOrderItem">order item to update</param>
     /// <exception cref="Exception"></exception>
-    public void updateOrderItem(OrderItem _newOrderItem)
+    public void Update(OrderItem _newOrderItem)
     {
         if (_newOrderItem.ProductID == 0 || _newOrderItem.OrderID == 0 || _newOrderItem.ID == 0 || _newOrderItem.Price == 0 || _newOrderItem.Amount == 0)
         {
@@ -86,7 +88,7 @@ public class DalOrderItem
     /// <param name="orderNum">specific</param>
     /// <returns> all items</returns>
     /// <exception cref="Exception"></exception>
-    public List<OrderItem> getAllMyOrdesItem(int orderNum)
+    public IEnumerable<OrderItem> getAllMyOrdesItem(int orderNum)
     {
         if (DataSource._arrOrderItem.FindAll(e => e.OrderID == orderNum).Count > 0)
             return DataSource._arrOrderItem.FindAll(e => e.OrderID == orderNum);
@@ -102,6 +104,7 @@ public class DalOrderItem
     /// <exception cref="Exception"></exception>
     public OrderItem getSingleOrederItemByProductAndOrder(int orderId, int productId)
     {
+
         OrderItem _newOrderItem = new OrderItem();
         _newOrderItem = DataSource._arrOrderItem.Find(e => e.OrderID == orderId&&e.ProductID==productId);
         if (_newOrderItem.ID == 0)

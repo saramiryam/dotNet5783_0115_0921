@@ -5,8 +5,8 @@ using static DO.Enums;
 
 namespace Dal;
 
-
-public class DalProduct
+using DalApi;
+public class DalProduct:IProduct
 {
     //private DalProduct(string newName, string newCategory, double newPrice, int newInStock)
 
@@ -26,7 +26,7 @@ public class DalProduct
     /// <param name="_p">a product</param>
     /// <returns>int of the id of the product</returns>
     /// <exception cref="Exception">product exists</exception>
-    public int addProduct(Product _p)
+    public int Add(Product _p)
     {
         if (DataSource._Products.Exists(e => e.Name == _p.Name&&e.Category==_p.Category&&e.Price==_p.Price&&e.InStock==_p.InStock))
             throw new Exception("product exists");
@@ -44,7 +44,7 @@ public class DalProduct
     /// <param name="_num">the id of the product demanded</param>
     /// <returns>details of the product demanded</returns>
     /// <exception cref="Exception">product not exists</exception>
-    public Product getSingleProduct(int _num)
+    public Product Get(int _num)
     {
         Product _newProduct = new Product();
         _newProduct = DataSource._Products.Find(e => e.ID == _num);
@@ -59,7 +59,7 @@ public class DalProduct
     /// cope the products to a new arrey and return it
     /// </summary>
     /// <returns>arrey with all the products</returns>
-    public List<Product> getAllProducts()
+    public IEnumerable<Product> GetAll()
     {
       return DataSource._Products;
     }
@@ -69,7 +69,7 @@ public class DalProduct
     /// </summary>
     /// <param name="_num">id of product to delete</param>
     /// <exception cref="Exception">product not exists, can not delete</exception>
-    public void deleteProduct(int _num)
+    public void Delete(int _num)
     {
         Product _productToDel = DataSource._Products.Find(e => e.ID == _num);
         if (_productToDel.ID != 0)
@@ -84,7 +84,7 @@ public class DalProduct
     /// </summary>
     /// <param name="_p"> id of product demanded to change</param>
     /// <exception cref="Exception">product not exists, can not update</exception>
-    public void updateProduct(Product _p)
+    public void Update(Product _p)
     {
         if (_p.ID == null || _p.Name == null || _p.Category == null || _p.Price == null || _p.InStock == null)
         {
