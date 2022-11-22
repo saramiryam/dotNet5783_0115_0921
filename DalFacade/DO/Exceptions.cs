@@ -1,31 +1,30 @@
 ﻿
-namespace DO
+namespace DO;
+
+public class RequestedItemNotFoundException:Exception
 {
-    internal class RequestedItemNotFoundException:Exception
+    public string RequestedItemNotFound { get; set; }
+
+    public RequestedItemNotFoundException(string msg) : base(msg)
     {
-        public string RequestedItemNotFound { get; set; }
+        //לשאול בנות מה הן הוסיפו פה
+        //RequestedItemNotFound
 
-        public RequestedItemNotFoundException(string msg) : base(msg)
-        {
-            //לשאול בנות מה הן הוסיפו פה
-            //RequestedItemNotFound
-
-            //throw new RequestedItemNotFoundException("ערך זה כבר נמצא")
-            //{ RequestedItemNotFound = val.ToString()};
-
-        }
+        //throw new RequestedItemNotFoundException("ערך זה לא נמצא")
+        //{ RequestedItemNotFound = val.ToString()};
 
     }
 
+}
 
-    internal class ItemAlreadyExistsException: Exception
+
+public class ItemAlreadyExistsException: Exception
+{
+    public string ItemAlreadyExists { get; set; }
+
+    public ItemAlreadyExistsException(string msg) : base(msg)
     {
-        public string ItemAlreadyExists { get; set; }
-
-        public ItemAlreadyExistsException(string msg) : base(msg)
-        {
-            //לשאול בנות מה הן הוסיפו פה
-            //ItemAlreadyExists
-        }
+        //לשאול בנות מה הן הוסיפו פה
+        //ItemAlreadyExists
     }
 }

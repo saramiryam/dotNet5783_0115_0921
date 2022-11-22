@@ -2,6 +2,8 @@
 using Dal;
 using DO;
 using DalApi;
+using System;
+
 namespace Dal;
 internal class DalOrder:ICrud<Order>
 {
@@ -14,21 +16,19 @@ internal class DalOrder:ICrud<Order>
     /// <param name="_p">an order</param>
     /// <returns>int of the id of the order</returns>
     /// <exception cref="Exception">order exists</exception>
-    public int Add(Order _p)
+    public int Add(Order _o)
     {
-        for (int i = 0; i < DataSource.Config._orderIndex; i++)
+        if (DataSource._Orders.Exists(e => e.CustomerName == _o.CustomerName && e.CustomerAdress == _o.CustomerAdress&& e.CustomerEmail == _o.CustomerEmail && e.OrderDate == _o.OrderDate))
+            throw new RequestedItemNotFoundException("order exists, can not add") { RequestedItemNotFound = _o.ToString() };
+        else
         {
-            if (_p.CustomerName == DataSource._arrOrder[i].CustomerName && _p.CustomerEmail == DataSource._arrOrder[i].CustomerEmail && _p.CustomerAdress == DataSource._arrOrder[i].CustomerAdress && _p.OrderDate == DataSource._arrOrder[i].OrderDate && _p.ShipDate == DataSource._arrOrder[i].ShipDate && _p.DeliveryDate == DataSource._arrOrder[i].DeliveryDate)
-            {
-                throw new Exception("order exists");
-            }
+            _o.ID = DataSource.Config.CalNumOfIDOrder;
+            _o.OrderDate = DateTime.Now;
+            _o.ShipDate = DateTime.MinValue;
+            _o.DeliveryDate = DateTime.MinValue;
+            DataSource._Orders.Add(_o);
+            return _o.ID;
         }
-        _p.ID = DataSource.Config.CalNumOfIDOrder;
-        _p.OrderDate = DateTime.Now;
-        _p.ShipDate = DateTime.MinValue;
-        _p.DeliveryDate = DateTime.MinValue;
-        DataSource._arrOrder[DataSource.Config._orderIndex++] = _p;
-        return _p.ID;
     }
     
     /// <summary>
@@ -39,16 +39,13 @@ internal class DalOrder:ICrud<Order>
     /// <exception cref="Exception">order not exists</exception>
     public Order Get(int _num)
     {
-        Order _p = new Order();
-        for (int i = 0; i < DataSource.Config._orderIndex; i++)
-        {
-            if (DataSource._arrOrder[i].ID == _num)
-            {
-                _p = DataSource._arrOrder[i];
-                return _p;
-            }
-        }
-        throw new Exception("order not exists");
+        Order _orderToGet = new Order();
+        _orderToGet = DataSource._Orders.Find(e => e.ID == _num);
+        if (_orderToGet.ID != 0)
+            return _orderToGet;
+        else
+            throw new ItemAlreadyExistsException("order not exists,can not get") { ItemAlreadyExists = _num.ToString() };
+
     }
 
     /// <summary>
@@ -57,12 +54,7 @@ internal class DalOrder:ICrud<Order>
     /// <returns>arrey with all the orders</returns>
     public IEnumerable<Order> GetAll()
     {
-        Order[] _tempArr = new Order[DataSource.Config._orderIndex];
-        for (int i = 0; i < DataSource.Config._orderIndex; i++)
-        {
-            _tempArr[i] = DataSource._arrOrder[i];
-        }
-        return _tempArr;
+        return DataSource._Orders;
     }
 
     /// <summary>
@@ -72,20 +64,11 @@ internal class DalOrder:ICrud<Order>
     /// <exception cref="Exception">order not exists, can not delete</exception>
     public void Delete(int _num)
     {
-        bool flag = false;
-        for (int i = 0; i < DataSource.Config._orderIndex; i++)
-        {
-            if (DataSource._arrOrder[i].ID == _num)
-            {
-                DataSource._arrOrder[i] = DataSource._arrOrder[DataSource.Config._orderIndex - 1];
-                DataSource.Config._orderIndex--;
-                flag = true;
-            }
-        }
-        if (!flag)
-        {
+        Order _orderToDel = DataSource._Orders.Find(e => e.ID == _num);
+        if (_orderToDel.ID != 0)
+            DataSource._Orders.Remove(_orderToDel);
+        else
             throw new Exception("order not exists, can not delete");
-        }
     }
 
     /// <summary>
@@ -93,22 +76,22 @@ internal class DalOrder:ICrud<Order>
     /// </summary>
     /// <param name="_p"> id of order demanded to change</param>
     /// <exception cref="Exception">product not exists, can not update</exception>
-    public void Update(Order _p)
+    public void Update(Order _o)
     {
+        if (_o.ID == null || _o.CustomerName == null || _o.CustomerEmail == null || _o.CustomerAdress == null || _o.OrderDate == null||_o.ShipDate==null||_o.DeliveryDate==null)
+        {
+            return;
 
-        bool flag = true;
-        for (int i = 0; i < DataSource.Config._orderIndex; i++)
-        {
-            if (DataSource._arrOrder[i].ID == _p.ID)
-            {
-                DataSource._arrOrder[i] = _p;
-                flag = true;
-            }
         }
-        if (!flag)
+        Order _orderToUpdate = DataSource._Orders.Find(e => e.ID == _o.ID);
+        if (_orderToUpdate.ID != 0)
         {
-            throw new Exception("order not exists, can not update");
+            DataSource._Orders.Remove(_orderToUpdate);
+            DataSource._Orders.Add(_o);
         }
+        else
+            throw new ItemAlreadyExistsException("order not exists,can not update") { ItemAlreadyExists = _o.ToString() };
+        
     }
 
     #endregion
