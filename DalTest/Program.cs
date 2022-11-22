@@ -1,11 +1,15 @@
 ﻿// See https://aka.ms/new-console-template for more information
 using DO;
 using Dal;
+using DalApi;
 
 namespace DalTest
 {
     public class Programm
     {
+        //private IDal dalList = new Dal.DalList();
+
+
         static private Product product = new Product();
         static private Order order = new Order();
         static private OrderItem orderItem = new OrderItem();
@@ -55,7 +59,9 @@ namespace DalTest
             "4-delete,  " +
             "5-update:  ");
             int choiceForProduct;
-            DalProduct p = new Dal.DalProduct();
+            IDal IDalVariable = new Dal.DalList();
+
+           // DalProduct p = new Dal.DalProduct();
             int parse;
             double parse2;
             int.TryParse(Console.ReadLine(), out parse);
@@ -65,7 +71,7 @@ namespace DalTest
                 case 1://add
                     Console.WriteLine("Enter product details:");
                     Console.WriteLine("Name:");
-                    product.Name = Console.ReadLine();
+                   product.Name = Console.ReadLine();
                     Console.WriteLine("Price:");
                     int.TryParse(Console.ReadLine(), out parse);
                     product.Price = parse;
@@ -95,7 +101,8 @@ namespace DalTest
                     product.InStock = parse;
                     try
                     {
-                        p.addProduct(product);
+                        // p.Add(product);
+                        IDalVariable.Product.Add(product);
                     }
                     catch (Exception e)
                     {
@@ -114,7 +121,7 @@ namespace DalTest
 
                         try
                         {
-                            Console.WriteLine(p.getSingleProduct(product.ID));
+                            Console.WriteLine(p.Get(product.ID));
                         }
                         catch (Exception e)
                         {
@@ -123,7 +130,7 @@ namespace DalTest
                         break;
                     }
                 case 3:
-                    foreach (Product myProduct in p.getAllProducts())
+                    foreach (Product myProduct in p.GetAll())
                     {
                         Console.WriteLine(myProduct);//אולי צריך את toString??
                     }
@@ -133,7 +140,7 @@ namespace DalTest
                     int id = int.Parse(Console.ReadLine());
                     try
                     {
-                        p.deleteProduct(id);
+                        p.Delete(id);
                     }
                     catch (Exception e)
                     {
@@ -151,7 +158,7 @@ namespace DalTest
 
                         try
                         {
-                            product = p.getSingleProduct(Id);
+                            product = p.Get(Id);
                         }
                         catch (Exception e)
                         {
@@ -169,7 +176,7 @@ namespace DalTest
                         int.TryParse(Console.ReadLine(), out parse);
                         amountInStock = parse;
                         Product proTOUpdata = new Product() { ID = Id, Name = name, Price = price, InStock = amountInStock };
-                        p.updateProduct(proTOUpdata);
+                        p.Update(proTOUpdata);
                         //}
                         break;
                     }
@@ -298,7 +305,7 @@ namespace DalTest
             int choiceOrderItem;
             int.TryParse(Console.ReadLine(), out parse);
             choiceOrderItem = parse;
-            DalOrderItem OI = new DalOrderItem();
+           DalOrderItem OI = new DalOrderItem();
             switch (choiceOrderItem)
             {
                 case 1://add

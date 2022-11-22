@@ -4,7 +4,7 @@ using System.Security.Principal;
 
 namespace Dal
 {
-    sealed internal class DalList : IDal
+    sealed public class DalList : IDal
     {
         public IProduct Product => new DalProduct();
         public IOrder Order => new DalOrder();
