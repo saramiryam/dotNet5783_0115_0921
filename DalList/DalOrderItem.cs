@@ -3,6 +3,7 @@ using DO;
 
 namespace Dal;
 using DalApi;
+using System;
 using System.Collections;
 
 internal class DalOrderItem:IOrderItem
@@ -15,7 +16,8 @@ internal class DalOrderItem:IOrderItem
     public int Add(OrderItem _newOrderItem)
     {
         if (DataSource._arrOrderItem.Exists(e => e.OrderID == _newOrderItem.ID && e.ProductID == _newOrderItem.ProductID))
-            throw new Exception("orderItem not exists");
+            throw new RequestedItemNotFoundException("order exists, can not add") { RequestedItemNotFound = _newOrderItem.ToString() };
+
         else
         {
             _newOrderItem.ID = DataSource.Config.CalNumOfOrderItem;
@@ -34,7 +36,8 @@ internal class DalOrderItem:IOrderItem
         OrderItem _newOrderItem = new OrderItem();
         _newOrderItem = DataSource._arrOrderItem.Find(e => e.ID == orderItemID);
         if (_newOrderItem.ID == 0)
-            throw new Exception("orderItem not exists");
+            throw new ItemAlreadyExistsException("orderItem not exists,can not do get") { ItemAlreadyExists = orderItemID.ToString() };
+
         else
             return _newOrderItem;
     }
@@ -59,7 +62,8 @@ internal class DalOrderItem:IOrderItem
         if(_orderItemToDel.ID != 0)
             DataSource._arrOrderItem.Remove(_orderItemToDel);
         else
-          throw new Exception("orderItem not exists");
+            throw new ItemAlreadyExistsException("orderItem not exists,can not delete") { ItemAlreadyExists = _orderItemID.ToString() };
+
     }
     /// <summary>
     ///  update date of product and throw exception if it does not exist
@@ -80,7 +84,8 @@ internal class DalOrderItem:IOrderItem
             DataSource._arrOrderItem.Add(_newOrderItem);
         }
         else
-            throw new Exception("product not exists can not update");
+            throw new ItemAlreadyExistsException("orderItem not exists,can not update") { ItemAlreadyExists = _newOrderItem.ToString() };
+
     }
     /// <summary>
     /// get all items of specific order and throw exception if it does not exist
@@ -93,7 +98,8 @@ internal class DalOrderItem:IOrderItem
         if (DataSource._arrOrderItem.FindAll(e => e.OrderID == orderNum).Count > 0)
             return DataSource._arrOrderItem.FindAll(e => e.OrderID == orderNum);
         else
-        throw new Exception("order not exists");
+            throw new ItemAlreadyExistsException("order not exists,can not get all orderItems") { ItemAlreadyExists = orderNum.ToString() };
+
     }
     /// <summary>
     /// get the order item by productId and orderId
@@ -108,7 +114,8 @@ internal class DalOrderItem:IOrderItem
         OrderItem _newOrderItem = new OrderItem();
         _newOrderItem = DataSource._arrOrderItem.Find(e => e.OrderID == orderId&&e.ProductID==productId);
         if (_newOrderItem.ID == 0)
-            throw new Exception("orderItem not exists");
+            throw new ItemAlreadyExistsException("orderItem not exists,can not get") { ItemAlreadyExists = orderId.ToString() };
+
         else
             return _newOrderItem;
     }
