@@ -1,9 +1,9 @@
 ﻿
 using Dal;
 using DO;
-
+using DalApi;
 namespace Dal;
-public class DalOrder
+internal class DalOrder:ICrud<Order>
 {
 
     #region methods
@@ -14,7 +14,7 @@ public class DalOrder
     /// <param name="_p">an order</param>
     /// <returns>int of the id of the order</returns>
     /// <exception cref="Exception">order exists</exception>
-    public int addOrder(Order _p)
+    public int Add(Order _p)
     {
         for (int i = 0; i < DataSource.Config._orderIndex; i++)
         {
@@ -30,14 +30,14 @@ public class DalOrder
         DataSource._arrOrder[DataSource.Config._orderIndex++] = _p;
         return _p.ID;
     }
-    List
+    
     /// <summary>
     /// check if the order demanded exist and return it or an exception if not
     /// </summary>
     /// <param name="_num">the id of the order demanded</param>
     /// <returns>details of the order demanded</returns>
     /// <exception cref="Exception">order not exists</exception>
-    public Order getSingleOrder(int _num)
+    public Order Get(int _num)
     {
         Order _p = new Order();
         for (int i = 0; i < DataSource.Config._orderIndex; i++)
@@ -55,7 +55,7 @@ public class DalOrder
     /// cope the orders to a new arrey and return it
     /// </summary>
     /// <returns>arrey with all the orders</returns>
-    public Order[] getAllOrder()
+    public IEnumerable<Order> GetAll()
     {
         Order[] _tempArr = new Order[DataSource.Config._orderIndex];
         for (int i = 0; i < DataSource.Config._orderIndex; i++)
@@ -70,7 +70,7 @@ public class DalOrder
     /// </summary>
     /// <param name="_num">id of order to delete</param>
     /// <exception cref="Exception">order not exists, can not delete</exception>
-    public void deleteOrder(int _num)
+    public void Delete(int _num)
     {
         bool flag = false;
         for (int i = 0; i < DataSource.Config._orderIndex; i++)
@@ -93,7 +93,7 @@ public class DalOrder
     /// </summary>
     /// <param name="_p"> id of order demanded to change</param>
     /// <exception cref="Exception">product not exists, can not update</exception>
-    public void updateOrder(Order _p)
+    public void Update(Order _p)
     {
 
         bool flag = true;

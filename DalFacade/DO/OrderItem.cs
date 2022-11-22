@@ -26,6 +26,7 @@ public struct OrderItem
     Price: {Price}
     Amount : {Amount}
 ";
+    
 
     #endregion
 }
