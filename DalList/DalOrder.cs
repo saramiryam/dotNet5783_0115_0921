@@ -5,7 +5,7 @@ using DalApi;
 using System;
 
 namespace Dal;
-internal class DalOrder:ICrud<Order>
+internal class DalOrder:IOrder
 {
 
     #region methods
