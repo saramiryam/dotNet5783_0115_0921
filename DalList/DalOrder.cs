@@ -19,7 +19,7 @@ internal class DalOrder:IOrder
     public int Add(Order _o)
     {
         if (DataSource._Orders.Exists(e => e.CustomerName == _o.CustomerName && e.CustomerAdress == _o.CustomerAdress&& e.CustomerEmail == _o.CustomerEmail && e.OrderDate == _o.OrderDate))
-            throw new RequestedItemNotFoundException("order exists, can not add") { RequestedItemNotFound = _o.ToString() };
+            throw new ItemAlreadyExistsException("order exists, can not add") { ItemAlreadyExists = _o.ToString() };
         else
         {
             _o.ID = DataSource.Config.CalNumOfIDOrder;
@@ -44,7 +44,7 @@ internal class DalOrder:IOrder
         if (_orderToGet.ID != 0)
             return _orderToGet;
         else
-            throw new ItemAlreadyExistsException("order not exists,can not get") { ItemAlreadyExists = _num.ToString() };
+            throw new RequestedItemNotFoundException("order not exists,can not get") { RequestedItemNotFound = _num.ToString() };
 
     }
 
@@ -68,7 +68,8 @@ internal class DalOrder:IOrder
         if (_orderToDel.ID != 0)
             DataSource._Orders.Remove(_orderToDel);
         else
-            throw new Exception("order not exists, can not delete");
+            throw new RequestedItemNotFoundException("order not exists,can not delete") { RequestedItemNotFound = _num.ToString() };
+
     }
 
     /// <summary>
@@ -90,7 +91,7 @@ internal class DalOrder:IOrder
             DataSource._Orders.Add(_o);
         }
         else
-            throw new ItemAlreadyExistsException("order not exists,can not update") { ItemAlreadyExists = _o.ToString() };
+            throw new RequestedItemNotFoundException("order not exists,can not update") { RequestedItemNotFound = _o.ToString() };
         
     }
 

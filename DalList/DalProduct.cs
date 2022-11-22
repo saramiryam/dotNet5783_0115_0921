@@ -8,15 +8,7 @@ namespace Dal;
 using DalApi;
 public class DalProduct:IProduct
 {
-    //private DalProduct(string newName, string newCategory, double newPrice, int newInStock)
 
-    //{
-    //    //לתקן פה
-    //    Product p = new Product() {ID=DataSource.Config.CalNumOfProduct,Name=newName,
-    //        //Category=Tryparse(newCategory,ECategory),
-    //        Price=newPrice,InStock=newInStock};    
-
-    //}
 
     #region methods
 
@@ -29,7 +21,8 @@ public class DalProduct:IProduct
     public int Add(Product _p)
     {
         if (DataSource._Products.Exists(e => e.Name == _p.Name&&e.Category==_p.Category&&e.Price==_p.Price&&e.InStock==_p.InStock))
-            throw new Exception("product exists");
+            throw new ItemAlreadyExistsException("product exists, can not add") { ItemAlreadyExists = _p.ToString() };
+
         else
         {
             _p.ID = DataSource.Config.CalNumOfProduct;
@@ -51,7 +44,8 @@ public class DalProduct:IProduct
         if (_newProduct.ID!=0)
             return _newProduct;
         else
-            throw new Exception("product not exists");
+            throw new RequestedItemNotFoundException("product not exists,can not do get") { RequestedItemNotFound = _num.ToString() };
+
 
     }
 
@@ -75,7 +69,8 @@ public class DalProduct:IProduct
         if (_productToDel.ID != 0)
             DataSource._Products.Remove(_productToDel);
         else
-            throw new Exception("product not exists, can not delete");
+            throw new RequestedItemNotFoundException("product not exists,can not do delete") { RequestedItemNotFound = _num.ToString() };
+
 
     }
 
@@ -98,7 +93,8 @@ public class DalProduct:IProduct
             DataSource._Products.Add(_p);
         }
         else
-            throw new Exception("product not exists can not update");
+            throw new RequestedItemNotFoundException("product not exists,can not do update") { RequestedItemNotFound = _p.ToString() };
+
 
     }
 

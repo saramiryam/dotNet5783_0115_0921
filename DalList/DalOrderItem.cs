@@ -16,7 +16,7 @@ internal class DalOrderItem:IOrderItem
     public int Add(OrderItem _newOrderItem)
     {
         if (DataSource._arrOrderItem.Exists(e => e.OrderID == _newOrderItem.ID && e.ProductID == _newOrderItem.ProductID))
-            throw new RequestedItemNotFoundException("order exists, can not add") { RequestedItemNotFound = _newOrderItem.ToString() };
+            throw new ItemAlreadyExistsException("order exists, can not add") { ItemAlreadyExists = _newOrderItem.ToString() };
 
         else
         {
@@ -36,7 +36,7 @@ internal class DalOrderItem:IOrderItem
         OrderItem _newOrderItem = new OrderItem();
         _newOrderItem = DataSource._arrOrderItem.Find(e => e.ID == orderItemID);
         if (_newOrderItem.ID == 0)
-            throw new ItemAlreadyExistsException("orderItem not exists,can not do get") { ItemAlreadyExists = orderItemID.ToString() };
+            throw new RequestedItemNotFoundException("orderItem not exists,can not do get") { RequestedItemNotFound = orderItemID.ToString() };
 
         else
             return _newOrderItem;
@@ -62,7 +62,7 @@ internal class DalOrderItem:IOrderItem
         if(_orderItemToDel.ID != 0)
             DataSource._arrOrderItem.Remove(_orderItemToDel);
         else
-            throw new ItemAlreadyExistsException("orderItem not exists,can not delete") { ItemAlreadyExists = _orderItemID.ToString() };
+            throw new RequestedItemNotFoundException("orderItem not exists,can not delete") { RequestedItemNotFound = _orderItemID.ToString() };
 
     }
     /// <summary>
@@ -84,7 +84,7 @@ internal class DalOrderItem:IOrderItem
             DataSource._arrOrderItem.Add(_newOrderItem);
         }
         else
-            throw new ItemAlreadyExistsException("orderItem not exists,can not update") { ItemAlreadyExists = _newOrderItem.ToString() };
+            throw new RequestedItemNotFoundException("orderItem not exists,can not update") { RequestedItemNotFound = _newOrderItem.ToString() };
 
     }
     /// <summary>
@@ -98,7 +98,7 @@ internal class DalOrderItem:IOrderItem
         if (DataSource._arrOrderItem.FindAll(e => e.OrderID == orderNum).Count > 0)
             return DataSource._arrOrderItem.FindAll(e => e.OrderID == orderNum);
         else
-            throw new ItemAlreadyExistsException("order not exists,can not get all orderItems") { ItemAlreadyExists = orderNum.ToString() };
+            throw new RequestedItemNotFoundException("order not exists,can not get all orderItems") { RequestedItemNotFound = orderNum.ToString() };
 
     }
     /// <summary>
@@ -114,7 +114,7 @@ internal class DalOrderItem:IOrderItem
         OrderItem _newOrderItem = new OrderItem();
         _newOrderItem = DataSource._arrOrderItem.Find(e => e.OrderID == orderId&&e.ProductID==productId);
         if (_newOrderItem.ID == 0)
-            throw new ItemAlreadyExistsException("orderItem not exists,can not get") { ItemAlreadyExists = orderId.ToString() };
+            throw new RequestedItemNotFoundException("orderItem not exists,can not get") { RequestedItemNotFound = orderId.ToString() };
 
         else
             return _newOrderItem;

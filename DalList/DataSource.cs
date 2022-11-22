@@ -126,7 +126,7 @@ public static class DataSource
     static private void addNewProduct(string newName, ECategory newCategory, double newPrice, int newInStock)
     {
        Product newProducts = new() { ID = Config.CalNumOfProduct,Name=newName,Category=newCategory,InStock=newInStock };
-        _arrProduct.Add(newProducts);
+        _Products.Add(newProducts);
     }
 
     /// <summary>
@@ -150,7 +150,7 @@ public static class DataSource
             ShipDate = newShipDate,
             DeliveryDate = newDeliveryDate
         };
-        _arrOrder.Add(newOrder); 
+        _Orders.Add(newOrder); 
     }
 
     /// <summary>
