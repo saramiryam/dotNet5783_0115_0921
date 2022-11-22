@@ -1,4 +1,5 @@
 ﻿using DO;
+using System.Xml.Linq;
 using static DO.Enums;
 
 namespace Dal;
@@ -8,9 +9,9 @@ public static class DataSource
     #region Class members
 
     static readonly internal Random _randNum = new Random();
-    static internal Product[] _arrProduct = new Product[50];
-    static internal Order[] _arrOrder = new Order[100];
-    static internal OrderItem[] _arrOrderItem = new OrderItem[200];
+    static internal List<Product> _arrProduct = new();
+    static internal List<Order> _arrOrder = new();
+    static internal List<OrderItem> _arrOrderItem = new();
 
     #endregion
 
@@ -124,11 +125,9 @@ public static class DataSource
     /// <param name="newInStock">int - amount of product in stock</param>
     static private void addNewProduct(string newName, ECategory newCategory, double newPrice, int newInStock)
     {
-        _arrProduct[Config._productIndex].ID = Config.CalNumOfProduct;
-        _arrProduct[Config._productIndex].Name = newName;
-        _arrProduct[Config._productIndex].Category = newCategory;
-        _arrProduct[Config._productIndex].InStock = newInStock;
-        Config._productIndex++;
+       Product newProducts = new() { ID = Config.CalNumOfProduct,Name=newName,Category=newCategory,InStock=newInStock };
+    //לבדוק האם זה כבר קיים...
+        _arrProduct.Add(newProducts);
     }
 
     /// <summary>
@@ -142,14 +141,17 @@ public static class DataSource
     /// <param name="newDeliveryDate">DateTime - date of delivery</param>
     static private void addNewOrder(string newCustomerName, string newCustomerEmail, string newCustomerAdress, DateTime NewOrderDate, DateTime newShipDate, DateTime newDeliveryDate)
     {
-        _arrOrder[Config._orderIndex].ID = Config.CalNumOfIDOrder;
-        _arrOrder[Config._orderIndex].CustomerName = newCustomerName;
-        _arrOrder[Config._orderIndex].CustomerEmail = newCustomerEmail;
-        _arrOrder[Config._orderIndex].CustomerAdress = newCustomerAdress;
-        _arrOrder[Config._orderIndex].OrderDate = NewOrderDate;
-        _arrOrder[Config._orderIndex].ShipDate = newShipDate;
-        _arrOrder[Config._orderIndex].DeliveryDate = newDeliveryDate;
-        Config._orderIndex++;
+        Order newOrder = new()
+        {
+            ID = Config.CalNumOfIDOrder,
+            CustomerName = newCustomerName,
+            CustomerEmail = newCustomerEmail,
+            CustomerAdress = newCustomerAdress,
+            OrderDate = NewOrderDate,
+            ShipDate = newShipDate,
+            DeliveryDate = newDeliveryDate
+        };
+        _arrOrder.Add(newOrder); 
     }
 
     /// <summary>
@@ -181,12 +183,8 @@ public static class DataSource
     /// <param name="newAmount">string - amount of items</param>
     static private void addNewOrderItem(int newProductID, int newOrderID, double newPrice, int newAmount)
     {
-        _arrOrderItem[Config._orderItemIndex].ID = Config.CalNumOfOrderItem;
-        _arrOrderItem[Config._orderItemIndex].ProductID = newProductID;
-        _arrOrderItem[Config._orderItemIndex].OrderID = newOrderID;
-        _arrOrderItem[Config._orderItemIndex].Price = newPrice;
-        _arrOrderItem[Config._orderItemIndex].Amount = newAmount;
-        Config._orderItemIndex++;
+        OrderItem item = new OrderItem() { ID = Config.CalNumOfOrderItem, ProductID = newProductID, OrderID = newOrderID, Price = newPrice, Amount = newAmount };
+        _arrOrderItem.Add(item);
     }
 
     #endregion
@@ -195,17 +193,9 @@ public static class DataSource
 
     static internal class Config
     {
-        #region internally contained class members
-
-        static public int _productIndex = 0;
-        static internal int _orderIndex = 0;
-        static internal int _orderItemIndex = 0;
-        static private int _calNumOfProduct = 100000;
-
-        #endregion
 
         #region internally contained class members with thier properties
-
+        static private int _calNumOfProduct = 100000;
         static public int CalNumOfProduct { get { return _calNumOfProduct++; } }
         static private int _calNumOfIDOrder = 200000;
         static public int CalNumOfIDOrder { get { return _calNumOfIDOrder++; } }
