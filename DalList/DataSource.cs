@@ -9,8 +9,8 @@ public static class DataSource
     #region Class members
 
     static readonly internal Random _randNum = new Random();
-    static internal List<Product> _arrProduct = new();
-    static internal List<Order> _arrOrder = new();
+    static internal List<Product> _Products = new();
+    static internal List<Order> _Orders = new();
     static internal List<OrderItem> _arrOrderItem = new();
 
     #endregion
