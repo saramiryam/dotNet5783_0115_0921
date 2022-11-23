@@ -8,14 +8,14 @@ namespace BlApi
 {
     public interface IBl
     {
-        ICart Cart { get; }
-        IOrder Order { get; }
-        IOrderForList OrderForList { get; }
-        IOrderItem OrderItem { get; }
-        IOrderTracking OrderTracking { get; }
-        IProduct Product{ get; }
-        IProductForList ProductForList { get; }
-        IProductItem ProductItem { get; }
+        public ICart Cart { get; }
+        public IOrder Order { get; }
+        public IOrderForList OrderForList { get; }
+        public IOrderItem OrderItem { get; }
+        public IOrderTracking OrderTracking { get; }
+        public IProduct Product{ get; }
+        public IProductForList ProductForList { get; }
+        public IProductItem ProductItem { get; }
         
     }
 }
