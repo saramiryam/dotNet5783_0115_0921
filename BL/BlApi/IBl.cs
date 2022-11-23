@@ -9,7 +9,7 @@ namespace BlApi
     public interface IBl
     {
         ICart Cart { get; }
-        IOdert Order { get; }
+        IOrder Order { get; }
         IOrderForList OrderForList { get; }
         IOrderItem OrderItem { get; }
         IOrderTracking OrderTracking { get; }

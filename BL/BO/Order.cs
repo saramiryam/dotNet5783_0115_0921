@@ -1,6 +1,5 @@
 ﻿using static BO.Enums;
 
-
 namespace BO;
 //לניהול ולקוחות
 public class Order
