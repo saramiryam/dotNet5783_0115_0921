@@ -8,16 +8,20 @@ namespace BlApi
 {
     public interface IProduct
     {
-        //  מנהל) ועבור קטלוג ראשי
+        //  (מנהל) ועבור קטלוג ראשי
         public IEnumerable<BO.ProductForList> GetListOfProduct();
 
 
-        //עבור מנהל וקונה
+        //עבור מנהל 
         public BO.ProductItem GetProductItem(int id);
 
         //קטלוג קונה
+        public BO.ProductItem GetProductItemForCatalog(int id,BO.Cart CostumerCart);
 
-
+        //עבור מנהל
+        public int AddProduct(BO.Product item); 
+        public int UpdateProduct(BO.Product item);  
+        public void DeleteProduct(int id);
 
     }
 }
