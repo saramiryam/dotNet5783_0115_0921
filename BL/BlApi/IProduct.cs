@@ -19,8 +19,8 @@ namespace BlApi
         public BO.ProductItem GetProductItemForCatalog(int id,BO.Cart CostumerCart);
 
         //עבור מנהל
-        public int AddProduct(int ID, string Name, BO.Enums.ECategory Category, double Price, int InStock); 
-        public int UpdateProduct(BO.Product item);  
+        public void AddProduct(int ID, string Name, BO.Enums.ECategory Category, double Price, int InStock); 
+        public void UpdateProduct(BO.Product item);  
         public void DeleteProduct(int id);
 
     }

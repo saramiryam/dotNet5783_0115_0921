@@ -47,6 +47,38 @@ namespace BO
         }
     }
 
+    public class ProductAlreadyExistsException : Exception
+    {
+        public string ProductAlreadyExists { get; set; }
+
+        public ProductAlreadyExistsException(string msg) : base(msg)
+        {
+            //לשאול בנות מה הן הוסיפו פה
+            //ItemAlreadyExists
+        }
+    }
+
+        public class ProductNotExistsException : Exception
+    {
+        public string ProductNotExists { get; set; }
+
+        public ProductNotExistsException(string msg) : base(msg)
+        {
+            //לשאול בנות מה הן הוסיפו פה
+            //ItemAlreadyExists
+        }
+    }
+
+          public class ProductInUseException : Exception
+    {
+        public string ProductInUse { get; set; }
+
+        public ProductInUseException(string msg) : base(msg)
+        {
+            //לשאול בנות מה הן הוסיפו פה
+            //ItemAlreadyExists
+        }
+    }
     #endregion
 
 }

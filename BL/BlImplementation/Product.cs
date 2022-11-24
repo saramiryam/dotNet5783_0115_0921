@@ -2,12 +2,15 @@
 using DalApi;
 using DO;
 using System;
+using System.Diagnostics;
+using System.Xml.Linq;
 
 namespace BlImplementation
 {
-    public class Product : BlApi.IProduct
 
+    public class Product : BlApi.IProduct
     {
+
         private IDal Dal = new Dal.DalList();
 
 
@@ -54,7 +57,7 @@ namespace BlImplementation
                 }
                 BO.Product p1 = new BO.Product();
 
-                p1 = eserDOToBO(p);
+                p1 = DOToBO(p);
                 return p1;
 
             }
@@ -94,9 +97,89 @@ namespace BlImplementation
         }
 
         //עבור מנהל
-        public int AddProduct(int id, string name, BO.Enums.ECategory category, double price, int inStock)
+        public void AddProduct(int id, string name, BO.Enums.ECategory category, double price, int inStock)
         {
-            #region check corect data
+
+            CheckCorectData(id,name,category,price,inStock);
+            try
+            {
+                Dal.Product.Add(newProductWithData(id, name, category, price, inStock));
+            }
+            catch
+            {
+                throw new BO.ProductAlreadyExistsException("product already exists") { ProductAlreadyExists = id.ToString() };
+
+            }
+        }
+
+        public void UpdateProduct(BO.Product item)
+        {
+
+            CheckCorectData(item.ID, item.Name, item.Category, item.Price, item.InStock);
+            try
+            {
+                Dal.Product.Update(newProductWithData(item.ID, item.Name, item.Category, item.Price, item.InStock));
+            }
+            catch
+            {
+                throw new BO.ProductNotExistsException("product not exists") { ProductNotExists = item.ToString() };
+
+            }
+
+        }
+
+        public void DeleteProduct(int id)
+        {
+            IEnumerable<DO.OrderItem> orderList = new List<DO.OrderItem>();
+            orderList = Dal.OrderItem.GetAll();
+            bool flag = false;
+            foreach (var OI in orderList)
+            {
+                if (OI.ProductID==id)
+                {
+                    flag = true;
+                }
+            }
+            if (flag)
+            {
+                throw new BO.ProductInUseException("product in use") { ProductInUse = id.ToString() };
+            }
+            try
+            {
+                Dal.Product.Delete(id);
+            }
+            catch 
+            {
+                throw new BO.ProductNotExistsException("product not exists") { ProductNotExists = id.ToString() };
+            }
+
+        }
+
+
+
+
+
+        #endregion
+        #region help methodes
+
+        #region DO to BO
+        private BO.Product DOToBO(DO.Product p)
+        {
+            BO.Product p1 = new BO.Product()
+            {
+                ID = p.ID,
+                Name = p.Name,
+                Price = p.Price,
+                Category = (BO.Enums.ECategory)p.Category,
+                InStock = p.InStock
+            };
+            return p1;
+        }
+        #endregion
+
+        #region check corect data
+        public void CheckCorectData(int id, string name, BO.Enums.ECategory category, double price, int inStock)
+        {
             if (id <= 0)
             {
                 throw new BO.NegativeIdException("negative id") { NegativeId = id.ToString() };
@@ -113,42 +196,32 @@ namespace BlImplementation
             {
                 throw new BO.NegativeStockException("empty name") { NegativeStock = inStock.ToString() };
             }
-            #endregion
+            return;
 
         }
-        public int UpdateProduct(Product item)
-        {
-
-        }
-
-        public void DeleteProduct(int id)
-        {
-
-        }
-
-
-
-
-
         #endregion
-        #region ezer DO to BO
-        public BO.Product eserDOToBO(DO.Product p)
+
+        #region new product with data
+
+        private static DO.Product newProductWithData(int id, string name, BO.Enums.ECategory category, double price, int inStock)
         {
-            BO.Product p1 = new BO.Product()
-            {
-                ID = p.ID,
-                Name = p.Name,
-                Price = p.Price,
-                Category = (BO.Enums.ECategory)p.Category,
-                InStock = p.InStock
-            };
-            return p1;
+            DO.Product p = new DO.Product();
+            p.ID = id;
+            p.Name = name;
+            p.Category = (DO.Enums.ECategory)category;
+            p.Price = price;
+            p.InStock = inStock;
+            return new DO.Product();
         }
+        #endregion
         #endregion
 
 
     }
 
 
-
 }
+
+
+
+

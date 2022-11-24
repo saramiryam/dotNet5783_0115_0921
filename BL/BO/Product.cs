@@ -3,7 +3,7 @@
 
 namespace BO;
 //משמש לניהול
-public class Product:BlApi.IProduct
+public class Product
 {
     #region product properties
 
