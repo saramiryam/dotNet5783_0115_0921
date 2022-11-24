@@ -1,8 +1,9 @@
 ﻿using static BO.Enums;
 
+
 namespace BO;
 //משמש לניהול
-public class Product
+public class Product:BlApi.IProduct
 {
     #region product properties
 
