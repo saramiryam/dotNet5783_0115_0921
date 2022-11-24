@@ -5,7 +5,7 @@ using System;
 
 namespace BlImplementation
 {
-    public class Product: BlApi.IProduct
+    public class Product : BlApi.IProduct
 
     {
         private IDal Dal = new Dal.DalList();
@@ -26,19 +26,19 @@ namespace BlImplementation
                     Name = item.Name,
                     Price = item.Price,
                     Category = (BO.Enums.ECategory)item.Category
-                }) ;
+                });
 
             }
             return productsForList;
-    }
+        }
 
 
         //עבור מנהל 
         public BO.Product GetProductItem(int id)
         {
-            if(id <= 0)
+            if (id <= 0)
             {
-                throw new BO.NegativeIdException("negative id") {NegativeId = id.ToString() };
+                throw new BO.NegativeIdException("negative id") { NegativeId = id.ToString() };
             }
             else
             {
@@ -56,7 +56,7 @@ namespace BlImplementation
 
                 p1 = eserDOToBO(p);
                 return p1;
-                
+
             }
         }
 
@@ -69,7 +69,7 @@ namespace BlImplementation
             }
             else
             {
-                 DO.Product p = new DO.Product();
+                DO.Product p = new DO.Product();
                 try
                 {
                     p = Dal.Product.Get(id);
@@ -81,21 +81,39 @@ namespace BlImplementation
                 }
                 BO.ProductItem PI = new BO.ProductItem()
                 {
-                    ID= p.ID,
-                    Name= p.Name,
+                    ID = p.ID,
+                    Name = p.Name,
                     Category = (BO.Enums.ECategory)p.Category,
                     Price = p.Price,
                     InStock = p.InStock,
-                    
-                    AmoutInYourCart=CostumerCart.ItemList.FindAll(e => e.ID == id).Count()
+
+                    AmoutInYourCart = CostumerCart.ItemList.FindAll(e => e.ID == id).Count()
                 };
                 return PI;
             }
         }
 
         //עבור מנהל
-        public int AddProduct(BO.Product item)
+        public int AddProduct(int id, string name, BO.Enums.ECategory category, double price, int inStock)
         {
+            #region check corect data
+            if (id <= 0)
+            {
+                throw new BO.NegativeIdException("negative id") { NegativeId = id.ToString() };
+            }
+            if (name is null)
+            {
+                throw new BO.EmptyNameException("empty name") { EmptyName = name.ToString() };
+            }
+            if (price <= 0)
+            {
+                throw new BO.NegativePriceException("empty name") { NegativePrice = price.ToString() };
+            }
+            if (inStock < 0)
+            {
+                throw new BO.NegativeStockException("empty name") { NegativeStock = inStock.ToString() };
+            }
+            #endregion
 
         }
         public int UpdateProduct(Product item)
