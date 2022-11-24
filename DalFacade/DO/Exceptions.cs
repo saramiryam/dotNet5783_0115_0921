@@ -1,13 +1,11 @@
-﻿
-namespace DO;
+﻿namespace DO;
 
 public class RequestedItemNotFoundException:Exception
 {
     public string RequestedItemNotFound { get; set; }
 
     public RequestedItemNotFoundException(string msg) : base(msg)
-    {
-        //לשאול בנות מה הן הוסיפו פה
+    { 
         //RequestedItemNotFound
 
         //throw new RequestedItemNotFoundException("ערך זה לא נמצא")
