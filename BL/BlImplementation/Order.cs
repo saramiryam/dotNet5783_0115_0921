@@ -11,14 +11,6 @@ public class Order: BlApi.IOrder
     #region method
     public List<BO.OrderForList> GetListOfOrders()
     {
-    //        public string CustomerName { get; set; }
-    //public EStatus Status { get; set; }
-    //public int AmountOfItem { get; set; }
-    //public double TotalSum { get; set; }
-
-        //  public List<OrderItem> ItemList { get; set; }
-       //   public double TotalSum { get; set; }
-
         IEnumerable<DO.Order> orderList = new List<DO.Order>();
         List<BO.OrderForList> ordersForList = new List<BO.OrderForList>();
         orderList = Dal.Order.GetAll();
@@ -71,9 +63,37 @@ public class Order: BlApi.IOrder
 
 
             };
+            return newOrder;
 
         }
     }
+    //לא גמרתי... קצת שטויות...
+    public BO.Order UpdateSentOrder(int id)
+    {
+        try
+        {
+            DO.Order o = new DO.Order();
+            try
+            {
+                if (o.ShipDate > DateTime.Now)
+                {
+                    o.ShipDate = DateTime.Now;
+                    Dal.Order.Update(o);
+                }
+            }
+            catch
+            {
+                throw new BO.NegativeIdException("negative id") { NegativeId = id.ToString() };
+
+            }
+        }
+        catch
+        {
+            throw new BO.NegativeIdException("negative id") { NegativeId = id.ToString() };
+
+        }
+    }
+
     #endregion
 
 
