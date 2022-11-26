@@ -249,7 +249,7 @@ namespace BlImplementation
 
                     }
                 }
-                catch
+                catch(DO.ItemAlreadyExistsException)
                 {
 
                 }
