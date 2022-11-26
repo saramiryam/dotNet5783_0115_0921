@@ -15,8 +15,6 @@ namespace BlTest
         private static readonly IBl blVariable = new Bl();
         private static IBl blVariableFromMethod = new Bl();
         static private BO.Product product = new BO.Product();
-        static private DO.Product product1 = new DO.Product();
-
         static private BO.Order order = new BO.Order();
         static private BO.Order orderFromMethod = new BO.Order();
         static private BO.OrderTracking orderTrackingFromMethod = new BO.OrderTracking();
@@ -67,7 +65,7 @@ namespace BlTest
             {
 
                 case 1://get all products
-                    IEnumerable<ProductForList> listFromMethod = blVariable.Product.GetListOfProduct();
+                    IEnumerable<ProductForList> listFromMethod = blVariable.Product.Get();
                     foreach (ProductForList productForList in listFromMethod)
                         Console.WriteLine(productForList);
                     break;
@@ -80,7 +78,7 @@ namespace BlTest
 
                         try
                         {
-                            Console.WriteLine(blVariable.Product.GetProductItem(product.ID));
+                            Console.WriteLine(blVariable.Product.GetProduct(product.Id));
                         }
                         catch (Exception e)
                         {
@@ -93,37 +91,35 @@ namespace BlTest
                     {
                         Console.WriteLine("Enter product details:");
                         Console.WriteLine("Name:");
-                        product1.Name = Console.ReadLine();
+                        product.Name = Console.ReadLine();
                         Console.WriteLine("Price:");
                         int.TryParse(Console.ReadLine(), out parse);
-                        product1.Price = parse;
-                        Console.WriteLine("type 0 for category Notebooks, 1 - Pens, 2 - Diaries, 3 - ArtMaterials, 4-Games");
-                        int category = int.Parse(Console.ReadLine());
-                        switch (category)
+                        product.Price = parse;
+                        Console.WriteLine("type 0 for category kitchen, 1 - house, 2 - cellular, 3 - hair");
+                        int c = int.Parse(Console.ReadLine());
+
+                        switch (c)
                         {
                             case 0:
-                                product1.Category =DO.Enums.ECategory.Notebooks;
+                                product.Category = Enums.eCategory.cellular;
                                 break;
                             case 1:
-                                product1.Category = DO.Enums.ECategory.Pens;
+                                product.Category = Enums.eCategory.house;
                                 break;
                             case 2:
-                                product1.Category = DO.Enums.ECategory.Diaries;
+                                product.Category = Enums.eCategory.cellular;
                                 break;
                             case 3:
-                                product1.Category = DO.Enums.ECategory.ArtMaterials;
-                                break;
-                            case 4:
-                                product1.Category = DO.Enums.ECategory.Games;
+                                product.Category = Enums.eCategory.hair;
                                 break;
 
                         }
                         Console.WriteLine("Amount in stock:");
                         int.TryParse(Console.ReadLine(), out parse);
-                        product1.InStock = parse;
+                        product.AmountInStock = parse;
                         try
                         {
-                            blVariable.Product.AddProduct(product1);
+                            blVariable.Product.AddProduct(product);
                         }
                         catch (Exception e)
                         {
@@ -138,7 +134,7 @@ namespace BlTest
                         int id = int.Parse(Console.ReadLine());
                         try
                         {
-                            blVariable.Product.DeleteProduct(id);
+                            blVariable.Product.RemoveProduct(id);
                         }
                         catch (Exception e)
                         {
@@ -155,7 +151,7 @@ namespace BlTest
                         int Id = int.Parse(Console.ReadLine());
                         try
                         {
-                            product = blVariable.Product.GetProductItem(Id);
+                            product = blVariable.Product.GetProduct(Id);
                         }
                         catch (Exception e)
                         {
@@ -168,24 +164,21 @@ namespace BlTest
 
                         Console.WriteLine("name:");
                         product.Name = Console.ReadLine();
-                        Console.WriteLine("type 0 for category Notebooks, 1 - Pens, 2 - Diaries, 3 - ArtMaterials, 4-Games");
+                        Console.WriteLine("type 0 for category kitchen, 1 - house, 2 - cellular, 3 - hair");
                         int category = int.Parse(Console.ReadLine());
                         switch (category)
                         {
                             case 0:
-                                product.Category = Enums.ECategory.Notebooks;
+                                product.Category = Enums.eCategory.kitchen;
                                 break;
                             case 1:
-                                product.Category = Enums.ECategory.Pens;
+                                product.Category = Enums.eCategory.house;
                                 break;
                             case 2:
-                                product.Category = Enums.ECategory.Diaries;
+                                product.Category = Enums.eCategory.cellular;
                                 break;
                             case 3:
-                                product.Category = Enums.ECategory.ArtMaterials;
-                                break;
-                            case 4:
-                                product.Category = Enums.ECategory.Games;
+                                product.Category = Enums.eCategory.hair;
                                 break;
 
                         }
@@ -194,7 +187,7 @@ namespace BlTest
                         product.Price = parse2;
                         Console.WriteLine("amount:");
                         int.TryParse(Console.ReadLine(), out parse);
-                        product.InStock = parse;
+                        product.AmountInStock = parse;
 
                         blVariable.Product.UpdateProduct(product);
 
@@ -213,149 +206,24 @@ namespace BlTest
             }
         }
 
-        //static void cartMethod()
-        //{
-        //    int choiceForCart;
-        //    int parse;
-        //    Console.WriteLine("Enter 1 to get all orders " +
-        //       "2 - to get an order by id" +
-        //       "3 - to update the shipping date of an order" +
-        //       "4 - to update the delivery date of an order" +
-        //       "5 - to track an order ");
-
-        //    double parse2;
-        //    int.TryParse(Console.ReadLine(), out parse);
-        //    choiceForCart = parse;
-        //    switch (choiceForCart)
-        //    {
-        //        case 1:
-        //            {
-
-        //                break;
-        //            }
-
-        //    }
-
-        //}
-
         static void cartMethod()
         {
-            BO.Cart cart = new BO.Cart();
-            BO.Product product = new BO.Product();
             int choiceForCart;
             int parse;
-            Console.WriteLine("Enter 1 to add product to the cart " +
-               "2 - to update amount of product in the cart" +
-               "3 - to place the order ");
+            Console.WriteLine("Enter 1 to get all orders " +
+               "2 - to get an order by id" +
+               "3 - to update the shipping date of an order" +
+               "4 - to update the delivery date of an order" +
+               "5 - to track an order ");
+
+            double parse2;
             int.TryParse(Console.ReadLine(), out parse);
             choiceForCart = parse;
             switch (choiceForCart)
             {
-                case 1://add product to cart
+                case 1:
                     {
-                        Console.WriteLine("enter product id");
-                        int.TryParse(Console.ReadLine(), out parse);
-                        int productID = parse;
-                        Console.WriteLine("enter your name");
-                        cart.CustomerName = Console.ReadLine();
-                        Console.WriteLine("enter your email");
-                        cart.Email = Console.ReadLine();
-                        Console.WriteLine("enter your address");
-                        cart.Address = Console.ReadLine();
-                        Console.WriteLine("enter product id and amount of items in cart,for finish enter 0");
-                        int productId;
-                        int amount;
-                        int.TryParse(Console.ReadLine(), out parse);
-                        productId = parse;
-                        int.TryParse(Console.ReadLine(), out parse);
-                        amount = parse;
-                        while (productID != 0)
-                        {
-                            BO.OrderItem orderItem = new BO.OrderItem()
-                            {
-                                //ID=
-                                Name = blVariable.Product.GetProduct(product.Id).Name,//manager
-                                Id = productId,
-                                Price = blVariable.Product.GetProduct(product.Id).Price,//manager
-                                AmountItems = amount
-                            };
 
-                            cart.Orders.ToList().Add(orderItem);
-                            Console.WriteLine("enter product id and amount of items in cart,for finish enter 0");
-                            int.TryParse(Console.ReadLine(), out parse);
-                            productId = parse;
-                            int.TryParse(Console.ReadLine(), out parse);
-                            amount = parse;
-                        }
-                        Console.WriteLine(blVariable.Cart.AddProductToCart(cart, productID));
-                        break;
-                    }
-                case 2:
-                    {
-                        Console.WriteLine("enter product id ,new amount,and your details ");
-                        int.TryParse(Console.ReadLine(), out parse);
-                        int productID = parse;
-                        int.TryParse(Console.ReadLine(), out parse);
-                        int newAmount = parse;
-                        cart.CustomerName = Console.ReadLine();
-                        cart.CustomerEmail = Console.ReadLine();
-                        cart.CustomerAdress = Console.ReadLine();
-                        Console.WriteLine("enter product id and amount of items in cart,for finish enter 0");
-
-                        int.TryParse(Console.ReadLine(), out parse);
-                        int productId = parse;
-                        int.TryParse(Console.ReadLine(), out parse);
-                        int amount = parse;
-                        while (productID != 0)
-                        {
-                            BO.OrderItem orderItem = new BO.OrderItem()
-                            {
-
-                                Name = blVariable.Product.GetProductItem(product.ID).Name,
-                                ID = productId,
-                                Price = blVariable.Product.GetProductItem(product.ID).Price,
-                                Amount = amount
-                            };
-                            cart.ItemList.ToList().Add(orderItem);
-                            Console.WriteLine("enter product id and amount of items in cart,for finish enter 0");
-                            int.TryParse(Console.ReadLine(), out parse);
-                            productId = parse;
-                            int.TryParse(Console.ReadLine(), out parse);
-                            amount = parse;
-                        }
-                        Console.WriteLine(blVariable.Cart.UpdateAmount(cart, productID, newAmount));
-                        break;
-                    }
-                case 3:
-                    {
-                        Console.WriteLine("enter your details ");
-                        cart.CustomerName = Console.ReadLine();
-                        cart.CustomerEmail = Console.ReadLine();
-                        cart.CustomerAdress = Console.ReadLine();
-                        Console.WriteLine("enter product id and amount of items in cart,for finish enter 0");
-
-                        int.TryParse(Console.ReadLine(), out parse);
-                        int productId = parse;
-                        int.TryParse(Console.ReadLine(), out parse);
-                        int amount = parse;
-                        while (productId != 0)
-                        {
-                            BO.OrderItem orderItem = new BO.OrderItem()
-                            {
-
-                                Name = blVariable.Product.GetProductItem(productId).Name,
-                                ID = productId,
-                                Price = blVariable.Product.GetProductItem(product.ID).Price,
-                                Amount = amount
-                            };
-                            cart.ItemList.ToList().Add(orderItem);
-                            Console.WriteLine("enter product id and amount of items in cart,for finish enter 0");
-                            int.TryParse(Console.ReadLine(), out parse);
-                            productId = parse;
-                            int.TryParse(Console.ReadLine(), out parse);
-                            amount = parse;
-                        }
-                        //blVariable.Cart.ToString(cart);
                         break;
                     }
 
@@ -380,7 +248,7 @@ namespace BlTest
             {
                 case 1://get all orders
                     {
-                        IEnumerable<OrderForList> listFromMethod = blVariable.Order.GetListOfOrders();
+                        IEnumerable<OrderForList> listFromMethod = blVariable.Order.GetOrders();
                         foreach (OrderForList orderForList in listFromMethod)
                             Console.WriteLine(orderForList);
                         break;
@@ -389,22 +257,22 @@ namespace BlTest
                     {
                         Console.WriteLine("Enter an Id of order:");
                         int.TryParse(Console.ReadLine(), out parse);
-                        order.ID = parse;
+                        order.Id = parse;
 
                         try
                         {
-                            IEnumerable<BO.OrderItem> listFromMethod = blVariable.Order.GetOrderDetails(order.ID).ItemList;
-                            Console.WriteLine(blVariable.Order.GetOrderDetails(order.ID).ID);
-                            Console.WriteLine(blVariable.Order.GetOrderDetails(order.ID).CustomerEmail);
-                            Console.WriteLine(blVariable.Order.GetOrderDetails(order.ID).CustomerAdress);
-                            Console.WriteLine(blVariable.Order.GetOrderDetails(order.ID).Status);
-                            Console.WriteLine(blVariable.Order.GetOrderDetails(order.ID).OrderDate);
-                            Console.WriteLine(blVariable.Order.GetOrderDetails(order.ID).ShipDate);
-                            Console.WriteLine(blVariable.Order.GetOrderDetails(order.ID).DeliveryDate);
+                            IEnumerable<BO.OrderItem> listFromMethod = blVariable.Order.GetOrder(order.Id).ItemList;
+                            Console.WriteLine(blVariable.Order.GetOrder(order.Id).Id);
+                            Console.WriteLine(blVariable.Order.GetOrder(order.Id).Email);
+                            Console.WriteLine(blVariable.Order.GetOrder(order.Id).Address);
+                            Console.WriteLine(blVariable.Order.GetOrder(order.Id).OrderStatus);
+                            Console.WriteLine(blVariable.Order.GetOrder(order.Id).PlaceOrderDate);
+                            Console.WriteLine(blVariable.Order.GetOrder(order.Id).ExpeditionDate);
+                            Console.WriteLine(blVariable.Order.GetOrder(order.Id).DeliveryDate);
                             foreach (BO.OrderItem item in listFromMethod)
                                 Console.WriteLine(item);
-                            Console.WriteLine(blVariable.Order.GetOrderDetails(order.ID).TotalSum);
-                            Console.WriteLine(blVariable.Order.GetOrderDetails(order.ID));
+                            Console.WriteLine(blVariable.Order.GetOrder(order.Id).TotalPrice);
+                            Console.WriteLine(blVariable.Order.GetOrder(order.Id));
 
                         }
                         catch (Exception e)
@@ -417,11 +285,11 @@ namespace BlTest
                     {
                         Console.WriteLine("Enter an Id of order:");
                         int.TryParse(Console.ReadLine(), out parse);
-                        order.ID = parse;
+                        order.Id = parse;
                         try
                         {
-                            orderFromMethod = blVariable.Order.UpdateShipDate(parse);
-                            Console.WriteLine($@"you update the shipping date to {orderFromMethod.ShipDate}");
+                            orderFromMethod = blVariable.Order.UpdateShippingOrder(parse);
+                            Console.WriteLine($@"you update the shipping date to {orderFromMethod.ExpeditionDate}");
                         }
                         catch (Exception e)
                         {
@@ -434,10 +302,10 @@ namespace BlTest
 
                         Console.WriteLine("Enter an Id of order:");
                         int.TryParse(Console.ReadLine(), out parse);
-                        order.ID = parse;
+                        order.Id = parse;
                         try
                         {
-                            orderFromMethod = blVariable.Order.UpdateDeliveryDate(parse);
+                            orderFromMethod = blVariable.Order.UpdateDeliveryOrder(parse);
                             Console.WriteLine($@"you update the delivery date to {orderFromMethod.DeliveryDate}");
                         }
                         catch (Exception e)
@@ -457,13 +325,13 @@ namespace BlTest
 
                         Console.WriteLine("Enter an Id of order:");
                         int.TryParse(Console.ReadLine(), out parse);
-                        order.ID = parse;
+                        order.Id = parse;
                         try
                         {
 
-                            orderTrackingFromMethod = blVariable.Order.GetOrderTracking(parse);
-                            List<OrderTracking.StatusAndDate> listFromMethod = orderTrackingFromMethod.listOfStatus;
-                            foreach (var item in listFromMethod)
+                            orderTrackingFromMethod = blVariable.Order.trackingOrder(parse);
+                            List<DescriptionStatusDate> listFromMethod = orderTrackingFromMethod.DescriptionStatus;
+                            foreach (DescriptionStatusDate item in listFromMethod)
                             {
                                 Console.WriteLine(item);
 
