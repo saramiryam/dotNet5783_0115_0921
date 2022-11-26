@@ -9,7 +9,7 @@ public class Order: BlApi.IOrder
 {
     private IDal Dal = new Dal.DalList();
     #region method
-    public List<BO.OrderForList> GetListOfOrders()
+    public IEnumerable<BO.OrderForList> GetListOfOrders()
     {
         IEnumerable<DO.Order> orderList = new List<DO.Order>();
         List<BO.OrderForList> ordersForList = new List<BO.OrderForList>();
@@ -30,7 +30,7 @@ public class Order: BlApi.IOrder
         }
         return ordersForList;
     }
-    public BO.Order getorderDetails(int id)
+    public BO.Order GetOrderDetails(int id)
     {
         if (id <= 0)
         {
@@ -48,65 +48,185 @@ public class Order: BlApi.IOrder
                 throw new BO.NegativeIdException("negative id") { NegativeId = id.ToString() };
 
             }
-            BO.Order newOrder = new BO.Order()
-            {
-                ID=o.ID,
-                CustomerName=o.CustomerName,
-                CustomerEmail=o.CustomerEmail,
-                CustomerAdress=o.CustomerAdress,
-                Status=CheckStatus(o.OrderDate, o.ShipDate, o.DeliveryDate),
-                OrderDate=o.OrderDate,  
-                ShipDate=o.ShipDate,
-                DeliveryDate=o.DeliveryDate,
-                ItemList=GetAllItemToOrder(o.ID),
-                TotalSum =CheckTotalSum(o.ID)
+          return DOorderToBOorder(o);
 
-
-            };
-            return newOrder;
 
         }
     }
-    //לא גמרתי... קצת שטויות...
-    public BO.Order UpdateSentOrder(int id)
+    public BO.Order UpdateShipDate(int id)
     {
+
+        DO.Order o = new DO.Order();
         try
         {
-            DO.Order o = new DO.Order();
-            try
-            {
-                if (o.ShipDate > DateTime.Now)
-                {
-                    o.ShipDate = DateTime.Now;
-                    Dal.Order.Update(o);
-                }
-            }
-            catch
-            {
-                throw new BO.NegativeIdException("negative id") { NegativeId = id.ToString() };
-
-            }
+            o = Dal.Order.Get(id);
         }
         catch
         {
             throw new BO.NegativeIdException("negative id") { NegativeId = id.ToString() };
 
         }
+        try
+        {
+            if (CheckStatus(o.OrderDate, o.ShipDate, o.DeliveryDate) == BO.Enums.EStatus.Done)
+            {
+                o.ShipDate = DateTime.Now;
+                try
+                {
+                    Dal.Order.Update(o);
+                }
+                catch (Exception)
+                {
+
+                    throw;
+                }
+                
+
+            }
+
+        }
+        catch
+        {
+            throw new BO.NegativeIdException("negative id") { NegativeId = id.ToString() };
+
+        }
+        return DOorderToBOorder(o); ;
+
+
+    }
+    public BO.Order UpdateDeliveryDate(int id)
+    {
+
+        DO.Order o = new DO.Order();
+        try
+        {
+            o = Dal.Order.Get(id);
+        }
+        catch
+        {
+            throw new BO.NegativeIdException("negative id") { NegativeId = id.ToString() };
+
+        }
+        try
+        {
+            if (CheckStatus(o.OrderDate, o.ShipDate, o.DeliveryDate) == BO.Enums.EStatus.Sent)
+            {
+                o.DeliveryDate = DateTime.Now;
+                try
+                {
+                    Dal.Order.Update(o);
+                }
+                catch (Exception)
+                {
+
+                    throw;
+                }
+
+
+            }
+
+        }
+        catch
+        {
+            throw new BO.NegativeIdException("negative id") { NegativeId = id.ToString() };
+
+        }
+        return DOorderToBOorder(o); ;
+
+
+    }
+    public BO.OrderTracking GetOrderTracking(int orderId)
+    {
+        DO.Order o = new DO.Order();
+        try
+        {
+            o = Dal.Order.Get(orderId);
+        }
+        catch
+        {
+            throw new BO.NegativeIdException("negative id") { NegativeId = o.ToString() };
+
+        }
+        BO.OrderTracking orderTracking = new BO.OrderTracking();
+        orderTracking.ID = orderId;
+        orderTracking.Status = CheckStatus(o.OrderDate, o.ShipDate, o.DeliveryDate);
+        switch (orderTracking.Status)
+        {
+            case EStatus.Done:
+                orderTracking.listOfStatus.Add(new BO.OrderTracking.StatusAndDate()
+                {
+                    Date = o.OrderDate,
+                    Status = BO.Enums.EStatus.Done
+                });
+                break;
+            case EStatus.Sent:
+                orderTracking.listOfStatus.Add(new BO.OrderTracking.StatusAndDate()
+                {
+                    Date = o.OrderDate,
+                    Status = BO.Enums.EStatus.Done
+                });
+                orderTracking.listOfStatus.Add(new BO.OrderTracking.StatusAndDate()
+                {
+                    Date = o.ShipDate,
+                    Status = BO.Enums.EStatus.Sent
+
+                });
+                break;
+            case EStatus.Provided:
+                orderTracking.listOfStatus.Add(new BO.OrderTracking.StatusAndDate()
+                {
+                    Date = o.OrderDate,
+                    Status = BO.Enums.EStatus.Done
+                });
+                orderTracking.listOfStatus.Add(new BO.OrderTracking.StatusAndDate()
+                {
+                    Date = o.ShipDate,
+                    Status = BO.Enums.EStatus.Sent
+
+                }); orderTracking.listOfStatus.Add(new BO.OrderTracking.StatusAndDate()
+                {
+                    Date = o.DeliveryDate,
+                    Status = BO.Enums.EStatus.Provided
+
+                });
+                break;
+        }
+        return orderTracking;
+
     }
 
     #endregion
 
 
     #region ezer
+    public BO.Order DOorderToBOorder(DO.Order o)
+    {
+        BO.Order newOrder = new BO.Order()
+        {
+            ID = o.ID,
+            CustomerName = o.CustomerName,
+            CustomerEmail = o.CustomerEmail,
+            CustomerAdress = o.CustomerAdress,
+            Status = CheckStatus(o.OrderDate, o.ShipDate, o.DeliveryDate),
+            OrderDate = o.OrderDate,
+            ShipDate = o.ShipDate,
+            DeliveryDate = o.DeliveryDate,
+            ItemList = GetAllItemsToOrder(o.ID),
+            TotalSum = CheckTotalSum(o.ID)
+
+
+        };
+        return newOrder;
+    }
     public BO.Enums.EStatus CheckStatus(DateTime OrderDate, DateTime ShipDate, DateTime DeliveryDate)
     {
         DateTime today=DateTime.Now;
         if (today.Equals(OrderDate) && today.Equals(ShipDate) && today.Equals(DeliveryDate))
-            return EStatus.Done;
+            return EStatus.Provided;
        else if (today.Equals(OrderDate) && today.Equals(ShipDate))
             return EStatus.Sent; 
         else
-            return EStatus.Provided;
+            return EStatus.Done;
     }
     public int GetAmountItems(int id)
     {
@@ -131,7 +251,7 @@ public class Order: BlApi.IOrder
         }
         return sum; 
     }
-    public List<BO.OrderItem> GetAllItemToOrder(int id)
+    public List<BO.OrderItem> GetAllItemsToOrder(int id)
     {
         IEnumerable<DO.OrderItem> orderItemList = new List<DO.OrderItem>();
         List<BO.OrderItem> BOorderItemList = new List<BO.OrderItem>();
@@ -143,7 +263,7 @@ public class Order: BlApi.IOrder
             {
                 numInOrder = count++,
                 ID = item.ID,
-                //name
+                Name = getOrderItemName(item.ProductID),
                 Price = item.Price,
                 Amount = item.Amount,
                 sumItem = item.Price * item.Amount
@@ -152,6 +272,12 @@ public class Order: BlApi.IOrder
         }
         return BOorderItemList;
 
+    }
+    public string getOrderItemName(int productId)
+    {
+        DO.Product product = new DO.Product();
+        product=Dal.Product.Get(productId);
+        return product.Name;    
     }
 
 
