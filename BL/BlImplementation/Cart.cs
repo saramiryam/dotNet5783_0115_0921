@@ -112,7 +112,14 @@ namespace BlImplementation
             }
             foreach (var item in cart.ItemList)
             {
-
+                try
+                {
+                    Dal.Product.Get(item.ID);
+                }
+                catch 
+                {
+                throw new BO.AdressIsNullException("adress is null") { AdressIsNull = adress.ToString() };
+                }
             }
            
         }
