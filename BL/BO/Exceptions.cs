@@ -58,7 +58,7 @@ namespace BO
         }
     }
 
-        public class ProductNotExistsException : Exception
+    public class ProductNotExistsException : Exception
     {
         public string ProductNotExists { get; set; }
 
@@ -69,7 +69,7 @@ namespace BO
         }
     }
 
-          public class ProductInUseException : Exception
+     public class ProductInUseException : Exception
     {
         public string ProductInUse { get; set; }
 
@@ -79,6 +79,35 @@ namespace BO
             //ItemAlreadyExists
         }
     }
+    #endregion
+
+
+    
+    #region order item exceptions
+
+          public class NotEnoughInStockException : Exception
+    {
+        public string NotEnoughInStock { get; set; }
+
+        public NotEnoughInStockException(string msg) : base(msg)
+        {
+            //לשאול בנות מה הן הוסיפו פה
+            //ItemAlreadyExists
+        }
+    }
+
+    
+          public class ProductNotInStockException : Exception
+    {
+        public string ProductNotInStock { get; set; }
+
+        public ProductNotInStockException(string msg) : base(msg)
+        {
+            //לשאול בנות מה הן הוסיפו פה
+            //ItemAlreadyExists
+        }
+    }
+
     #endregion
 
 }
