@@ -105,7 +105,7 @@ namespace BlImplementation
             {
                 Dal.Product.Add(newProductWithData(id, name, category, price, inStock));
             }
-            catch
+            catch(DO.ItemAlreadyExistsException)
             {
                 throw new BO.ProductAlreadyExistsException("product already exists") { ProductAlreadyExists = id.ToString() };
 
@@ -120,7 +120,7 @@ namespace BlImplementation
             {
                 Dal.Product.Update(newProductWithData(item.ID, item.Name, item.Category, item.Price, item.InStock));
             }
-            catch
+            catch(DO.RequestedItemNotFoundException)
             {
                 throw new BO.ProductNotExistsException("product not exists") { ProductNotExists = item.ToString() };
 

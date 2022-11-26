@@ -5,6 +5,7 @@ using DO;
 using System.Net.Mail;
 using System;
 using System.Runtime.Intrinsics.Arm;
+using System.Xml.Linq;
 
 namespace BlImplementation
 {
@@ -14,6 +15,15 @@ namespace BlImplementation
 
         #region methodes
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="cart">add to this cart an item</param>
+        /// <param name="itemId">id of item to add</param>
+        /// <returns>the update cart</returns>
+        /// <exception cref="BO.NotEnoughInStockException">add item thet has not enough in stock</exception>
+        /// <exception cref="BO.ProductNotInStockException">product not in stock</exception>
+        /// <exception cref="BO.ProductNotExistsException">product not exists with this id</exception>
         public BO.Cart AddItemToCart(BO.Cart cart, int itemId)
         {
             bool exist = cart.ItemList.Exists(e => e.ID == itemId);
@@ -59,7 +69,7 @@ namespace BlImplementation
                     }
 
                 }
-                catch (RequestedItemNotFoundException)
+                catch (DO.RequestedItemNotFoundException)
                 {
                     throw new BO.ProductNotExistsException("product not exists") { ProductNotExists = itemId.ToString() };
                 }
@@ -112,7 +122,37 @@ namespace BlImplementation
             {
                 throw new BO.AdressIsNullException("adress is null") { AdressIsNull = adress.ToString() };
             }
-            //check correct email
+            checkEmail(email);
+            foreach (var item in cart.ItemList)
+            {
+                try
+                {
+                    DO.Product DP = Dal.Product.Get(item.ID);
+                    if (item.Amount < 0)
+                    {
+                        throw new BO.NegativeAmountException("negative amount")
+                        {
+                            NegativeAmount = item.Amount.ToString()
+                        };
+                    }
+                    if (item.Amount > DP.InStock)
+                    {
+                        throw new BO.NotEnoughInStockException("Not enough in stock") { NotEnoughInStock = item.Amount.ToString() };
+                    }
+
+                }
+                catch(DO.RequestedItemNotFoundException)
+                {
+                    throw new BO.ItemInCartNotExistsAsProductException("item in cart not exists as product") { ItemInCartNotExistsAsProduct = item.ToString() };
+                }
+            }
+
+        }
+
+        #endregion
+        #region help methodes
+        private void checkEmail(string email)
+        {
             try
             {
                 MailAddress emailAddress = new MailAddress(email);
@@ -121,35 +161,7 @@ namespace BlImplementation
             {
                 throw new BO.UncorrectEmailException("uncorrect email") { UncorrectEmail = name.ToString() };
             }
-
-
-
-            throw;
         }
-            foreach (var item in cart.ItemList)
-            {
-                try
-                {
-                    DO.Product DP = Dal.Product.Get(item.ID);
-                    if (item.Amount< 0)
-                    {
-                        throw new BO.NegativeAmountException("negative amount") { NegativeAmount = item.Amount.ToString()
-    };
-}
-if (item.Amount > DP.InStock)
-{
-    throw new BO.NotEnoughInStockException("Not enough in stock") { NotEnoughInStock = item.Amount.ToString() };
-}
-
-                }
-                catch
-{
-    throw new BO.ItemInCartNotExistsAsProductException("item in cart not exists as product") { ItemInCartNotExistsAsProduct = item.ToString() };
-}
-            }
-           
-        }
-
         #endregion
     }
 }
