@@ -44,7 +44,7 @@ public class Order: BlApi.IOrder
             {
                 o = Dal.Order.Get(id);
             }
-            catch(RequestedItemNotFoundException)
+            catch(DO.RequestedItemNotFoundException)
             {
                 throw new BO.OrderNotExistsException("order not exists") { OrderNotExists = o.ToString() };
 
@@ -62,7 +62,7 @@ public class Order: BlApi.IOrder
         {
             o = Dal.Order.Get(id);
         }
-        catch(RequestedItemNotFoundException)
+        catch(DO.RequestedItemNotFoundException)
         {
             throw new BO.OrderNotExistsException("order not exists") { OrderNotExists = o.ToString() };
 
@@ -76,7 +76,7 @@ public class Order: BlApi.IOrder
                 {
                     Dal.Order.Update(o);
                 }
-                catch (RequestedUpdateItemNotFoundException)
+                catch (DO.RequestedUpdateItemNotFoundException)
                 {
 
                     throw new BO.UpdateOrderNotSucceedException("update order not succeed") { UpdateOrderNotSucceed =o.ToString()};
@@ -117,7 +117,7 @@ public class Order: BlApi.IOrder
                 {
                     Dal.Order.Update(o);
                 }
-                catch (RequestedUpdateItemNotFoundException)
+                catch (DO.RequestedUpdateItemNotFoundException)
                 {
 
                     throw new BO.UpdateOrderNotSucceedException("update order not succeed") { UpdateOrderNotSucceed = o.ToString() };
@@ -143,7 +143,7 @@ public class Order: BlApi.IOrder
         {
             o = Dal.Order.Get(orderId);
         }
-        catch(RequestedItemNotFoundException)
+        catch(DO.RequestedItemNotFoundException)
         {
             throw new BO.OrderNotExistsException("order not exists") { OrderNotExists = o.ToString() };
 
