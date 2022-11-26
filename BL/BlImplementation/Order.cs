@@ -197,6 +197,18 @@ public class Order: BlApi.IOrder
     }
 
     #endregion
+    #region bonus
+    public void ManagerActions(int orderId,int productId,int amount)
+    {
+        if (amount==0)
+        {
+            List<DO.OrderItem> ordersItem = new List<DO.OrderItem>();
+
+            ordersItem = (List<DO.OrderItem>)Dal.OrderItem.getAllMyOrdesItem(orderId);
+            ordersItem.
+        }
+    }
+    #endregion
 
 
     #region ezer
