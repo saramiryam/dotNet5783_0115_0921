@@ -24,7 +24,7 @@ namespace BlImplementation
                     BOI.Amount++;
                     BOI.sumItem += BOI.Price;
                     cart.TotalSum += BOI.Price;
-                    return cart;    
+                    return cart;
                 }
                 else
                 {
@@ -66,39 +66,55 @@ namespace BlImplementation
         }
         public BO.Cart UpdateAmount(BO.Cart cart, int itemId, int amount)
         {
-            //לטפל במה קורה אם אין כזה מוצר
             bool exist = cart.ItemList.Exists(e => e.ID == itemId);
-            if(!exist)
+            if (!exist)
             {
-                throw new BO.ItemNotInCartException("item not in cart exception") { ItemNotInCart = itemId.ToString() };
+                throw new BO.ItemNotInCartException("item not in cart") { ItemNotInCart = itemId.ToString() };
             }
-            BO.OrderItem BOI=cart.ItemList.Find(e => e.ID == itemId);
-
-            if()
-            else if (BOI.Amount == 0)
+            BO.OrderItem BOI = cart.ItemList.Find(e => e.ID == itemId);
+            if (amount < 0)
+            {
+                throw new BO.NegativeAmountException("negative amount") { NegativeAmount = itemId.ToString() };
+            }
+            else if (amount == 0)
             {
                 cart.TotalSum -= BOI.sumItem;
                 cart.ItemList.RemoveAll(e => e.ID == itemId);
             }
-          else if(BOI.Amount<amount)
+            else if (BOI.Amount < amount)
             {
-                  for(int i = 0; i < (amount-BOI.Amount); i++)
+                for (int i = 0; i < (amount - BOI.Amount); i++)
                 {
-                    AddItemToCart(cart,itemId); 
+                    AddItemToCart(cart, itemId);
                 }
             }
-          else if(BOI.Amount> amount)
+            else if (BOI.Amount > amount)
             {
-                if()
+                int difference = BOI.Amount - amount;
+                BOI.Amount = amount;
+                BOI.sumItem -= (difference * BOI.Price);
+                cart.TotalSum -= (difference * BOI.Price);
             }
             //BOI.Amount== amount
             //amount didnt change
-             return cart;
+            return cart;
 
         }
         public void SubmitOrder(BO.Cart cart, string name, string email, string adress)
         {
+            if(name is null)
+            {
+                throw new BO.NameIsNullException("name is null") { NameIsNull = name.ToString() };
+            }
+            if (adress is null)
+            {
+                throw new BO.AdressIsNullException("adress is null") { AdressIsNull = adress.ToString() };
+            }
+            foreach (var item in cart.ItemList)
+            {
 
+            }
+           
         }
 
         #endregion

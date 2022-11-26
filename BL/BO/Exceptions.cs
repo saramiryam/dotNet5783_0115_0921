@@ -98,7 +98,7 @@ namespace BO
 
 
     public class ProductNotInStockException : Exception
-    { 
+    {
         public string ProductNotInStock { get; set; }
 
         public ProductNotInStockException(string msg) : base(msg)
@@ -107,6 +107,55 @@ namespace BO
             //ItemAlreadyExists
         }
     }
+
+    public class ItemNotInCartException : Exception
+    {
+        public string ItemNotInCart { get; set; }
+
+        public ItemNotInCartException(string msg) : base(msg)
+        {
+            //לשאול בנות מה הן הוסיפו פה
+            //ItemAlreadyExists
+        }
+    }
+
+    public class NegativeAmountException : Exception
+    {
+        public string NegativeAmount { get; set; }
+
+        public NegativeAmountException(string msg) : base(msg)
+        {
+            //לשאול בנות מה הן הוסיפו פה
+            //ItemAlreadyExists
+        }
+    }
+
+        public class NameIsNullException : Exception
+    {
+        public string NameIsNull { get; set; }
+
+        public NameIsNullException(string msg) : base(msg)
+        {
+            //לשאול בנות מה הן הוסיפו פה
+            //ItemAlreadyExists
+        }
+    }
+
+        public class AdressIsNullException : Exception
+    {
+        public string AdressIsNull { get; set; }
+
+        public AdressIsNullException(string msg) : base(msg)
+        {
+            //לשאול בנות מה הן הוסיפו פה
+            //ItemAlreadyExists
+        }
+    }
+
+    #endregion
+
+
+    #region order exception
 
     public class OrderNotExistsException : Exception
     {
