@@ -159,7 +159,7 @@ namespace BlImplementation
             }
             catch
             {
-                throw new BO.UncorrectEmailException("uncorrect email") { UncorrectEmail = name.ToString() };
+                throw new BO.UncorrectEmailException("uncorrect email") { UncorrectEmail = email.ToString() };
             }
         }
         #endregion
