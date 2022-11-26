@@ -62,6 +62,12 @@ namespace BO
 
 
     #region order item exceptions
+    public class ItemAlreadyExistsException : Exception
+    {
+        public string ItemAlreadyExists { get; set; }
+
+        public ItemAlreadyExistsException(string msg) : base(msg) { }
+    }
 
 
     public class NotEnoughInStockException : Exception

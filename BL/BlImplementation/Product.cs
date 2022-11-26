@@ -216,51 +216,7 @@ namespace BlImplementation
         #endregion
         #endregion
 
-        #region aaa
-        public void func(BO.Cart cart, string name, string email, string adress)
-        {
-         
-            DO.Order o=new DO.Order()
-            {
-                ID = 0, 
-                CustomerName=name,
-                CustomerAdress=adress,
-                CustomerEmail=email,
-                OrderDate=DateTime.Now, 
-                ShipDate=DateTime.MinValue,
-                DeliveryDate=DateTime.MinValue,
-            };
-            try
-            {
-
-              int orderID  =Dal.Order.Add(o);
-                try
-                {
-                    foreach (var item in cart.ItemList)
-                    {
-                        Dal.OrderItem.Add(new DO.OrderItem()
-                        {
-                            ID = 0,
-                            ProductID = item.ID,
-                            OrderID = orderID,
-                            Price = item.Price,
-                            Amount = item.Amount
-                        });
-
-                    }
-                }
-                catch(DO.ItemAlreadyExistsException)
-                {
-
-                }
-            }
-            catch
-            {
-                throw;
-            }
-
-        }
-        #endregion
+        
 
 
     }
