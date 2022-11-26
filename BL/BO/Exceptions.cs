@@ -61,7 +61,7 @@ namespace BO
     #endregion
 
 
-    #region order item exceptions
+    #region cart exceptions
     public class ItemAlreadyExistsException : Exception
     {
         public string ItemAlreadyExists { get; set; }
@@ -133,6 +133,13 @@ namespace BO
         public UncorrectEmailException(string msg) : base(msg) { }
     }
 
+
+    public class FieldToGetProductException : Exception
+    {
+        public string FieldToGetProduct { get; set; }
+
+        public FieldToGetProductException(string msg) : base(msg) { }
+    }
     #endregion
 
 

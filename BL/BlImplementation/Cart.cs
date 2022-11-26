@@ -6,6 +6,7 @@ using System.Net.Mail;
 using System;
 using System.Runtime.Intrinsics.Arm;
 using System.Xml.Linq;
+using BO;
 
 namespace BlImplementation
 {
@@ -16,7 +17,7 @@ namespace BlImplementation
         #region methodes
 
         /// <summary>
-        /// 
+        /// get an item an try to add it to the cart
         /// </summary>
         /// <param name="cart">add to this cart an item</param>
         /// <param name="itemId">id of item to add</param>
@@ -114,6 +115,8 @@ namespace BlImplementation
         }
         public void SubmitOrder(BO.Cart cart, string name, string email, string adress)
         {
+            #region check correct data
+
             if (name is null)
             {
                 throw new BO.NameIsNullException("name is null") { NameIsNull = name.ToString() };
@@ -147,6 +150,9 @@ namespace BlImplementation
                 }
             }
 
+            #endregion
+
+            
             DO.Order o = new DO.Order()
             {
                 ID = 0,
@@ -160,7 +166,7 @@ namespace BlImplementation
             try
             {
 
-                int orderID = Dal.Order.Add(o);
+               int orderID = Dal.Order.Add(o);
                 try
                 {
                     foreach (var item in cart.ItemList)
@@ -184,6 +190,20 @@ namespace BlImplementation
             catch (DO.RequestedItemNotFoundException)
             {
                 throw new BO.OrderNotExistsException("order not exists") { OrderNotExists = o.ToString() };
+            }
+            try
+            {
+                foreach (var item in cart.ItemList)
+                {
+                    DO.Product p=Dal.Product.Get(item.ID);
+                    p.InStock -= item.Amount;
+                    Dal.Product.Update(p);
+                }
+            }
+            catch (DO.RequestedItemNotFoundException)
+            {
+
+                throw new BO.FieldToGetProductException("order not exists") { FieldToGetProduct = o.ToString() };
             }
 
         }
