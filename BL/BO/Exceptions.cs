@@ -69,7 +69,7 @@ namespace BO
         }
     }
 
-     public class ProductInUseException : Exception
+    public class ProductInUseException : Exception
     {
         public string ProductInUse { get; set; }
 
@@ -82,10 +82,10 @@ namespace BO
     #endregion
 
 
-    
+
     #region order item exceptions
 
-          public class NotEnoughInStockException : Exception
+    public class NotEnoughInStockException : Exception
     {
         public string NotEnoughInStock { get; set; }
 
@@ -96,12 +96,53 @@ namespace BO
         }
     }
 
-    
-          public class ProductNotInStockException : Exception
-    {
+
+    public class ProductNotInStockException : Exception
+    { 
         public string ProductNotInStock { get; set; }
 
         public ProductNotInStockException(string msg) : base(msg)
+        {
+            //לשאול בנות מה הן הוסיפו פה
+            //ItemAlreadyExists
+        }
+    }
+
+    public class OrderNotExistsException : Exception
+    {
+        public string OrderNotExists { get; set; }
+
+        public OrderNotExistsException(string msg) : base(msg)
+        {
+            //לשאול בנות מה הן הוסיפו פה
+            //ItemAlreadyExists
+        }
+    }
+    public class UpdateOrderNotSucceedException : Exception
+    {
+        public string UpdateOrderNotSucceed { get; set; }
+
+        public UpdateOrderNotSucceedException(string msg) : base(msg)
+        {
+            //לשאול בנות מה הן הוסיפו פה
+            //ItemAlreadyExists
+        }
+    }
+    public class OrderHasAlreadySentException : Exception
+    {
+        public string OrderHasAlreadySent { get; set; }
+
+        public OrderHasAlreadySentException(string msg) : base(msg)
+        {
+            //לשאול בנות מה הן הוסיפו פה
+            //ItemAlreadyExists
+        }
+    }
+    public class OrderHasAlreadyProvidedException : Exception
+    {
+        public string OrderHasAlreadyProvided { get; set; }
+
+        public OrderHasAlreadyProvidedException(string msg) : base(msg)
         {
             //לשאול בנות מה הן הוסיפו פה
             //ItemAlreadyExists

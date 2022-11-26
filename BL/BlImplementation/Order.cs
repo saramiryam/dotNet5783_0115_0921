@@ -1,6 +1,7 @@
 ﻿using BlApi;
 using BO;
 using DalApi;
+using DO;
 using static BO.Enums;
 
 namespace BlImplementation;
@@ -43,9 +44,9 @@ public class Order: BlApi.IOrder
             {
                 o = Dal.Order.Get(id);
             }
-            catch
+            catch(RequestedItemNotFoundException)
             {
-                throw new BO.NegativeIdException("negative id") { NegativeId = id.ToString() };
+                throw new BO.OrderNotExistsException("order not exists") { OrderNotExists = o.ToString() };
 
             }
           return DOorderToBOorder(o);
@@ -61,9 +62,9 @@ public class Order: BlApi.IOrder
         {
             o = Dal.Order.Get(id);
         }
-        catch
+        catch(RequestedItemNotFoundException)
         {
-            throw new BO.NegativeIdException("negative id") { NegativeId = id.ToString() };
+            throw new BO.OrderNotExistsException("order not exists") { OrderNotExists = o.ToString() };
 
         }
         try
@@ -75,10 +76,10 @@ public class Order: BlApi.IOrder
                 {
                     Dal.Order.Update(o);
                 }
-                catch (Exception)
+                catch (RequestedUpdateItemNotFoundException)
                 {
 
-                    throw;
+                    throw new BO.UpdateOrderNotSucceedException("update order not succeed") { UpdateOrderNotSucceed =o.ToString()};
                 }
                 
 
@@ -87,7 +88,7 @@ public class Order: BlApi.IOrder
         }
         catch
         {
-            throw new BO.NegativeIdException("negative id") { NegativeId = id.ToString() };
+            throw new BO.OrderHasAlreadySentException("Order has already sent") { OrderHasAlreadySent = id.ToString() };
 
         }
         return DOorderToBOorder(o); ;
@@ -104,7 +105,7 @@ public class Order: BlApi.IOrder
         }
         catch
         {
-            throw new BO.NegativeIdException("negative id") { NegativeId = id.ToString() };
+            throw new BO.OrderNotExistsException("order not exists") { OrderNotExists = o.ToString() };
 
         }
         try
@@ -116,10 +117,10 @@ public class Order: BlApi.IOrder
                 {
                     Dal.Order.Update(o);
                 }
-                catch (Exception)
+                catch (RequestedUpdateItemNotFoundException)
                 {
 
-                    throw;
+                    throw new BO.UpdateOrderNotSucceedException("update order not succeed") { UpdateOrderNotSucceed = o.ToString() };
                 }
 
 
@@ -128,7 +129,7 @@ public class Order: BlApi.IOrder
         }
         catch
         {
-            throw new BO.NegativeIdException("negative id") { NegativeId = id.ToString() };
+            throw new BO.OrderHasAlreadyProvidedException("Order has already sent") { OrderHasAlreadyProvided = id.ToString() };
 
         }
         return DOorderToBOorder(o); ;
@@ -142,9 +143,9 @@ public class Order: BlApi.IOrder
         {
             o = Dal.Order.Get(orderId);
         }
-        catch
+        catch(RequestedItemNotFoundException)
         {
-            throw new BO.NegativeIdException("negative id") { NegativeId = o.ToString() };
+            throw new BO.OrderNotExistsException("order not exists") { OrderNotExists = o.ToString() };
 
         }
         BO.OrderTracking orderTracking = new BO.OrderTracking();

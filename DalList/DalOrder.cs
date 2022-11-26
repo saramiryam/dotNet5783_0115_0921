@@ -91,7 +91,7 @@ internal class DalOrder:IOrder
             DataSource._Orders.Add(_o);
         }
         else
-            throw new RequestedItemNotFoundException("order not exists,can not update") { RequestedItemNotFound = _o.ToString() };
+            throw new RequestedUpdateItemNotFoundException("order not exists,can not update") { RequestedItemNotFound = _o.ToString() };
         
     }
 
