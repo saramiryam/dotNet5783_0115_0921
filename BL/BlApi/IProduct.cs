@@ -13,7 +13,7 @@ namespace BlApi
 
 
         //עבור מנהל 
-        public BO.ProductItem GetProductItem(int id);
+        public BO.Product GetProductItem(int id);
 
         //קטלוג קונה
         public BO.ProductItem GetProductItemForCatalog(int id,BO.Cart CostumerCart);
