@@ -2,6 +2,8 @@
 using Dal;
 using DalApi;
 using DO;
+using System.Net.Mail;
+using System;
 using System.Runtime.Intrinsics.Arm;
 
 namespace BlImplementation
@@ -102,7 +104,7 @@ namespace BlImplementation
         }
         public void SubmitOrder(BO.Cart cart, string name, string email, string adress)
         {
-            if(name is null)
+            if (name is null)
             {
                 throw new BO.NameIsNullException("name is null") { NameIsNull = name.ToString() };
             }
@@ -110,16 +112,40 @@ namespace BlImplementation
             {
                 throw new BO.AdressIsNullException("adress is null") { AdressIsNull = adress.ToString() };
             }
+            //check correct email
+            try
+            {
+                MailAddress emailAddress = new MailAddress(email);
+            }
+            catch
+            {
+                throw new BO.UncorrectEmailException("uncorrect email") { UncorrectEmail = name.ToString() };
+            }
+
+
+
+            throw;
+        }
             foreach (var item in cart.ItemList)
             {
                 try
                 {
-                    Dal.Product.Get(item.ID);
+                    DO.Product DP = Dal.Product.Get(item.ID);
+                    if (item.Amount< 0)
+                    {
+                        throw new BO.NegativeAmountException("negative amount") { NegativeAmount = item.Amount.ToString()
+    };
+}
+if (item.Amount > DP.InStock)
+{
+    throw new BO.NotEnoughInStockException("Not enough in stock") { NotEnoughInStock = item.Amount.ToString() };
+}
+
                 }
-                catch 
-                {
-                throw new BO.AdressIsNullException("adress is null") { AdressIsNull = adress.ToString() };
-                }
+                catch
+{
+    throw new BO.ItemInCartNotExistsAsProductException("item in cart not exists as product") { ItemInCartNotExistsAsProduct = item.ToString() };
+}
             }
            
         }

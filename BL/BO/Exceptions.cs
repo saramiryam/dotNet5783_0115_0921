@@ -7,93 +7,68 @@ namespace BO
     {
         public string NegativeId { get; set; }
 
-        public NegativeIdException(string msg) : base(msg)
-        {
-            //לשאול בנות מה הן הוסיפו פה
-            //ItemAlreadyExists
-        }
+        public NegativeIdException(string msg) : base(msg) { }
     }
 
     public class EmptyNameException : Exception
     {
         public string EmptyName { get; set; }
 
-        public EmptyNameException(string msg) : base(msg)
-        {
-            //לשאול בנות מה הן הוסיפו פה
-            //ItemAlreadyExists
-        }
+        public EmptyNameException(string msg) : base(msg) { }
     }
+
 
     public class NegativePriceException : Exception
     {
         public string NegativePrice { get; set; }
 
-        public NegativePriceException(string msg) : base(msg)
-        {
-            //לשאול בנות מה הן הוסיפו פה
-            //ItemAlreadyExists
-        }
+        public NegativePriceException(string msg) : base(msg) { }
     }
+
+
 
     public class NegativeStockException : Exception
     {
         public string NegativeStock { get; set; }
 
-        public NegativeStockException(string msg) : base(msg)
-        {
-            //לשאול בנות מה הן הוסיפו פה
-            //ItemAlreadyExists
-        }
+        public NegativeStockException(string msg) : base(msg) { }
     }
+
 
     public class ProductAlreadyExistsException : Exception
     {
         public string ProductAlreadyExists { get; set; }
 
-        public ProductAlreadyExistsException(string msg) : base(msg)
-        {
-            //לשאול בנות מה הן הוסיפו פה
-            //ItemAlreadyExists
-        }
+        public ProductAlreadyExistsException(string msg) : base(msg) { }
+    }
+
+
+
+    public class ProductInUseException : Exception
+    {
+        public string ProductInUse { get; set; }
+
+        public ProductInUseException(string msg) : base(msg) { }
     }
 
     public class ProductNotExistsException : Exception
     {
         public string ProductNotExists { get; set; }
 
-        public ProductNotExistsException(string msg) : base(msg)
-        {
-            //לשאול בנות מה הן הוסיפו פה
-            //ItemAlreadyExists
-        }
+        public ProductNotExistsException(string msg) : base(msg) { }
     }
 
-    public class ProductInUseException : Exception
-    {
-        public string ProductInUse { get; set; }
-
-        public ProductInUseException(string msg) : base(msg)
-        {
-            //לשאול בנות מה הן הוסיפו פה
-            //ItemAlreadyExists
-        }
-    }
     #endregion
 
 
-
     #region order item exceptions
+
 
     public class NotEnoughInStockException : Exception
     {
         public string NotEnoughInStock { get; set; }
 
-        public NotEnoughInStockException(string msg) : base(msg)
-        {
-            //לשאול בנות מה הן הוסיפו פה
-            //ItemAlreadyExists
-        }
+        public NotEnoughInStockException(string msg) : base(msg) { }
     }
 
 
@@ -101,55 +76,55 @@ namespace BO
     {
         public string ProductNotInStock { get; set; }
 
-        public ProductNotInStockException(string msg) : base(msg)
-        {
-            //לשאול בנות מה הן הוסיפו פה
-            //ItemAlreadyExists
-        }
+        public ProductNotInStockException(string msg) : base(msg) { }
     }
+
 
     public class ItemNotInCartException : Exception
     {
         public string ItemNotInCart { get; set; }
 
-        public ItemNotInCartException(string msg) : base(msg)
-        {
-            //לשאול בנות מה הן הוסיפו פה
-            //ItemAlreadyExists
-        }
+        public ItemNotInCartException(string msg) : base(msg) { }
     }
+
 
     public class NegativeAmountException : Exception
     {
         public string NegativeAmount { get; set; }
 
-        public NegativeAmountException(string msg) : base(msg)
-        {
-            //לשאול בנות מה הן הוסיפו פה
-            //ItemAlreadyExists
-        }
+        public NegativeAmountException(string msg) : base(msg) { }
     }
 
-        public class NameIsNullException : Exception
+
+    public class NameIsNullException : Exception
     {
         public string NameIsNull { get; set; }
 
-        public NameIsNullException(string msg) : base(msg)
-        {
-            //לשאול בנות מה הן הוסיפו פה
-            //ItemAlreadyExists
-        }
+        public NameIsNullException(string msg) : base(msg) { }
     }
 
-        public class AdressIsNullException : Exception
+
+    public class AdressIsNullException : Exception
     {
         public string AdressIsNull { get; set; }
 
-        public AdressIsNullException(string msg) : base(msg)
-        {
-            //לשאול בנות מה הן הוסיפו פה
-            //ItemAlreadyExists
-        }
+        public AdressIsNullException(string msg) : base(msg) { }
+    }
+
+
+    public class ItemInCartNotExistsAsProductException : Exception
+    {
+        public string ItemInCartNotExistsAsProduct { get; set; }
+
+        public ItemInCartNotExistsAsProductException(string msg) : base(msg) { }
+    }
+
+
+    public class UncorrectEmailException : Exception
+    {
+        public string UncorrectEmail { get; set; }
+
+        public UncorrectEmailException(string msg) : base(msg) { }
     }
 
     #endregion
@@ -161,42 +136,32 @@ namespace BO
     {
         public string OrderNotExists { get; set; }
 
-        public OrderNotExistsException(string msg) : base(msg)
-        {
-            //לשאול בנות מה הן הוסיפו פה
-            //ItemAlreadyExists
-        }
+        public OrderNotExistsException(string msg) : base(msg) { }
     }
+
+
     public class UpdateOrderNotSucceedException : Exception
     {
         public string UpdateOrderNotSucceed { get; set; }
 
-        public UpdateOrderNotSucceedException(string msg) : base(msg)
-        {
-            //לשאול בנות מה הן הוסיפו פה
-            //ItemAlreadyExists
-        }
+        public UpdateOrderNotSucceedException(string msg) : base(msg) { }
     }
+
+
     public class OrderHasAlreadySentException : Exception
     {
         public string OrderHasAlreadySent { get; set; }
 
-        public OrderHasAlreadySentException(string msg) : base(msg)
-        {
-            //לשאול בנות מה הן הוסיפו פה
-            //ItemAlreadyExists
-        }
+        public OrderHasAlreadySentException(string msg) : base(msg) { }
     }
+
     public class OrderHasAlreadyProvidedException : Exception
     {
         public string OrderHasAlreadyProvided { get; set; }
 
-        public OrderHasAlreadyProvidedException(string msg) : base(msg)
-        {
-            //לשאול בנות מה הן הוסיפו פה
-            //ItemAlreadyExists
-        }
+        public OrderHasAlreadyProvidedException(string msg) : base(msg) { }
     }
+
 
     #endregion
 
