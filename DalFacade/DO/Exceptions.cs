@@ -6,11 +6,6 @@ public class RequestedItemNotFoundException:Exception
 
     public RequestedItemNotFoundException(string msg) : base(msg)
     { 
-        //RequestedItemNotFound
-
-        //throw new RequestedItemNotFoundException("ערך זה לא נמצא")
-        //{ RequestedItemNotFound = val.ToString()};
-
     }
 
 }
@@ -20,11 +15,6 @@ public class RequestedUpdateItemNotFoundException : Exception
 
     public RequestedUpdateItemNotFoundException(string msg) : base(msg)
     {
-        //RequestedItemNotFound
-
-        //throw new RequestedItemNotFoundException("ערך זה לא נמצא")
-        //{ RequestedItemNotFound = val.ToString()};
-
     }
 
 }
@@ -36,7 +26,5 @@ public class ItemAlreadyExistsException: Exception
 
     public ItemAlreadyExistsException(string msg) : base(msg)
     {
-        //לשאול בנות מה הן הוסיפו פה
-        //ItemAlreadyExists
     }
 }
