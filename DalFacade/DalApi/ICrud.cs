@@ -8,4 +8,7 @@ public interface ICrud<T>
     void Update(T entity); 
     void Delete(int id);
     int Add(T entity); 
+
+
+
 }
