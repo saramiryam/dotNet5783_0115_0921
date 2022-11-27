@@ -97,17 +97,17 @@ namespace BlImplementation
         }
 
         //עבור מנהל
-        public void AddProduct(int id, string name, BO.Enums.ECategory category, double price, int inStock)
+        public void AddProduct(DO.Product p)
         {
 
-            CheckCorectData(id,name,category,price,inStock);
+            CheckCorectData(p.ID,p.Name,(BO.Enums.ECategory)p.Category,p.Price,p.InStock);
             try
             {
-                Dal.Product.Add(newProductWithData(id, name, category, price, inStock));
+                Dal.Product.Add(p);
             }
             catch(DO.ItemAlreadyExistsException)
             {
-                throw new BO.ProductAlreadyExistsException("product already exists") { ProductAlreadyExists = id.ToString() };
+                throw new BO.ProductAlreadyExistsException("product already exists") { ProductAlreadyExists = p.ToString() };
 
             }
         }
@@ -180,7 +180,7 @@ namespace BlImplementation
         #region check corect data
         public void CheckCorectData(int id, string name, BO.Enums.ECategory category, double price, int inStock)
         {
-            if (id <= 0)
+            if (id < 0)
             {
                 throw new BO.NegativeIdException("negative id") { NegativeId = id.ToString() };
             }

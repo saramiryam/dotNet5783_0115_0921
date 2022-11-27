@@ -13,7 +13,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DalFacade", "DalFacade\DalF
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BL", "BL\BL.csproj", "{7B641B4F-543F-4724-A8EC-09BE4E98A8D0}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlText", "BIText\BlText.csproj", "{68652BC9-21FD-43B1-939A-83C7AC316576}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlTest", "BIText\BlTest.csproj", "{68652BC9-21FD-43B1-939A-83C7AC316576}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
