@@ -198,16 +198,66 @@ public class Order : BlApi.IOrder
 
     #endregion
     #region bonus
-    //public void ManagerActions(int orderId,int productId,int amount)
-    //{
-    //    if (amount==0)
-    //    {
-    //        List<DO.OrderItem> ordersItem = new List<DO.OrderItem>();
+    public void ManagerActions(int orderId, int productId, int amount)
+    {
+        List<DO.OrderItem> ordersItem = new List<DO.OrderItem>();
+        ordersItem = (List<DO.OrderItem>)Dal.OrderItem.getAllMyOrdesItem(orderId);
 
-    //        ordersItem = (List<DO.OrderItem>)Dal.OrderItem.getAllMyOrdesItem(orderId);
-    //        ordersItem.
-    //    }
-    //}
+        bool flag = ordersItem.Exists(e => e.ProductID == productId && e.OrderID == orderId);
+        if (flag)
+        {
+            //find
+            DO.OrderItem OI = ordersItem.Find(e => e.ProductID == productId && e.OrderID == orderId);
+            if (amount == 0)
+            {
+                Dal.OrderItem.Delete(OI.ID);
+            }
+            else
+            {
+                DO.Product p = Dal.Product.Get(productId);
+                if (amount > p.InStock)
+                {
+                    throw new BO.NotEnoughInStockException("not enough in stock") { NotEnoughInStock = amount.ToString() };
+                }
+                else
+                {
+                    OI.Amount = amount;
+                    Dal.OrderItem.Update(OI);
+                }
+            }
+        }
+        else
+        {
+            //didnt find
+            try
+            {
+                DO.Product p = Dal.Product.Get(productId);
+                if (amount > p.InStock)
+                {
+                    throw new BO.NotEnoughInStockException("not enough in stock") { NotEnoughInStock = amount.ToString() };
+                }
+                Dal.OrderItem.Add(new DO.OrderItem()
+                {
+                    ID = 0,
+                    ProductID = productId,
+                    OrderID = orderId,
+                    Price = p.Price,
+                    Amount = amount
+                });
+            }
+            catch
+            {
+                throw new BO.ProductNotExistsException("product not exists") { ProductNotExists = productId.ToString() };
+
+            }
+
+
+        }
+
+
+
+    }
+
     #endregion
 
 

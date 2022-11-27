@@ -144,7 +144,7 @@ namespace BlImplementation
                     }
 
                 }
-                catch(DO.RequestedItemNotFoundException)
+                catch (DO.RequestedItemNotFoundException)
                 {
                     throw new BO.ItemInCartNotExistsAsProductException("item in cart not exists as product") { ItemInCartNotExistsAsProduct = item.ToString() };
                 }
@@ -152,7 +152,7 @@ namespace BlImplementation
 
             #endregion
 
-            
+
             DO.Order o = new DO.Order()
             {
                 ID = 0,
@@ -195,7 +195,7 @@ namespace BlImplementation
             {
                 foreach (var item in cart.ItemList)
                 {
-                    DO.Product p=Dal.Product.Get(item.ID);
+                    DO.Product p = Dal.Product.Get(item.ID);
                     p.InStock -= item.Amount;
                     Dal.Product.Update(p);
                 }

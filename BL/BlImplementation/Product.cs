@@ -100,12 +100,12 @@ namespace BlImplementation
         public void AddProduct(DO.Product p)
         {
 
-            CheckCorectData(p.ID,p.Name,(BO.Enums.ECategory)p.Category,p.Price,p.InStock);
+            CheckCorectData(p.ID, p.Name, (BO.Enums.ECategory)p.Category, p.Price, p.InStock);
             try
             {
                 Dal.Product.Add(p);
             }
-            catch(DO.ItemAlreadyExistsException)
+            catch (DO.ItemAlreadyExistsException)
             {
                 throw new BO.ProductAlreadyExistsException("product already exists") { ProductAlreadyExists = p.ToString() };
 
@@ -120,7 +120,7 @@ namespace BlImplementation
             {
                 Dal.Product.Update(newProductWithData(item.ID, item.Name, item.Category, item.Price, item.InStock));
             }
-            catch(DO.RequestedItemNotFoundException)
+            catch (DO.RequestedItemNotFoundException)
             {
                 throw new BO.ProductNotExistsException("product not exists") { ProductNotExists = item.ToString() };
 
@@ -135,7 +135,7 @@ namespace BlImplementation
             bool flag = false;
             foreach (var OI in orderList)
             {
-                if (OI.ProductID==id)
+                if (OI.ProductID == id)
                 {
                     flag = true;
                 }
@@ -148,7 +148,7 @@ namespace BlImplementation
             {
                 Dal.Product.Delete(id);
             }
-            catch 
+            catch
             {
                 throw new BO.ProductNotExistsException("product not exists") { ProductNotExists = id.ToString() };
             }
@@ -216,7 +216,7 @@ namespace BlImplementation
         #endregion
         #endregion
 
-        
+
 
 
     }
