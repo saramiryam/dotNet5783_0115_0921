@@ -157,7 +157,7 @@ public class Order : BlApi.IOrder
                 var i= new BO.OrderTracking.StatusAndDate()
                 {
                     Date = o.OrderDate,
-                    Statuss = BO.Enums.EStatus.Done
+                    Status = BO.Enums.EStatus.Done
                 };
 
                 orderTracking1.listOfStatus.Add(i);
@@ -166,12 +166,12 @@ public class Order : BlApi.IOrder
                 orderTracking1.listOfStatus.Add(new BO.OrderTracking.StatusAndDate()
                 {
                     Date = o.OrderDate,
-                    Statuss = BO.Enums.EStatus.Done
+                    Status = BO.Enums.EStatus.Done
                 });
                 orderTracking1.listOfStatus.Add(new BO.OrderTracking.StatusAndDate()
                 {
                     Date = o.ShipDate,
-                    Statuss = BO.Enums.EStatus.Sent
+                    Status = BO.Enums.EStatus.Sent
 
                 });
                 break;
@@ -179,17 +179,17 @@ public class Order : BlApi.IOrder
                orderTracking1.listOfStatus.Add(new BO.OrderTracking.StatusAndDate()
                 {
                     Date = o.OrderDate,
-                    Statuss = BO.Enums.EStatus.Done
+                    Status = BO.Enums.EStatus.Done
                 });
                 orderTracking1.listOfStatus.Add(new BO.OrderTracking.StatusAndDate()
                 {
                     Date = o.ShipDate,
-                    Statuss = BO.Enums.EStatus.Sent
+                    Status = BO.Enums.EStatus.Sent
 
                 }); orderTracking1.listOfStatus.Add(new BO.OrderTracking.StatusAndDate()
                 {
                     Date = o.DeliveryDate,
-                    Statuss = BO.Enums.EStatus.Provided
+                    Status = BO.Enums.EStatus.Provided
 
                 });
                 break;
