@@ -52,10 +52,10 @@ namespace BlTest
         {
             int choiceForProduct;
             int parse;
-            Console.WriteLine("Enter 1 to get all products " +
-                "2 - to get a product by id" +
-                "3 - to add a product" +
-                "4 - to remove a product" +
+            Console.WriteLine("Enter 1- to get all products " +
+                "2 - to get a product by id " +
+                "3 - to add a product " +
+                "4 - to remove a product " +
                 "5 - to update a product ");
             double parse2;
             int.TryParse(Console.ReadLine(), out parse);

@@ -47,7 +47,7 @@ public static class DataSource
         #endregion
         #region addNewOrderItem
         //  addNewOrder()
-        addNewOrderItem(100000, 200001, 6.9, 3);
+        addNewOrderItem(100000, 200000, 6.9, 3);
         addNewOrderItem(100002, 200001, 5.9, 1);
         addNewOrderItem(100009, 200001, 7, 7);
         addNewOrderItem(100010, 200001, 9.5, 2);
@@ -80,22 +80,22 @@ public static class DataSource
         addNewOrderItem(100000, 200007, 6.9, 3);
         addNewOrderItem(100002, 200007, 5.9, 1);
         addNewOrderItem(100009, 200007, 7, 7);
-        addNewOrderItem(100010, 200007, 9.5, 2);
+        addNewOrderItem(100010, 200011, 9.5, 2);
 
         addNewOrderItem(100000, 200008, 6.9, 3);
-        addNewOrderItem(100002, 200008, 5.9, 1);
-        addNewOrderItem(100003, 200008, 4.9, 1);
-        addNewOrderItem(100004, 200008, 9.9, 2);
+        addNewOrderItem(100002, 200012, 5.9, 1);
+        addNewOrderItem(100003, 200013, 4.9, 1);
+        addNewOrderItem(100004, 200014, 9.9, 2);
 
         addNewOrderItem(100007, 200009, 6.9, 3);
-        addNewOrderItem(100002, 200009, 5.9, 1);
-        addNewOrderItem(100005, 200009, 5.6, 3);
-        addNewOrderItem(100008, 200009, 17, 2);
+        addNewOrderItem(100002, 200015, 5.9, 1);
+        addNewOrderItem(100005, 200016, 5.6, 3);
+        addNewOrderItem(100008, 200017, 17, 2);
 
         addNewOrderItem(100000, 200010, 6.9, 3);
-        addNewOrderItem(100002, 200010, 5.9, 1);
-        addNewOrderItem(100009, 200010, 7, 7);
-        addNewOrderItem(100010, 200010, 9.5, 2);
+        addNewOrderItem(100002, 200018, 5.9, 1);
+        addNewOrderItem(100009, 200019, 7, 7);
+        addNewOrderItem(100010, 200020, 9.5, 2);
 
         #endregion
         #region addNewOrder
@@ -142,7 +142,7 @@ public static class DataSource
     /// <param name="newInStock">int - amount of product in stock</param>
     static private void addNewProduct(string newName, ECategory newCategory, double newPrice, int newInStock)
     {
-       Product newProducts = new() { ID = Config.CalNumOfProduct,Name=newName,Category=newCategory,InStock=newInStock };
+       Product newProducts = new() { ID = Config.CalNumOfProduct,Name=newName,Price=newPrice,Category=newCategory,InStock=newInStock };
         _Products.Add(newProducts);
     }
 

@@ -148,51 +148,53 @@ public class Order : BlApi.IOrder
             throw new BO.OrderNotExistsException("order not exists") { OrderNotExists = o.ToString() };
 
         }
-        BO.OrderTracking orderTracking = new BO.OrderTracking();
-        orderTracking.ID = orderId;
-        orderTracking.Status = CheckStatus(o.OrderDate, o.ShipDate, o.DeliveryDate);
-        switch (orderTracking.Status)
+        BO.OrderTracking orderTracking1 = new BO.OrderTracking();
+        orderTracking1.ID = orderId;
+        orderTracking1.Status = CheckStatus(o.OrderDate, o.ShipDate, o.DeliveryDate);
+        switch (orderTracking1.Status)
         {
             case EStatus.Done:
-                orderTracking.listOfStatus.Add(new BO.OrderTracking.StatusAndDate()
+                var i= new BO.OrderTracking.StatusAndDate()
                 {
                     Date = o.OrderDate,
-                    Status = BO.Enums.EStatus.Done
-                });
+                    Statuss = BO.Enums.EStatus.Done
+                };
+
+                orderTracking1.listOfStatus.Add(i);
                 break;
             case EStatus.Sent:
-                orderTracking.listOfStatus.Add(new BO.OrderTracking.StatusAndDate()
+                orderTracking1.listOfStatus.Add(new BO.OrderTracking.StatusAndDate()
                 {
                     Date = o.OrderDate,
-                    Status = BO.Enums.EStatus.Done
+                    Statuss = BO.Enums.EStatus.Done
                 });
-                orderTracking.listOfStatus.Add(new BO.OrderTracking.StatusAndDate()
+                orderTracking1.listOfStatus.Add(new BO.OrderTracking.StatusAndDate()
                 {
                     Date = o.ShipDate,
-                    Status = BO.Enums.EStatus.Sent
+                    Statuss = BO.Enums.EStatus.Sent
 
                 });
                 break;
             case EStatus.Provided:
-                orderTracking.listOfStatus.Add(new BO.OrderTracking.StatusAndDate()
+               orderTracking1.listOfStatus.Add(new BO.OrderTracking.StatusAndDate()
                 {
                     Date = o.OrderDate,
-                    Status = BO.Enums.EStatus.Done
+                    Statuss = BO.Enums.EStatus.Done
                 });
-                orderTracking.listOfStatus.Add(new BO.OrderTracking.StatusAndDate()
+                orderTracking1.listOfStatus.Add(new BO.OrderTracking.StatusAndDate()
                 {
                     Date = o.ShipDate,
-                    Status = BO.Enums.EStatus.Sent
+                    Statuss = BO.Enums.EStatus.Sent
 
-                }); orderTracking.listOfStatus.Add(new BO.OrderTracking.StatusAndDate()
+                }); orderTracking1.listOfStatus.Add(new BO.OrderTracking.StatusAndDate()
                 {
                     Date = o.DeliveryDate,
-                    Status = BO.Enums.EStatus.Provided
+                    Statuss = BO.Enums.EStatus.Provided
 
                 });
                 break;
         }
-        return orderTracking;
+        return orderTracking1;
 
     }
 
@@ -284,9 +286,9 @@ public class Order : BlApi.IOrder
     public BO.Enums.EStatus CheckStatus(DateTime OrderDate, DateTime ShipDate, DateTime DeliveryDate)
     {
         DateTime today = DateTime.Now;
-        if (today.Equals(OrderDate) && today.Equals(ShipDate) && today.Equals(DeliveryDate))
+        if (today>=OrderDate && today>=ShipDate &&ShipDate!=DateTime.MinValue&& today>=DeliveryDate&&DeliveryDate!=DateTime.MinValue)
             return EStatus.Provided;
-        else if (today.Equals(OrderDate) && today.Equals(ShipDate))
+        else if (today>=OrderDate && today>=ShipDate&&ShipDate!=DateTime.MinValue)
             return EStatus.Sent;
         else
             return EStatus.Done;
@@ -294,7 +296,15 @@ public class Order : BlApi.IOrder
     public int GetAmountItems(int id)
     {
         IEnumerable<DO.OrderItem> orderItemList = new List<DO.OrderItem>();
-        orderItemList = Dal.OrderItem.getAllMyOrdesItem(id);
+        try
+        {
+            orderItemList = Dal.OrderItem.getAllMyOrdesItem(id);
+        }
+        catch
+        {
+            throw new BO.OrderNotExistsException("order not exists,can not get all orderItems") { OrderNotExists = id.ToString() };
+
+        }
         int sum = 0;
         foreach (var item in orderItemList)
         {

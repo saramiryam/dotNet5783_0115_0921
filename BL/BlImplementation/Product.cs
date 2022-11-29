@@ -211,7 +211,7 @@ namespace BlImplementation
             p.Category = (DO.Enums.ECategory)category;
             p.Price = price;
             p.InStock = inStock;
-            return new DO.Product();
+            return p;
         }
         #endregion
         #endregion

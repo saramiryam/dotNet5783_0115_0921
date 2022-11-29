@@ -18,7 +18,14 @@ public class OrderTracking
     public class StatusAndDate
     { 
         public DateTime Date { get; set; }
-        public EStatus Status { get; set; }
+        public BO.Enums.EStatus Statuss { get; set; }
+
+            public override string ToString() => $@"
+            Status:{Statuss}
+            date:{Date}
+
+";
+
     }
 
     #endregion
@@ -31,6 +38,7 @@ public class OrderTracking
     public override string ToString() => $@"
     Order tracking ID={ID}
     Status:{Status}
+    list of status:{listOfStatus}
 
 ";
     #endregion
