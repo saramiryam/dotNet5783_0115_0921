@@ -215,22 +215,122 @@ namespace BlTest
 
         static void cartMethod()
         {
+            BO.Cart cart = new BO.Cart();
+            BO.Product product = new BO.Product();
             int choiceForCart;
             int parse;
-            Console.WriteLine("Enter 1 to get all orders " +
-               "2 - to get an order by id" +
-               "3 - to update the shipping date of an order" +
-               "4 - to update the delivery date of an order" +
-               "5 - to track an order ");
-
-            double parse2;
+            Console.WriteLine("Enter 1 to add product to the cart " +
+               "2 - to update amount of product in the cart" +
+               "3 - to place the order ");
             int.TryParse(Console.ReadLine(), out parse);
             choiceForCart = parse;
             switch (choiceForCart)
             {
-                case 1:
+                case 1://add product to cart
                     {
+                        Console.WriteLine("enter product id");
+                        int.TryParse(Console.ReadLine(), out parse);
+                        int productID = parse;
+                        Console.WriteLine("enter your name");
+                        cart.CustomerName = Console.ReadLine();
+                        Console.WriteLine("enter your email");
+                        cart.CustomerEmail = Console.ReadLine();
+                        Console.WriteLine("enter your address");
+                        cart.CustomerAdress = Console.ReadLine();
+                        Console.WriteLine("enter product id and amount of items in cart,for finish enter 0");
+                        int productId;
+                        int amount;
+                        int.TryParse(Console.ReadLine(), out parse);
+                        productId = parse;
+                        int.TryParse(Console.ReadLine(), out parse);
+                        amount = parse;
+                        while (productID != 0)
+                        {
+                            BO.OrderItem orderItem = new BO.OrderItem()
+                            {
+                                //ID=
+                                Name = blVariable.Product.GetProductItem(product.ID).Name,//manager
+                                ID = productId,
+                                Price = blVariable.Product.GetProductItem(product.ID).Price,//manager
+                                Amount = amount
+                            };
 
+                            cart.ItemList.ToList().Add(orderItem);
+                            Console.WriteLine("enter product id and amount of items in cart,for finish enter 0");
+                            int.TryParse(Console.ReadLine(), out parse);
+                            productId = parse;
+                            int.TryParse(Console.ReadLine(), out parse);
+                            amount = parse;
+                        }
+                        Console.WriteLine(blVariable.Cart.AddItemToCart(cart, productID));
+                        break;
+                    }
+                case 2:
+                    {
+                        Console.WriteLine("enter product id ,new amount,and your details ");
+                        int.TryParse(Console.ReadLine(), out parse);
+                        int productID = parse;
+                        int.TryParse(Console.ReadLine(), out parse);
+                        int newAmount = parse;
+                        cart.CustomerName = Console.ReadLine();
+                        cart.CustomerEmail = Console.ReadLine();
+                        cart.CustomerAdress = Console.ReadLine();
+                        Console.WriteLine("enter product id and amount of items in cart,for finish enter 0");
+
+                        int.TryParse(Console.ReadLine(), out parse);
+                        int productId = parse;
+                        int.TryParse(Console.ReadLine(), out parse);
+                        int amount = parse;
+                        while (productID != 0)
+                        {
+                            BO.OrderItem orderItem = new BO.OrderItem()
+                            {
+
+                                Name = blVariable.Product.GetProductItem(product.ID).Name,
+                                ID = productId,
+                                Price = blVariable.Product.GetProductItem(product.ID).Price,
+                                Amount = amount
+                            };
+                            cart.ItemList.ToList().Add(orderItem);
+                            Console.WriteLine("enter product id and amount of items in cart,for finish enter 0");
+                            int.TryParse(Console.ReadLine(), out parse);
+                            productId = parse;
+                            int.TryParse(Console.ReadLine(), out parse);
+                            amount = parse;
+                        }
+                        Console.WriteLine(blVariable.Cart.UpdateAmount(cart, productID, newAmount));
+                        break;
+                    }
+                case 3:
+                    {
+                        Console.WriteLine("enter your details ");
+                       var CustomerName = Console.ReadLine();
+                       var CustomerEmail = Console.ReadLine();
+                       var CustomerAdress = Console.ReadLine();
+                        Console.WriteLine("enter product id and amount of items in cart,for finish enter 0");
+
+                        int.TryParse(Console.ReadLine(), out parse);
+                        int productId = parse;
+                        int.TryParse(Console.ReadLine(), out parse);
+                        int amount = parse;
+                        while (productId != 0)
+                        {
+                            BO.OrderItem orderItem = new BO.OrderItem()
+                            {
+
+                                Name = blVariable.Product.GetProductItem(product.ID).Name,//manager
+                                ID = productId,
+                                Price = blVariable.Product.GetProductItem(product.ID).Price,//manager
+                                Amount = amount
+                            };
+                            cart.ItemList.ToList().Add(orderItem);
+                            Console.WriteLine("enter product id and amount of items in cart,for finish enter 0");
+                            int.TryParse(Console.ReadLine(), out parse);
+                            productId = parse;
+                            int.TryParse(Console.ReadLine(), out parse);
+                            amount = parse;
+                        }
+                        blVariable.Cart.SubmitOrder(cart, CustomerName,CustomerEmail,CustomerAdress);
                         break;
                     }
 
