@@ -9,8 +9,8 @@ public class OrderForList
     #region order properties
 
     public int OrderID { get; set; }
-    public string CustomerName { get; set; }
-    public EStatus Status { get; set; }
+    public string? CustomerName { get; set; }
+    public EStatus? Status { get; set; }
     public int AmountOfItem { get; set; }
     public double TotalSum { get; set; }
 

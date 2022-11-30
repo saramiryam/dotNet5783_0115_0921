@@ -9,8 +9,8 @@ public class OrderTracking
     #region orderTracking properties
 
     public int ID { get; set; }
-    public EStatus Status { get; set; }
-    public List<StatusAndDate> listOfStatus { get; set; }    
+    public EStatus? Status { get; set; }
+    public List<StatusAndDate>? listOfStatus { get; set; }    
 
     #endregion
 
