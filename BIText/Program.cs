@@ -244,25 +244,27 @@ namespace BlTest
                         productId = parse;
                         int.TryParse(Console.ReadLine(), out parse);
                         amount = parse;
-                        while (productID != 0)
+                        while (productID != 0&&productId!=0)
                         {
+                            if(productID == 0)  
+                                break;
                             BO.OrderItem orderItem = new BO.OrderItem()
                             {
-                                //ID=
-                                Name = blVariable.Product.GetProductItem(product.ID).Name,//manager
+                                
+                                Name = blVariable.Product.GetProductItem(productId).Name,//manager
                                 ID = productId,
-                                Price = blVariable.Product.GetProductItem(product.ID).Price,//manager
+                                Price = blVariable.Product.GetProductItem(productId).Price,//manager
                                 Amount = amount
                             };
 
-                            cart.ItemList.ToList().Add(orderItem);
+                            cart.ItemList=new List<BO.OrderItem>() { orderItem };
                             Console.WriteLine("enter product id and amount of items in cart,for finish enter 0");
                             int.TryParse(Console.ReadLine(), out parse);
-                            productId = parse;
+                            productID = parse;
                             int.TryParse(Console.ReadLine(), out parse);
                             amount = parse;
                         }
-                        Console.WriteLine(blVariable.Cart.AddItemToCart(cart, productID));
+                        Console.WriteLine(blVariable.Cart.AddItemToCart(cart, productId));
                         break;
                     }
                 case 2:
