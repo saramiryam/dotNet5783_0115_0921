@@ -1,4 +1,5 @@
-﻿using static BO.Enums;
+﻿using System.Collections.Generic;
+using static BO.Enums;
 
 namespace BO;
 //לניהול ולקוחות
@@ -27,7 +28,8 @@ public class Order
     /// override the string function
     /// </summary>
     /// <returns>string with the properties of the Order struct</returns>
-    public override string ToString() => $@"
+    public override string ToString() =>
+        $@"
     Order ID={ID}: {CustomerName}, 
     Email - {CustomerEmail}
     Adress: {CustomerAdress}
@@ -35,7 +37,7 @@ public class Order
     Order Date: {OrderDate}
     Ship Date: {ShipDate}
     Delivery Date: {DeliveryDate}
-    List of Item:{ItemList}
+    List of Item:{ItemList.ToString()}
     Total sum:{TotalSum}
 ";
 

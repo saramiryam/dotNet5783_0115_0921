@@ -16,14 +16,15 @@ namespace BlTest
         private static IBl blVariableFromMethod = new Bl();
         static private BO.Product product = new BO.Product();
         static private DO.Product product1 = new DO.Product();
+        static int choice;
 
         static private BO.Order order = new BO.Order();
         static private BO.Order orderFromMethod = new BO.Order();
         static private BO.OrderTracking orderTrackingFromMethod = new BO.OrderTracking();
-        static private BO.Cart cart = new BO.Cart();
+        private BO.Cart cart = new BO.Cart();
+
         public static void Main()
         {
-            int choice;
             Console.WriteLine("Enter 1 for product, 2 - cart, 3 - order, 0 to exit:");
             int.TryParse(Console.ReadLine(), out choice);
 
@@ -65,7 +66,9 @@ namespace BlTest
 
             switch (choiceForProduct)
             {
-
+                case 0:
+                    Main();
+                    break;
                 case 1://get all products
                     IEnumerable<ProductForList> listFromMethod = blVariable.Product.GetListOfProduct();
                     foreach (ProductForList productForList in listFromMethod)
@@ -201,14 +204,6 @@ namespace BlTest
                         break;
                     }
 
-                case 6:
-                    {
-
-                        break;
-                    }
-
-
-
 
             }
         }
@@ -226,6 +221,9 @@ namespace BlTest
             choiceForCart = parse;
             switch (choiceForCart)
             {
+                case 0:
+                    Main();
+                    break;
                 case 1://add product to cart
                     {
                         Console.WriteLine("enter product id");
@@ -244,71 +242,54 @@ namespace BlTest
                         productId = parse;
                         int.TryParse(Console.ReadLine(), out parse);
                         amount = parse;
-                        while (productID != 0&&productId!=0)
+                        while (productID != 0 && productId != 0)
                         {
-                            if(productID == 0)  
+                            if (productID == 0)
                                 break;
                             BO.OrderItem orderItem = new BO.OrderItem()
                             {
-                                
+
                                 Name = blVariable.Product.GetProductItem(productId).Name,//manager
                                 ID = productId,
                                 Price = blVariable.Product.GetProductItem(productId).Price,//manager
-                                Amount = amount
+                                Amount = amount,
+                                sumItem = blVariable.Product.GetProductItem(productId).Price * amount
                             };
-
-                            cart.ItemList=new List<BO.OrderItem>() { orderItem };
-                            Console.WriteLine("enter product id and amount of items in cart,for finish enter 0");
-                            int.TryParse(Console.ReadLine(), out parse);
-                            productID = parse;
-                            int.TryParse(Console.ReadLine(), out parse);
-                            amount = parse;
-                        }
-                        Console.WriteLine(blVariable.Cart.AddItemToCart(cart, productId));
-                        break;
-                    }
-                case 2:
-                    {
-                        Console.WriteLine("enter product id ,new amount,and your details ");
-                        int.TryParse(Console.ReadLine(), out parse);
-                        int productID = parse;
-                        int.TryParse(Console.ReadLine(), out parse);
-                        int newAmount = parse;
-                        cart.CustomerName = Console.ReadLine();
-                        cart.CustomerEmail = Console.ReadLine();
-                        cart.CustomerAdress = Console.ReadLine();
-                        Console.WriteLine("enter product id and amount of items in cart,for finish enter 0");
-
-                        int.TryParse(Console.ReadLine(), out parse);
-                        int productId = parse;
-                        int.TryParse(Console.ReadLine(), out parse);
-                        int amount = parse;
-                        while (productID != 0)
-                        {
-                            BO.OrderItem orderItem = new BO.OrderItem()
+                            if (cart.ItemList is null)
                             {
 
-                                Name = blVariable.Product.GetProductItem(product.ID).Name,
-                                ID = productId,
-                                Price = blVariable.Product.GetProductItem(product.ID).Price,
-                                Amount = amount
-                            };
-                            cart.ItemList.ToList().Add(orderItem);
+                                cart.ItemList = new List<BO.OrderItem>() { orderItem };
+                                cart.TotalSum += orderItem.sumItem;
+
+                            }
+                            else
+                            {
+                                cart.ItemList.Add(orderItem);
+                                cart.TotalSum += orderItem.sumItem;
+
+                            }
                             Console.WriteLine("enter product id and amount of items in cart,for finish enter 0");
                             int.TryParse(Console.ReadLine(), out parse);
                             productId = parse;
                             int.TryParse(Console.ReadLine(), out parse);
                             amount = parse;
+                            productID = productId;
                         }
-                        Console.WriteLine(blVariable.Cart.UpdateAmount(cart, productID, newAmount));
+
+                        Console.WriteLine(cart);
                         break;
                     }
-                case 3:
+                case 2:
                     {
-                        Console.WriteLine("enter your details ");
-                       var CustomerName = Console.ReadLine();
-                       var CustomerEmail = Console.ReadLine();
-                       var CustomerAdress = Console.ReadLine();
+                        Console.WriteLine("enter  your details ");
+                        //int.TryParse(Console.ReadLine(), out parse);
+                        //int productID = parse;
+                        //int.TryParse(Console.ReadLine(), out parse);
+                        //int newAmount = parse;
+                        cart.CustomerName = Console.ReadLine();
+                        cart.CustomerEmail = Console.ReadLine();
+                        cart.CustomerAdress = Console.ReadLine();
+
                         Console.WriteLine("enter product id and amount of items in cart,for finish enter 0");
 
                         int.TryParse(Console.ReadLine(), out parse);
@@ -320,19 +301,93 @@ namespace BlTest
                             BO.OrderItem orderItem = new BO.OrderItem()
                             {
 
-                                Name = blVariable.Product.GetProductItem(product.ID).Name,//manager
+                                Name = blVariable.Product.GetProductItem(productId).Name,
                                 ID = productId,
-                                Price = blVariable.Product.GetProductItem(product.ID).Price,//manager
-                                Amount = amount
+                                Price = blVariable.Product.GetProductItem(productId).Price,
+                                Amount = amount,
+                                sumItem = blVariable.Product.GetProductItem(productId).Price * amount
+
                             };
-                            cart.ItemList.ToList().Add(orderItem);
+                            if (cart.ItemList is null)
+                            {
+                                cart.ItemList = new List<BO.OrderItem>() { orderItem };
+                                cart.TotalSum += orderItem.sumItem;
+                            }
+                            else
+                            {
+                                cart.ItemList.Add(orderItem);
+                                cart.TotalSum += orderItem.sumItem;
+                            }
+
+                            Console.WriteLine("enter product id and amount of items in cart,for finish enter 0");
+                            int.TryParse(Console.ReadLine(), out parse);
+                            productId = parse;
+                            int.TryParse(Console.ReadLine(), out parse);
+                            amount = parse;
+
+                        }
+                        Console.WriteLine("enter product id and amount of items to update cart,for finish enter 0");
+                        int.TryParse(Console.ReadLine(), out parse);
+                        productId = parse;
+                        int.TryParse(Console.ReadLine(), out parse);
+                        amount = parse;
+                        while (productId != 0)
+                        {
+                            var a = blVariable.Cart.UpdateAmount(cart, productId, amount);
+                            Console.WriteLine(a);
+                            Console.WriteLine("enter product id and amount of items to update cart,for finish enter 0");
+                            int.TryParse(Console.ReadLine(), out parse);
+                            productId = parse;
+                            int.TryParse(Console.ReadLine(), out parse);
+                            amount = parse;
+
+                        }
+
+
+
+                        break;
+                    }
+                case 3:
+                    {
+                        Console.WriteLine("enter your details ");
+                        cart.CustomerName = Console.ReadLine();
+                        cart.CustomerEmail = Console.ReadLine();
+                        cart.CustomerAdress = Console.ReadLine();
+                        Console.WriteLine("enter product id and amount of items in cart,for finish enter 0");
+
+                        int.TryParse(Console.ReadLine(), out parse);
+                        int productId = parse;
+                        int.TryParse(Console.ReadLine(), out parse);
+                        int amount = parse;
+                        while (productId != 0)
+                        {
+                            BO.OrderItem orderItem = new BO.OrderItem()
+                            {
+
+                                Name = blVariable.Product.GetProductItem(productId).Name,
+                                ID = productId,
+                                Price = blVariable.Product.GetProductItem(productId).Price,
+                                Amount = amount,
+                                sumItem = blVariable.Product.GetProductItem(productId).Price * amount
+
+                            };
+                            if (cart.ItemList is null)
+                            {
+                                cart.ItemList = new List<BO.OrderItem>() { orderItem };
+                                cart.TotalSum += orderItem.sumItem;
+                            }
+                            else
+                            {
+                                cart.ItemList.Add(orderItem);
+                                cart.TotalSum += orderItem.sumItem;
+                            }
                             Console.WriteLine("enter product id and amount of items in cart,for finish enter 0");
                             int.TryParse(Console.ReadLine(), out parse);
                             productId = parse;
                             int.TryParse(Console.ReadLine(), out parse);
                             amount = parse;
                         }
-                        blVariable.Cart.SubmitOrder(cart, CustomerName,CustomerEmail,CustomerAdress);
+                        blVariable.Cart.SubmitOrder(cart, cart.CustomerName, cart.CustomerEmail, cart.CustomerAdress);
                         break;
                     }
 
@@ -355,6 +410,9 @@ namespace BlTest
             choiceForOrder = parse;
             switch (choiceForOrder)
             {
+                case 0:
+                    Main();
+                    break;
                 case 1://get all orders
                     {
                         IEnumerable<OrderForList> listFromMethod = blVariable.Order.GetListOfOrders();

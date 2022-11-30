@@ -96,7 +96,8 @@ namespace BlImplementation
             }
             else if (BOI.Amount < amount)
             {
-                for (int i = 0; i < (amount - BOI.Amount); i++)
+                var num = amount - BOI.Amount;
+                for (int i = 0; i < num; i++)
                 {
                     AddItemToCart(cart, itemId);
                 }

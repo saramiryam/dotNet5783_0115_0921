@@ -29,7 +29,7 @@ public class Cart
     Name: {CustomerName}, 
     Email - {CustomerEmail}
     Adress: {CustomerAdress}
-    List of Item:{ItemList}
+    List of Item:{ItemList.ToString}
     Total sum:{TotalSum}
 ";
 
