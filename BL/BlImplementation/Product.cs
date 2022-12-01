@@ -34,6 +34,28 @@ namespace BlImplementation
             }
             return productsForList;
         }
+        public IEnumerable<BO.ProductForList> GetProductForListByCategory(string category)
+        {
+            IEnumerable<DO.Product> productsList = new List<DO.Product>();
+            List<BO.ProductForList> productsForList = new List<BO.ProductForList>();
+            productsList = Dal.Product.GetAll();
+            foreach (var item in productsList)
+            {
+                if (item.Category.ToString()==category)
+                {
+                    productsForList.Add(new BO.ProductForList()
+                    {
+                        ID = item.ID,
+                        Name = item.Name,
+                        Price = item.Price,
+                        Category = (BO.Enums.ECategory)item.Category
+                    });
+                }
+              
+
+            }
+            return productsForList;
+        }
 
 
         //עבור מנהל 

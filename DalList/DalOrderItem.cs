@@ -108,7 +108,7 @@ internal class DalOrderItem:IOrderItem
     /// <param name="productId">num product of this order item</param>
     /// <returns>order item</returns>
     /// <exception cref="Exception"></exception>
-    public OrderItem? getSingleOrederItemByProductAndOrder(int orderId, int productId)
+    public OrderItem getSingleOrederItemByProductAndOrder(int orderId, int productId)
     {
 
         OrderItem _newOrderItem = new OrderItem();

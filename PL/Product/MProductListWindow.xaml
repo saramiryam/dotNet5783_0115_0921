@@ -18,7 +18,7 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions >
-            <ComboBox Name="CategorySelector" Grid.Column="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
+            <ComboBox Name="CategorySelector" Grid.Column="1"  VerticalAlignment="Stretch" HorizontalAlignment="Stretch" SelectionChanged="CategorySelector_SelectionChanged"/>
             <Label Content="category:" Grid.Column="0" HorizontalAlignment="Left" Margin="95,0,0,0" VerticalAlignment="Center"/>
 
         </Grid>
@@ -29,6 +29,8 @@
                 </GridView>
             </ListView.View>
         </ListView>
+
+        <Button Content="Add new Product" Grid.Row="1" HorizontalAlignment="Left" Margin="640,535,0,5" Padding="5" Width="155" Click="Button_Click_1"/>
 
     </Grid>
 

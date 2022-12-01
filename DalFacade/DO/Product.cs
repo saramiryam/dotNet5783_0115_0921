@@ -10,8 +10,8 @@ public struct Product
     #region product properties
 
     public int ID { get; set; }
-    public string? Name { get; set; }
-    public ECategory? Category { get; set; }
+    public string Name { get; set; }
+    public ECategory Category { get; set; }
     public double Price { get; set; }
     public int InStock { get; set; }
 

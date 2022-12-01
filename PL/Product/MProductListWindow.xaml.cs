@@ -21,10 +21,25 @@ namespace PL
     /// </summary>
     public partial class MProductListWindow : Window
     {
-        IBl Bl = new Bl();
-        public MProductListWindow(IBl b)
+        IBl bl = new Bl();
+        public MProductListWindow()
         {
             InitializeComponent();
+            ProductListView.ItemsSource = bl.Product.GetListOfProduct();
+            CategorySelector.ItemsSource = Enum.GetValues(typeof(BO.Enums.ECategory));
+        }
+
+        private void CategorySelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            //casting toString
+            string cat=CategorySelector.SelectedItem.ToString();
+            ProductListView.ItemsSource = bl.Product.GetProductForListByCategory(cat);
+
+        }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            new Product.MProductWindow(bl.Product).Show();
         }
     }
 }

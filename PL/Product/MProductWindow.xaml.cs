@@ -12,16 +12,27 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace PL
+namespace PL.Product
 {
     /// <summary>
-    /// Interaction logic for MProduct.xaml
+    /// Interaction logic for MProductWindow.xaml
     /// </summary>
-    public partial class MProduct : Window
+    public partial class MProductWindow : Window
     {
-        public MProduct()
+        public MProductWindow(BlApi.IProduct p)
         {
             InitializeComponent();
+            chooseCategoryToAdd.ItemsSource = Enum.GetValues(typeof(BO.Enums.ECategory));
+        }
+
+        private void addButton_Click(object sender, RoutedEventArgs e)
+        {
+            int Id=int.Parse(id.Text);
+            string Name=name.Text;
+            var Cat = chooseCategoryToAdd.Text;
+            double Price=double.Parse(price.Text);
+            double InStock=double.Parse(inStock.Text);
+
         }
     }
 }
