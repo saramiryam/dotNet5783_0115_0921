@@ -18,7 +18,7 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions >
-            <ComboBox Name="CategorySelector" Grid.Column="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="72,23,0,1" Width="120"/>
+            <ComboBox Name="CategorySelector" Grid.Column="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
             <Label Content="category:" Grid.Column="0" HorizontalAlignment="Left" Margin="95,0,0,0" VerticalAlignment="Center"/>
 
         </Grid>
