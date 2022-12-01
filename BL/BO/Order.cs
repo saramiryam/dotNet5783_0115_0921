@@ -16,7 +16,7 @@ public class Order
     public DateTime? OrderDate { get; set; }
     public DateTime? ShipDate { get; set; }
     public DateTime? DeliveryDate { get; set; }
-    public List<OrderItem>? ItemList { get; set; }
+    public List<OrderItem?>? ItemList { get; set; }
     public double TotalSum { get; set; }
 
 

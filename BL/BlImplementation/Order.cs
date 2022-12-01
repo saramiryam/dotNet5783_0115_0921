@@ -302,7 +302,7 @@ public class Order : BlApi.IOrder
         IEnumerable<DO.OrderItem> orderItemList = new List<DO.OrderItem>();
         try
         {
-            orderItemList = Dal.OrderItem.getAllMyOrdesItem(id);
+            orderItemList = (IEnumerable<DO.OrderItem>)Dal.OrderItem.getAllMyOrdesItem(id);
         }
         catch
         {
@@ -320,7 +320,7 @@ public class Order : BlApi.IOrder
     public double CheckTotalSum(int id)
     {
         IEnumerable<DO.OrderItem> orderItemList = new List<DO.OrderItem>();
-        orderItemList = Dal.OrderItem.getAllMyOrdesItem(id);
+        orderItemList = (IEnumerable<DO.OrderItem>)Dal.OrderItem.getAllMyOrdesItem(id);
         double sum = 0;
         foreach (var item in orderItemList)
         {
@@ -332,7 +332,7 @@ public class Order : BlApi.IOrder
     {
         IEnumerable<DO.OrderItem> orderItemList = new List<DO.OrderItem>();
         List<BO.OrderItem> BOorderItemList = new List<BO.OrderItem>();
-        orderItemList = Dal.OrderItem.getAllMyOrdesItem(id);
+        orderItemList = (IEnumerable<DO.OrderItem>) Dal.OrderItem.getAllMyOrdesItem(id);
         int count = 0;
         foreach (var item in orderItemList)
         {

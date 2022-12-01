@@ -137,10 +137,10 @@ namespace BlImplementation
         public void UpdateProduct(BO.Product item)
         {
 
-            CheckCorectData(item.ID, item.Name, item.Category, item.Price, item.InStock);
+            CheckCorectData(item.ID, item.Name, (BO.Enums.ECategory)item.Category, item.Price, item.InStock);
             try
             {
-                Dal.Product.Update(newProductWithData(item.ID, item.Name, item.Category, item.Price, item.InStock));
+                Dal.Product.Update(newProductWithData(item.ID, item.Name, (BO.Enums.ECategory)item.Category, item.Price, item.InStock));
             }
             catch (DO.RequestedItemNotFoundException)
             {

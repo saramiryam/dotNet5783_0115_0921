@@ -15,7 +15,7 @@ internal class DalOrderItem:IOrderItem
 /// <exception cref="Exception"></exception>
     public int Add(OrderItem _newOrderItem)
     {
-        if (DataSource._arrOrderItem.Exists(e => e.OrderID == _newOrderItem.ID && e.ProductID == _newOrderItem.ProductID))
+        if (DataSource._arrOrderItem.Exists(e => e?.OrderID == _newOrderItem.ID && e?.ProductID == _newOrderItem.ProductID))
             throw new ItemAlreadyExistsException("order exists, can not add") { ItemAlreadyExists = _newOrderItem.ToString() };
 
         else
@@ -48,7 +48,7 @@ internal class DalOrderItem:IOrderItem
     public IEnumerable<OrderItem> GetAll()
     {
         
-            return DataSource._arrOrderItem;
+            return (IEnumerable<OrderItem>)DataSource._arrOrderItem;
     }
     /// <summary>
     ///  delete order item and throw exception if it does not exist
@@ -77,7 +77,7 @@ internal class DalOrderItem:IOrderItem
             return;
 
         }
-        OrderItem _orderItemToUpdate = DataSource._arrOrderItem.Find(e => e.ID == _newOrderItem.ID && e.OrderID == _newOrderItem.OrderID && e.ProductID == _newOrderItem.ProductID);
+        OrderItem _orderItemToUpdate = DataSource._arrOrderItem.Find(e => e?.ID == _newOrderItem.ID && e?.OrderID == _newOrderItem.OrderID && e.ProductID == _newOrderItem.ProductID);
         if (_orderItemToUpdate.ID != 0)
         {
             DataSource._arrOrderItem.Remove(_orderItemToUpdate);
@@ -93,10 +93,10 @@ internal class DalOrderItem:IOrderItem
     /// <param name="orderNum">specific</param>
     /// <returns> all items</returns>
     /// <exception cref="Exception"></exception>
-    public IEnumerable<OrderItem> getAllMyOrdesItem(int orderNum)
+    public IEnumerable<OrderItem?> getAllMyOrdesItem(int orderNum)
     {
-        if (DataSource._arrOrderItem.FindAll(e => e.OrderID == orderNum).Count > 0)
-            return DataSource._arrOrderItem.FindAll(e => e.OrderID == orderNum);
+        if (DataSource._arrOrderItem.FindAll(e => e?.OrderID == orderNum).Count > 0)
+            return DataSource._arrOrderItem.FindAll(e => e?.OrderID == orderNum);
         else
             throw new RequestedItemNotFoundException("order not exists,can not get all orderItems") { RequestedItemNotFound = orderNum.ToString() };
 
@@ -112,7 +112,7 @@ internal class DalOrderItem:IOrderItem
     {
 
         OrderItem _newOrderItem = new OrderItem();
-        _newOrderItem = DataSource._arrOrderItem.Find(e => e.OrderID == orderId&&e.ProductID==productId);
+        _newOrderItem = DataSource._arrOrderItem.Find(e => e?.OrderID == orderId && e.ProductID==productId);
         if (_newOrderItem.ID == 0)
             throw new RequestedItemNotFoundException("orderItem not exists,can not get") { RequestedItemNotFound = orderId.ToString() };
 

@@ -18,7 +18,7 @@ internal class DalOrder:IOrder
     /// <exception cref="Exception">order exists</exception>
     public int Add(Order _o)
     {
-        if (DataSource._Orders.Exists(e => e.CustomerName == _o.CustomerName && e.CustomerAdress == _o.CustomerAdress&& e.CustomerEmail == _o.CustomerEmail && e.OrderDate == _o.OrderDate))
+        if (DataSource._Orders.Exists(e => e?.CustomerName == _o.CustomerName && e?.CustomerAdress == _o.CustomerAdress&& e?.CustomerEmail == _o.CustomerEmail && e?.OrderDate == _o.OrderDate))
             throw new ItemAlreadyExistsException("order exists, can not add") { ItemAlreadyExists = _o.ToString() };
         else
         {
@@ -54,7 +54,7 @@ internal class DalOrder:IOrder
     /// <returns>arrey with all the orders</returns>
     public IEnumerable<Order> GetAll()
     {
-        return DataSource._Orders;
+        return (IEnumerable<Order>)DataSource._Orders;
     }
 
     /// <summary>
