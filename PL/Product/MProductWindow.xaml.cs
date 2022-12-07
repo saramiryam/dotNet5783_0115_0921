@@ -19,10 +19,13 @@ namespace PL.Product
     /// </summary>
     public partial class MProductWindow : Window
     {
+        BlApi.IProduct product { get; set; }  
+
         public MProductWindow(BlApi.IProduct p)
         {
             InitializeComponent();
             chooseCategoryToAdd.ItemsSource = Enum.GetValues(typeof(BO.Enums.ECategory));
+            product=p;
         }
 
         private void addButton_Click(object sender, RoutedEventArgs e)
@@ -33,6 +36,9 @@ namespace PL.Product
             double Price=double.Parse(price.Text);
             double InStock=double.Parse(inStock.Text);
 
+
+            
+            
         }
     }
 }

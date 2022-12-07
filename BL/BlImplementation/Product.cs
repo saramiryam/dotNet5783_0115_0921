@@ -1,4 +1,5 @@
 ﻿using BlApi;
+using BO;
 using DalApi;
 using DO;
 using System;
@@ -119,13 +120,21 @@ namespace BlImplementation
         }
 
         //עבור מנהל
-        public void AddProduct(DO.Product p)
+        public void AddProduct(BO.Product p)
         {
 
             CheckCorectData(p.ID, p.Name, (BO.Enums.ECategory)p.Category, p.Price, p.InStock);
             try
             {
-                Dal.Product.Add(p);
+                Dal.Product.Add(new DO.Product()
+                {
+                    ID = p.ID,
+                    Name = p.Name,
+                    Price = p.Price,
+                    Category = (DO.Enums.ECategory)p.Category,
+                    InStock=p.InStock
+               
+                });
             }
             catch (DO.ItemAlreadyExistsException)
             {
@@ -133,6 +142,12 @@ namespace BlImplementation
 
             }
         }
+        public void AddProductFromWindow(int id, string name, string category, double price, int inStock)
+        {
+             BO.Product newProduct = new() { ID=id,Name=name,Category=GetCategory(category),Price=price,InStock=inStock};
+            AddProduct(newProduct);
+        }
+
 
         public void UpdateProduct(BO.Product item)
         {
@@ -235,7 +250,36 @@ namespace BlImplementation
             p.InStock = inStock;
             return p;
         }
+
         #endregion
+
+        #region GetCategory
+        private static BO.Enums.ECategory GetCategory(string category)
+        {
+            switch (category)
+            {
+                case "Notebooks":
+                    return BO.Enums.ECategory.Notebooks;
+                    break;
+                case "Pens":
+                    return BO.Enums.ECategory.Pens;
+                    break;
+                case "Diaries":
+                    return BO.Enums.ECategory.Diaries;
+                    break;
+                case "ArtMaterials":
+                    return BO.Enums.ECategory.ArtMaterials;
+                    break;
+                case "Games":
+                    return BO.Enums.ECategory.Games;
+                    break;
+
+            }
+            return BO.Enums.ECategory.Games;
+        }
+
+        #endregion
+
         #endregion
 
 

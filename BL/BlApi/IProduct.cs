@@ -16,9 +16,8 @@ namespace BlApi
 
         public BO.ProductItem GetProductItemForCatalog(int id, BO.Cart CostumerCart);
 
-
-        //להוסיף פונקציה שמקבלת פרמטרים ויוצרת מהם DO<PRODUCT
-        public void AddProduct(DO.Product p);
+        public void AddProduct(BO.Product p);
+        public void AddProductFromWindow(int ID,string name,string category,double price, int inStock);
 
         public void UpdateProduct(BO.Product item);
 

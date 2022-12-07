@@ -41,5 +41,15 @@ namespace PL
         {
             new Product.MProductWindow(bl.Product).Show();
         }
+
+        private void ProductListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
+
+        private void ProductListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+
+        }
     }
 }
