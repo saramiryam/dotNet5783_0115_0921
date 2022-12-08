@@ -27,22 +27,35 @@ namespace BlImplementation
         /// <exception cref="BO.ProductNotExistsException">product not exists with this id</exception>
         public BO.Cart AddItemToCart(BO.Cart cart, int itemId)
         {
+            if (cart == null)
+            {
+                throw new BO.SendEmptyCartException("try to add to an empty cart") { SendEmptyCart = itemId.ToString() };
+            }
+            else { 
             bool exist = cart.ItemList.Exists(e => e.ID == itemId);
             if (exist)
             {
                 BO.OrderItem BOI = cart.ItemList.Find(e => e.ID == itemId);
-                DO.Product DP = Dal.Product.Get(itemId);
-                if (BOI.Amount < DP.InStock)
+                if (BOI != null)
                 {
-                    BOI.Amount++;
-                    BOI.sumItem += BOI.Price;
-                    cart.TotalSum += BOI.Price;
-                    return cart;
+                    DO.Product DP = Dal.Product.Get(itemId);
+                    if (BOI.Amount < DP.InStock)
+                    {
+                        BOI.Amount++;
+                        BOI.sumItem += BOI.Price;
+                        cart.TotalSum += BOI.Price;
+                        return cart;
+                    }
+                    else
+                    {
+                        throw new BO.NotEnoughInStockException("Not enough in stock") { NotEnoughInStock = itemId.ToString() };
+                    }
                 }
                 else
                 {
-                    throw new BO.NotEnoughInStockException("Not enough in stock") { NotEnoughInStock = itemId.ToString() };
+                    return cart;
                 }
+
             }
             else
             {
@@ -77,6 +90,7 @@ namespace BlImplementation
             }
 
         }
+        }
         public BO.Cart UpdateAmount(BO.Cart cart, int itemId, int amount)
         {
             bool exist = cart.ItemList.Exists(e => e.ID == itemId);
@@ -85,6 +99,10 @@ namespace BlImplementation
                 throw new BO.ItemNotInCartException("item not in cart") { ItemNotInCart = itemId.ToString() };
             }
             BO.OrderItem BOI = cart.ItemList.Find(e => e.ID == itemId);
+            if (BOI == null)
+            {
+                return cart;
+            }
             if (amount < 0)
             {
                 throw new BO.NegativeAmountException("negative amount") { NegativeAmount = itemId.ToString() };
@@ -127,29 +145,37 @@ namespace BlImplementation
                 throw new BO.AdressIsNullException("adress is null") { AdressIsNull = adress.ToString() };
             }
             checkEmail(email);
-            foreach (var item in cart.ItemList)
+            if (cart.ItemList != null)
             {
-                try
+                foreach (var item in cart.ItemList)
                 {
-                    DO.Product DP = Dal.Product.Get(item.ID);
-                    if (item.Amount < 0)
+                    if (item != null)
                     {
-                        throw new BO.NegativeAmountException("negative amount")
+                        try
                         {
-                            NegativeAmount = item.Amount.ToString()
-                        };
-                    }
-                    if (item.Amount > DP.InStock)
-                    {
-                        throw new BO.NotEnoughInStockException("Not enough in stock") { NotEnoughInStock = item.Amount.ToString() };
+                            DO.Product DP = Dal.Product.Get(item.ID);
+                            if (item.Amount < 0)
+                            {
+                                throw new BO.NegativeAmountException("negative amount")
+                                {
+                                    NegativeAmount = item.Amount.ToString()
+                                };
+                            }
+                            if (item.Amount > DP.InStock)
+                            {
+                                throw new BO.NotEnoughInStockException("Not enough in stock") { NotEnoughInStock = item.Amount.ToString() };
+                            }
+
+                        }
+                        catch (DO.RequestedItemNotFoundException)
+                        {
+                            throw new BO.ItemInCartNotExistsAsProductException("item in cart not exists as product") { ItemInCartNotExistsAsProduct = item.ToString() };
+                        }
                     }
 
                 }
-                catch (DO.RequestedItemNotFoundException)
-                {
-                    throw new BO.ItemInCartNotExistsAsProductException("item in cart not exists as product") { ItemInCartNotExistsAsProduct = item.ToString() };
-                }
             }
+
 
             #endregion
 
@@ -167,26 +193,33 @@ namespace BlImplementation
             try
             {
 
-               int orderID = Dal.Order.Add(o);
-                try
+                int orderID = Dal.Order.Add(o);
+                if (cart.ItemList != null)
                 {
-                    foreach (var item in cart.ItemList)
+                    try
                     {
-                        Dal.OrderItem.Add(new DO.OrderItem()
+                        foreach (var item in cart.ItemList)
                         {
-                            ID = 0,
-                            ProductID = item.ID,
-                            OrderID = orderID,
-                            Price = item.Price,
-                            Amount = item.Amount
-                        });
-
+                            if (item != null)
+                            {
+                                Dal.OrderItem.Add(new DO.OrderItem()
+                                {
+                                    ID = 0,
+                                    ProductID = item.ID,
+                                    OrderID = orderID,
+                                    Price = item.Price,
+                                    Amount = item.Amount
+                                });
+                            }
+                     
+                        }
+                    }
+                    catch (DO.ItemAlreadyExistsException)
+                    {
+                        throw new BO.ItemAlreadyExistsException("item aleardy exists") { ItemAlreadyExists = o.ToString() };
                     }
                 }
-                catch (DO.ItemAlreadyExistsException)
-                {
-                    throw new BO.ItemAlreadyExistsException("item aleardy exists") { ItemAlreadyExists = o.ToString() };
-                }
+               
             }
             catch (DO.RequestedItemNotFoundException)
             {
@@ -194,12 +227,11 @@ namespace BlImplementation
             }
             try
             {
-                foreach (var item in cart.ItemList)
+                if(cart.ItemList != null)
                 {
-                    DO.Product p = Dal.Product.Get(item.ID);
-                    p.InStock -= item.Amount;
-                    Dal.Product.Update(p);
+
                 }
+                
             }
             catch (DO.RequestedItemNotFoundException)
             {

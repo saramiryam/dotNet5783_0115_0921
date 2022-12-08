@@ -33,7 +33,7 @@ namespace PL
         {
             //casting toString
             string cat=CategorySelector.SelectedItem.ToString();
-            ProductListView.ItemsSource = bl.Product.GetProductForListByCategory(cat);
+            ProductListView.ItemsSource = bl.Product.GetProductForListByCategory(cat!);
 
         }
         private void ProductListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)

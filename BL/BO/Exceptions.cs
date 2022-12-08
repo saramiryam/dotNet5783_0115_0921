@@ -12,7 +12,7 @@ namespace BO
 
     public class EmptyNameException : Exception
     {
-        public string EmptyName { get; set; }
+        public string? EmptyName { get; set; }
 
         public EmptyNameException(string msg) : base(msg) { }
     }
@@ -58,7 +58,15 @@ namespace BO
         public ProductNotExistsException(string msg) : base(msg) { }
     }
 
+    public class GetEmptyCateporyException : Exception
+    {
+        public string? GetEmptyCatepory { get; set; }
+
+        public GetEmptyCateporyException(string msg) : base(msg) { }
+    }
+    
     #endregion
+
 
 
     #region cart exceptions
@@ -67,6 +75,13 @@ namespace BO
         public string? ItemAlreadyExists { get; set; }
 
         public ItemAlreadyExistsException(string msg) : base(msg) { }
+    }
+
+    public class SendEmptyCartException : Exception
+    {
+        public string? SendEmptyCart { get; set; }
+
+        public SendEmptyCartException(string msg) : base(msg) { }
     }
 
 

@@ -10,7 +10,7 @@ public class Order : BlApi.IOrder
 {
     private IDal Dal = new Dal.DalList();
     #region method
-    public IEnumerable<BO.OrderForList> GetListOfOrders()
+    public IEnumerable<BO.OrderForList?> GetListOfOrders()
     {
         IEnumerable<DO.Order?> orderList = new List<DO.Order?>();
         List<BO.OrderForList> ordersForList = new List<BO.OrderForList>();
@@ -19,14 +19,16 @@ public class Order : BlApi.IOrder
         IEnumerable<OrderTracking> orderTracking = new List<OrderTracking>();
         foreach (var item in orderList)
         {
+            if (item != null) { 
             ordersForList.Add(new BO.OrderForList()
             {
-                OrderID = item!.Value.ID,
+                OrderID = item.Value.ID,
                 CustomerName = item.Value.CustomerName,
                 Status = CheckStatus(item.Value.OrderDate, item.Value.ShipDate, item.Value.DeliveryDate),
                 AmountOfItem = GetAmountItems(item.Value.ID),
                 TotalSum = CheckTotalSum(item.Value.ID)
             });
+            }
 
         }
         return ordersForList;
@@ -287,7 +289,7 @@ public class Order : BlApi.IOrder
         };
         return newOrder;
     }
-    public BO.Enums.EStatus CheckStatus(DateTime OrderDate, DateTime ShipDate, DateTime DeliveryDate)
+    public BO.Enums.EStatus CheckStatus(DateTime? OrderDate, DateTime? ShipDate, DateTime? DeliveryDate)
     {
         DateTime today = DateTime.Now;
         if (today>=OrderDate && today>=ShipDate &&ShipDate!=DateTime.MinValue&& today>=DeliveryDate&&DeliveryDate!=DateTime.MinValue)
@@ -350,7 +352,7 @@ public class Order : BlApi.IOrder
         return BOorderItemList;
 
     }
-    public string getOrderItemName(int productId)
+    public string? getOrderItemName(int productId)
     {
         DO.Product product = new DO.Product();
         product = Dal.Product.Get(productId);

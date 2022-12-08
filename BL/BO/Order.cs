@@ -37,7 +37,7 @@ public class Order
     Order Date: {OrderDate}
     Ship Date: {ShipDate}
     Delivery Date: {DeliveryDate}
-    List of Item:{ItemList.ToString()}
+    List of Item:{ItemList!.ToString()}
     Total sum:{TotalSum}
 ";
 

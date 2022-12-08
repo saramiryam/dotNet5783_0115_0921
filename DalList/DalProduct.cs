@@ -86,7 +86,7 @@ public class DalProduct:IProduct
     /// <exception cref="Exception">product not exists, can not update</exception>
     public void Update(Product _p)
     {
-        if (_p.ID == null || _p.Name == null || _p.Category == null || _p.Price == null || _p.InStock == null)
+        if (  _p.Name == null || _p.Category == null )
         {
             return;
 
