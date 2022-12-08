@@ -39,10 +39,11 @@ internal class DalOrder:IOrder
     /// <exception cref="Exception">order not exists</exception>
     public Order Get(int _num)
     {
-        Order _orderToGet = new Order();
-        _orderToGet = DataSource._Orders.Find(e => e.ID == _num);
-        if (_orderToGet.ID != 0)
-            return _orderToGet;
+        if (DataSource._Orders == null) throw new RequestedItemNotFoundException("order not exists,can not get") { RequestedItemNotFound = _num.ToString() };
+        Order? _orderToGet = new Order();
+        _orderToGet = DataSource._Orders.Find(e => e.HasValue && e!.Value.ID == _num);
+        if (_orderToGet.HasValue)
+            return (Order)_orderToGet;
         else
             throw new RequestedItemNotFoundException("order not exists,can not get") { RequestedItemNotFound = _num.ToString() };
 
@@ -52,9 +53,9 @@ internal class DalOrder:IOrder
     /// cope the orders to a new arrey and return it
     /// </summary>
     /// <returns>arrey with all the orders</returns>
-    public IEnumerable<Order> GetAll()
+    public IEnumerable<Order?> GetAll()
     {
-        return (IEnumerable<Order>)DataSource._Orders;
+        return (IEnumerable<Order?>)DataSource._Orders!;
     }
 
     /// <summary>
@@ -64,8 +65,10 @@ internal class DalOrder:IOrder
     /// <exception cref="Exception">order not exists, can not delete</exception>
     public void Delete(int _num)
     {
-        Order _orderToDel = DataSource._Orders.Find(e => e.ID == _num);
-        if (_orderToDel.ID != 0)
+        if (DataSource._Orders == null) throw new RequestedItemNotFoundException("order not exists,can not delete") { RequestedItemNotFound = _num.ToString() };
+        Order? _orderToDel = new Order();
+        _orderToDel = DataSource._Orders.Find(e => e.HasValue && e!.Value.ID == _num);
+        if (_orderToDel.HasValue)
             DataSource._Orders.Remove(_orderToDel);
         else
             throw new RequestedItemNotFoundException("order not exists,can not delete") { RequestedItemNotFound = _num.ToString() };
@@ -84,8 +87,10 @@ internal class DalOrder:IOrder
             return;
 
         }
-        Order _orderToUpdate = DataSource._Orders.Find(e => e.ID == _o.ID);
-        if (_orderToUpdate.ID != 0)
+        if (DataSource._Orders == null) throw new RequestedUpdateItemNotFoundException("order not exists,can not update") { RequestedUpdateItemNotFound = _o.ToString() };
+        Order? _orderToUpdate = new Order();
+        _orderToUpdate = DataSource._Orders.Find(e => e.HasValue && e!.Value.ID == _o.ID);
+        if (_orderToUpdate.HasValue)
         {
             DataSource._Orders.Remove(_orderToUpdate);
             DataSource._Orders.Add(_o);

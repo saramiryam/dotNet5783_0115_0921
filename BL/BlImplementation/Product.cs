@@ -5,6 +5,7 @@ using DO;
 using System;
 using System.Diagnostics;
 using System.Xml.Linq;
+using static System.Collections.Specialized.BitVector32;
 
 namespace BlImplementation
 {
@@ -19,17 +20,17 @@ namespace BlImplementation
 
         public IEnumerable<BO.ProductForList> GetListOfProduct()
         {
-            IEnumerable<DO.Product> productsList = new List<DO.Product>();
+            IEnumerable<DO.Product?> productsList = new List<DO.Product?>();
             List<BO.ProductForList> productsForList = new List<BO.ProductForList>();
             productsList = Dal.Product.GetAll();
             foreach (var item in productsList)
             {
                 productsForList.Add(new BO.ProductForList()
                 {
-                    ID = item.ID,
-                    Name = item.Name,
-                    Price = item.Price,
-                    Category = (BO.Enums.ECategory)item.Category
+                    ID = item!.Value.ID,
+                    Name = item!.Value.Name,
+                    Price = item!.Value.Price,
+                    Category = (BO.Enums.ECategory)item!.Value.Category
                 });
 
             }
@@ -37,19 +38,19 @@ namespace BlImplementation
         }
         public IEnumerable<BO.ProductForList> GetProductForListByCategory(string category)
         {
-            IEnumerable<DO.Product> productsList = new List<DO.Product>();
+            IEnumerable<DO.Product?> productsList = new List<DO.Product?>();
             List<BO.ProductForList> productsForList = new List<BO.ProductForList>();
             productsList = Dal.Product.GetAll();
             foreach (var item in productsList)
             {
-                if (item.Category.ToString()==category)
+                if (item!.Value.Category.ToString()==category)
                 {
                     productsForList.Add(new BO.ProductForList()
                     {
-                        ID = item.ID,
-                        Name = item.Name,
-                        Price = item.Price,
-                        Category = (BO.Enums.ECategory)item.Category
+                        ID = item!.Value.ID,
+                        Name = item!.Value.Name,
+                        Price = item!.Value.Price,
+                        Category = (BO.Enums.ECategory)item!.Value.Category
                     });
                 }
               
@@ -142,10 +143,14 @@ namespace BlImplementation
 
             }
         }
-        public void AddProductFromWindow(int id, string name, string category, double price, int inStock)
+        public void AddProductFromWindow(int id, string name, string category, double price, int inStock,string action)
         {
+            
              BO.Product newProduct = new() { ID=id,Name=name,Category=GetCategory(category),Price=price,InStock=inStock};
-            AddProduct(newProduct);
+            if (action == "add")
+                AddProduct(newProduct);
+            else
+                UpdateProduct(newProduct);
         }
 
 
@@ -167,12 +172,12 @@ namespace BlImplementation
 
         public void DeleteProduct(int id)
         {
-            IEnumerable<DO.OrderItem> orderList = new List<DO.OrderItem>();
+            IEnumerable<DO.OrderItem?> orderList = new List<DO.OrderItem?>();
             orderList = Dal.OrderItem.GetAll();
             bool flag = false;
             foreach (var OI in orderList)
             {
-                if (OI.ProductID == id)
+                if (OI!.Value.ProductID == id)
                 {
                     flag = true;
                 }

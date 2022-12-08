@@ -36,20 +36,17 @@ namespace PL
             ProductListView.ItemsSource = bl.Product.GetProductForListByCategory(cat);
 
         }
-
-        private void Button_Click_1(object sender, RoutedEventArgs e)
-        {
-            new Product.MProductWindow(bl.Product).Show();
-        }
-
-        private void ProductListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-
-        }
-
         private void ProductListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
 
+            BO.ProductForList p = (BO.ProductForList)ProductListView.SelectedValue;
+            new Product.MProductWindow(p.ID).Show();
+
+        }
+
+        private void Add_Click_(object sender, RoutedEventArgs e)
+        {
+            new Product.MProductWindow().Show();
         }
     }
 }

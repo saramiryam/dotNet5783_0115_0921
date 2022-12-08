@@ -33,22 +33,23 @@ internal class DalOrderItem:IOrderItem
     /// <exception cref="Exception"></exception>
     public OrderItem Get(int orderItemID)
     {
-        OrderItem _newOrderItem = new OrderItem();
-        _newOrderItem = DataSource._arrOrderItem.Find(e => e.ID == orderItemID);
-        if (_newOrderItem.ID == 0)
-            throw new RequestedItemNotFoundException("orderItem not exists,can not do get") { RequestedItemNotFound = orderItemID.ToString() };
+        if (DataSource._arrOrderItem == null) throw new RequestedItemNotFoundException("orderItem not exists,can not do get") { RequestedItemNotFound = orderItemID.ToString() };
+        OrderItem? _newOrderItem = new OrderItem();
+        _newOrderItem = DataSource._arrOrderItem.Find(e => e.HasValue && e!.Value.ID == orderItemID);
+        if (_newOrderItem.HasValue)
+            return (OrderItem)_newOrderItem;
+        throw new RequestedItemNotFoundException("orderItem not exists,can not do get") { RequestedItemNotFound = orderItemID.ToString() };
 
-        else
-            return _newOrderItem;
+
     }
     /// <summary>
     /// return all order items and throw exception if it does not exist
     /// </summary>
     /// <returns>order item arr</returns>
-    public IEnumerable<OrderItem> GetAll()
+    public IEnumerable<OrderItem?> GetAll()
     {
         
-            return (IEnumerable<OrderItem>)DataSource._arrOrderItem;
+            return (IEnumerable<OrderItem?>)DataSource._arrOrderItem!;
     }
     /// <summary>
     ///  delete order item and throw exception if it does not exist
@@ -58,8 +59,10 @@ internal class DalOrderItem:IOrderItem
     /// <exception cref="Exception"></exception>
     public void Delete(int _orderItemID)
     {
-        OrderItem _orderItemToDel=DataSource._arrOrderItem.Find(e => e.ID == _orderItemID);
-        if(_orderItemToDel.ID != 0)
+        if (DataSource._arrOrderItem == null) throw new RequestedItemNotFoundException("orderItem not exists,can not do get") { RequestedItemNotFound = _orderItemID.ToString() };
+        OrderItem? _orderItemToDel = new OrderItem();
+        _orderItemToDel = DataSource._arrOrderItem.Find(e => e.HasValue && e!.Value.ID == _orderItemID);
+        if (_orderItemToDel.HasValue)
             DataSource._arrOrderItem.Remove(_orderItemToDel);
         else
             throw new RequestedItemNotFoundException("orderItem not exists,can not delete") { RequestedItemNotFound = _orderItemID.ToString() };
@@ -77,15 +80,17 @@ internal class DalOrderItem:IOrderItem
             return;
 
         }
-        OrderItem _orderItemToUpdate = DataSource._arrOrderItem.Find(e => e?.ID == _newOrderItem.ID && e?.OrderID == _newOrderItem.OrderID && e.ProductID == _newOrderItem.ProductID);
-        if (_orderItemToUpdate.ID != 0)
+
+        if (DataSource._arrOrderItem == null) throw new RequestedItemNotFoundException("orderItem not exists,can not do get") { RequestedItemNotFound = _newOrderItem.ToString() };
+        OrderItem? _orderItemToUpdate = new OrderItem();
+        _orderItemToUpdate = DataSource._arrOrderItem.Find(e => e.HasValue && e!.Value.ID == _newOrderItem.ID && e.Value.OrderID == _newOrderItem.OrderID && e.Value.ProductID == _newOrderItem.ProductID);
+        if (_orderItemToUpdate.HasValue)
         {
             DataSource._arrOrderItem.Remove(_orderItemToUpdate);
             DataSource._arrOrderItem.Add(_newOrderItem);
         }
         else
             throw new RequestedItemNotFoundException("orderItem not exists,can not update") { RequestedItemNotFound = _newOrderItem.ToString() };
-
     }
     /// <summary>
     /// get all items of specific order and throw exception if it does not exist
@@ -110,14 +115,13 @@ internal class DalOrderItem:IOrderItem
     /// <exception cref="Exception"></exception>
     public OrderItem getSingleOrederItemByProductAndOrder(int orderId, int productId)
     {
-
-        OrderItem _newOrderItem = new OrderItem();
-        _newOrderItem = DataSource._arrOrderItem.Find(e => e?.OrderID == orderId && e.ProductID==productId);
-        if (_newOrderItem.ID == 0)
-            throw new RequestedItemNotFoundException("orderItem not exists,can not get") { RequestedItemNotFound = orderId.ToString() };
-
+        if (DataSource._arrOrderItem == null) throw new RequestedItemNotFoundException("orderItem not exists,can not do get") { RequestedItemNotFound = orderId.ToString() };
+        OrderItem? _newOrderItem = new OrderItem();
+        _newOrderItem = DataSource._arrOrderItem.Find(e => e.HasValue && e!.Value.OrderID == orderId && e.Value.ProductID == productId);
+        if (_newOrderItem.HasValue)
+            return (OrderItem)_newOrderItem;
         else
-            return _newOrderItem;
+            throw new RequestedItemNotFoundException("orderItem not exists,can not get") { RequestedItemNotFound = orderId.ToString() };
     }
 }
 

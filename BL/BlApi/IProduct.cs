@@ -17,7 +17,7 @@ namespace BlApi
         public BO.ProductItem GetProductItemForCatalog(int id, BO.Cart CostumerCart);
 
         public void AddProduct(BO.Product p);
-        public void AddProductFromWindow(int ID,string name,string category,double price, int inStock);
+        public void AddProductFromWindow(int ID,string name,string category,double price, int inStock, string action);
 
         public void UpdateProduct(BO.Product item);
 

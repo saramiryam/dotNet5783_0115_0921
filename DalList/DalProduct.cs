@@ -39,10 +39,11 @@ public class DalProduct:IProduct
     /// <exception cref="Exception">product not exists</exception>
     public Product Get(int _num)
     {
-        Product _newProduct = new Product();
-        _newProduct = DataSource._Products.Find(e => e.ID == _num);
-        if (_newProduct.ID!=0)
-            return _newProduct;
+        if (DataSource._Products == null) throw new RequestedItemNotFoundException("order not exists,can not get") { RequestedItemNotFound = _num.ToString() };
+        Product? _newProduct = new Product();
+        _newProduct = DataSource._Products.Find(e => e.HasValue && e!.Value.ID == _num);
+        if (_newProduct.HasValue)
+            return (Product)_newProduct;
         else
             throw new RequestedItemNotFoundException("product not exists,can not do get") { RequestedItemNotFound = _num.ToString() };
 
@@ -53,9 +54,10 @@ public class DalProduct:IProduct
     /// cope the products to a new arrey and return it
     /// </summary>
     /// <returns>arrey with all the products</returns>
-    public IEnumerable<Product> GetAll()
+    public IEnumerable<Product?> GetAll()
     {
-      return (IEnumerable<Product>)DataSource._Products;
+        if (DataSource._Products == null) throw new RequestedItemNotFoundException("order not exists,can not get") { RequestedItemNotFound = "jjj".ToString() };
+        return (IEnumerable<Product?>)DataSource._Products;
     }
 
     /// <summary>
@@ -65,8 +67,11 @@ public class DalProduct:IProduct
     /// <exception cref="Exception">product not exists, can not delete</exception>
     public void Delete(int _num)
     {
-        Product _productToDel = DataSource._Products.Find(e => e.ID == _num);
-        if (_productToDel.ID != 0)
+
+        if (DataSource._Products == null) throw new RequestedItemNotFoundException("order not exists,can not get") { RequestedItemNotFound = _num.ToString() };
+        Product? _productToDel = new Product();
+        _productToDel = DataSource._Products.Find(e => e.HasValue && e!.Value.ID == _num);
+        if (_productToDel.HasValue)
             DataSource._Products.Remove(_productToDel);
         else
             throw new RequestedItemNotFoundException("product not exists,can not do delete") { RequestedItemNotFound = _num.ToString() };
@@ -86,8 +91,11 @@ public class DalProduct:IProduct
             return;
 
         }
-        Product _productToUpdate = DataSource._Products.Find(e => e.ID == _p.ID );
-        if (_productToUpdate.ID != 0)
+
+        if (DataSource._Products == null) throw new RequestedItemNotFoundException("order not exists,can not get") { RequestedItemNotFound = _p.ToString() };
+        Product? _productToUpdate = new Product();
+        _productToUpdate = DataSource._Products.Find(e => e.HasValue && e!.Value.ID == _p.ID);
+        if (_productToUpdate.HasValue)
         {
             DataSource._Products.Remove(_productToUpdate);
             DataSource._Products.Add(_p);

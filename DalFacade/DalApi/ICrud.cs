@@ -1,7 +1,7 @@
 ﻿
 namespace DalApi;
 
-public interface ICrud<T>
+public interface ICrud<T> where T:struct
 {
     T Get(int id);
     IEnumerable<T?> GetAll();  

@@ -12,7 +12,7 @@ public class Order : BlApi.IOrder
     #region method
     public IEnumerable<BO.OrderForList> GetListOfOrders()
     {
-        IEnumerable<DO.Order> orderList = new List<DO.Order>();
+        IEnumerable<DO.Order?> orderList = new List<DO.Order?>();
         List<BO.OrderForList> ordersForList = new List<BO.OrderForList>();
         orderList = Dal.Order.GetAll();
 
@@ -21,11 +21,11 @@ public class Order : BlApi.IOrder
         {
             ordersForList.Add(new BO.OrderForList()
             {
-                OrderID = item.ID,
-                CustomerName = item.CustomerName,
-                Status = CheckStatus(item.OrderDate, item.ShipDate, item.DeliveryDate),
-                AmountOfItem = GetAmountItems(item.ID),
-                TotalSum = CheckTotalSum(item.ID)
+                OrderID = item!.Value.ID,
+                CustomerName = item.Value.CustomerName,
+                Status = CheckStatus(item.Value.OrderDate, item.Value.ShipDate, item.Value.DeliveryDate),
+                AmountOfItem = GetAmountItems(item.Value.ID),
+                TotalSum = CheckTotalSum(item.Value.ID)
             });
 
         }
