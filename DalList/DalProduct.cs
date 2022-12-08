@@ -37,15 +37,21 @@ public class DalProduct:IProduct
     /// <param name="_num">the id of the product demanded</param>
     /// <returns>details of the product demanded</returns>
     /// <exception cref="Exception">product not exists</exception>
-    public Product Get(int _num)
+    public Product Get(Func<Product?, bool>? predict)
     {
-        if (DataSource._Products == null) throw new RequestedItemNotFoundException("order not exists,can not get") { RequestedItemNotFound = _num.ToString() };
-        Product? _newProduct = new Product();
-        _newProduct = DataSource._Products.Find(e => e.HasValue && e!.Value.ID == _num);
+        if (DataSource._Products == null)
+        {
+            throw new RequestedItemNotFoundException("order not exists,can not get") { RequestedItemNotFound = predict.ToString() };
+        }   
+            if (predict == null)
+        {
+            throw new GetPredictNullException("the predict is empty") { GetPredictNull = null };
+        }
+        Product? _newProduct = DataSource._Products.Find(e=> predict(e));
         if (_newProduct.HasValue)
             return (Product)_newProduct;
         else
-            throw new RequestedItemNotFoundException("product not exists,can not do get") { RequestedItemNotFound = _num.ToString() };
+            throw new RequestedItemNotFoundException("product not exists,can not do get") { RequestedItemNotFound = predict.ToString() };
 
 
     }
@@ -54,10 +60,23 @@ public class DalProduct:IProduct
     /// cope the products to a new arrey and return it
     /// </summary>
     /// <returns>arrey with all the products</returns>
-    public IEnumerable<Product?> GetAll()
+    public IEnumerable<Product?> GetAll(Func<Product?, bool>? predict=null)
     {
-        if (DataSource._Products == null) throw new RequestedItemNotFoundException("order not exists,can not get") { RequestedItemNotFound = "jjj".ToString() };
-        return (IEnumerable<Product?>)DataSource._Products;
+        if (DataSource._Products == null)
+        { 
+            throw new RequestedItemNotFoundException("order not exists,can not get") { RequestedItemNotFound = "jjj".ToString() }; 
+        }
+        if(predict == null)
+        {
+            return DataSource._Products;
+
+        }
+        else
+        {
+            List<Product?> _products = new List<Product?>();
+            _products=DataSource._Products.FindAll(e=> predict(e)); 
+            return _products;   
+        }
     }
 
     /// <summary>

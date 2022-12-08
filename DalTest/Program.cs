@@ -117,7 +117,7 @@ namespace DalTest
 
                         try
                         {
-                            Console.WriteLine(IDalVariable.Product.Get(product.ID));
+                            Console.WriteLine(IDalVariable.Product.Get(p=>p?.ID==product.ID));
                         }
                         catch (Exception e)
                         {
@@ -154,7 +154,7 @@ namespace DalTest
 
                         try
                         {
-                            product = IDalVariable.Product.Get(Id);
+                            product = IDalVariable.Product.Get(p => p?.ID == Id);
                         }
                         catch (Exception e)
                         {
@@ -219,7 +219,7 @@ namespace DalTest
                     int Id = int.Parse(Console.ReadLine());
                     try
                     {
-                        Console.WriteLine(IDalVariable.Order.Get(Id));
+                        Console.WriteLine(IDalVariable.Order.Get(p => p?.ID == Id));
                     }
                     catch (Exception e)
                     {
@@ -252,7 +252,7 @@ namespace DalTest
                     int idToUpdate = int.Parse(Console.ReadLine());
                     try
                     {
-                        order = IDalVariable.Order.Get(idToUpdate);
+                        order = IDalVariable.Order.Get(p => p?.ID == idToUpdate);
                     }
                     catch (Exception e)
                     {
@@ -327,7 +327,7 @@ namespace DalTest
                     int orderItemID = int.Parse(Console.ReadLine());
                     try
                     {
-                        Console.WriteLine(IDalVariable.OrderItem.Get(orderItemID));
+                        Console.WriteLine(IDalVariable.OrderItem.Get(p => p?.ID == orderItemID));
                     }
                     catch (Exception e)
                     {
@@ -360,7 +360,7 @@ namespace DalTest
                     int orderItemID2 = int.Parse(Console.ReadLine());
                     try
                     {
-                        orderItem = IDalVariable.OrderItem.Get(orderItemID2);
+                        orderItem = IDalVariable.OrderItem.Get(p => p?.ID == orderItemID2);
                     }
                     catch (Exception e)
                     {

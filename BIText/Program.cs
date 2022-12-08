@@ -126,7 +126,7 @@ namespace BlTest
                         product1.InStock = parse;
                         try
                         {
-                            blVariable.Product.AddProduct(product1);
+                            //blVariable.Product.AddProduct(product1);
                         }
                         catch (Exception e)
                         {

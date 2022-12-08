@@ -6,7 +6,7 @@ using DalApi;
 using System;
 using System.Collections;
 
-internal class DalOrderItem:IOrderItem
+internal class DalOrderItem : IOrderItem
 {/// <summary>
 /// add a new orderitem and throw exception if it does not exist
 /// </summary>
@@ -31,14 +31,22 @@ internal class DalOrderItem:IOrderItem
     /// <param name="orderItemID"></param>
     /// <returns>order item</returns>
     /// <exception cref="Exception"></exception>
-    public OrderItem Get(int orderItemID)
+    public OrderItem Get(Func<OrderItem?, bool>? predict)
     {
-        if (DataSource._arrOrderItem == null) throw new RequestedItemNotFoundException("orderItem not exists,can not do get") { RequestedItemNotFound = orderItemID.ToString() };
+
+        if (DataSource._arrOrderItem == null)
+        {
+            throw new RequestedItemNotFoundException("orderItem not exists,can not do get") { RequestedItemNotFound = predict?.ToString() };
+        }
+        if (predict == null)
+        {
+            throw new GetPredictNullException("the predict is empty") { GetPredictNull = null };
+        }
         OrderItem? _newOrderItem = new OrderItem();
-        _newOrderItem = DataSource._arrOrderItem.Find(e => e.HasValue && e!.Value.ID == orderItemID);
+        _newOrderItem = DataSource._arrOrderItem.Find(e => predict(e));
         if (_newOrderItem.HasValue)
             return (OrderItem)_newOrderItem;
-        throw new RequestedItemNotFoundException("orderItem not exists,can not do get") { RequestedItemNotFound = orderItemID.ToString() };
+        throw new RequestedItemNotFoundException("orderItem not exists,can not do get") { RequestedItemNotFound = predict.ToString() };
 
 
     }
@@ -46,10 +54,22 @@ internal class DalOrderItem:IOrderItem
     /// return all order items and throw exception if it does not exist
     /// </summary>
     /// <returns>order item arr</returns>
-    public IEnumerable<OrderItem?> GetAll()
+    public IEnumerable<OrderItem?> GetAll(Func<OrderItem?, bool>? predict = null)
     {
-        
-            return (IEnumerable<OrderItem?>)DataSource._arrOrderItem!;
+        if (DataSource._arrOrderItem == null)
+        {
+            throw new RequestedItemNotFoundException("order not exists,can not get") { RequestedItemNotFound = predict?.ToString() };
+        }
+        if (predict == null)
+        {
+            return (IEnumerable<OrderItem?>)DataSource._arrOrderItem;
+
+        }
+
+        List<OrderItem?> _OrderItems = new List<OrderItem?>();
+        _OrderItems = DataSource._arrOrderItem.FindAll(e => predict(e));
+        return _OrderItems;
+
     }
     /// <summary>
     ///  delete order item and throw exception if it does not exist

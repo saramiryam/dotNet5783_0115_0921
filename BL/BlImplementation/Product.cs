@@ -15,7 +15,6 @@ namespace BlImplementation
 
         private IDal Dal = new Dal.DalList();
 
-
         #region Methodes
 
         public IEnumerable<BO.ProductForList> GetListOfProduct()
@@ -25,18 +24,20 @@ namespace BlImplementation
             productsList = Dal.Product.GetAll();
             foreach (var item in productsList)
             {
-                if ((item != null) && (item.Value.Category!=null)) { 
-                productsForList.Add(new BO.ProductForList()
+                if ((item != null) && (item.Value.Category != null))
                 {
-                    ID = item.Value.ID,
-                    Name = item.Value.Name,
-                    Price = item.Value.Price,
-                    Category = (BO.Enums.ECategory)item.Value.Category
-                });
+                    productsForList.Add(new BO.ProductForList()
+                    {
+                        ID = item.Value.ID,
+                        Name = item.Value.Name,
+                        Price = item.Value.Price,
+                        Category = (BO.Enums.ECategory)item.Value.Category
+                    });
                 }
             }
             return productsForList;
         }
+
         public IEnumerable<BO.ProductForList> GetProductForListByCategory(string category)
         {
             IEnumerable<DO.Product?> productsList = new List<DO.Product?>();
@@ -62,8 +63,6 @@ namespace BlImplementation
             return productsForList;
         }
 
-
-        //עבור מנהל 
         public BO.Product GetProductItem(int id)
         {
             if (id <= 0)
@@ -75,7 +74,7 @@ namespace BlImplementation
                 DO.Product p = new DO.Product();
                 try
                 {
-                    p = Dal.Product.Get(id);
+                    p = Dal.Product.Get(e => e?.ID == id);
                 }
                 catch
                 {
@@ -90,7 +89,6 @@ namespace BlImplementation
             }
         }
 
-        //קטלוג קונה
         public BO.ProductItem GetProductItemForCatalog(int id, BO.Cart CostumerCart)
         {
             if (id <= 0)
@@ -102,25 +100,26 @@ namespace BlImplementation
                 DO.Product p = new DO.Product();
                 try
                 {
-                    p = Dal.Product.Get(id);
+                    p = Dal.Product.Get(e => e?.ID == id);
                 }
                 catch
                 {
                     throw new BO.NegativeIdException("negative id") { NegativeId = id.ToString() };
 
                 }
-                if (p.Category!=null) { 
-                BO.ProductItem PI = new BO.ProductItem()
+                if (p.Category != null)
                 {
-                    ID = p.ID,
-                    Name = p.Name,
-                    Category = (BO.Enums.ECategory)p.Category,
-                    Price = p.Price,
-                    InStock = p.InStock,
+                    BO.ProductItem PI = new BO.ProductItem()
+                    {
+                        ID = p.ID,
+                        Name = p.Name,
+                        Category = (BO.Enums.ECategory)p.Category,
+                        Price = p.Price,
+                        InStock = p.InStock,
 
-                    AmoutInYourCart = CostumerCart.ItemList.FindAll(e => e.ID == id).Count()
-                };
-                return PI;
+                        AmoutInYourCart = CostumerCart.ItemList.FindAll(e => e.ID == id).Count()
+                    };
+                    return PI;
                 }
                 else
                 {
@@ -129,7 +128,6 @@ namespace BlImplementation
             }
         }
 
-        //עבור מנהל
         public void AddProduct(BO.Product p)
         {
             //לדאוג שהפונקציה מתחת תבדוק גם את תקינות הקטגוריה
@@ -161,16 +159,16 @@ namespace BlImplementation
 
             }
         }
-        public void AddProductFromWindow(int id, string name, string category, double price, int inStock,string action)
+
+        public void AddProductFromWindow(int id, string name, string category, double price, int inStock, string action)
         {
-            
-             BO.Product newProduct = new() { ID=id,Name=name,Category=GetCategory(category),Price=price,InStock=inStock};
+
+            BO.Product newProduct = new() { ID = id, Name = name, Category = GetCategory(category), Price = price, InStock = inStock };
             if (action == "add")
                 AddProduct(newProduct);
             else
                 UpdateProduct(newProduct);
         }
-
 
         public void UpdateProduct(BO.Product item)
         {
@@ -195,7 +193,7 @@ namespace BlImplementation
             bool flag = false;
             foreach (var OI in orderList)
             {
-                if (OI!=null && OI.Value.ProductID == id)
+                if (OI != null && OI.Value.ProductID == id)
                 {
                     flag = true;
                 }
@@ -225,22 +223,23 @@ namespace BlImplementation
         #region DO to BO
         private BO.Product DOToBO(DO.Product p)
         {
-            if (p.Category != null) { 
-            BO.Product p1 = new BO.Product()
+            if (p.Category != null)
             {
-                ID = p.ID,
-                Name = p.Name,
-                Price = p.Price,
-                Category = (BO.Enums.ECategory)p.Category,
-                InStock = p.InStock
-            };
+                BO.Product p1 = new BO.Product()
+                {
+                    ID = p.ID,
+                    Name = p.Name,
+                    Price = p.Price,
+                    Category = (BO.Enums.ECategory)p.Category,
+                    InStock = p.InStock
+                };
                 return p1;
             }
             else
             {
-                throw new GetEmptyCateporyException("the product category is empty") { GetEmptyCatepory=null };
+                throw new GetEmptyCateporyException("the product category is empty") { GetEmptyCatepory = null };
             }
-           
+
         }
         #endregion
 

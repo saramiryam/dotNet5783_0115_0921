@@ -37,15 +37,22 @@ internal class DalOrder:IOrder
     /// <param name="_num">the id of the order demanded</param>
     /// <returns>details of the order demanded</returns>
     /// <exception cref="Exception">order not exists</exception>
-    public Order Get(int _num)
+    public Order Get(Func<Order?, bool>? predict)
     {
-        if (DataSource._Orders == null) throw new RequestedItemNotFoundException("order not exists,can not get") { RequestedItemNotFound = _num.ToString() };
+        if (DataSource._Orders == null)
+        {
+            throw new RequestedItemNotFoundException("order not exists,can not get") { RequestedItemNotFound = predict?.ToString()};
+        }
+        if (predict == null)
+        {
+            throw new GetPredictNullException("the predict is empty") { GetPredictNull = null };
+        }
         Order? _orderToGet = new Order();
-        _orderToGet = DataSource._Orders.Find(e => e.HasValue && e!.Value.ID == _num);
+        _orderToGet = DataSource._Orders.Find(e => predict(e));
         if (_orderToGet.HasValue)
             return (Order)_orderToGet;
         else
-            throw new RequestedItemNotFoundException("order not exists,can not get") { RequestedItemNotFound = _num.ToString() };
+            throw new RequestedItemNotFoundException("order not exists,can not get") { RequestedItemNotFound = predict?.ToString() };
 
     }
 
@@ -53,9 +60,20 @@ internal class DalOrder:IOrder
     /// cope the orders to a new arrey and return it
     /// </summary>
     /// <returns>arrey with all the orders</returns>
-    public IEnumerable<Order?> GetAll()
+    public IEnumerable<Order?> GetAll(Func<Order?, bool>? predict = null)
     {
-        return (IEnumerable<Order?>)DataSource._Orders!;
+        if (DataSource._Orders == null)
+        {
+            throw new RequestedItemNotFoundException("order not exists,can not get") { RequestedItemNotFound = predict?.ToString() };
+        }
+        if (predict == null)
+        {
+            return (IEnumerable<Order?>)DataSource._Orders;
+        }
+
+        List<Order?> _Orders = new List<Order?>();
+        _Orders = DataSource._Orders.FindAll(e => predict(e));
+        return _Orders;
     }
 
     /// <summary>
@@ -82,7 +100,7 @@ internal class DalOrder:IOrder
     /// <exception cref="Exception">product not exists, can not update</exception>
     public void Update(Order _o)
     {
-        if (_o.ID == null || _o.CustomerName == null || _o.CustomerEmail == null || _o.CustomerAdress == null || _o.OrderDate == null||_o.ShipDate==null||_o.DeliveryDate==null)
+        if (  _o.CustomerName == null || _o.CustomerEmail == null || _o.CustomerAdress == null || _o.OrderDate == null||_o.ShipDate==null||_o.DeliveryDate==null)
         {
             return;
 

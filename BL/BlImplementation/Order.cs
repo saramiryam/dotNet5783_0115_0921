@@ -10,6 +10,8 @@ public class Order : BlApi.IOrder
 {
     private IDal Dal = new Dal.DalList();
     #region method
+
+
     public IEnumerable<BO.OrderForList?> GetListOfOrders()
     {
         IEnumerable<DO.Order?> orderList = new List<DO.Order?>();
@@ -19,20 +21,22 @@ public class Order : BlApi.IOrder
         IEnumerable<OrderTracking> orderTracking = new List<OrderTracking>();
         foreach (var item in orderList)
         {
-            if (item != null) { 
-            ordersForList.Add(new BO.OrderForList()
+            if (item != null)
             {
-                OrderID = item.Value.ID,
-                CustomerName = item.Value.CustomerName,
-                Status = CheckStatus(item.Value.OrderDate, item.Value.ShipDate, item.Value.DeliveryDate),
-                AmountOfItem = GetAmountItems(item.Value.ID),
-                TotalSum = CheckTotalSum(item.Value.ID)
-            });
+                ordersForList.Add(new BO.OrderForList()
+                {
+                    OrderID = item.Value.ID,
+                    CustomerName = item.Value.CustomerName,
+                    Status = CheckStatus(item.Value.OrderDate, item.Value.ShipDate, item.Value.DeliveryDate),
+                    AmountOfItem = GetAmountItems(item.Value.ID),
+                    TotalSum = CheckTotalSum(item.Value.ID)
+                });
             }
 
         }
         return ordersForList;
     }
+
     public BO.Order GetOrderDetails(int id)
     {
         if (id <= 0)
@@ -44,7 +48,7 @@ public class Order : BlApi.IOrder
             DO.Order o = new DO.Order();
             try
             {
-                o = Dal.Order.Get(id);
+                o = Dal.Order.Get(e => e?.ID == id);
             }
             catch (DO.RequestedItemNotFoundException)
             {
@@ -56,13 +60,14 @@ public class Order : BlApi.IOrder
 
         }
     }
+
     public BO.Order UpdateShipDate(int id)
     {
 
         DO.Order o = new DO.Order();
         try
         {
-            o = Dal.Order.Get(id);
+            o = Dal.Order.Get(e => e?.ID == id);
         }
         catch (DO.RequestedItemNotFoundException)
         {
@@ -97,13 +102,14 @@ public class Order : BlApi.IOrder
 
 
     }
+
     public BO.Order UpdateDeliveryDate(int id)
     {
 
         DO.Order o = new DO.Order();
         try
         {
-            o = Dal.Order.Get(id);
+            o = Dal.Order.Get(e => e?.ID == id);
         }
         catch
         {
@@ -138,12 +144,13 @@ public class Order : BlApi.IOrder
 
 
     }
+
     public BO.OrderTracking GetOrderTracking(int orderId)
     {
         DO.Order o = new DO.Order();
         try
         {
-            o = Dal.Order.Get(orderId);
+            o = Dal.Order.Get(e => e?.ID == orderId);
         }
         catch (DO.RequestedItemNotFoundException)
         {
@@ -162,7 +169,7 @@ public class Order : BlApi.IOrder
                     Statuss = BO.Enums.EStatus.Done
                 };
 
-                orderTracking1.listOfStatus=new List<OrderTracking.StatusAndDate> { i};
+                orderTracking1.listOfStatus = new List<OrderTracking.StatusAndDate> { i };
                 break;
             case EStatus.Sent:
                 var i1 = new BO.OrderTracking.StatusAndDate()
@@ -222,7 +229,7 @@ public class Order : BlApi.IOrder
             }
             else
             {
-                DO.Product p = Dal.Product.Get(productId);
+                DO.Product p = Dal.Product.Get(e => e?.ID == productId);
                 if (amount > p.InStock)
                 {
                     throw new BO.NotEnoughInStockException("not enough in stock") { NotEnoughInStock = amount.ToString() };
@@ -239,7 +246,7 @@ public class Order : BlApi.IOrder
             //didnt find
             try
             {
-                DO.Product p = Dal.Product.Get(productId);
+                DO.Product p = Dal.Product.Get(e => e?.ID == productId);
                 if (amount > p.InStock)
                 {
                     throw new BO.NotEnoughInStockException("not enough in stock") { NotEnoughInStock = amount.ToString() };
@@ -292,9 +299,9 @@ public class Order : BlApi.IOrder
     public BO.Enums.EStatus CheckStatus(DateTime? OrderDate, DateTime? ShipDate, DateTime? DeliveryDate)
     {
         DateTime today = DateTime.Now;
-        if (today>=OrderDate && today>=ShipDate &&ShipDate!=DateTime.MinValue&& today>=DeliveryDate&&DeliveryDate!=DateTime.MinValue)
+        if (today >= OrderDate && today >= ShipDate && ShipDate != DateTime.MinValue && today >= DeliveryDate && DeliveryDate != DateTime.MinValue)
             return EStatus.Provided;
-        else if (today>=OrderDate && today>=ShipDate&&ShipDate!=DateTime.MinValue)
+        else if (today >= OrderDate && today >= ShipDate && ShipDate != DateTime.MinValue)
             return EStatus.Sent;
         else
             return EStatus.Done;
@@ -334,7 +341,7 @@ public class Order : BlApi.IOrder
     {
         IEnumerable<DO.OrderItem> orderItemList = new List<DO.OrderItem>();
         List<BO.OrderItem> BOorderItemList = new List<BO.OrderItem>();
-        orderItemList = (IEnumerable<DO.OrderItem>) Dal.OrderItem.getAllMyOrdesItem(id);
+        orderItemList = (IEnumerable<DO.OrderItem>)Dal.OrderItem.getAllMyOrdesItem(id);
         int count = 0;
         foreach (var item in orderItemList)
         {
@@ -355,7 +362,7 @@ public class Order : BlApi.IOrder
     public string? getOrderItemName(int productId)
     {
         DO.Product product = new DO.Product();
-        product = Dal.Product.Get(productId);
+        product = Dal.Product.Get(e => e?.ID == productId);
         return product.Name;
     }
 

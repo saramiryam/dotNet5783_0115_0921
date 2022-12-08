@@ -5,7 +5,7 @@ namespace BO
 
     public class NegativeIdException : Exception
     {
-        public string NegativeId { get; set; }
+        public string? NegativeId { get; set; }
 
         public NegativeIdException(string msg) : base(msg) { }
     }
@@ -20,7 +20,7 @@ namespace BO
 
     public class NegativePriceException : Exception
     {
-        public string NegativePrice { get; set; }
+        public string? NegativePrice { get; set; }
 
         public NegativePriceException(string msg) : base(msg) { }
     }
@@ -29,7 +29,7 @@ namespace BO
 
     public class NegativeStockException : Exception
     {
-        public string NegativeStock { get; set; }
+        public string? NegativeStock { get; set; }
 
         public NegativeStockException(string msg) : base(msg) { }
     }
@@ -37,7 +37,7 @@ namespace BO
 
     public class ProductAlreadyExistsException : Exception
     {
-        public string ProductAlreadyExists { get; set; }
+        public string? ProductAlreadyExists { get; set; }
 
         public ProductAlreadyExistsException(string msg) : base(msg) { }
     }
@@ -46,14 +46,14 @@ namespace BO
 
     public class ProductInUseException : Exception
     {
-        public string ProductInUse { get; set; }
+        public string? ProductInUse { get; set; }
 
         public ProductInUseException(string msg) : base(msg) { }
     }
 
     public class ProductNotExistsException : Exception
     {
-        public string ProductNotExists { get; set; }
+        public string? ProductNotExists { get; set; }
 
         public ProductNotExistsException(string msg) : base(msg) { }
     }
@@ -162,7 +162,7 @@ namespace BO
 
     public class OrderNotExistsException : Exception
     {
-        public string OrderNotExists { get; set; }
+        public string? OrderNotExists { get; set; }
 
         public OrderNotExistsException(string msg) : base(msg) { }
     }
@@ -170,7 +170,7 @@ namespace BO
 
     public class UpdateOrderNotSucceedException : Exception
     {
-        public string UpdateOrderNotSucceed { get; set; }
+        public string? UpdateOrderNotSucceed { get; set; }
 
         public UpdateOrderNotSucceedException(string msg) : base(msg) { }
     }
@@ -178,14 +178,14 @@ namespace BO
 
     public class OrderHasAlreadySentException : Exception
     {
-        public string OrderHasAlreadySent { get; set; }
+        public string? OrderHasAlreadySent { get; set; }
 
         public OrderHasAlreadySentException(string msg) : base(msg) { }
     }
 
     public class OrderHasAlreadyProvidedException : Exception
     {
-        public string OrderHasAlreadyProvided { get; set; }
+        public string? OrderHasAlreadyProvided { get; set; }
 
         public OrderHasAlreadyProvidedException(string msg) : base(msg) { }
     }

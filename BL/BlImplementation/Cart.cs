@@ -31,66 +31,68 @@ namespace BlImplementation
             {
                 throw new BO.SendEmptyCartException("try to add to an empty cart") { SendEmptyCart = itemId.ToString() };
             }
-            else { 
-            bool exist = cart.ItemList.Exists(e => e.ID == itemId);
-            if (exist)
+            else
             {
-                BO.OrderItem BOI = cart.ItemList.Find(e => e.ID == itemId);
-                if (BOI != null)
+                bool exist = cart.ItemList.Exists(e => e.ID == itemId);
+                if (exist)
                 {
-                    DO.Product DP = Dal.Product.Get(itemId);
-                    if (BOI.Amount < DP.InStock)
+                    BO.OrderItem BOI = cart.ItemList.Find(e => e.ID == itemId);
+                    if (BOI != null)
                     {
-                        BOI.Amount++;
-                        BOI.sumItem += BOI.Price;
-                        cart.TotalSum += BOI.Price;
-                        return cart;
+                        DO.Product DP = Dal.Product.Get(e => e?.ID == itemId);
+                        if (BOI.Amount < DP.InStock)
+                        {
+                            BOI.Amount++;
+                            BOI.sumItem += BOI.Price;
+                            cart.TotalSum += BOI.Price;
+                            return cart;
+                        }
+                        else
+                        {
+                            throw new BO.NotEnoughInStockException("Not enough in stock") { NotEnoughInStock = itemId.ToString() };
+                        }
                     }
                     else
                     {
-                        throw new BO.NotEnoughInStockException("Not enough in stock") { NotEnoughInStock = itemId.ToString() };
+                        return cart;
                     }
+
                 }
                 else
                 {
-                    return cart;
-                }
-
-            }
-            else
-            {
-                try
-                {
-                    DO.Product DP = Dal.Product.Get(itemId);
-                    if (DP.InStock > 0)
+                    try
                     {
-                        cart.ItemList.Add(new BO.OrderItem()
+                        DO.Product DP = Dal.Product.Get(e => e?.ID == itemId);
+                        if (DP.InStock > 0)
                         {
-                            numInOrder = cart.ItemList.Count + 1,
-                            ID = DP.ID,
-                            Name = DP.Name,
-                            Price = DP.Price,
-                            Amount = 1,
-                            sumItem = DP.Price
+                            cart.ItemList.Add(new BO.OrderItem()
+                            {
+                                numInOrder = cart.ItemList.Count + 1,
+                                ID = DP.ID,
+                                Name = DP.Name,
+                                Price = DP.Price,
+                                Amount = 1,
+                                sumItem = DP.Price
 
-                        });
-                        cart.TotalSum += DP.Price;
-                        return cart;
+                            });
+                            cart.TotalSum += DP.Price;
+                            return cart;
+                        }
+                        else
+                        {
+                            throw new BO.ProductNotInStockException("product not in stock") { ProductNotInStock = itemId.ToString() };
+                        }
+
                     }
-                    else
+                    catch (DO.RequestedItemNotFoundException)
                     {
-                        throw new BO.ProductNotInStockException("product not in stock") { ProductNotInStock = itemId.ToString() };
+                        throw new BO.ProductNotExistsException("product not exists") { ProductNotExists = itemId.ToString() };
                     }
+                }
 
-                }
-                catch (DO.RequestedItemNotFoundException)
-                {
-                    throw new BO.ProductNotExistsException("product not exists") { ProductNotExists = itemId.ToString() };
-                }
             }
+        }
 
-        }
-        }
         public BO.Cart UpdateAmount(BO.Cart cart, int itemId, int amount)
         {
             bool exist = cart.ItemList.Exists(e => e.ID == itemId);
@@ -132,6 +134,7 @@ namespace BlImplementation
             return cart;
 
         }
+
         public void SubmitOrder(BO.Cart cart, string name, string email, string adress)
         {
             #region check correct data
@@ -153,7 +156,7 @@ namespace BlImplementation
                     {
                         try
                         {
-                            DO.Product DP = Dal.Product.Get(item.ID);
+                            DO.Product DP = Dal.Product.Get(e => e?.ID == item.ID);
                             if (item.Amount < 0)
                             {
                                 throw new BO.NegativeAmountException("negative amount")
@@ -211,7 +214,7 @@ namespace BlImplementation
                                     Amount = item.Amount
                                 });
                             }
-                     
+
                         }
                     }
                     catch (DO.ItemAlreadyExistsException)
@@ -219,7 +222,7 @@ namespace BlImplementation
                         throw new BO.ItemAlreadyExistsException("item aleardy exists") { ItemAlreadyExists = o.ToString() };
                     }
                 }
-               
+
             }
             catch (DO.RequestedItemNotFoundException)
             {
@@ -227,11 +230,11 @@ namespace BlImplementation
             }
             try
             {
-                if(cart.ItemList != null)
+                if (cart.ItemList != null)
                 {
 
                 }
-                
+
             }
             catch (DO.RequestedItemNotFoundException)
             {

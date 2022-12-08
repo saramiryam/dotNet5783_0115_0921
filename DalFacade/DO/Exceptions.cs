@@ -28,3 +28,13 @@ public class ItemAlreadyExistsException : Exception
     {
     }
 }
+
+
+public class GetPredictNullException : Exception
+{
+    public string? GetPredictNull { get; set; }
+
+    public GetPredictNullException(string msg) : base(msg)
+    {
+    }
+}
