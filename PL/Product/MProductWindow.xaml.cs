@@ -48,7 +48,7 @@ namespace PL.Product
         {
             int Id = int.Parse(id.Text);
             string Name = name.Text;
-            var Cat = chooseCategoryToAdd.Text;
+            var Cat =chooseCategoryToAdd.Text;
             double Price = double.Parse(price.Text);
             chooseCategoryToAdd.Text = "ghjh";
             int InStock = int.Parse(inStock.Text);
