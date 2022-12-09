@@ -37,6 +37,30 @@ namespace BlImplementation
             }
             return productsForList;
         }
+        //public IEnumerable<BO.ProductForList> GetListOfProduct(Func<Product?, bool>? predict = null)
+        //{
+        //    IEnumerable<DO.Product?> productsList ;
+        //    List<BO.ProductForList> productsForList = new List<BO.ProductForList>();
+        //    if(predict != null)
+        //    {
+        //        productsList = Dal.Product.GetAll(e=>predict(e));
+        //    }
+        //    productsList = Dal.Product.GetAll();
+        //    foreach (var item in productsList)
+        //    {
+        //        if ((item != null) && (item.Value.Category != null))
+        //        {
+        //            productsForList.Add(new BO.ProductForList()
+        //            {
+        //                ID = item.Value.ID,
+        //                Name = item.Value.Name,
+        //                Price = item.Value.Price,
+        //                Category = (BO.Enums.ECategory)item.Value.Category
+        //            });
+        //        }
+        //    }
+        //    return productsForList;
+        //}
 
         public IEnumerable<BO.ProductForList> GetProductForListByCategory(string category)
         {
