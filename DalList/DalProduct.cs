@@ -39,9 +39,9 @@ public class DalProduct:IProduct
     /// <exception cref="Exception">product not exists</exception>
     public Product Get(Func<Product?, bool>? predict)
     {
-        if (DataSource._Products == null)
+        if (DataSource._Products is null)
         {
-            throw new RequestedItemNotFoundException("order not exists,can not get") { RequestedItemNotFound = predict.ToString() };
+            throw new RequestedItemNotFoundException("order not exists,can not get") { RequestedItemNotFound =null };
         }   
             if (predict == null)
         {

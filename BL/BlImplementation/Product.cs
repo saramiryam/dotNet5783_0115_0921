@@ -128,11 +128,12 @@ namespace BlImplementation
                 }
                 catch
                 {
-                    throw new BO.NegativeIdException("negative id") { NegativeId = id.ToString() };
+                    throw new ProductNotInStockException("product not exsist") { ProductNotInStock = id.ToString() };
 
                 }
-                if (p.Category != null)
+                if (p.Category is not null)
                 {
+                    if (CostumerCart.ItemList == null) throw new ItemInCartNotExistsAsProductException("item list not exsist") { ItemInCartNotExistsAsProduct = p.ToString() };
                     BO.ProductItem PI = new BO.ProductItem()
                     {
                         ID = p.ID,
@@ -140,8 +141,7 @@ namespace BlImplementation
                         Category = (BO.Enums.ECategory)p.Category,
                         Price = p.Price,
                         InStock = p.InStock,
-
-                        AmoutInYourCart = CostumerCart.ItemList.FindAll(e => e.ID == id).Count()
+                        AmoutInYourCart = CostumerCart.ItemList.FindAll(e => e?.ID == id).Count()
                     };
                     return PI;
                 }
@@ -200,6 +200,8 @@ namespace BlImplementation
             CheckCorectData(item.ID, item.Name, item.Price, item.InStock);
             try
             {
+                if(item.Category is null||item.Name is null) throw new GetEmptyCateporyException("the product category is empty") { GetEmptyCatepory = null };
+
                 Dal.Product.Update(newProductWithData(item.ID, item.Name, (BO.Enums.ECategory)item.Category, item.Price, item.InStock));
             }
             catch (DO.RequestedItemNotFoundException)

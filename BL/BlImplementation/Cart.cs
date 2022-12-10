@@ -33,10 +33,11 @@ namespace BlImplementation
             }
             else
             {
-                bool exist = cart.ItemList.Exists(e => e.ID == itemId);
+                if (cart.ItemList == null) throw new ItemNotInCartException("item list not exsist") { ItemNotInCart = cart.ToString() };
+                bool exist = cart.ItemList.Exists(e => e?.ID == itemId);
                 if (exist)
                 {
-                    BO.OrderItem BOI = cart.ItemList.Find(e => e.ID == itemId);
+                    BO.OrderItem BOI = cart.ItemList.Find(e => e?.ID == itemId);
                     if (BOI != null)
                     {
                         DO.Product DP = Dal.Product.Get(e => e?.ID == itemId);
@@ -95,12 +96,17 @@ namespace BlImplementation
 
         public BO.Cart UpdateAmount(BO.Cart cart, int itemId, int amount)
         {
-            bool exist = cart.ItemList.Exists(e => e.ID == itemId);
+            if (cart.ItemList == null) throw new ItemNotInCartException("item list not exsist") { ItemNotInCart = cart.ToString() };
+            bool exist = cart.ItemList.Exists(e => e?.ID == itemId);
             if (!exist)
             {
                 throw new BO.ItemNotInCartException("item not in cart") { ItemNotInCart = itemId.ToString() };
             }
-            BO.OrderItem BOI = cart.ItemList.Find(e => e.ID == itemId);
+           // if(cart.ItemList.Find(e => e?.ID == itemId) is  null) throw new ItemNotInCartException("item list not exsist") { ItemNotInCart = cart.ToString() };
+           if(itemId == 0)  throw new NegativeIdException("negative id") { NegativeId = itemId.ToString() };
+            Predicate<BO.OrderItem?> match = e => e?.ID == itemId;
+            if(match is null)throw new ItemNotInCartException("item list is empty") { ItemNotInCart=null };
+            BO.OrderItem BOI = cart.ItemList.Find(match);
             if (BOI == null)
             {
                 return cart;
@@ -112,7 +118,7 @@ namespace BlImplementation
             else if (amount == 0)
             {
                 cart.TotalSum -= BOI.sumItem;
-                cart.ItemList.RemoveAll(e => e.ID == itemId);
+                cart.ItemList.RemoveAll(e => e?.ID == itemId);
             }
             else if (BOI.Amount < amount)
             {
@@ -141,11 +147,11 @@ namespace BlImplementation
 
             if (name is null)
             {
-                throw new BO.NameIsNullException("name is null") { NameIsNull = name.ToString() };
+                throw new BO.NameIsNullException("name is null") { NameIsNull = cart.ToString() };
             }
             if (adress is null)
             {
-                throw new BO.AdressIsNullException("adress is null") { AdressIsNull = adress.ToString() };
+                throw new BO.AdressIsNullException("adress is null") { AdressIsNull = cart.ToString() };
             }
             checkEmail(email);
             if (cart.ItemList != null)

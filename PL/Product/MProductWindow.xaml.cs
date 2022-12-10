@@ -29,7 +29,6 @@ namespace PL.Product
         {
             InitializeComponent();
             chooseCategoryToAdd.ItemsSource = Enum.GetValues(typeof(BO.Enums.ECategory));
-            
         }
         public MProductWindow(int idToUpdate)
         {
@@ -38,10 +37,11 @@ namespace PL.Product
             productTOUp= bl.Product.GetProductItem(idToUpdate);
             id.Text= productTOUp.ID.ToString();
             name.Text= productTOUp.Name!.ToString();
-            chooseCategoryToAdd.Text = "ghjh";
+            chooseCategoryToAdd.SelectedIndex = (int)productTOUp.Category!;
             price.Text = productTOUp.Price.ToString();
             inStock.Text = productTOUp.InStock.ToString();  
             chooseCategoryToAdd.ItemsSource = Enum.GetValues(typeof(BO.Enums.ECategory));
+
         }
 
         private void addButton_Click(object sender, RoutedEventArgs e)
@@ -50,12 +50,13 @@ namespace PL.Product
             string Name = name.Text;
             var Cat =chooseCategoryToAdd.Text;
             double Price = double.Parse(price.Text);
-            chooseCategoryToAdd.Text = "ghjh";
             int InStock = int.Parse(inStock.Text);
             string action = addOrUpdateButton.Content.ToString()!;
-             bl.Product.AddProductFromWindow(Id, Name, Cat, Price, InStock, action);
-
-            
+            bl.Product.AddProductFromWindow(Id, Name, Cat, Price, InStock, action);
+            if (addOrUpdateButton.Content is not null&& addOrUpdateButton.Content == (object)"add")
+                MessageBox.Show("the product " + Name + " add");
+            else
+                MessageBox.Show("the product " + Name + " update");
 
         }
     }

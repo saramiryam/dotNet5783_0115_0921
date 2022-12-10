@@ -169,7 +169,7 @@ public class Order : BlApi.IOrder
                     Statuss = BO.Enums.EStatus.Done
                 };
 
-                orderTracking1.listOfStatus = new List<OrderTracking.StatusAndDate> { i };
+                orderTracking1.listOfStatus = new List<OrderTracking.StatusAndDate?> { i };
                 break;
             case EStatus.Sent:
                 var i1 = new BO.OrderTracking.StatusAndDate()
@@ -178,7 +178,7 @@ public class Order : BlApi.IOrder
                     Statuss = BO.Enums.EStatus.Done
                 };
 
-                orderTracking1.listOfStatus = new List<OrderTracking.StatusAndDate> { i1 };
+                orderTracking1.listOfStatus = new List<OrderTracking.StatusAndDate?> { i1 };
                 orderTracking1.listOfStatus.Add(new BO.OrderTracking.StatusAndDate()
                 {
                     Date = o.ShipDate,
@@ -193,7 +193,7 @@ public class Order : BlApi.IOrder
                     Statuss = BO.Enums.EStatus.Done
                 };
 
-                orderTracking1.listOfStatus = new List<OrderTracking.StatusAndDate> { i2 };
+                orderTracking1.listOfStatus = new List<OrderTracking.StatusAndDate?> { i2 };
                 orderTracking1.listOfStatus.Add(new BO.OrderTracking.StatusAndDate()
                 {
                     Date = o.ShipDate,
@@ -337,10 +337,10 @@ public class Order : BlApi.IOrder
         }
         return sum;
     }
-    public List<BO.OrderItem> GetAllItemsToOrder(int id)
+    public List<BO.OrderItem?> GetAllItemsToOrder(int id)
     {
         IEnumerable<DO.OrderItem> orderItemList = new List<DO.OrderItem>();
-        List<BO.OrderItem> BOorderItemList = new List<BO.OrderItem>();
+        List<BO.OrderItem?> BOorderItemList = new List<BO.OrderItem?>();
         orderItemList = (IEnumerable<DO.OrderItem>)Dal.OrderItem.getAllMyOrdesItem(id);
         int count = 0;
         foreach (var item in orderItemList)

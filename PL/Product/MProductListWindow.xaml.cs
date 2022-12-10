@@ -27,12 +27,15 @@ namespace PL
             InitializeComponent();
             ProductListView.ItemsSource = bl.Product.GetListOfProduct();
             CategorySelector.ItemsSource = Enum.GetValues(typeof(BO.Enums.ECategory));
+            CategorySelector.SelectedIndex = -1;
+            CategorySelector.Text = "all";
+
         }
 
         private void CategorySelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             //casting toString
-            string cat=CategorySelector.SelectedItem.ToString();
+            string cat=CategorySelector.SelectedItem.ToString()!;
             ProductListView.ItemsSource = bl.Product.GetProductForListByCategory(cat!);
 
         }

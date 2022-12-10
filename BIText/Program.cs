@@ -70,9 +70,12 @@ namespace BlTest
                     Main();
                     break;
                 case 1://get all products
-                    IEnumerable<ProductForList> listFromMethod = blVariable.Product.GetListOfProduct();
-                    foreach (ProductForList productForList in listFromMethod)
+                    IEnumerable<ProductForList?> listFromMethod = blVariable.Product.GetListOfProduct();
+                    foreach (var productForList in listFromMethod)
+                    {
+                        if(productForList is not null)  
                         Console.WriteLine(productForList);
+                    }
                     break;
 
                 case 2://get single product by id
@@ -100,23 +103,25 @@ namespace BlTest
                         Console.WriteLine("Price:");
                         int.TryParse(Console.ReadLine(), out parse);
                         product1.Price = parse;
-                        Console.WriteLine("type 0 for category Notebooks, 1 - Pens, 2 - Diaries, 3 - ArtMaterials, 4-Games");
+                        Console.WriteLine("type 1 for category Notebooks, 2- Pens, 3 - Diaries, 4 - ArtMaterials, 5-Games");
+                        var v=Console.ReadLine();
                         int category = int.Parse(Console.ReadLine());
+                        if(category == 0)throw new GetEmptyCateporyException("empty") { GetEmptyCatepory=null };   
                         switch (category)
                         {
-                            case 0:
+                            case 1:
                                 product1.Category = DO.Enums.ECategory.Notebooks;
                                 break;
-                            case 1:
+                            case 2:
                                 product1.Category = DO.Enums.ECategory.Pens;
                                 break;
-                            case 2:
+                            case 3:
                                 product1.Category = DO.Enums.ECategory.Diaries;
                                 break;
-                            case 3:
+                            case 4:
                                 product1.Category = DO.Enums.ECategory.ArtMaterials;
                                 break;
-                            case 4:
+                            case 5:
                                 product1.Category = DO.Enums.ECategory.Games;
                                 break;
 
@@ -258,7 +263,7 @@ namespace BlTest
                             if (cart.ItemList is null)
                             {
 
-                                cart.ItemList = new List<BO.OrderItem>() { orderItem };
+                                cart.ItemList = new List<BO.OrderItem?>() { orderItem };
                                 cart.TotalSum += orderItem.sumItem;
 
                             }
@@ -310,7 +315,7 @@ namespace BlTest
                             };
                             if (cart.ItemList is null)
                             {
-                                cart.ItemList = new List<BO.OrderItem>() { orderItem };
+                                cart.ItemList = new List<BO.OrderItem?>() { orderItem };
                                 cart.TotalSum += orderItem.sumItem;
                             }
                             else
@@ -354,7 +359,6 @@ namespace BlTest
                         cart.CustomerEmail = Console.ReadLine();
                         cart.CustomerAdress = Console.ReadLine();
                         Console.WriteLine("enter product id and amount of items in cart,for finish enter 0");
-
                         int.TryParse(Console.ReadLine(), out parse);
                         int productId = parse;
                         int.TryParse(Console.ReadLine(), out parse);
@@ -373,7 +377,7 @@ namespace BlTest
                             };
                             if (cart.ItemList is null)
                             {
-                                cart.ItemList = new List<BO.OrderItem>() { orderItem };
+                                cart.ItemList = new List<BO.OrderItem?>() { orderItem };
                                 cart.TotalSum += orderItem.sumItem;
                             }
                             else
@@ -397,6 +401,7 @@ namespace BlTest
 
         static void orderMethod()
         {
+            if (blVariable.Order is null) throw new OrderNotExistsException("order list is empty") { OrderNotExists = null };
             int choiceForOrder;
             int parse;
             Console.WriteLine("Enter 1 to get all orders " +
@@ -405,7 +410,6 @@ namespace BlTest
                 "4 - to update the delivery date of an order" +
                 "5 - to track an order " +
                 "or 0 to exit:");
-            double parse2;
             int.TryParse(Console.ReadLine(), out parse);
             choiceForOrder = parse;
             switch (choiceForOrder)
@@ -415,9 +419,12 @@ namespace BlTest
                     break;
                 case 1://get all orders
                     {
-                        IEnumerable<OrderForList> listFromMethod = blVariable.Order.GetListOfOrders();
-                        foreach (OrderForList orderForList in listFromMethod)
+                        IEnumerable<OrderForList?> listFromMethod = blVariable.Order.GetListOfOrders();
+                        foreach (var orderForList in listFromMethod)
+                        {
+                            if(orderForList is not null)
                             Console.WriteLine(orderForList);
+                        }
                         break;
                     }
                 case 2://get a single order by id
@@ -428,7 +435,7 @@ namespace BlTest
 
                         try
                         {
-                            IEnumerable<BO.OrderItem> listFromMethod = blVariable.Order.GetOrderDetails(order.ID).ItemList;
+                            IEnumerable<BO.OrderItem?> listFromMethod = blVariable.Order.GetOrderDetails(order.ID).ItemList!;
                             Console.WriteLine(blVariable.Order.GetOrderDetails(order.ID).ID);
                             Console.WriteLine(blVariable.Order.GetOrderDetails(order.ID).CustomerEmail);
                             Console.WriteLine(blVariable.Order.GetOrderDetails(order.ID).CustomerAdress);
@@ -436,7 +443,7 @@ namespace BlTest
                             Console.WriteLine(blVariable.Order.GetOrderDetails(order.ID).OrderDate);
                             Console.WriteLine(blVariable.Order.GetOrderDetails(order.ID).ShipDate);
                             Console.WriteLine(blVariable.Order.GetOrderDetails(order.ID).DeliveryDate);
-                            foreach (BO.OrderItem item in listFromMethod)
+                            foreach (var item in listFromMethod)
                                 Console.WriteLine(item);
                             Console.WriteLine(blVariable.Order.GetOrderDetails(order.ID).TotalSum);
                             Console.WriteLine(blVariable.Order.GetOrderDetails(order.ID));
@@ -497,7 +504,7 @@ namespace BlTest
                         {
 
                             orderTrackingFromMethod = blVariable.Order.GetOrderTracking(parse);
-                            List<OrderTracking.StatusAndDate> listFromMethod = orderTrackingFromMethod.listOfStatus;
+                            List<OrderTracking.StatusAndDate?> listFromMethod = orderTrackingFromMethod.listOfStatus!;
                             foreach (var item in listFromMethod)
                             {
                                 Console.WriteLine(item);
