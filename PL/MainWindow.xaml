@@ -7,7 +7,16 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
-        <Button Name="productList"  Content="products" HorizontalAlignment="Left" Margin="349,197,0,0" VerticalAlignment="Top" Click="productList_Click"/>
-
+        <!--<Button Name="productList"  Content="products" HorizontalAlignment="Left" Margin="349,197,0,0" VerticalAlignment="Top" Click="productList_Click" FontStyle="Oblique"FontSize="30"/>-->
+        <Button  Width="120" Height="100"  Name="productList"  Content="products" HorizontalAlignment="Center" VerticalAlignment="Center" Click="productList_Click" FontStyle="Oblique" FontSize="25" FontWeight="ExtraBlack" Foreground="BlueViolet">
+            <Button.Template>
+                <ControlTemplate TargetType="Button" >
+                    <Grid>
+                        <Ellipse Fill="Yellow" StrokeThickness="2" Stroke="BlueViolet" />
+                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </Grid>
+                </ControlTemplate>
+            </Button.Template>
+        </Button>
     </Grid>
 </Window>

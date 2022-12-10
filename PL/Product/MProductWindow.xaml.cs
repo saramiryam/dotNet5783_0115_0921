@@ -23,7 +23,7 @@ namespace PL.Product
     {
 
         IBl bl = new Bl();
-        BO.Product productTOUp =new BO.Product();
+        BO.Product productTOUp = new BO.Product();
 
         public MProductWindow()
         {
@@ -34,12 +34,12 @@ namespace PL.Product
         {
             InitializeComponent();
             addOrUpdateButton.Content = "update";
-            productTOUp= bl.Product.GetProductItem(idToUpdate);
-            id.Text= productTOUp.ID.ToString();
-            name.Text= productTOUp.Name!.ToString();
+            productTOUp = bl.Product.GetProductItem(idToUpdate);
+            id.Text = productTOUp.ID.ToString();
+            name.Text = productTOUp.Name!.ToString();
             chooseCategoryToAdd.SelectedIndex = (int)productTOUp.Category!;
             price.Text = productTOUp.Price.ToString();
-            inStock.Text = productTOUp.InStock.ToString();  
+            inStock.Text = productTOUp.InStock.ToString();
             chooseCategoryToAdd.ItemsSource = Enum.GetValues(typeof(BO.Enums.ECategory));
 
         }
@@ -48,15 +48,23 @@ namespace PL.Product
         {
             int Id = int.Parse(id.Text);
             string Name = name.Text;
-            var Cat =chooseCategoryToAdd.Text;
+            var Cat = chooseCategoryToAdd.Text;
             double Price = double.Parse(price.Text);
             int InStock = int.Parse(inStock.Text);
             string action = addOrUpdateButton.Content.ToString()!;
             bl.Product.AddProductFromWindow(Id, Name, Cat, Price, InStock, action);
-            if (addOrUpdateButton.Content is not null&& addOrUpdateButton.Content == (object)"add")
+            if (addOrUpdateButton.Content.ToString() == "add")
+            {
                 MessageBox.Show("the product " + Name + " add");
+                new MProductListWindow().Show();
+                Close();
+            }
             else
+            {
                 MessageBox.Show("the product " + Name + " update");
+                new MProductListWindow().Show();
+                Close();
+            }
 
         }
     }
