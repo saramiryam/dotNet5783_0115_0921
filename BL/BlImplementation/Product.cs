@@ -272,9 +272,9 @@ namespace BlImplementation
         #region check corect data
         public void CheckCorectData(int id, string? name, double price, int inStock)
         {
-            if (id < 0)
+            if (id < 100000)
             {
-                throw new BO.NegativeIdException("negative id") { NegativeId = id.ToString() };
+                throw new BO.NegativeIdException("id is to short") { NegativeId = id.ToString() };
             }
             if (name is null)
             {
@@ -282,11 +282,11 @@ namespace BlImplementation
             }
             if (price <= 0)
             {
-                throw new BO.NegativePriceException("empty name") { NegativePrice = price.ToString() };
+                throw new BO.NegativePriceException("negative price") { NegativePrice = price.ToString() };
             }
             if (inStock < 0)
             {
-                throw new BO.NegativeStockException("empty name") { NegativeStock = inStock.ToString() };
+                throw new BO.NegativeStockException("negatuve in stock") { NegativeStock = inStock.ToString() };
             }
             return;
 

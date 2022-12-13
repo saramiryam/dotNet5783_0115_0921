@@ -20,12 +20,11 @@ public class DalProduct:IProduct
     /// <exception cref="Exception">product exists</exception>
     public int Add(Product _p)
     {
-        if (DataSource._Products.Exists(e => e?.Name == _p.Name&&e?.Category==_p.Category&&e?.Price==_p.Price&&e?.InStock==_p.InStock))
+        if (DataSource._Products.Exists(e => e?.ID == _p.ID))
             throw new ItemAlreadyExistsException("product exists, can not add") { ItemAlreadyExists = _p.ToString() };
 
         else
         {
-            _p.ID = DataSource.Config.CalNumOfProduct;
             DataSource._Products.Add(_p);
             return _p.ID;
         }

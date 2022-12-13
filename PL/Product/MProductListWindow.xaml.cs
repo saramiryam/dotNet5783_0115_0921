@@ -53,15 +53,17 @@ namespace PL
         {
 
             BO.ProductForList p = (BO.ProductForList)ProductListView.SelectedValue;
-            new Product.MProductWindow(p.ID).Show();
-            this.Close();
+            new Product.MProductWindow(p.ID).ShowDialog();
+            ProductListView.ItemsSource = bl.Product.GetListOfProduct();
+       
 
         }
 
         private void Add_Click_(object sender, RoutedEventArgs e)
         {
-            new Product.MProductWindow().Show();
-            this.Close();
+            new Product.MProductWindow().ShowDialog();
+            ProductListView.ItemsSource = bl.Product.GetListOfProduct();
+      
         }
     }
 }
