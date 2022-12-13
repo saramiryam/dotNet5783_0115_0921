@@ -6,13 +6,15 @@
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
+    
     <Grid>
+        <Image Width="800" Height="450" Source="/picture/main.webp" />
         <!--<Button Name="productList"  Content="products" HorizontalAlignment="Left" Margin="349,197,0,0" VerticalAlignment="Top" Click="productList_Click" FontStyle="Oblique"FontSize="30"/>-->
-        <Button  Width="120" Height="100"  Name="productList"  Content="products" HorizontalAlignment="Center" VerticalAlignment="Center" Click="productList_Click" FontStyle="Oblique" FontSize="25" FontWeight="ExtraBlack" Foreground="BlueViolet">
+        <Button  Width="120" Height="100"  Name="productList"  Content="products" HorizontalAlignment="Stretch" VerticalAlignment="Top" Click="productList_Click" FontStyle="Oblique" FontSize="25" FontWeight="ExtraBlack" Foreground="Black">
             <Button.Template>
                 <ControlTemplate TargetType="Button" >
                     <Grid>
-                        <Ellipse Fill="Yellow" StrokeThickness="2" Stroke="BlueViolet" />
+                        <Ellipse Fill="Yellow" StrokeThickness="2" Stroke="Black" />
                         <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
                     </Grid>
                 </ControlTemplate>
