@@ -216,7 +216,7 @@ public class Order : BlApi.IOrder
     public void ManagerActions(int orderId, int productId, int amount)
     {
         List<DO.OrderItem> ordersItem = new List<DO.OrderItem>();
-        ordersItem = (List<DO.OrderItem>)Dal.OrderItem.getAllMyOrdesItem(orderId);
+        ordersItem = (List<DO.OrderItem>)Dal.OrderItem.GetAll(e => e?.OrderID == orderId);
 
         bool flag = ordersItem.Exists(e => e.ProductID == productId && e.OrderID == orderId);
         if (flag)
@@ -311,7 +311,7 @@ public class Order : BlApi.IOrder
         IEnumerable<DO.OrderItem?> orderItemList = new List<DO.OrderItem?>();
         try
         {
-            orderItemList = Dal.OrderItem.getAllMyOrdesItem(id);
+            orderItemList = Dal.OrderItem.GetAll(e => e?.OrderID == id);
         }
         catch
         {
@@ -330,11 +330,14 @@ public class Order : BlApi.IOrder
     public double CheckTotalSum(int id)
     {
         IEnumerable<DO.OrderItem?> orderItemList = new List<DO.OrderItem?>();
-        orderItemList = (IEnumerable<DO.OrderItem?>)Dal.OrderItem.getAllMyOrdesItem(id);
+        orderItemList = (IEnumerable<DO.OrderItem?>)Dal.OrderItem.GetAll(e => e?.OrderID == id);
         double sum = 0;
         foreach (var item in orderItemList)
         {
-            sum = sum + item.Value.Price * item.Value.Amount;
+            if (item != null)
+            {
+                sum = sum + item.Value.Price * item.Value.Amount;
+            }
         }
         return sum;
     }
@@ -342,7 +345,7 @@ public class Order : BlApi.IOrder
     {
         IEnumerable<DO.OrderItem> orderItemList = new List<DO.OrderItem>();
         List<BO.OrderItem?> BOorderItemList = new List<BO.OrderItem?>();
-        orderItemList = (IEnumerable<DO.OrderItem>)Dal.OrderItem.getAllMyOrdesItem(id);
+        orderItemList = (IEnumerable<DO.OrderItem>)Dal.OrderItem.GetAll(e => e?.OrderID == id);
         int count = 0;
         foreach (var item in orderItemList)
         {

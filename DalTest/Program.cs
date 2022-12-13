@@ -389,7 +389,7 @@ namespace DalTest
                     int IdOrder = int.Parse(Console.ReadLine());
                     try
                     {
-                        foreach (OrderItem myOrderItem in IDalVariable.OrderItem.getAllMyOrdesItem(IdOrder))
+                        foreach (OrderItem myOrderItem in IDalVariable.OrderItem.GetAll(e => e?.OrderID == IdOrder))
                         {
                             if (myOrderItem.OrderID != 0)
                                 Console.WriteLine(myOrderItem);
@@ -408,7 +408,7 @@ namespace DalTest
                     int productID = int.Parse(Console.ReadLine());
                     try
                     {
-                        Console.WriteLine(IDalVariable.OrderItem.getSingleOrederItemByProductAndOrder(orderID, productID));
+                        Console.WriteLine(IDalVariable.OrderItem.Get(e => e.HasValue && e.Value.OrderID == orderID && e.Value.ProductID == productID));
                     }
                     catch (Exception e)
                     {

@@ -56,20 +56,24 @@ internal class DalOrderItem : IOrderItem
     /// <returns>order item arr</returns>
     public IEnumerable<OrderItem?> GetAll(Func<OrderItem?, bool>? predict = null)
     {
+        List<OrderItem?> _OrderItems = new List<OrderItem?>();
         if (DataSource._arrOrderItem == null)
         {
             throw new RequestedItemNotFoundException("order not exists,can not get") { RequestedItemNotFound = predict?.ToString() };
         }
         if (predict == null)
         {
-            return (IEnumerable<OrderItem?>)DataSource._arrOrderItem;
-
+            _OrderItems=DataSource._arrOrderItem;
+        }
+        else
+        {
+            _OrderItems = DataSource._arrOrderItem.FindAll(e => predict(e));
         }
 
-        List<OrderItem?> _OrderItems = new List<OrderItem?>();
-        _OrderItems = DataSource._arrOrderItem.FindAll(e => predict(e));
-        return _OrderItems;
-
+        if (_OrderItems.Count > 0)
+            return _OrderItems;
+        else
+            throw new RequestedItemNotFoundException("order not exists,can not get all orderItems") { RequestedItemNotFound = predict?.ToString() };
     }
     /// <summary>
     ///  delete order item and throw exception if it does not exist
@@ -112,38 +116,7 @@ internal class DalOrderItem : IOrderItem
         else
             throw new RequestedItemNotFoundException("orderItem not exists,can not update") { RequestedItemNotFound = _newOrderItem.ToString() };
     }
-    /// <summary>
-    /// get all items of specific order and throw exception if it does not exist
-    /// </summary>
-    /// <param name="orderNum">specific</param>
-    /// <returns> all items</returns>
-    /// <exception cref="Exception"></exception>
-    public IEnumerable<OrderItem?> getAllMyOrdesItem(int orderNum)
-    {
-        var items= DataSource._arrOrderItem.FindAll(e => e?.OrderID == orderNum);
-        if (items.Count > 0)
-            return (IEnumerable<DO.OrderItem?>)items;
-        else
-            throw new RequestedItemNotFoundException("order not exists,can not get all orderItems") { RequestedItemNotFound = orderNum.ToString() };
-
-    }
-    /// <summary>
-    /// get the order item by productId and orderId
-    /// </summary>
-    /// <param name="orderId">num order of this order item</param>
-    /// <param name="productId">num product of this order item</param>
-    /// <returns>order item</returns>
-    /// <exception cref="Exception"></exception>
-    public OrderItem getSingleOrederItemByProductAndOrder(int orderId, int productId)
-    {
-        if (DataSource._arrOrderItem == null) throw new RequestedItemNotFoundException("orderItem not exists,can not do get") { RequestedItemNotFound = orderId.ToString() };
-        OrderItem? _newOrderItem = new OrderItem();
-        _newOrderItem = DataSource._arrOrderItem.Find(e => e.HasValue && e!.Value.OrderID == orderId && e.Value.ProductID == productId);
-        if (_newOrderItem.HasValue)
-            return (OrderItem)_newOrderItem;
-        else
-            throw new RequestedItemNotFoundException("orderItem not exists,can not get") { RequestedItemNotFound = orderId.ToString() };
-    }
+   
 }
 
 
