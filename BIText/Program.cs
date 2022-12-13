@@ -105,7 +105,7 @@ namespace BlTest
                         product1.Price = parse;
                         Console.WriteLine("type 1 for category Notebooks, 2- Pens, 3 - Diaries, 4 - ArtMaterials, 5-Games");
                         var v=Console.ReadLine();
-                        int category = int.Parse(Console.ReadLine());
+                        int category = int.Parse(Console.ReadLine()?? "category");
                         switch (category)
                         {
                             case 0:
@@ -144,7 +144,7 @@ namespace BlTest
                 case 4://delete
                     {
                         Console.WriteLine("Enter an Id of product:");
-                        int id = int.Parse(Console.ReadLine());
+                        int id = int.Parse(Console.ReadLine() ?? "id");
                         try
                         {
                             blVariable.Product.DeleteProduct(id);
@@ -161,7 +161,7 @@ namespace BlTest
 
 
                         Console.WriteLine("Enter an Id of product:");
-                        int Id = int.Parse(Console.ReadLine());
+                        int Id = int.Parse(Console.ReadLine()?? "Id");
                         try
                         {
                             product = blVariable.Product.GetProductItem(Id);
@@ -178,7 +178,7 @@ namespace BlTest
                         Console.WriteLine("name:");
                         product.Name = Console.ReadLine();
                         Console.WriteLine("type 0 for category Notebooks, 1 - Pens, 2 - Diaries, 3 - ArtMaterials, 4-Games");
-                        int category = int.Parse(Console.ReadLine());
+                        int category = int.Parse(Console.ReadLine() ?? "category");
                         switch (category)
                         {
                             case 0:

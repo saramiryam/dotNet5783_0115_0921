@@ -1,4 +1,6 @@
 ﻿// See https://aka.ms/new-console-template for more information
+using System.Runtime.InteropServices;
+
 namespace stage0
 {
     partial class Program
@@ -15,7 +17,7 @@ namespace stage0
         private static void welcome0115()
         {
             Console.Write("Enter your name: ");
-            string name = Console.ReadLine();
+            string name = Console.ReadLine() ?? "null";
             Console.WriteLine(name + ", welcome to my first console application");
         }
     }

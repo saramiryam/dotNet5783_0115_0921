@@ -72,7 +72,7 @@ namespace DalTest
                     int.TryParse(Console.ReadLine(), out parse);
                     product.Price = parse;
                     Console.WriteLine("type 0 for category Notebooks, 1 - Pens, 2 - Diaries, 3 - ArtMaterials, 4-Games");
-                    int category = int.Parse(Console.ReadLine());
+                    int category = int.Parse(Console.ReadLine()?? "category");
                     switch (category)
                     {
                         case 0:
@@ -128,12 +128,12 @@ namespace DalTest
                 case 3:
                     foreach (Product myProduct in IDalVariable.Product.GetAll())
                     {
-                        Console.WriteLine(myProduct);//אולי צריך את toString??
+                         Console.WriteLine(myProduct);//אולי צריך את toString??
                     }
                     break;
                 case 4://delete
                     Console.WriteLine("Enter an Id of product:");
-                    int id = int.Parse(Console.ReadLine());
+                    int id = int.Parse(Console.ReadLine()?? "id");
                     try
                     {
                         IDalVariable.Product.Delete(id);
@@ -147,7 +147,7 @@ namespace DalTest
                     {
 
                         Console.WriteLine("Enter an Id of product:");
-                        int Id = int.Parse(Console.ReadLine());
+                        int Id = int.Parse(Console.ReadLine() ?? "Id" );
                         string name;
                         double price;
                         int amountInStock;
@@ -164,7 +164,7 @@ namespace DalTest
                         Console.WriteLine("the product to update is" + product);
                         Console.WriteLine("Enter the new details of the product:");
                         Console.WriteLine("name:");
-                        name = Console.ReadLine();
+                        name = Console.ReadLine()?? "name";
                         Console.WriteLine("price:");
                         double.TryParse(Console.ReadLine(), out parse2);
                         price = parse2;
@@ -216,7 +216,7 @@ namespace DalTest
 
                 case 2:
                     Console.WriteLine("Enter an Id of Order:");
-                    int Id = int.Parse(Console.ReadLine());
+                    int Id = int.Parse(Console.ReadLine() ?? "Id" );
                     try
                     {
                         Console.WriteLine(IDalVariable.Order.Get(p => p?.ID == Id));
@@ -236,7 +236,7 @@ namespace DalTest
 
                 case 4://delete
                     Console.WriteLine("Enter an Id of order:");
-                    int IdToDelete = int.Parse(Console.ReadLine());
+                    int IdToDelete = int.Parse(Console.ReadLine() ?? "IdToDelete");
                     try
                     {
                         IDalVariable.Order.Delete(IdToDelete);
@@ -249,7 +249,7 @@ namespace DalTest
 
                 case 5://update
                     Console.WriteLine("Enter an Id of order:");
-                    int idToUpdate = int.Parse(Console.ReadLine());
+                    int idToUpdate = int.Parse(Console.ReadLine() ?? "idToUpdate");
                     try
                     {
                         order = IDalVariable.Order.Get(p => p?.ID == idToUpdate);
@@ -324,7 +324,7 @@ namespace DalTest
 
                 case 2:
                     Console.WriteLine("Enter an Id of the order item:");
-                    int orderItemID = int.Parse(Console.ReadLine());
+                    int orderItemID = int.Parse(Console.ReadLine() ?? "orderItemID");
                     try
                     {
                         Console.WriteLine(IDalVariable.OrderItem.Get(p => p?.ID == orderItemID));
@@ -344,7 +344,7 @@ namespace DalTest
 
                 case 4://delete
                     Console.WriteLine("Enter an Id of the order item:");
-                    int orderItemID1 = int.Parse(Console.ReadLine());
+                    int orderItemID1 = int.Parse(Console.ReadLine() ?? "orderItemID1");
                     try
                     {
                         IDalVariable.OrderItem.Delete(orderItemID1);
@@ -357,7 +357,7 @@ namespace DalTest
 
                 case 5://update
                     Console.WriteLine("Enter an Id of the order item:");
-                    int orderItemID2 = int.Parse(Console.ReadLine());
+                    int orderItemID2 = int.Parse(Console.ReadLine() ?? "orderItemID2");
                     try
                     {
                         orderItem = IDalVariable.OrderItem.Get(p => p?.ID == orderItemID2);
@@ -370,23 +370,23 @@ namespace DalTest
                     Console.WriteLine("the order item to update is" + orderItem);
                     Console.WriteLine("Enter the new details of the order item:");
                     Console.WriteLine("orderId:");
-                    int orderId = int.Parse(Console.ReadLine());
+                    int orderId = int.Parse(Console.ReadLine() ?? "orderId");
                     orderItem.OrderID = orderId;
                     Console.WriteLine("productId:");
-                    int productId = int.Parse(Console.ReadLine());
+                    int productId = int.Parse(Console.ReadLine() ?? "productId");
                     orderItem.ProductID = productId;
                     Console.WriteLine("price:");
-                    int pricePerUnit = int.Parse(Console.ReadLine());
+                    int pricePerUnit = int.Parse(Console.ReadLine() ?? "pricePerUnit");
                     orderItem.Price = pricePerUnit;
                     Console.WriteLine("amount");
-                    int quantity = int.Parse(Console.ReadLine());
+                    int quantity = int.Parse(Console.ReadLine() ?? "quantity");
                     orderItem.Amount = quantity;
                     IDalVariable.OrderItem.Update(orderItem);
                     break;
 
                 case 6:
                     Console.WriteLine("Enter Id of an order:");
-                    int IdOrder = int.Parse(Console.ReadLine());
+                    int IdOrder = int.Parse(Console.ReadLine() ?? "IdOrder");
                     try
                     {
                         foreach (OrderItem myOrderItem in IDalVariable.OrderItem.GetAll(e => e?.OrderID == IdOrder))
@@ -403,9 +403,9 @@ namespace DalTest
 
                 case 7:
                     Console.WriteLine("Enter an Id the order of the order item:");
-                    int orderID = int.Parse(Console.ReadLine());
+                    int orderID = int.Parse(Console.ReadLine() ?? "orderID");
                     Console.WriteLine("Enter an Id of the product the order item:");
-                    int productID = int.Parse(Console.ReadLine());
+                    int productID = int.Parse(Console.ReadLine() ?? "productID");
                     try
                     {
                         Console.WriteLine(IDalVariable.OrderItem.Get(e => e.HasValue && e.Value.OrderID == orderID && e.Value.ProductID == productID));
