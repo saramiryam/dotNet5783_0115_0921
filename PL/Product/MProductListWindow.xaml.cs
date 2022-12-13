@@ -34,7 +34,7 @@ namespace PL
             CategorySelector.Items.Add(BO.Enums.ECategory.ArtMaterials);
             CategorySelector.Items.Add(BO.Enums.ECategory.Notebooks);
             CategorySelector.Items.Add(BO.Enums.ECategory.Diaries);
-            CategorySelector.Items.Add("get all products")
+            CategorySelector.Items.Add("get all products");
             CategorySelector.Text = "all";
 
         }
@@ -45,7 +45,7 @@ namespace PL
             //casting toString
             var cat=CategorySelector.SelectedItem;
             if (cat is BO.Enums.ECategory)
-                ProductListView.ItemsSource = bl.Product.GetProductForListByCategory(cat!);
+                ProductListView.ItemsSource = bl.Product.GetProductForListByCategory((BO.Enums.ECategory)cat!);
             else
                 ProductListView.ItemsSource = bl.Product.GetListOfProduct();
         }

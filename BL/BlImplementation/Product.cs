@@ -62,7 +62,7 @@ namespace BlImplementation
         //    return productsForList;
         //}
 
-        public IEnumerable<BO.ProductForList> GetProductForListByCategory(string category)
+        public IEnumerable<BO.ProductForList> GetProductForListByCategory(BO.Enums.ECategory category)
         {
             IEnumerable<DO.Product?> productsList = new List<DO.Product?>();
             List<BO.ProductForList> productsForList = new List<BO.ProductForList>();
@@ -71,7 +71,7 @@ namespace BlImplementation
             {
                 if ((item != null) && (item.Value.Category != null))
                 {
-                    if (item.Value.Category.ToString() == category)
+                    if (item.Value.Category.ToString()== category.ToString())
                     {
                         productsForList.Add(new BO.ProductForList()
                         {
