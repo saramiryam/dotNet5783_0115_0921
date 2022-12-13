@@ -33,8 +33,8 @@ public struct Order
         CustomerEmail = newCustomerEmail;
         CustomerAdress = newCustomerAdress;
         OrderDate = DateTime.Now;
-        ShipDate = DateTime.MinValue;
-        DeliveryDate = DateTime.MinValue;
+        ShipDate = null;
+        DeliveryDate = null;
     }
 
     #endregion

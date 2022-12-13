@@ -24,8 +24,8 @@ internal class DalOrder:IOrder
         {
             _o.ID = DataSource.Config.CalNumOfIDOrder;
             _o.OrderDate = DateTime.Now;
-            _o.ShipDate = DateTime.MinValue;
-            _o.DeliveryDate = DateTime.MinValue;
+            _o.ShipDate = null;
+            _o.DeliveryDate = null;
             DataSource._Orders.Add(_o);
             return _o.ID;
         }

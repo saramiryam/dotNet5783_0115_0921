@@ -34,7 +34,7 @@ namespace PL
             CategorySelector.Items.Add(BO.Enums.ECategory.ArtMaterials);
             CategorySelector.Items.Add(BO.Enums.ECategory.Notebooks);
             CategorySelector.Items.Add(BO.Enums.ECategory.Diaries);
-            CategorySelector.Items.Add("get all products");
+            CategorySelector.Items.Add("all products");
             CategorySelector.Text = "all";
 
         }

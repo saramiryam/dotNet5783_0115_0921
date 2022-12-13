@@ -196,8 +196,8 @@ namespace BlImplementation
                 CustomerAdress = adress,
                 CustomerEmail = email,
                 OrderDate = DateTime.Now,
-                ShipDate = DateTime.MinValue,
-                DeliveryDate = DateTime.MinValue,
+                ShipDate = null,
+                DeliveryDate = null,
             };
             try
             {

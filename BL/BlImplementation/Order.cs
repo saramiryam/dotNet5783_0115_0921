@@ -299,9 +299,9 @@ public class Order : BlApi.IOrder
     public BO.Enums.EStatus CheckStatus(DateTime? OrderDate, DateTime? ShipDate, DateTime? DeliveryDate)
     {
         DateTime today = DateTime.Now;
-        if (today >= OrderDate && today >= ShipDate && ShipDate != DateTime.MinValue && today >= DeliveryDate && DeliveryDate != DateTime.MinValue)
+        if (today >= OrderDate && today >= ShipDate && ShipDate != null && today >= DeliveryDate && DeliveryDate != null)
             return EStatus.Provided;
-        else if (today >= OrderDate && today >= ShipDate && ShipDate != DateTime.MinValue)
+        else if (today >= OrderDate && today >= ShipDate && ShipDate != null)
             return EStatus.Sent;
         else
             return EStatus.Done;

@@ -106,9 +106,10 @@ namespace BlTest
                         Console.WriteLine("type 1 for category Notebooks, 2- Pens, 3 - Diaries, 4 - ArtMaterials, 5-Games");
                         var v=Console.ReadLine();
                         int category = int.Parse(Console.ReadLine());
-                        if(category == 0)throw new GetEmptyCateporyException("empty") { GetEmptyCatepory=null };   
                         switch (category)
                         {
+                            case 0:
+                                throw new GetEmptyCateporyException("empty") { GetEmptyCatepory = null };
                             case 1:
                                 product1.Category = BO.Enums.ECategory.Notebooks;
                                 break;

@@ -63,7 +63,7 @@ public static class DataSource
         addNewOrderItem(100008, 200003, 17, 2);
 
         addNewOrderItem(100000, 200004, 6.9, 3);
-        addNewOrderItem(100002, 200004, 5.9, 1);
+        addNewOrderItem(100002, 200000, 5.9, 1);
         addNewOrderItem(100009, 200004, 7, 7);
         addNewOrderItem(100010, 200004, 9.5, 2);
 
@@ -104,10 +104,10 @@ public static class DataSource
         addNewOrder("Moshe Cohen", "david@gmail.com", "buksboim 12");
         addNewOrder("Ayala rov", "Ayala@gmail.com", "חיים ויטאל");
         addNewOrder("Sara Miriam ", "SaraMiriam@gmail.com", "הפסגה 50");
-        addNewOrder("Rut", "Rut@gmail.com", "aaa 12", DateTime.Now.AddDays(-(rnd.Next(5,30))), DateTime.Now.AddDays((rnd.Next(9))), DateTime.MinValue);
-        addNewOrder("David Levi", "david@gmail.com", "buksboim 12", DateTime.Now.AddDays(-(rnd.Next(9))), DateTime.Now, DateTime.MinValue);
-        addNewOrder("raviv", "david@gmail.com", "buksboim 12", DateTime.Now.AddDays(-(rnd.Next(9))), DateTime.Now, DateTime.MinValue);
-        addNewOrder("Shani", "david@gmail.com", "buksboim 12", DateTime.Now.AddDays(-(rnd.Next(9))), DateTime.Now, DateTime.MinValue);
+        addNewOrder("Rut", "Rut@gmail.com", "aaa 12", DateTime.Now.AddDays(-(rnd.Next(5,30))), DateTime.Now.AddDays((rnd.Next(9))), null);
+        addNewOrder("David Levi", "david@gmail.com", "buksboim 12", DateTime.Now.AddDays(-(rnd.Next(9))), DateTime.Now, null);
+        addNewOrder("raviv", "david@gmail.com", "buksboim 12", DateTime.Now.AddDays(-(rnd.Next(9))), DateTime.Now, null);
+        addNewOrder("Shani", "david@gmail.com", "buksboim 12", DateTime.Now.AddDays(-(rnd.Next(9))), DateTime.Now, null);
         addNewOrder("Dasi", "david@gmail.com", "buksboim 12", DateTime.Now.AddDays(-(rnd.Next(9))), DateTime.Now, DateTime.Now.AddDays((rnd.Next(9))));
         addNewOrder("Noa", "david@gmail.com", "buksboim 12", DateTime.Now.AddDays(-(rnd.Next(9))), DateTime.Now, DateTime.Now.AddDays((rnd.Next(9))));
         addNewOrder("shira", "david@gmail.com", "buksboim 12", DateTime.Now.AddDays(-(rnd.Next(9))), DateTime.Now, DateTime.Now.AddDays((rnd.Next(9))));
@@ -155,7 +155,7 @@ public static class DataSource
     /// <param name="NewOrderDate">DateTime - date of order</param>
     /// <param name="newShipDate">DateTime - date of ship</param>
     /// <param name="newDeliveryDate">DateTime - date of delivery</param>
-    static private void addNewOrder(string newCustomerName, string newCustomerEmail, string newCustomerAdress, DateTime NewOrderDate, DateTime newShipDate, DateTime newDeliveryDate)
+    static private void addNewOrder(string newCustomerName, string newCustomerEmail, string newCustomerAdress, DateTime NewOrderDate, DateTime newShipDate, DateTime? newDeliveryDate)
     {
         Order newOrder = new()
         {
