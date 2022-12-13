@@ -120,8 +120,9 @@ internal class DalOrderItem : IOrderItem
     /// <exception cref="Exception"></exception>
     public IEnumerable<OrderItem?> getAllMyOrdesItem(int orderNum)
     {
-        if (DataSource._arrOrderItem.FindAll(e => e?.OrderID == orderNum).Count > 0)
-            return DataSource._arrOrderItem.FindAll(e => e?.OrderID == orderNum);
+        var items= DataSource._arrOrderItem.FindAll(e => e?.OrderID == orderNum);
+        if (items.Count > 0)
+            return (IEnumerable<DO.OrderItem?>)items;
         else
             throw new RequestedItemNotFoundException("order not exists,can not get all orderItems") { RequestedItemNotFound = orderNum.ToString() };
 

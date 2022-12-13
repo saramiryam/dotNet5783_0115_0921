@@ -308,10 +308,10 @@ public class Order : BlApi.IOrder
     }
     public int GetAmountItems(int id)
     {
-        IEnumerable<DO.OrderItem> orderItemList = new List<DO.OrderItem>();
+        IEnumerable<DO.OrderItem?> orderItemList = new List<DO.OrderItem?>();
         try
         {
-            orderItemList = (IEnumerable<DO.OrderItem>)Dal.OrderItem.getAllMyOrdesItem(id);
+            orderItemList = Dal.OrderItem.getAllMyOrdesItem(id);
         }
         catch
         {
@@ -321,19 +321,20 @@ public class Order : BlApi.IOrder
         int sum = 0;
         foreach (var item in orderItemList)
         {
-            sum += item.Amount;
+            if(item!=null)
+            sum += item.Value.Amount;
         }
         return sum;
 
     }
     public double CheckTotalSum(int id)
     {
-        IEnumerable<DO.OrderItem> orderItemList = new List<DO.OrderItem>();
-        orderItemList = (IEnumerable<DO.OrderItem>)Dal.OrderItem.getAllMyOrdesItem(id);
+        IEnumerable<DO.OrderItem?> orderItemList = new List<DO.OrderItem?>();
+        orderItemList = (IEnumerable<DO.OrderItem?>)Dal.OrderItem.getAllMyOrdesItem(id);
         double sum = 0;
         foreach (var item in orderItemList)
         {
-            sum = sum + item.Price * item.Amount;
+            sum = sum + item.Value.Price * item.Value.Amount;
         }
         return sum;
     }
