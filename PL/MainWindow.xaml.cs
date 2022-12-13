@@ -25,7 +25,7 @@ namespace PL
         public MainWindow()
         {
             InitializeComponent();
-           
+    
        
         }
         IBl bl = new Bl();
