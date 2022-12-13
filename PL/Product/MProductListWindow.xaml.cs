@@ -26,18 +26,28 @@ namespace PL
         {
             InitializeComponent();
             ProductListView.ItemsSource = bl.Product.GetListOfProduct();
-            CategorySelector.ItemsSource = Enum.GetValues(typeof(BO.Enums.ECategory));
-            CategorySelector.SelectedIndex = -1;
+            //CategorySelector.ItemsSource = Enum.GetValues(typeof(BO.Enums.ECategory));
+            //CategorySelector.SelectedIndex = -1;
+            CategorySelector.Items.Add(BO.Enums.ECategory.Notebooks);
+            CategorySelector.Items.Add(BO.Enums.ECategory.Games);
+            CategorySelector.Items.Add(BO.Enums.ECategory.Pens);
+            CategorySelector.Items.Add(BO.Enums.ECategory.ArtMaterials);
+            CategorySelector.Items.Add(BO.Enums.ECategory.Notebooks);
+            CategorySelector.Items.Add(BO.Enums.ECategory.Diaries);
+            CategorySelector.Items.Add("get all products")
             CategorySelector.Text = "all";
 
         }
 
         private void CategorySelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            //casting toString
-            string cat=CategorySelector.SelectedItem.ToString()!;
-            ProductListView.ItemsSource = bl.Product.GetProductForListByCategory(cat!);
 
+            //casting toString
+            var cat=CategorySelector.SelectedItem;
+            if (cat is BO.Enums.ECategory)
+                ProductListView.ItemsSource = bl.Product.GetProductForListByCategory(cat!);
+            else
+                ProductListView.ItemsSource = bl.Product.GetListOfProduct();
         }
         private void ProductListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {

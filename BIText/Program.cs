@@ -15,7 +15,7 @@ namespace BlTest
         private static readonly IBl blVariable = new Bl();
         private static IBl blVariableFromMethod = new Bl();
         static private BO.Product product = new BO.Product();
-        static private DO.Product product1 = new DO.Product();
+        static private BO.Product product1 = new BO.Product();
         static int choice;
 
         static private BO.Order order = new BO.Order();
@@ -110,19 +110,19 @@ namespace BlTest
                         switch (category)
                         {
                             case 1:
-                                product1.Category = DO.Enums.ECategory.Notebooks;
+                                product1.Category = BO.Enums.ECategory.Notebooks;
                                 break;
                             case 2:
-                                product1.Category = DO.Enums.ECategory.Pens;
+                                product1.Category = BO.Enums.ECategory.Pens;
                                 break;
                             case 3:
-                                product1.Category = DO.Enums.ECategory.Diaries;
+                                product1.Category = BO.Enums.ECategory.Diaries;
                                 break;
                             case 4:
-                                product1.Category = DO.Enums.ECategory.ArtMaterials;
+                                product1.Category = BO.Enums.ECategory.ArtMaterials;
                                 break;
                             case 5:
-                                product1.Category = DO.Enums.ECategory.Games;
+                                product1.Category = BO.Enums.ECategory.Games;
                                 break;
 
                         }
@@ -131,7 +131,7 @@ namespace BlTest
                         product1.InStock = parse;
                         try
                         {
-                            //blVariable.Product.AddProduct(product1);
+                            blVariable.Product.AddProduct(product1);
                         }
                         catch (Exception e)
                         {
@@ -355,9 +355,9 @@ namespace BlTest
                 case 3:
                     {
                         Console.WriteLine("enter your details ");
-                        cart.CustomerName = Console.ReadLine();
-                        cart.CustomerEmail = Console.ReadLine();
-                        cart.CustomerAdress = Console.ReadLine();
+                        var CustomerName = Console.ReadLine();
+                        var CustomerEmail = Console.ReadLine();
+                       var CustomerAdress = Console.ReadLine();
                         Console.WriteLine("enter product id and amount of items in cart,for finish enter 0");
                         int.TryParse(Console.ReadLine(), out parse);
                         int productId = parse;
@@ -391,7 +391,8 @@ namespace BlTest
                             int.TryParse(Console.ReadLine(), out parse);
                             amount = parse;
                         }
-                        blVariable.Cart.SubmitOrder(cart, cart.CustomerName, cart.CustomerEmail, cart.CustomerAdress);
+                        if(CustomerAdress is not null&& CustomerEmail is not null && CustomerName is not null )
+                        blVariable.Cart.SubmitOrder(cart, CustomerName, CustomerEmail, CustomerAdress);
                         break;
                     }
 
