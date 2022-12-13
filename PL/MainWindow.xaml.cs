@@ -34,6 +34,7 @@ namespace PL
         private void productList_Click(object sender, RoutedEventArgs e)
         {
             new MProductListWindow().Show();
+            this.Close();
         }
     }
 }

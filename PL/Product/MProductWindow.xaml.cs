@@ -62,12 +62,14 @@ namespace PL.Product
             {
                 MessageBox.Show("the product " + _Name + " add");
                 new MProductListWindow().Show();
+                this.Close();
                 Close();
             }
             else
             {
                 MessageBox.Show("the product " + _Name + " update");
                 new MProductListWindow().Show();
+                this.Close();
                 Close();
             }
 
