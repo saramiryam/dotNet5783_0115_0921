@@ -40,6 +40,7 @@ namespace PL.Product
             addOrUpdateButton.Content = "update";
             productTOUp = bl.Product.GetProductItem(idToUpdate);
             id.Text = productTOUp.ID.ToString();
+            id.IsReadOnly = true;
             name.Text = productTOUp.Name!.ToString();
             chooseCategoryToAdd.SelectedIndex = (int)productTOUp.Category!;
             price.Text = productTOUp.Price.ToString();
