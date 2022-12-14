@@ -39,8 +39,6 @@ namespace PL
 
         private void CategorySelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-
-            //casting toString
             var cat=CategorySelector.SelectedItem;
             if (cat is BO.Enums.ECategory)
                 ProductListView.ItemsSource = bl.Product.GetProductForListByCategory((BO.Enums.ECategory)cat!);

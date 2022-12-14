@@ -7,19 +7,13 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
 
-    <Grid>
-        
-        <!--<Image Width="100" Height="100" Source="./picture/main.webp" />-->
+    <Grid HorizontalAlignment="Right" Width="800">
+        <Grid.Background>
+            <ImageBrush ImageSource="/aa.PNG"/>
+        </Grid.Background>
+        <!--<Image Width="800" Height="500" Source="./picture/main.webp" />-->
         <!--<Button Name="productList"  Content="products" HorizontalAlignment="Left" Margin="349,197,0,0" VerticalAlignment="Top" Click="productList_Click" FontStyle="Oblique"FontSize="30"/>-->
-        <Button  Width="120" Height="100"  Name="productList"  Content="products" HorizontalAlignment="Stretch" VerticalAlignment="Top" Click="productList_Click" FontStyle="Oblique" FontSize="25" FontWeight="ExtraBlack" Foreground="blue">
-            <Button.Template>
-                <ControlTemplate TargetType="Button" >
-                    <Grid>
-                        <Ellipse Fill="Yellow" StrokeThickness="2" Stroke="blue" />
-                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                    </Grid>
-                </ControlTemplate>
-            </Button.Template>
+        <Button  Width="120" Height="70"  Name="productList"  Content="products" VerticalAlignment="Top" Click="productList_Click" FontStyle="Oblique" FontSize="25" FontWeight="ExtraBlack" Foreground="blue" Background="Yellow" RenderTransformOrigin="3.043,1.523" Margin="615,70,65,0">
         </Button>
     </Grid>
 </Window>
