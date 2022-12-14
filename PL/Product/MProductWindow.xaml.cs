@@ -158,7 +158,7 @@ namespace PL.Product
         }
         private void name_TextChanged(object sender, TextChangedEventArgs e)
         {
-            var child = MainGrid.Children.OfType<Control>().Where(x => x.Name == "NegativePriceExceptionLabel").FirstOrDefault();
+            var child = MainGrid.Children.OfType<Control>().Where(x => x.Name == "EmptyNameExceptionLable").FirstOrDefault();
             if (child != null)
                 MainGrid.Children.Remove(child);
         }

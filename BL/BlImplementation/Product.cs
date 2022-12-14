@@ -276,7 +276,7 @@ namespace BlImplementation
             {
                 throw new BO.NegativeIdException("id is to short") { NegativeId = id.ToString() };
             }
-            if (name is null)
+            if ( string.IsNullOrEmpty(name))
             {
                 throw new BO.EmptyNameException("empty name") { EmptyName = null };
             }
