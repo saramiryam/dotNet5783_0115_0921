@@ -39,8 +39,8 @@ public class GetPredictNullException : Exception
     }
 }
 
-
 [Serializable]
+
 public class DalConfigException : Exception
 {
     public DalConfigException(string msg) : base(msg) { }

@@ -13,7 +13,7 @@ namespace BlImplementation
     public class Product : BlApi.IProduct
     {
 
-        private IDal Dal = new Dal.DalList();
+        private IDal Dal = Instance;
 
         #region Methodes
 

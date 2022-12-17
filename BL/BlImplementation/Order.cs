@@ -8,7 +8,7 @@ namespace BlImplementation;
 
 public class Order : BlApi.IOrder
 {
-    private IDal Dal = new Dal.DalList();
+    private IDal Dal = Dal.DalList();
     #region method
 
 

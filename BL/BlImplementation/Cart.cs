@@ -7,6 +7,7 @@ using System;
 using System.Runtime.Intrinsics.Arm;
 using System.Xml.Linq;
 using BO;
+using DalList;
 
 namespace BlImplementation
 {
@@ -37,6 +38,7 @@ namespace BlImplementation
                 bool exist = cart.ItemList.Exists(e => e?.ID == itemId);
                 if (exist)
                 {
+                    if(cart!=null && cart.ItemList.Count>0) {
                     BO.OrderItem BOI = cart.ItemList.Find(e => e?.ID == itemId);
                     if (BOI != null)
                     {
@@ -57,7 +59,7 @@ namespace BlImplementation
                     {
                         return cart;
                     }
-
+                    }
                 }
                 else
                 {

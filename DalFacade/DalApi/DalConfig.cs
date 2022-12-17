@@ -1,6 +1,7 @@
 ﻿
 namespace DalApi;
 using System.Xml.Linq;
+using DO;
 
 static class DalConfig
 {
@@ -18,3 +19,5 @@ static class DalConfig
         s_dalPackages = packages.ToDictionary(p => "" + p.Name, p => p.Value);
     }
 }
+
+
