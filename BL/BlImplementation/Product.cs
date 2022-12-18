@@ -13,7 +13,8 @@ namespace BlImplementation
 
     public class Product : BlApi.IProduct
     {
-
+        //נראה שלא עושה את העבודה נכון
+        //להשוות עם מישהי
         private static IDal? Dal = Factory.Get();
 
         #region Methodes
@@ -22,10 +23,10 @@ namespace BlImplementation
         {
             IEnumerable<DO.Product?> productsList = new List<DO.Product?>();
             List<BO.ProductForList> productsForList = new List<BO.ProductForList>();
-            if(Dal != null)
+           if(Dal != null)
             {
                 productsList = Dal.Product.GetAll();
-            }
+           }
             foreach (var item in productsList)
             {
                 if ((item != null) && (item.Value.Category != null))
