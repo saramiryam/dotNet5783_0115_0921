@@ -106,7 +106,7 @@ namespace BlImplementation
            if(itemId == 0)  throw new NegativeIdException("negative id") { NegativeId = itemId.ToString() };
             Predicate<BO.OrderItem?> match = e => e?.ID == itemId;
             if(match is null)throw new ItemNotInCartException("item list is empty") { ItemNotInCart=null };
-            BO.OrderItem BOI = cart.ItemList.Find(match);
+            BO.OrderItem BOI = cart.ItemList.Find(match)??new BO.OrderItem();
             if (BOI == null)
             {
                 return cart;
