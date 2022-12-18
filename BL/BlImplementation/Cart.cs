@@ -14,7 +14,7 @@ namespace BlImplementation
 {
     internal class Cart : BlApi.ICart
     {
-        private static IDal Dal = Factory.Get();
+        private static IDal? Dal = Factory.Get();
 
         #region methodes
 
@@ -42,7 +42,15 @@ namespace BlImplementation
                     BO.OrderItem BOI = cart.ItemList.Find(e => e?.ID == itemId)?? new BO.OrderItem();
                     if (BOI != null)
                     {
-                        DO.Product DP = Dal.Product.Get(e => e?.ID == itemId);
+                        DO.Product DP;
+                        if (Dal != null) {
+                           DP = Dal.Product.Get(e => e?.ID == itemId);
+                        }
+                        else
+                        {
+                            throw new BO.GetDulNullException("product not exists") { GetDulNull = itemId.ToString() };
+                        }
+
                         if (BOI.Amount < DP.InStock)
                         {
                             BOI.Amount++;
@@ -64,7 +72,14 @@ namespace BlImplementation
                 {
                     try
                     {
-                        DO.Product DP = Dal.Product.Get(e => e?.ID == itemId);
+                        DO.Product DP;
+                        if (Dal != null) {
+                            DP = Dal.Product.Get(e => e?.ID == itemId);
+                        }
+                        else
+                        {
+                            throw new BO.GetDulNullException("product not exists") { GetDulNull = itemId.ToString() };
+                        }
                         if (DP.InStock > 0)
                         {
                             cart.ItemList.Add(new BO.OrderItem()
@@ -163,13 +178,18 @@ namespace BlImplementation
                     {
                         try
                         {
-                            DO.Product DP = Dal.Product.Get(e => e?.ID == item.ID);
+                            DO.Product DP;
+                            if (Dal != null) {
+                               DP = Dal.Product.Get(e => e?.ID == item.ID);
+                            }
+                            else
+                            {
+                                throw new BO.GetDulNullException("negative amount") { GetDulNull = item.Amount.ToString() };
+                            }
+
                             if (item.Amount < 0)
                             {
-                                throw new BO.NegativeAmountException("negative amount")
-                                {
-                                    NegativeAmount = item.Amount.ToString()
-                                };
+                                throw new BO.NegativeAmountException("negative amount"){NegativeAmount = item.Amount.ToString()};
                             }
                             if (item.Amount > DP.InStock)
                             {
@@ -202,8 +222,15 @@ namespace BlImplementation
             };
             try
             {
-
-                int orderID = Dal.Order.Add(o);
+                int orderID;
+                if (Dal != null) {
+                   orderID = Dal.Order.Add(o);
+                }
+                else
+                {
+                    throw new BO.GetDulNullException("item in cart not exists as product") { GetDulNull = null };
+                }
+                
                 if (cart.ItemList != null)
                 {
                     try

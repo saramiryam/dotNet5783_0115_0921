@@ -14,7 +14,7 @@ namespace BlImplementation
     public class Product : BlApi.IProduct
     {
 
-        private static IDal Dal = Factory.Get();
+        private static IDal? Dal = Factory.Get();
 
         #region Methodes
 
@@ -22,7 +22,10 @@ namespace BlImplementation
         {
             IEnumerable<DO.Product?> productsList = new List<DO.Product?>();
             List<BO.ProductForList> productsForList = new List<BO.ProductForList>();
-            productsList = Dal.Product.GetAll();
+            if(Dal != null)
+            {
+                productsList = Dal.Product.GetAll();
+            }
             foreach (var item in productsList)
             {
                 if ((item != null) && (item.Value.Category != null))
@@ -38,36 +41,15 @@ namespace BlImplementation
             }
             return productsForList;
         }
-        //public IEnumerable<BO.ProductForList> GetListOfProduct(Func<Product?, bool>? predict = null)
-        //{
-        //    IEnumerable<DO.Product?> productsList ;
-        //    List<BO.ProductForList> productsForList = new List<BO.ProductForList>();
-        //    if(predict != null)
-        //    {
-        //        productsList = Dal.Product.GetAll(e=>predict(e));
-        //    }
-        //    productsList = Dal.Product.GetAll();
-        //    foreach (var item in productsList)
-        //    {
-        //        if ((item != null) && (item.Value.Category != null))
-        //        {
-        //            productsForList.Add(new BO.ProductForList()
-        //            {
-        //                ID = item.Value.ID,
-        //                Name = item.Value.Name,
-        //                Price = item.Value.Price,
-        //                Category = (BO.Enums.ECategory)item.Value.Category
-        //            });
-        //        }
-        //    }
-        //    return productsForList;
-        //}
-
+       
         public IEnumerable<BO.ProductForList> GetProductForListByCategory(BO.Enums.ECategory category)
         {
             IEnumerable<DO.Product?> productsList = new List<DO.Product?>();
             List<BO.ProductForList> productsForList = new List<BO.ProductForList>();
-            productsList = Dal.Product.GetAll();
+            if (Dal != null)
+            {
+                productsList = Dal.Product.GetAll();
+            }
             foreach (var item in productsList)
             {
                 if ((item != null) && (item.Value.Category != null))
@@ -99,7 +81,10 @@ namespace BlImplementation
                 DO.Product p = new DO.Product();
                 try
                 {
-                    p = Dal.Product.Get(e => e?.ID == id);
+                    if (Dal != null)
+                    {
+                        p = Dal.Product.Get(e => e?.ID == id);
+                    }
                 }
                 catch
                 {
@@ -125,7 +110,10 @@ namespace BlImplementation
                 DO.Product p = new DO.Product();
                 try
                 {
-                    p = Dal.Product.Get(e => e?.ID == id);
+                    if (Dal != null)
+                    {
+                        p = Dal.Product.Get(e => e?.ID == id);
+                    }
                 }
                 catch
                 {
@@ -163,15 +151,18 @@ namespace BlImplementation
             {
                 if (p.Category != null)
                 {
-                    Dal.Product.Add(new DO.Product()
+                    if (Dal != null)
                     {
-                        ID = p.ID,
-                        Name = p.Name,
-                        Price = p.Price,
-                        Category = (DO.Enums.ECategory)p.Category,
-                        InStock = p.InStock
+                        Dal.Product.Add(new DO.Product()
+                        {
+                            ID = p.ID,
+                            Name = p.Name,
+                            Price = p.Price,
+                            Category = (DO.Enums.ECategory)p.Category,
+                            InStock = p.InStock
 
-                    });
+                        });
+                    }
                 }
                 else
                 {
@@ -201,9 +192,15 @@ namespace BlImplementation
             CheckCorectData(item.ID, item.Name, item.Price, item.InStock);
             try
             {
-                if(item.Category is null||item.Name is null) throw new GetEmptyCateporyException("the product category is empty") { GetEmptyCatepory = null };
-
-                Dal.Product.Update(newProductWithData(item.ID, item.Name, (BO.Enums.ECategory)item.Category, item.Price, item.InStock));
+                if (item.Category is null || item.Name is null)
+                    throw new GetEmptyCateporyException("the product category is empty")
+                    {
+                        GetEmptyCatepory = null
+                    };
+                if (Dal != null)
+                {
+                    Dal.Product.Update(newProductWithData(item.ID, item.Name, (BO.Enums.ECategory)item.Category, item.Price, item.InStock));
+                }
             }
             catch (DO.RequestedItemNotFoundException)
             {
@@ -216,7 +213,10 @@ namespace BlImplementation
         public void DeleteProduct(int id)
         {
             IEnumerable<DO.OrderItem?> orderList = new List<DO.OrderItem?>();
-            orderList = Dal.OrderItem.GetAll();
+            if (Dal != null)
+            {
+                orderList = Dal.OrderItem.GetAll();
+            }
             bool flag = false;
             foreach (var OI in orderList)
             {
@@ -231,7 +231,10 @@ namespace BlImplementation
             }
             try
             {
-                Dal.Product.Delete(id);
+                if(Dal != null)
+                {
+                    Dal.Product.Delete(id);
+                }
             }
             catch
             {

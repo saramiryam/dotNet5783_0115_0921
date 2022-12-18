@@ -38,7 +38,6 @@ public class GetPredictNullException : Exception
     {
     }
 }
-
 [Serializable]
 
 public class DalConfigException : Exception

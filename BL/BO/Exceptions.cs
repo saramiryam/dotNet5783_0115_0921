@@ -190,7 +190,16 @@ namespace BO
         public OrderHasAlreadyProvidedException(string msg) : base(msg) { }
     }
 
+    public class GetDulNullException : Exception
+    {
+        public string? GetDulNull { get; set; }
+
+        public GetDulNullException(string msg) : base(msg)
+        {
+        }
+    }
 
     #endregion
 
 }
+

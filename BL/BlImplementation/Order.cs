@@ -9,7 +9,7 @@ namespace BlImplementation;
 
 public class Order : BlApi.IOrder
 {
-    private static IDal Dal = Factory.Get();
+    private static IDal? Dal = Factory.Get();
     #region method
 
 
@@ -17,8 +17,11 @@ public class Order : BlApi.IOrder
     {
         IEnumerable<DO.Order?> orderList = new List<DO.Order?>();
         List<BO.OrderForList> ordersForList = new List<BO.OrderForList>();
-        orderList = Dal.Order.GetAll();
-
+        if(Dal != null)
+        {
+            orderList = Dal.Order.GetAll();
+        }
+        
         IEnumerable<OrderTracking> orderTracking = new List<OrderTracking>();
         foreach (var item in orderList)
         {
@@ -49,7 +52,10 @@ public class Order : BlApi.IOrder
             DO.Order o = new DO.Order();
             try
             {
-                o = Dal.Order.Get(e => e?.ID == id);
+                if(Dal != null)
+                {
+                    o = Dal.Order.Get(e => e?.ID == id);
+                }
             }
             catch (DO.RequestedItemNotFoundException)
             {
@@ -68,7 +74,10 @@ public class Order : BlApi.IOrder
         DO.Order o = new DO.Order();
         try
         {
-            o = Dal.Order.Get(e => e?.ID == id);
+            if(Dal != null)
+            {
+                o = Dal.Order.Get(e => e?.ID == id);
+            }
         }
         catch (DO.RequestedItemNotFoundException)
         {
@@ -82,7 +91,10 @@ public class Order : BlApi.IOrder
                 o.ShipDate = DateTime.Now;
                 try
                 {
-                    Dal.Order.Update(o);
+                    if(Dal != null)
+                    {
+                        Dal.Order.Update(o);
+                    }
                 }
                 catch (DO.RequestedUpdateItemNotFoundException)
                 {
@@ -110,7 +122,10 @@ public class Order : BlApi.IOrder
         DO.Order o = new DO.Order();
         try
         {
-            o = Dal.Order.Get(e => e?.ID == id);
+            if (Dal != null)
+            {
+                o = Dal.Order.Get(e => e?.ID == id);
+            }
         }
         catch
         {
@@ -124,7 +139,10 @@ public class Order : BlApi.IOrder
                 o.DeliveryDate = DateTime.Now;
                 try
                 {
-                    Dal.Order.Update(o);
+                    if (Dal != null)
+                    {
+                        Dal.Order.Update(o);
+                    }
                 }
                 catch (DO.RequestedUpdateItemNotFoundException)
                 {
@@ -151,7 +169,10 @@ public class Order : BlApi.IOrder
         DO.Order o = new DO.Order();
         try
         {
-            o = Dal.Order.Get(e => e?.ID == orderId);
+            if(Dal != null)
+            {
+                o = Dal.Order.Get(e => e?.ID == orderId);
+            }
         }
         catch (DO.RequestedItemNotFoundException)
         {
@@ -217,7 +238,10 @@ public class Order : BlApi.IOrder
     public void ManagerActions(int orderId, int productId, int amount)
     {
         List<DO.OrderItem> ordersItem = new List<DO.OrderItem>();
-        ordersItem = (List<DO.OrderItem>)Dal.OrderItem.GetAll(e => e?.OrderID == orderId);
+        if (Dal != null)
+        {
+            ordersItem = (List<DO.OrderItem>)Dal.OrderItem.GetAll(e => e?.OrderID == orderId);
+        }
 
         bool flag = ordersItem.Exists(e => e.ProductID == productId && e.OrderID == orderId);
         if (flag)
@@ -226,19 +250,25 @@ public class Order : BlApi.IOrder
             DO.OrderItem OI = ordersItem.Find(e => e.ProductID == productId && e.OrderID == orderId);
             if (amount == 0)
             {
-                Dal.OrderItem.Delete(OI.ID);
+                if (Dal != null)
+                {
+                    Dal.OrderItem.Delete(OI.ID);
+                }
             }
             else
             {
-                DO.Product p = Dal.Product.Get(e => e?.ID == productId);
-                if (amount > p.InStock)
+                if (Dal != null)
                 {
-                    throw new BO.NotEnoughInStockException("not enough in stock") { NotEnoughInStock = amount.ToString() };
-                }
-                else
-                {
-                    OI.Amount = amount;
-                    Dal.OrderItem.Update(OI);
+                    DO.Product p = Dal.Product.Get(e => e?.ID == productId);
+                    if (amount > p.InStock)
+                    {
+                        throw new BO.NotEnoughInStockException("not enough in stock") { NotEnoughInStock = amount.ToString() };
+                    }
+                    else
+                    {
+                        OI.Amount = amount;
+                        Dal.OrderItem.Update(OI);
+                    }
                 }
             }
         }
@@ -247,19 +277,22 @@ public class Order : BlApi.IOrder
             //didnt find
             try
             {
-                DO.Product p = Dal.Product.Get(e => e?.ID == productId);
-                if (amount > p.InStock)
+                if (Dal != null)
                 {
-                    throw new BO.NotEnoughInStockException("not enough in stock") { NotEnoughInStock = amount.ToString() };
+                    DO.Product p = Dal.Product.Get(e => e?.ID == productId);
+                    if (amount > p.InStock)
+                    {
+                        throw new BO.NotEnoughInStockException("not enough in stock") { NotEnoughInStock = amount.ToString() };
+                    }
+                    Dal.OrderItem.Add(new DO.OrderItem()
+                    {
+                        ID = 0,
+                        ProductID = productId,
+                        OrderID = orderId,
+                        Price = p.Price,
+                        Amount = amount
+                    });
                 }
-                Dal.OrderItem.Add(new DO.OrderItem()
-                {
-                    ID = 0,
-                    ProductID = productId,
-                    OrderID = orderId,
-                    Price = p.Price,
-                    Amount = amount
-                });
             }
             catch
             {
@@ -312,7 +345,10 @@ public class Order : BlApi.IOrder
         IEnumerable<DO.OrderItem?> orderItemList = new List<DO.OrderItem?>();
         try
         {
-            orderItemList = Dal.OrderItem.GetAll(e => e?.OrderID == id);
+            if (Dal != null)
+            {
+                orderItemList = Dal.OrderItem.GetAll(e => e?.OrderID == id);
+            }
         }
         catch
         {
@@ -331,22 +367,34 @@ public class Order : BlApi.IOrder
     public double CheckTotalSum(int id)
     {
         IEnumerable<DO.OrderItem?> orderItemList = new List<DO.OrderItem?>();
-        orderItemList = (IEnumerable<DO.OrderItem?>)Dal.OrderItem.GetAll(e => e?.OrderID == id);
-        double sum = 0;
-        foreach (var item in orderItemList)
+        if (Dal != null)
         {
-            if (item != null)
+            orderItemList = (IEnumerable<DO.OrderItem?>)Dal.OrderItem.GetAll(e => e?.OrderID == id);
+            double sum = 0;
+            foreach (var item in orderItemList)
             {
-                sum = sum + item.Value.Price * item.Value.Amount;
+                if (item != null)
+                {
+                    sum = sum + item.Value.Price * item.Value.Amount;
+                }
             }
+
+            return sum;
         }
-        return sum;
+        else
+        {  
+                throw new BO.GetDulNullException("order not exists,can not get all orderItems") { GetDulNull = id.ToString() };
+        }
+        
     }
     public List<BO.OrderItem?> GetAllItemsToOrder(int id)
     {
         IEnumerable<DO.OrderItem> orderItemList = new List<DO.OrderItem>();
         List<BO.OrderItem?> BOorderItemList = new List<BO.OrderItem?>();
-        orderItemList = (IEnumerable<DO.OrderItem>)Dal.OrderItem.GetAll(e => e?.OrderID == id);
+        if (Dal != null)
+        {
+            orderItemList = (IEnumerable<DO.OrderItem>)Dal.OrderItem.GetAll(e => e?.OrderID == id);
+        }
         int count = 0;
         foreach (var item in orderItemList)
         {
@@ -367,7 +415,10 @@ public class Order : BlApi.IOrder
     public string? getOrderItemName(int productId)
     {
         DO.Product product = new DO.Product();
-        product = Dal.Product.Get(e => e?.ID == productId);
+        if (Dal != null)
+        {
+            product = Dal.Product.Get(e => e?.ID == productId);
+        }
         return product.Name;
     }
 
