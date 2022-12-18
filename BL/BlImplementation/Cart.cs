@@ -38,8 +38,7 @@ namespace BlImplementation
                 bool exist = cart.ItemList.Exists(e => e?.ID == itemId);
                 if (exist)
                 {
-                    if(cart!=null && cart.ItemList.Count>0) {
-                    BO.OrderItem BOI = cart.ItemList.Find(e => e?.ID == itemId);
+                    BO.OrderItem BOI = cart.ItemList.Find(e => e?.ID == itemId)?? new BO.OrderItem();
                     if (BOI != null)
                     {
                         DO.Product DP = Dal.Product.Get(e => e?.ID == itemId);
@@ -58,7 +57,6 @@ namespace BlImplementation
                     else
                     {
                         return cart;
-                    }
                     }
                 }
                 else
