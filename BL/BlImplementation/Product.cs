@@ -6,6 +6,7 @@ using System;
 using System.Diagnostics;
 using System.Xml.Linq;
 using static System.Collections.Specialized.BitVector32;
+using Factory = DalApi.Factory;
 
 namespace BlImplementation
 {
@@ -13,7 +14,7 @@ namespace BlImplementation
     public class Product : BlApi.IProduct
     {
 
-        private IDal Dal = Instance;
+        private static IDal Dal = Factory.Get();
 
         #region Methodes
 

@@ -8,12 +8,13 @@ using System.Runtime.Intrinsics.Arm;
 using System.Xml.Linq;
 using BO;
 using DalList;
+using Factory = DalApi.Factory;
 
 namespace BlImplementation
 {
     internal class Cart : BlApi.ICart
     {
-        private IDal Dal = new Dal.DalList();
+        private static IDal Dal = Factory.Get();
 
         #region methodes
 

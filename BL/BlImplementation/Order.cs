@@ -3,12 +3,13 @@ using BO;
 using DalApi;
 using DO;
 using static BO.Enums;
+using Factory = DalApi.Factory;
 
 namespace BlImplementation;
 
 public class Order : BlApi.IOrder
 {
-    private IDal Dal = Dal.DalList();
+    private static IDal Dal = Factory.Get();
     #region method
 
 
