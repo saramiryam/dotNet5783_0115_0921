@@ -1,11 +1,6 @@
 ﻿using BlApi;
 using BO;
 using DalApi;
-using DO;
-using System;
-using System.Diagnostics;
-using System.Xml.Linq;
-using static System.Collections.Specialized.BitVector32;
 using Factory = DalApi.Factory;
 
 namespace BlImplementation
