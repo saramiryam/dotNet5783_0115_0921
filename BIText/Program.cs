@@ -11,8 +11,8 @@ namespace BlTest
 {
     public class Program
     {
-        private static readonly IBl blVariable = new Bl();
-        private static IBl blVariableFromMethod = new Bl();
+        private static readonly IBl? blVariable =  BlApi.Factory.Get();
+        private static IBl? blVariableFromMethod = BlApi.Factory.Get();
         static private BO.Product product = new BO.Product();
         static private BO.Product product1 = new BO.Product();
         static int choice;
