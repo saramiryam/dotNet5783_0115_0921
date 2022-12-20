@@ -201,5 +201,15 @@ namespace BO
 
     #endregion
 
+    #region config
+
+    public class BlConfigException : Exception
+    {
+        public string? BlConfig { get; set; }
+
+        public BlConfigException(string msg) : base(msg) { }
+    }
+    #endregion
+
 }
 
