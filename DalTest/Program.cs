@@ -7,7 +7,7 @@ namespace DalTest
 {
     public class Programm
     {
-         static IDal IDalVariable = new Dal.DalList();
+         static IDal? IDalVariable = Factory.Get();
 
         static private Product product = new Product();
         static private Order order = new Order();
@@ -97,8 +97,7 @@ namespace DalTest
                     product.InStock = parse;
                     try
                     {
-                        // p.Add(product);
-                        IDalVariable.Product.Add(product);
+                            IDalVariable?.Product.Add(product);
                     }
                     catch (Exception e)
                     {
@@ -117,7 +116,7 @@ namespace DalTest
 
                         try
                         {
-                            Console.WriteLine(IDalVariable.Product.Get(p=>p?.ID==product.ID));
+                            Console.WriteLine(IDalVariable?.Product.Get(p=>p?.ID==product.ID));
                         }
                         catch (Exception e)
                         {
@@ -126,10 +125,13 @@ namespace DalTest
                         break;
                     }
                 case 3:
-                    foreach (var myProduct in IDalVariable.Product.GetAll())
+                    if (IDalVariable != null)
                     {
+                        foreach (var myProduct in IDalVariable.Product.GetAll())
+                        {
                             Console.WriteLine(myProduct);
-                         
+
+                        }
                     }
                     break;
                 case 4://delete
@@ -137,7 +139,7 @@ namespace DalTest
                     int id = int.Parse(Console.ReadLine()?? "id");
                     try
                     {
-                        IDalVariable.Product.Delete(id);
+                        IDalVariable?.Product.Delete(id);
                     }
                     catch (Exception e)
                     {
@@ -155,7 +157,10 @@ namespace DalTest
 
                         try
                         {
-                            product = IDalVariable.Product.Get(p => p?.ID == Id);
+                            if (IDalVariable != null)
+                            {
+                                product = IDalVariable.Product.Get(p => p?.ID == Id);
+                            }
                         }
                         catch (Exception e)
                         {
@@ -173,7 +178,7 @@ namespace DalTest
                         int.TryParse(Console.ReadLine(), out parse);
                         amountInStock = parse;
                         Product proTOUpdata = new Product() { ID = Id, Name = name, Price = price, InStock = amountInStock };
-                        IDalVariable.Product.Update(proTOUpdata);
+                        IDalVariable?.Product.Update(proTOUpdata);
                         //}
                         break;
                     }
@@ -212,7 +217,7 @@ namespace DalTest
                     order.CustomerEmail = Console.ReadLine();
                     Console.WriteLine("Address:");
                     order.CustomerAdress = Console.ReadLine();
-                    IDalVariable.Order.Add(order);
+                    IDalVariable?.Order.Add(order);
                     break;
 
                 case 2:
@@ -220,7 +225,7 @@ namespace DalTest
                     int Id = int.Parse(Console.ReadLine() ?? "Id" );
                     try
                     {
-                        Console.WriteLine(IDalVariable.Order.Get(p => p?.ID == Id));
+                        Console.WriteLine(IDalVariable?.Order.Get(p => p?.ID == Id));
                     }
                     catch (Exception e)
                     {
@@ -229,10 +234,14 @@ namespace DalTest
                     break;
 
                 case 3:
-                    foreach (var myOrder in IDalVariable.Order.GetAll())
+                    if (IDalVariable != null)
                     {
+                        foreach (var myOrder in IDalVariable.Order.GetAll())
+                        {
                             Console.WriteLine(myOrder);
+                        }
                     }
+        
                     break;
 
                 case 4://delete
@@ -240,7 +249,7 @@ namespace DalTest
                     int IdToDelete = int.Parse(Console.ReadLine() ?? "IdToDelete");
                     try
                     {
-                        IDalVariable.Order.Delete(IdToDelete);
+                        IDalVariable?.Order.Delete(IdToDelete);
                     }
                     catch (Exception e)
                     {
@@ -253,7 +262,10 @@ namespace DalTest
                     int idToUpdate = int.Parse(Console.ReadLine() ?? "idToUpdate");
                     try
                     {
-                        order = IDalVariable.Order.Get(p => p?.ID == idToUpdate);
+                        if(IDalVariable != null)
+                        {
+                            order = IDalVariable.Order.Get(p => p?.ID == idToUpdate);
+                        }
                     }
                     catch (Exception e)
                     {
@@ -275,7 +287,7 @@ namespace DalTest
                     orderToUpdate.ShipDate = date;
                     DateTime.TryParse(Console.ReadLine(), out date);
                     orderToUpdate.DeliveryDate = date;
-                    IDalVariable.Order.Update(orderToUpdate);
+                    IDalVariable?.Order.Update(orderToUpdate);
 
                     break;
             }
@@ -320,7 +332,7 @@ namespace DalTest
                     int.TryParse(Console.ReadLine(), out parse);
                     Console.WriteLine("Amount:");
                     orderItem.Amount = parse;
-                    IDalVariable.OrderItem.Add(orderItem);
+                    IDalVariable?.OrderItem.Add(orderItem);
                     break;
 
                 case 2:
@@ -328,7 +340,7 @@ namespace DalTest
                     int orderItemID = int.Parse(Console.ReadLine() ?? "orderItemID");
                     try
                     {
-                        Console.WriteLine(IDalVariable.OrderItem.Get(p => p?.ID == orderItemID));
+                        Console.WriteLine(IDalVariable?.OrderItem.Get(p => p?.ID == orderItemID));
                     }
                     catch (Exception e)
                     {
@@ -337,9 +349,12 @@ namespace DalTest
                     break;
 
                 case 3:
-                    foreach (var myOrderItem in IDalVariable.OrderItem.GetAll())
+                    if (IDalVariable != null)
                     {
-                        Console.WriteLine(myOrderItem);
+                        foreach (var myOrderItem in IDalVariable.OrderItem.GetAll())
+                        {
+                            Console.WriteLine(myOrderItem);
+                        }
                     }
                     break;
 
@@ -348,7 +363,7 @@ namespace DalTest
                     int orderItemID1 = int.Parse(Console.ReadLine() ?? "orderItemID1");
                     try
                     {
-                        IDalVariable.OrderItem.Delete(orderItemID1);
+                        IDalVariable?.OrderItem.Delete(orderItemID1);
                     }
                     catch (Exception e)
                     {
@@ -361,7 +376,10 @@ namespace DalTest
                     int orderItemID2 = int.Parse(Console.ReadLine() ?? "orderItemID2");
                     try
                     {
-                        orderItem = IDalVariable.OrderItem.Get(p => p?.ID == orderItemID2);
+                        if(IDalVariable != null)
+                        {
+                            orderItem = IDalVariable.OrderItem.Get(p => p?.ID == orderItemID2);
+                        }
                     }
                     catch (Exception e)
                     {
@@ -382,7 +400,7 @@ namespace DalTest
                     Console.WriteLine("amount");
                     int quantity = int.Parse(Console.ReadLine() ?? "quantity");
                     orderItem.Amount = quantity;
-                    IDalVariable.OrderItem.Update(orderItem);
+                    IDalVariable?.OrderItem.Update(orderItem);
                     break;
 
                 case 6:
@@ -390,9 +408,12 @@ namespace DalTest
                     int IdOrder = int.Parse(Console.ReadLine() ?? "IdOrder");
                     try
                     {
-                        foreach (var myOrderItem in IDalVariable.OrderItem.GetAll(e => e?.OrderID == IdOrder))
+                        if(IDalVariable != null)
                         {
+                            foreach (var myOrderItem in IDalVariable.OrderItem.GetAll(e => e?.OrderID == IdOrder))
+                            {
                                 Console.WriteLine(myOrderItem);
+                            }
                         }
                     }
                     catch (Exception e)
@@ -408,7 +429,7 @@ namespace DalTest
                     int productID = int.Parse(Console.ReadLine() ?? "productID");
                     try
                     {
-                        Console.WriteLine(IDalVariable.OrderItem.Get(e => e.HasValue && e.Value.OrderID == orderID && e.Value.ProductID == productID));
+                        Console.WriteLine(IDalVariable?.OrderItem.Get(e => e.HasValue && e.Value.OrderID == orderID && e.Value.ProductID == productID));
                     }
                     catch (Exception e)
                     {
