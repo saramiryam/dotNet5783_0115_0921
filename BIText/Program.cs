@@ -69,11 +69,14 @@ namespace BlTest
                     Main();
                     break;
                 case 1://get all products
-                    IEnumerable<ProductForList?> listFromMethod = blVariable.Product.GetListOfProduct();
-                    foreach (var productForList in listFromMethod)
+                    if (blVariable != null)
                     {
-                        if(productForList is not null)  
-                        Console.WriteLine(productForList);
+                        IEnumerable<ProductForList?> listFromMethod = blVariable.Product.GetListOfProduct();
+                        foreach (var productForList in listFromMethod)
+                        {
+                            if (productForList is not null)
+                                Console.WriteLine(productForList);
+                        }
                     }
                     break;
 
@@ -85,7 +88,7 @@ namespace BlTest
 
                         try
                         {
-                            Console.WriteLine(blVariable.Product.GetProductItem(product.ID));
+                            Console.WriteLine(blVariable?.Product.GetProductItem(product.ID));
                         }
                         catch (Exception e)
                         {
@@ -131,7 +134,7 @@ namespace BlTest
                         product1.InStock = parse;
                         try
                         {
-                            blVariable.Product.AddProduct(product1);
+                            blVariable?.Product.AddProduct(product1);
                         }
                         catch (Exception e)
                         {
@@ -146,7 +149,7 @@ namespace BlTest
                         int id = int.Parse(Console.ReadLine() ?? "id");
                         try
                         {
-                            blVariable.Product.DeleteProduct(id);
+                            blVariable?.Product.DeleteProduct(id);
                         }
                         catch (Exception e)
                         {
@@ -163,7 +166,10 @@ namespace BlTest
                         int Id = int.Parse(Console.ReadLine()?? "Id");
                         try
                         {
-                            product = blVariable.Product.GetProductItem(Id);
+                            if (blVariable != null)
+                            {
+                                product = blVariable.Product.GetProductItem(Id);
+                            }
                         }
                         catch (Exception e)
                         {
@@ -204,7 +210,7 @@ namespace BlTest
                         int.TryParse(Console.ReadLine(), out parse);
                         product.InStock = parse;
 
-                        blVariable.Product.UpdateProduct(product);
+                        blVariable?.Product.UpdateProduct(product);
 
                         break;
                     }
@@ -251,10 +257,11 @@ namespace BlTest
                         {
                             if (productID == 0)
                                 break;
+                            if (blVariable != null) { }
                             BO.OrderItem orderItem = new BO.OrderItem()
                             {
 
-                                Name = blVariable.Product.GetProductItem(productId).Name,//manager
+                                Name = blVariable?.Product.GetProductItem(productId).Name,//manager
                                 ID = productId,
                                 Price = blVariable.Product.GetProductItem(productId).Price,//manager
                                 Amount = amount,
@@ -306,7 +313,7 @@ namespace BlTest
                             BO.OrderItem orderItem = new BO.OrderItem()
                             {
 
-                                Name = blVariable.Product.GetProductItem(productId).Name,
+                                Name = blVariable?.Product.GetProductItem(productId).Name,
                                 ID = productId,
                                 Price = blVariable.Product.GetProductItem(productId).Price,
                                 Amount = amount,
@@ -338,7 +345,7 @@ namespace BlTest
                         amount = parse;
                         while (productId != 0)
                         {
-                            var a = blVariable.Cart.UpdateAmount(cart, productId, amount);
+                            var a = blVariable?.Cart.UpdateAmount(cart, productId, amount);
                             Console.WriteLine(a);
                             Console.WriteLine("enter product id and amount of items to update cart,for finish enter 0");
                             int.TryParse(Console.ReadLine(), out parse);
@@ -368,7 +375,7 @@ namespace BlTest
                             BO.OrderItem orderItem = new BO.OrderItem()
                             {
 
-                                Name = blVariable.Product.GetProductItem(productId).Name,
+                                Name = blVariable?.Product.GetProductItem(productId).Name,
                                 ID = productId,
                                 Price = blVariable.Product.GetProductItem(productId).Price,
                                 Amount = amount,
@@ -392,7 +399,7 @@ namespace BlTest
                             amount = parse;
                         }
                         if(CustomerAdress is not null&& CustomerEmail is not null && CustomerName is not null )
-                        blVariable.Cart.SubmitOrder(cart, CustomerName, CustomerEmail, CustomerAdress);
+                        blVariable?.Cart.SubmitOrder(cart, CustomerName, CustomerEmail, CustomerAdress);
                         break;
                     }
 
@@ -402,7 +409,7 @@ namespace BlTest
 
         static void orderMethod()
         {
-            if (blVariable.Order is null) throw new OrderNotExistsException("order list is empty") { OrderNotExists = null };
+            if (blVariable?.Order is null) throw new OrderNotExistsException("order list is empty") { OrderNotExists = null };
             int choiceForOrder;
             int parse;
             Console.WriteLine("Enter 1 to get all orders " +
