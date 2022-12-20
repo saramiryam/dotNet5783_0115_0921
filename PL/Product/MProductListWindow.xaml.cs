@@ -25,7 +25,7 @@ public partial class MProductListWindow : Window
     public MProductListWindow()
     {
         InitializeComponent();
-        ProductListView.ItemsSource = bl.Product.GetListOfProduct();
+        ProductListView.ItemsSource = bl?.Product.GetListOfProduct();
         CategorySelector.Items.Add(BO.Enums.ECategory.Notebooks);
         CategorySelector.Items.Add(BO.Enums.ECategory.Games);
         CategorySelector.Items.Add(BO.Enums.ECategory.Pens);
@@ -41,16 +41,16 @@ public partial class MProductListWindow : Window
     {
         var cat=CategorySelector.SelectedItem;
         if (cat is BO.Enums.ECategory)
-            ProductListView.ItemsSource = bl.Product.GetProductForListByCategory((BO.Enums.ECategory)cat!);
+            ProductListView.ItemsSource = bl?.Product.GetProductForListByCategory((BO.Enums.ECategory)cat!);
         else
-            ProductListView.ItemsSource = bl.Product.GetListOfProduct();
+            ProductListView.ItemsSource = bl?.Product.GetListOfProduct();
     }
     private void ProductListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
     {
 
         BO.ProductForList p = (BO.ProductForList)ProductListView.SelectedValue;
         new Product.MProductWindow(p.ID).ShowDialog();
-        ProductListView.ItemsSource = bl.Product.GetListOfProduct();
+        ProductListView.ItemsSource = bl?.Product.GetListOfProduct();
    
 
     }
@@ -58,7 +58,7 @@ public partial class MProductListWindow : Window
     private void Add_Click_(object sender, RoutedEventArgs e)
     {
         new Product.MProductWindow().ShowDialog();
-        ProductListView.ItemsSource = bl.Product.GetListOfProduct();
+        ProductListView.ItemsSource = bl?.Product.GetListOfProduct();
   
     }
 }

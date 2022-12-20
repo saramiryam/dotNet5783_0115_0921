@@ -257,20 +257,27 @@ namespace BlTest
                         {
                             if (productID == 0)
                                 break;
-                            if (blVariable != null) { }
-                            BO.OrderItem orderItem = new BO.OrderItem()
+                            BO.OrderItem orderItem;
+                            if (blVariable != null)
                             {
+                                orderItem = new BO.OrderItem()
+                                {
 
-                                Name = blVariable?.Product.GetProductItem(productId).Name,//manager
-                                ID = productId,
-                                Price = blVariable.Product.GetProductItem(productId).Price,//manager
-                                Amount = amount,
-                                sumItem = blVariable.Product.GetProductItem(productId).Price * amount
-                            };
+                                    Name = blVariable.Product.GetProductItem(productId).Name,//manager
+                                    ID = productId,
+                                    Price = blVariable.Product.GetProductItem(productId).Price,//manager
+                                    Amount = amount,
+                                    sumItem = blVariable.Product.GetProductItem(productId).Price * amount
+                                };
+                            }
+                            else
+                            {
+                                orderItem=new BO.OrderItem();
+                            }
                             if (cart.ItemList is null)
                             {
 
-                                cart.ItemList = new List<BO.OrderItem?>() { orderItem };
+                                cart.ItemList = new List<BO.OrderItem?>() {orderItem };
                                 cart.TotalSum += orderItem.sumItem;
 
                             }
@@ -310,16 +317,24 @@ namespace BlTest
                         int amount = parse;
                         while (productId != 0)
                         {
-                            BO.OrderItem orderItem = new BO.OrderItem()
+                            BO.OrderItem orderItem;
+                            if (blVariable != null)
                             {
+                                orderItem = new BO.OrderItem()
+                                {
 
-                                Name = blVariable?.Product.GetProductItem(productId).Name,
-                                ID = productId,
-                                Price = blVariable.Product.GetProductItem(productId).Price,
-                                Amount = amount,
-                                sumItem = blVariable.Product.GetProductItem(productId).Price * amount
+                                    Name = blVariable.Product.GetProductItem(productId).Name,
+                                    ID = productId,
+                                    Price = blVariable.Product.GetProductItem(productId).Price,
+                                    Amount = amount,
+                                    sumItem = blVariable.Product.GetProductItem(productId).Price * amount
 
-                            };
+                                };
+                            }
+                            else
+                            {
+                                orderItem = new BO.OrderItem();
+                            }
                             if (cart.ItemList is null)
                             {
                                 cart.ItemList = new List<BO.OrderItem?>() { orderItem };
@@ -372,16 +387,24 @@ namespace BlTest
                         int amount = parse;
                         while (productId != 0)
                         {
-                            BO.OrderItem orderItem = new BO.OrderItem()
+                            BO.OrderItem orderItem;
+                            if (blVariable != null)
                             {
+                                orderItem = new BO.OrderItem()
+                                {
 
-                                Name = blVariable?.Product.GetProductItem(productId).Name,
-                                ID = productId,
-                                Price = blVariable.Product.GetProductItem(productId).Price,
-                                Amount = amount,
-                                sumItem = blVariable.Product.GetProductItem(productId).Price * amount
+                                    Name = blVariable.Product.GetProductItem(productId).Name,
+                                    ID = productId,
+                                    Price = blVariable.Product.GetProductItem(productId).Price,
+                                    Amount = amount,
+                                    sumItem = blVariable.Product.GetProductItem(productId).Price * amount
 
-                            };
+                                };
+                            }
+                            else
+                            {
+                                orderItem = new BO.OrderItem();
+                            }
                             if (cart.ItemList is null)
                             {
                                 cart.ItemList = new List<BO.OrderItem?>() { orderItem };

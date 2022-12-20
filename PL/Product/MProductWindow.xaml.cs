@@ -39,7 +39,10 @@ namespace PL.Product
         {
             InitializeComponent();
             addOrUpdateButton.Content = "update";
-            productTOUp = bl.Product.GetProductItem(idToUpdate);
+            if (bl != null)
+            {
+                productTOUp = bl.Product.GetProductItem(idToUpdate);
+            }
             id.Text = productTOUp.ID.ToString();
             id.IsReadOnly = true;
             name.Text = productTOUp.Name!.ToString();
@@ -63,14 +66,14 @@ namespace PL.Product
 
                 if (addOrUpdateButton.Content.ToString() == "add")
                 {
-                    bl.Product.AddProduct(new BO.Product() { ID = _id, Name = _Name, Category = (BO.Enums.ECategory)_Cat, Price = _Price, InStock = _InStock });
+                    bl?.Product.AddProduct(new BO.Product() { ID = _id, Name = _Name, Category = (BO.Enums.ECategory)_Cat, Price = _Price, InStock = _InStock });
                     MessageBox.Show("the product " + _Name + " add");
                     this.Close();
                     
                 }
                 else
                 {
-                    bl.Product.UpdateProduct(new BO.Product() { ID = _id, Name = _Name, Category = (BO.Enums.ECategory)_Cat, Price = _Price, InStock = _InStock });
+                    bl?.Product.UpdateProduct(new BO.Product() { ID = _id, Name = _Name, Category = (BO.Enums.ECategory)_Cat, Price = _Price, InStock = _InStock });
                     MessageBox.Show("the product " + _Name + " update");
                     this.Close();
                 }
