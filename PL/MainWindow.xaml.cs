@@ -28,7 +28,7 @@ namespace PL
     
        
         }
-        IBl bl = new Bl();
+       BlApi.IBl? bl =BlApi.Factory.Get();
 
 
         private void productList_Click(object sender, RoutedEventArgs e)

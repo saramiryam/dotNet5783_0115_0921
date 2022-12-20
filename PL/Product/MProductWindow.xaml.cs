@@ -23,7 +23,8 @@ namespace PL.Product
     public partial class MProductWindow : Window
     {
 
-        IBl bl = new Bl();
+        BlApi.IBl? bl = BlApi.Factory.Get();
+
         BO.Product productTOUp = new BO.Product();
 
         public MProductWindow()
