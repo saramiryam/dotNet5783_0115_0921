@@ -274,7 +274,7 @@ namespace BlImplementation
         {
             if (id < 100000)
             {
-                throw new BO.NegativeIdException("id is to short") { NegativeId = id.ToString() };
+                throw new BO.NegativeIdException("id is too short") { NegativeId = id.ToString() };
             }
             if ( string.IsNullOrEmpty(name))
             {
