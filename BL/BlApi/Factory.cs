@@ -11,7 +11,7 @@ public static class Factory
 {
     public static IBl? Get()
     {
-        Bl l = new Bl();
-        return l;
+        Bl bl = new Bl();
+        return bl;
     }
 }
