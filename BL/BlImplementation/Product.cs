@@ -1,6 +1,7 @@
 ﻿using BlApi;
 using BO;
 using DalApi;
+using DO;
 using Factory = DalApi.Factory;
 
 namespace BlImplementation
@@ -36,6 +37,18 @@ namespace BlImplementation
                 }
             }
             return productsForList;
+
+            var addOrderItem = cart.ItemList
+                                          .Where(item => (item != null) && (item.Value.Category != null))
+                                          .Select(cAdd => Dal.OrderItem.Add(new DO.OrderItem()
+                                          {
+                                              ID = 0,
+                                              ProductID = cAdd.ID,
+                                              OrderID = orderID,
+                                              Price = cAdd.Price,
+                                              Amount = cAdd.Amount
+                                          }));
+
         }
        
         public IEnumerable<BO.ProductForList> GetProductForListByCategory(BO.Enums.ECategory category)

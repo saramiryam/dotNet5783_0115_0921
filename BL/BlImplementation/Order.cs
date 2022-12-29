@@ -16,40 +16,40 @@ public class Order : BlApi.IOrder
     public IEnumerable<BO.OrderForList?> GetListOfOrders()
     {
         IEnumerable<DO.Order?> orderList = new List<DO.Order?>();
-        List<BO.OrderForList> ordersForList = new List<BO.OrderForList>();
-        if(Dal != null)
+        if (Dal != null)
         {
             orderList = Dal.Order.GetAll();
         }
-        
+
         IEnumerable<OrderTracking> orderTracking = new List<OrderTracking>();
-        foreach (var item in orderList)
-        {
-            if (item != null)
-            {
-                ordersForList.Add(new BO.OrderForList()
-                {
-                    OrderID = item.Value.ID,
-                    CustomerName = item.Value.CustomerName,
-                    Status = CheckStatus(item.Value.OrderDate, item.Value.ShipDate, item.Value.DeliveryDate),
-                    AmountOfItem = GetAmountItems(item.Value.ID),
-                    TotalSum = CheckTotalSum(item.Value.ID)
-                });
-            }
+        //foreach (var item in orderList)
+        //{
+        //    if (item != null)
+        //    {
+        //        ordersForList.Add(new BO.OrderForList()
+        //        {
+        //            OrderID = item.Value.ID,
+        //            CustomerName = item.Value.CustomerName,
+        //            Status = CheckStatus(item.Value.OrderDate, item.Value.ShipDate, item.Value.DeliveryDate),
+        //            AmountOfItem = GetAmountItems(item.Value.ID),
+        //            TotalSum = CheckTotalSum(item.Value.ID)
+        //        });
+        //    }
 
-        }
+        //}
 
-        //var addOrderItem = cart.ItemList
-        //                                 .Where(cAdd => cAdd != null)
-        //                                 .Select(cAdd => Dal.OrderItem.Add(new DO.OrderItem()
-        //                                 {
-        //                                     ID = 0,
-        //                                     ProductID = cAdd.ID,
-        //                                     OrderID = orderID,
-        //                                     Price = cAdd.Price,
-        //                                     Amount = cAdd.Amount
-        //                                 }));
-        return ordersForList;
+
+        var addOrder = orderList
+                       .Where(item => item != null)
+                       .Select(item => new BO.OrderForList()
+                       {
+                           OrderID = item.Value.ID,
+                           CustomerName = item.Value.CustomerName,
+                           Status = CheckStatus(item.Value.OrderDate, item.Value.ShipDate, item.Value.DeliveryDate),
+                           AmountOfItem = GetAmountItems(item.Value.ID),
+                           TotalSum = CheckTotalSum(item.Value.ID)
+                       });
+        return addOrder.ToList();
     }
 
     public BO.Order GetOrderDetails(int id)
@@ -63,7 +63,7 @@ public class Order : BlApi.IOrder
             DO.Order o = new DO.Order();
             try
             {
-                if(Dal != null)
+                if (Dal != null)
                 {
                     o = Dal.Order.Get(e => e?.ID == id);
                 }
@@ -85,7 +85,7 @@ public class Order : BlApi.IOrder
         DO.Order o = new DO.Order();
         try
         {
-            if(Dal != null)
+            if (Dal != null)
             {
                 o = Dal.Order.Get(e => e?.ID == id);
             }
@@ -102,7 +102,7 @@ public class Order : BlApi.IOrder
                 o.ShipDate = DateTime.Now;
                 try
                 {
-                    if(Dal != null)
+                    if (Dal != null)
                     {
                         Dal.Order.Update(o);
                     }
@@ -180,7 +180,7 @@ public class Order : BlApi.IOrder
         DO.Order o = new DO.Order();
         try
         {
-            if(Dal != null)
+            if (Dal != null)
             {
                 o = Dal.Order.Get(e => e?.ID == orderId);
             }
@@ -366,13 +366,18 @@ public class Order : BlApi.IOrder
             throw new BO.OrderNotExistsException("order not exists,can not get all orderItems") { OrderNotExists = id.ToString() };
 
         }
-        int sum = 0;
-        foreach (var item in orderItemList)
-        {
-            if(item!=null)
-            sum += item.Value.Amount;
-        }
-        return sum;
+        //int sum = 0;
+        //foreach (var item in orderItemList)
+        //{
+        //    if (item != null)
+        //        sum += item.Value.Amount;
+        //}
+        //return sum;
+
+        return orderItemList
+                       .Where(item => item != null)
+                       .Sum(item => item!.Value.Amount);
+
 
     }
     public double CheckTotalSum(int id)
@@ -381,22 +386,26 @@ public class Order : BlApi.IOrder
         if (Dal != null)
         {
             orderItemList = (IEnumerable<DO.OrderItem?>)Dal.OrderItem.GetAll(e => e?.OrderID == id);
-            double sum = 0;
-            foreach (var item in orderItemList)
-            {
-                if (item != null)
-                {
-                    sum = sum + item.Value.Price * item.Value.Amount;
-                }
-            }
+            //double sum = 0;
+            //foreach (var item in orderItemList)
+            //{
+            //    if (item != null)
+            //    {
+            //        sum = sum + item.Value.Price * item.Value.Amount;
+            //    }
+            //}
 
-            return sum;
+            //return sum;
+            return orderItemList
+                     .Where(item => item != null)
+                     .Sum(item => item!.Value.Price * item.Value.Amount);
+
         }
         else
-        {  
-                throw new BO.GetDulNullException("order not exists,can not get all orderItems") { GetDulNull = id.ToString() };
+        {
+            throw new BO.GetDulNullException("order not exists,can not get all orderItems") { GetDulNull = id.ToString() };
         }
-        
+
     }
     public List<BO.OrderItem?> GetAllItemsToOrder(int id)
     {
@@ -407,21 +416,33 @@ public class Order : BlApi.IOrder
             orderItemList = (IEnumerable<DO.OrderItem>)Dal.OrderItem.GetAll(e => e?.OrderID == id);
         }
         int count = 0;
-        foreach (var item in orderItemList)
-        {
-            BOorderItemList.Add(new BO.OrderItem()
-            {
-                numInOrder = count++,
-                ID = item.ID,
-                Name = getOrderItemName(item.ProductID),
-                Price = item.Price,
-                Amount = item.Amount,
-                sumItem = item.Price * item.Amount
+        //foreach (var item in orderItemList)
+        //{
+        //    BOorderItemList.Add(new BO.OrderItem()
+        //    {
+        //        numInOrder = count++,
+        //        ID = item.ID,
+        //        Name = getOrderItemName(item.ProductID),
+        //        Price = item.Price,
+        //        Amount = item.Amount,
+        //        sumItem = item.Price * item.Amount
 
-            });
-        }
-        return BOorderItemList;
+        //    });
+        //}
+        //return BOorderItemList;
+        var addOrderItem = orderItemList
+                          .Select(item => BOorderItemList.Add(new BO.OrderItem()
+                          {
+                              numInOrder = count++,
+                              ID = item.ID,
+                              Name = getOrderItemName(item.ProductID),
+                              Price = item.Price,
+                              Amount = item.Amount,
+                              sumItem = item.Price * item.Amount
 
+                          }));
+        return addOrderItem;
+    
     }
     public string? getOrderItemName(int productId)
     {
