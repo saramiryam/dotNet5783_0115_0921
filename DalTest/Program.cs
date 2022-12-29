@@ -2,6 +2,7 @@
 using DO;
 using Dal;
 using DalApi;
+using System.Resources;
 
 namespace DalTest
 {
@@ -127,11 +128,14 @@ namespace DalTest
                 case 3:
                     if (IDalVariable != null)
                     {
-                        foreach (var myProduct in IDalVariable.Product.GetAll())
-                        {
-                            Console.WriteLine(myProduct);
+                        //foreach (var myproduct in Idalvariable.product.getall())
+                        //{
+                        //    console.writeline(myproduct);
 
-                        }
+                        //}
+                       var allProduct = (from Product? p in IDalVariable.Product.GetAll()
+                                         select p).ToList();
+                        Console.WriteLine(allProduct);
                     }
                     break;
                 case 4://delete
@@ -236,10 +240,13 @@ namespace DalTest
                 case 3:
                     if (IDalVariable != null)
                     {
-                        foreach (var myOrder in IDalVariable.Order.GetAll())
-                        {
-                            Console.WriteLine(myOrder);
-                        }
+                        //foreach (var myOrder in IDalVariable.Order.GetAll())
+                        //{
+                        //    Console.WriteLine(myOrder);
+                        //}
+                        var allOrders = (from Order o in IDalVariable.Order.GetAll()
+                                          select o).ToList();
+                        Console.WriteLine(allOrders);
                     }
         
                     break;
@@ -351,10 +358,13 @@ namespace DalTest
                 case 3:
                     if (IDalVariable != null)
                     {
-                        foreach (var myOrderItem in IDalVariable.OrderItem.GetAll())
-                        {
-                            Console.WriteLine(myOrderItem);
-                        }
+                        //foreach (var myOrderItem in IDalVariable.OrderItem.GetAll())
+                        //{
+                        //    Console.WriteLine(myOrderItem);
+                        //}
+                        var allOrderItems = (from OrderItem oi in IDalVariable.OrderItem.GetAll()
+                                          select oi).ToList();
+                        Console.WriteLine(allOrderItems);
                     }
                     break;
 
@@ -410,10 +420,14 @@ namespace DalTest
                     {
                         if(IDalVariable != null)
                         {
-                            foreach (var myOrderItem in IDalVariable.OrderItem.GetAll(e => e?.OrderID == IdOrder))
-                            {
-                                Console.WriteLine(myOrderItem);
-                            }
+                            //foreach (var myOrderItem in IDalVariable.OrderItem.GetAll(e => e?.OrderID == IdOrder))
+                            //{
+                            //    Console.WriteLine(myOrderItem);
+                            //}
+                            var allOrderItems = (from OrderItem oi in IDalVariable.OrderItem.GetAll()
+                                                 where oi.OrderID.Equals(IdOrder)
+                                                 select oi).ToList();
+                            Console.WriteLine(allOrderItems);
                         }
                     }
                     catch (Exception e)

@@ -6,6 +6,7 @@ using BO;
 using DO;
 using Enums = BO.Enums;
 using System.Net.NetworkInformation;
+using OrderItem = BO.OrderItem;
 
 namespace BlTest
 {
@@ -72,11 +73,15 @@ namespace BlTest
                     if (blVariable != null)
                     {
                         IEnumerable<ProductForList?> listFromMethod = blVariable.Product.GetListOfProduct();
-                        foreach (var productForList in listFromMethod)
-                        {
-                            if (productForList is not null)
-                                Console.WriteLine(productForList);
-                        }
+                        //foreach (var productForList in listFromMethod)
+                        //{
+                        //    if (productForList is not null)
+                        //        Console.WriteLine(productForList);
+                        //}
+                        var productForList = (from ProductForList p in listFromMethod
+                                              where p is not null
+                                              select p).ToList();
+                        Console.WriteLine(productForList);
                     }
                     break;
 
@@ -451,11 +456,15 @@ namespace BlTest
                 case 1://get all orders
                     {
                         IEnumerable<OrderForList?> listFromMethod = blVariable.Order.GetListOfOrders();
-                        foreach (var orderForList in listFromMethod)
-                        {
-                            if(orderForList is not null)
-                            Console.WriteLine(orderForList);
-                        }
+                        //foreach (var orderForList in listFromMethod)
+                        //{
+                        //    if(orderForList is not null)
+                        //    Console.WriteLine(orderForList);
+                        //}
+                        var orderForList = (from OrderForList o in listFromMethod
+                                              where o is not null
+                                              select o).ToList();
+                        Console.WriteLine(orderForList);
                         break;
                     }
                 case 2://get a single order by id
@@ -474,8 +483,12 @@ namespace BlTest
                             Console.WriteLine(blVariable.Order.GetOrderDetails(order.ID).OrderDate);
                             Console.WriteLine(blVariable.Order.GetOrderDetails(order.ID).ShipDate);
                             Console.WriteLine(blVariable.Order.GetOrderDetails(order.ID).DeliveryDate);
-                            foreach (var item in listFromMethod)
-                                Console.WriteLine(item);
+                            //foreach (var item in listFromMethod)
+                            //    Console.WriteLine(item);
+                            var item = (from BO.OrderItem oi in listFromMethod
+                                                  where oi is not null
+                                                  select oi).ToList();
+                            Console.WriteLine(item);
                             Console.WriteLine(blVariable.Order.GetOrderDetails(order.ID).TotalSum);
                             Console.WriteLine(blVariable.Order.GetOrderDetails(order.ID));
 
@@ -536,11 +549,15 @@ namespace BlTest
 
                             orderTrackingFromMethod = blVariable.Order.GetOrderTracking(parse);
                             List<OrderTracking.StatusAndDate?> listFromMethod = orderTrackingFromMethod.listOfStatus!;
-                            foreach (var item in listFromMethod)
-                            {
-                                Console.WriteLine(item);
+                            //foreach (var item in listFromMethod)
+                            //{
+                            //    Console.WriteLine(item);
 
-                            }
+                            //}
+                            var items = (from BO.OrderItem oi in listFromMethod
+                                                  where oi is not null
+                                                  select oi).ToList();
+                            Console.WriteLine(items);
 
                         }
                         catch (Exception e)

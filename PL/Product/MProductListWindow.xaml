@@ -30,7 +30,7 @@
             </ListView.View>
         </ListView>
 
-        <Button x:Name="addOrUpdate" Content="Add new Product" Grid.Row="3" HorizontalAlignment="Left" Margin="565,2,0,2" Padding="5" Width="199" Click="Add_Click_"/>
+        <Button x:Name="addOrUpdate" Content="Add new Product" Grid.Row="2" HorizontalAlignment="Left" Margin="565,2,0,0" Padding="5" Width="199" Click="Add_Click_" Height="28" VerticalAlignment="Top"/>
 
     </Grid>
 
