@@ -8,6 +8,7 @@ using System.Xml.Linq;
 using BO;
 using DalList;
 using Factory = DalApi.Factory;
+using System.Resources;
 
 namespace BlImplementation
 {
@@ -38,12 +39,13 @@ namespace BlImplementation
                 bool exist = cart.ItemList.Exists(e => e?.ID == itemId);
                 if (exist)
                 {
-                    BO.OrderItem BOI = cart.ItemList.Find(e => e?.ID == itemId)?? new BO.OrderItem();
+                    BO.OrderItem BOI = cart.ItemList.Find(e => e?.ID == itemId) ?? new BO.OrderItem();
                     if (BOI != null)
                     {
                         DO.Product DP;
-                        if (Dal != null) {
-                           DP = Dal.Product.Get(e => e?.ID == itemId);
+                        if (Dal != null)
+                        {
+                            DP = Dal.Product.Get(e => e?.ID == itemId);
                         }
                         else
                         {
@@ -72,7 +74,8 @@ namespace BlImplementation
                     try
                     {
                         DO.Product DP;
-                        if (Dal != null) {
+                        if (Dal != null)
+                        {
                             DP = Dal.Product.Get(e => e?.ID == itemId);
                         }
                         else
@@ -117,11 +120,11 @@ namespace BlImplementation
             {
                 throw new BO.ItemNotInCartException("item not in cart") { ItemNotInCart = itemId.ToString() };
             }
-           // if(cart.ItemList.Find(e => e?.ID == itemId) is  null) throw new ItemNotInCartException("item list not exsist") { ItemNotInCart = cart.ToString() };
-           if(itemId == 0)  throw new NegativeIdException("negative id") { NegativeId = itemId.ToString() };
+            // if(cart.ItemList.Find(e => e?.ID == itemId) is  null) throw new ItemNotInCartException("item list not exsist") { ItemNotInCart = cart.ToString() };
+            if (itemId == 0) throw new NegativeIdException("negative id") { NegativeId = itemId.ToString() };
             Predicate<BO.OrderItem?> match = e => e?.ID == itemId;
-            if(match is null)throw new ItemNotInCartException("item list is empty") { ItemNotInCart=null };
-            BO.OrderItem BOI = cart.ItemList.Find(match)??new BO.OrderItem();
+            if (match is null) throw new ItemNotInCartException("item list is empty") { ItemNotInCart = null };
+            BO.OrderItem BOI = cart.ItemList.Find(match) ?? new BO.OrderItem();
             if (BOI == null)
             {
                 return cart;
@@ -178,8 +181,9 @@ namespace BlImplementation
                         try
                         {
                             DO.Product DP;
-                            if (Dal != null) {
-                               DP = Dal.Product.Get(e => e?.ID == item.ID);
+                            if (Dal != null)
+                            {
+                                DP = Dal.Product.Get(e => e?.ID == item.ID);
                             }
                             else
                             {
@@ -188,7 +192,7 @@ namespace BlImplementation
 
                             if (item.Amount < 0)
                             {
-                                throw new BO.NegativeAmountException("negative amount"){NegativeAmount = item.Amount.ToString()};
+                                throw new BO.NegativeAmountException("negative amount") { NegativeAmount = item.Amount.ToString() };
                             }
                             if (item.Amount > DP.InStock)
                             {
@@ -222,33 +226,45 @@ namespace BlImplementation
             try
             {
                 int orderID;
-                if (Dal != null) {
-                   orderID = Dal.Order.Add(o);
+                if (Dal != null)
+                {
+                    orderID = Dal.Order.Add(o);
                 }
                 else
                 {
                     throw new BO.GetDulNullException("item in cart not exists as product") { GetDulNull = null };
                 }
-                
+
                 if (cart.ItemList != null)
                 {
                     try
                     {
-                        foreach (var item in cart.ItemList)
-                        {
-                            if (item != null)
-                            {
-                                Dal.OrderItem.Add(new DO.OrderItem()
-                                {
-                                    ID = 0,
-                                    ProductID = item.ID,
-                                    OrderID = orderID,
-                                    Price = item.Price,
-                                    Amount = item.Amount
-                                });
-                            }
+                        //foreach (var item in cart.ItemList)
+                        //{
+                        //    if (item != null)
+                        //    {
+                        //        Dal.OrderItem.Add(new DO.OrderItem()
+                        //        {
+                        //            ID = 0,
+                        //            ProductID = item.ID,
+                        //            OrderID = orderID,
+                        //            Price = item.Price,
+                        //            Amount = item.Amount
+                        //        });
+                        //    }
 
-                        }
+                        //}
+
+                        var addOrderItem = cart.ItemList
+                                          .Where(cAdd => cAdd != null)
+                                          .Select(cAdd => Dal.OrderItem.Add(new DO.OrderItem()
+                                          {
+                                              ID = 0,
+                                              ProductID = cAdd.ID,
+                                              OrderID = orderID,
+                                              Price = cAdd.Price,
+                                              Amount = cAdd.Amount
+                                          }));
                     }
                     catch (DO.ItemAlreadyExistsException)
                     {
@@ -259,7 +275,10 @@ namespace BlImplementation
             }
             catch (DO.RequestedItemNotFoundException)
             {
-                throw new BO.OrderNotExistsException("order not exists") { OrderNotExists = o.ToString() };
+                throw new BO.OrderNotExistsException("order not exists")
+                {
+                    OrderNotExists = o.ToString()
+                };
             }
             try
             {

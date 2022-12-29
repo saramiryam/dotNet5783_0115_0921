@@ -38,6 +38,17 @@ public class Order : BlApi.IOrder
             }
 
         }
+
+        //var addOrderItem = cart.ItemList
+        //                                 .Where(cAdd => cAdd != null)
+        //                                 .Select(cAdd => Dal.OrderItem.Add(new DO.OrderItem()
+        //                                 {
+        //                                     ID = 0,
+        //                                     ProductID = cAdd.ID,
+        //                                     OrderID = orderID,
+        //                                     Price = cAdd.Price,
+        //                                     Amount = cAdd.Amount
+        //                                 }));
         return ordersForList;
     }
 
