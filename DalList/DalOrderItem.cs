@@ -42,10 +42,11 @@ internal class DalOrderItem : IOrderItem
         {
             throw new GetPredictNullException("the predict is empty") { GetPredictNull = null };
         }
-        OrderItem? _newOrderItem = new OrderItem();
-        _newOrderItem = DataSource._arrOrderItem.Find(e => predict(e));
-        if (_newOrderItem.HasValue)
-            return (OrderItem)_newOrderItem;
+        //OrderItem? _newOrderItem = new OrderItem();
+        //_newOrderItem = DataSource._arrOrderItem.Find(e => predict(e));
+        return DataSource._arrOrderItem
+                    .Where(e => predict(e))
+                    .Select(e => (OrderItem)e!).First();
         throw new RequestedItemNotFoundException("orderItem not exists,can not do get") { RequestedItemNotFound = predict.ToString() };
 
 
@@ -67,7 +68,10 @@ internal class DalOrderItem : IOrderItem
         }
         else
         {
-            _OrderItems = DataSource._arrOrderItem.FindAll(e => predict(e));
+            //_OrderItems = DataSource._arrOrderItem.FindAll(e => predict(e));
+            return DataSource._arrOrderItem
+         .Where(e => predict(e))
+         .Select(e => (DO.OrderItem?)e!).ToList();
         }
 
         if (_OrderItems.Count > 0)
@@ -84,13 +88,18 @@ internal class DalOrderItem : IOrderItem
     public void Delete(int _orderItemID)
     {
         if (DataSource._arrOrderItem == null) throw new RequestedItemNotFoundException("orderItem not exists,can not do get") { RequestedItemNotFound = _orderItemID.ToString() };
-        OrderItem? _orderItemToDel = new OrderItem();
-        _orderItemToDel = DataSource._arrOrderItem.Find(e => e.HasValue && e!.Value.ID == _orderItemID);
-        if (_orderItemToDel.HasValue)
-            DataSource._arrOrderItem.Remove(_orderItemToDel);
-        else
+        //OrderItem? _orderItemToDel = new OrderItem();
+        //_orderItemToDel = DataSource._arrOrderItem.Find(e => e.HasValue && e!.Value.ID == _orderItemID);
+        try
+        {
+            DataSource._arrOrderItem.Remove(DataSource._arrOrderItem
+                  .Where(e => e is not null && e.Value.ID == _orderItemID)
+                  .Select(e => (OrderItem)e!).First());
+        }
+        catch
+        {
             throw new RequestedItemNotFoundException("orderItem not exists,can not delete") { RequestedItemNotFound = _orderItemID.ToString() };
-
+        }
     }
     /// <summary>
     ///  update date of product and throw exception if it does not exist
@@ -106,11 +115,15 @@ internal class DalOrderItem : IOrderItem
         }
 
         if (DataSource._arrOrderItem == null) throw new RequestedItemNotFoundException("orderItem not exists,can not do get") { RequestedItemNotFound = _newOrderItem.ToString() };
-        OrderItem? _orderItemToUpdate = new OrderItem();
-        _orderItemToUpdate = DataSource._arrOrderItem.Find(e => e.HasValue && e!.Value.ID == _newOrderItem.ID && e.Value.OrderID == _newOrderItem.OrderID && e.Value.ProductID == _newOrderItem.ProductID);
-        if (_orderItemToUpdate.HasValue)
+        //OrderItem? _orderItemToUpdate = new OrderItem();
+        //_orderItemToUpdate = DataSource._arrOrderItem.Find(e => e.HasValue && e!.Value.ID == _newOrderItem.ID && e.Value.OrderID == _newOrderItem.OrderID && e.Value.ProductID == _newOrderItem.ProductID);
+        OrderItem? _orderToUpdate = DataSource._arrOrderItem
+               .Where(e => e is not null && e.Value.ID == _newOrderItem.ID)
+               .Select(e => (OrderItem?)e!).First();
+
+        if (_orderToUpdate.HasValue)
         {
-            DataSource._arrOrderItem.Remove(_orderItemToUpdate);
+            DataSource._arrOrderItem.Remove(_orderToUpdate);
             DataSource._arrOrderItem.Add(_newOrderItem);
         }
         else
