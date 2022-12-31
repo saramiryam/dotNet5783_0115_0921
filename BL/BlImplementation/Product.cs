@@ -139,7 +139,12 @@ namespace BlImplementation
                         Category = (BO.Enums.ECategory)p.Category,
                         Price = p.Price,
                         InStock = p.InStock,
-                        AmoutInYourCart = CostumerCart.ItemList.FindAll(e => e?.ID == id).Count()
+                        //AmoutInYourCart = CostumerCart.ItemList.FindAll(e => e?.ID == id).Count()
+                        AmoutInYourCart = CostumerCart.ItemList
+                                   
+                                    .GroupBy(e => e?.ID)
+                                     .Where(ID == id)
+                                    .Count()
                     };
                     return PI;
                 }

@@ -39,7 +39,10 @@ namespace BlImplementation
                 bool exist = cart.ItemList.Exists(e => e?.ID == itemId);
                 if (exist)
                 {
-                    BO.OrderItem BOI = cart.ItemList.Find(e => e?.ID == itemId) ?? new BO.OrderItem();
+                    //BO.OrderItem BOI = cart.ItemList.Find(e => e?.ID == itemId) ?? new BO.OrderItem();
+                    var BOI = cart.ItemList
+                        .Where(e => e?.ID == itemId)
+                        .Select(e => (BO.OrderItem?)e!).FirstOrDefault();
                     if (BOI != null)
                     {
                         DO.Product DP;
@@ -124,7 +127,10 @@ namespace BlImplementation
             if (itemId == 0) throw new NegativeIdException("negative id") { NegativeId = itemId.ToString() };
             Predicate<BO.OrderItem?> match = e => e?.ID == itemId;
             if (match is null) throw new ItemNotInCartException("item list is empty") { ItemNotInCart = null };
-            BO.OrderItem BOI = cart.ItemList.Find(match) ?? new BO.OrderItem();
+            //BO.OrderItem BOI = cart.ItemList.Find(match) ?? new BO.OrderItem();
+            var BOI = cart.ItemList
+                  .Where(e => e?.ID == itemId)
+                  .Select(e => (BO.OrderItem?)e!).FirstOrDefault();
             if (BOI == null)
             {
                 return cart;
