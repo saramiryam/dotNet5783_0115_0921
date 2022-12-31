@@ -260,10 +260,10 @@ namespace BlImplementation
                                           .Select(cAdd => Dal.OrderItem.Add(new DO.OrderItem()
                                           {
                                               ID = 0,
-                                              ProductID = cAdd.ID,
+                                              ProductID = cAdd!.ID,
                                               OrderID = orderID,
-                                              Price = cAdd.Price,
-                                              Amount = cAdd.Amount
+                                              Price = cAdd!.Price,
+                                              Amount = cAdd!.Amount
                                           }));
                     }
                     catch (DO.ItemAlreadyExistsException)

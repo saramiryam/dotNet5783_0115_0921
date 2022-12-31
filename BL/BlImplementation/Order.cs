@@ -1,5 +1,6 @@
 ﻿using BlApi;
 using BO;
+using Dal;
 using DalApi;
 using DO;
 using static BO.Enums;
@@ -43,7 +44,7 @@ public class Order : BlApi.IOrder
                        .Where(item => item != null)
                        .Select(item => new BO.OrderForList()
                        {
-                           OrderID = item.Value.ID,
+                           OrderID = item!.Value.ID,
                            CustomerName = item.Value.CustomerName,
                            Status = CheckStatus(item.Value.OrderDate, item.Value.ShipDate, item.Value.DeliveryDate),
                            AmountOfItem = GetAmountItems(item.Value.ID),
@@ -258,8 +259,11 @@ public class Order : BlApi.IOrder
         if (flag)
         {
             //find
-            DO.OrderItem OI = ordersItem.Find(e => e.ProductID == productId && e.OrderID == orderId);
-            if (amount == 0)
+            //DO.OrderItem OI = ordersItem.Find(e => e.ProductID == productId && e.OrderID == orderId);
+            DO.OrderItem OI=ordersItem
+                .Where(e => e.ProductID == productId && e.OrderID == orderId)
+                .Select(e=>(DO.OrderItem)e!).First();
+                if (amount == 0)
             {
                 if (Dal != null)
                 {
@@ -409,11 +413,11 @@ public class Order : BlApi.IOrder
     }
     public List<BO.OrderItem?> GetAllItemsToOrder(int id)
     {
-        IEnumerable<DO.OrderItem> orderItemList = new List<DO.OrderItem>();
-        List<BO.OrderItem?> BOorderItemList = new List<BO.OrderItem?>();
+        List<DO.OrderItem?> orderItemList = new List<DO.OrderItem?>();
+        //List<BO.OrderItem?> BOorderItemList = new List<BO.OrderItem?>();
         if (Dal != null)
         {
-            orderItemList = (IEnumerable<DO.OrderItem>)Dal.OrderItem.GetAll(e => e?.OrderID == id);
+            orderItemList = (List<DO.OrderItem?>)Dal.OrderItem.GetAll(e => e?.OrderID == id);
         }
         int count = 0;
         //foreach (var item in orderItemList)
@@ -431,16 +435,17 @@ public class Order : BlApi.IOrder
         //}
         //return BOorderItemList;
         var addOrderItem = orderItemList
-                          .Select(item => BOorderItemList.Add(new BO.OrderItem()
+            .Where(item=>item is not null)
+                          .Select(item => new BO.OrderItem()
                           {
                               numInOrder = count++,
-                              ID = item.ID,
-                              Name = getOrderItemName(item.ProductID),
-                              Price = item.Price,
-                              Amount = item.Amount,
-                              sumItem = item.Price * item.Amount
+                              ID = item!.Value.ID,
+                              Name = getOrderItemName(item.Value.ProductID),
+                              Price = item.Value.Price,
+                              Amount = item.Value.Amount,
+                              sumItem = item.Value.Price * item.Value.Amount
 
-                          }));
+                          }).ToList();
         return addOrderItem;
     
     }

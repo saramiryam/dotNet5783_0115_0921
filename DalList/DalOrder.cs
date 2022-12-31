@@ -49,12 +49,16 @@ internal class DalOrder : IOrder
         }
         //Order? _orderToGet = new Order();
         //_orderToGet = DataSource._Orders.Find(e=> predict(e)); 
-        return DataSource._Orders
-                 .Where(e => predict(e))
-                 .Select(e => (Order)e!).First();
-
-        throw new RequestedItemNotFoundException("order not exists,can not get") { RequestedItemNotFound = predict?.ToString() };
-
+        try
+        {
+            return DataSource._Orders
+                     .Where(e => predict(e))
+                     .Select(e => (Order)e!).First();
+        }
+        catch
+        {
+            throw new RequestedItemNotFoundException("order not exists,can not get") { RequestedItemNotFound = predict?.ToString() };
+        }
     }
 
     /// <summary>
@@ -116,19 +120,19 @@ internal class DalOrder : IOrder
         if (DataSource._Orders == null) throw new RequestedUpdateItemNotFoundException("order not exists,can not update") { RequestedUpdateItemNotFound = _o.ToString() };
         //Order? _orderToUpdate = new Order();
         //_orderToUpdate = DataSource._Orders.Find(e => e.HasValue && e!.Value.ID == _o.ID);
-       
-        Order? _orderToUpdate = DataSource._Orders
-                  .Where(e => e is not null && e.Value.ID == _o.ID)
-                  .Select(e => (Order?)e!).First();
-                  
-            if (_orderToUpdate.HasValue)
-            {
-                DataSource._Orders.Remove(_orderToUpdate);
-                DataSource._Orders.Add(_o);
-            }
-            else
-                throw new RequestedUpdateItemNotFoundException("order not exists,can not update") { RequestedUpdateItemNotFound = _o.ToString() };
 
+        try
+        {
+            DataSource._Orders.Remove(DataSource._Orders
+                  .Where(e => e is not null && e.Value.ID == _o.ID)
+                  .Select(e => (Order?)e!).First());
+            DataSource._Orders.Add(_o);
+        }
+        catch
+        {
+
+            throw new RequestedUpdateItemNotFoundException("order not exists,can not update") { RequestedUpdateItemNotFound = _o.ToString() };
+        }
         }
 
         #endregion

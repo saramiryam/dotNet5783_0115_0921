@@ -46,12 +46,17 @@ public class DalProduct:IProduct
         {
             throw new GetPredictNullException("the predict is empty") { GetPredictNull = null };
         }
-        Product? _newProduct = DataSource._Products.Find(e=> predict(e));
-        if (_newProduct.HasValue)
-            return (Product)_newProduct;
-        else
+        //Product? _newProduct = DataSource._Products.Find(e=> predict(e));
+        try
+        {
+            return DataSource._Products
+                      .Where(p => predict(p))
+                      .Select(p => (Product)p!).First();
+        }
+        catch
+        {
             throw new RequestedItemNotFoundException("product not exists,can not do get") { RequestedItemNotFound = predict.ToString() };
-
+        }
 
     }
 
@@ -63,7 +68,7 @@ public class DalProduct:IProduct
     {
         if (DataSource._Products == null)
         { 
-            throw new RequestedItemNotFoundException("order not exists,can not get") { RequestedItemNotFound = "jjj".ToString() }; 
+            throw new RequestedItemNotFoundException("orders not exists,can not get") { RequestedItemNotFound = "jjj".ToString() }; 
         }
         if(predict == null)
         {
@@ -72,9 +77,18 @@ public class DalProduct:IProduct
         }
         else
         {
-            List<Product?> _products = new List<Product?>();
-            _products=DataSource._Products.FindAll(e=> predict(e)); 
-            return _products;   
+            //List<Product?> _products = new List<Product?>();
+            //_products=DataSource._Products.FindAll(e=> predict(e)); 
+            //return _products;
+            try
+            {
+                return DataSource._Products.Where(p => predict(p))
+                .Select(e => (DO.Product?)e!).ToList();
+            }
+            catch
+            {
+                throw new RequestedItemNotFoundException("orders not exists,can not get") { RequestedItemNotFound = "jjj".ToString() };
+            }
         }
     }
 
@@ -87,13 +101,17 @@ public class DalProduct:IProduct
     {
 
         if (DataSource._Products == null) throw new RequestedItemNotFoundException("order not exists,can not get") { RequestedItemNotFound = _num.ToString() };
-        Product? _productToDel = new Product();
-        _productToDel = DataSource._Products.Find(e => e.HasValue && e!.Value.ID == _num);
-        if (_productToDel.HasValue)
-            DataSource._Products.Remove(_productToDel);
-        else
+        //Product? _productToDel = new Product();
+        //_productToDel = DataSource._Products.Find(e => e.HasValue && e!.Value.ID == _num);
+        try
+        {
+            DataSource._Products.Remove(DataSource._Products
+                      .Where(e => e.HasValue && e!.Value.ID == _num)
+                      .Select(e => (Product)e!).First());
+        }
+        catch {
             throw new RequestedItemNotFoundException("product not exists,can not do delete") { RequestedItemNotFound = _num.ToString() };
-
+        }
 
     }
 
@@ -111,16 +129,19 @@ public class DalProduct:IProduct
         }
 
         if (DataSource._Products == null) throw new RequestedItemNotFoundException("order not exists,can not get") { RequestedItemNotFound = _p.ToString() };
-        Product? _productToUpdate = new Product();
-        _productToUpdate = DataSource._Products.Find(e => e.HasValue && e!.Value.ID == _p.ID);
-        if (_productToUpdate.HasValue)
+        //Product? _productToUpdate = new Product();
+        //_productToUpdate = DataSource._Products.Find(e => e.HasValue && e!.Value.ID == _p.ID);
+        try
         {
-            DataSource._Products.Remove(_productToUpdate);
+            DataSource._Products.Remove(DataSource._Products
+               .Where(e => e is not null && e.Value.ID == _p.ID)
+               .Select(e => (Product?)e!).First());
             DataSource._Products.Add(_p);
         }
-        else
+        catch
+        {
             throw new RequestedItemNotFoundException("product not exists,can not do update") { RequestedItemNotFound = _p.ToString() };
-
+        }
 
     }
 
