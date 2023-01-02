@@ -2,6 +2,7 @@
 using BO;
 using DalApi;
 using DO;
+using System.Linq;
 using Factory = DalApi.Factory;
 
 namespace BlImplementation
@@ -18,65 +19,74 @@ namespace BlImplementation
         public IEnumerable<BO.ProductForList> GetListOfProduct()
         {
             IEnumerable<DO.Product?> productsList = new List<DO.Product?>();
-            List<BO.ProductForList> productsForList = new List<BO.ProductForList>();
-           if(Dal != null)
-            {
-                productsList = Dal.Product.GetAll();
-           }
-            foreach (var item in productsList)
-            {
-                if ((item != null) && (item.Value.Category != null))
-                {
-                    productsForList.Add(new BO.ProductForList()
-                    {
-                        ID = item.Value.ID,
-                        Name = item.Value.Name,
-                        Price = item.Value.Price,
-                        Category = (BO.Enums.ECategory)item.Value.Category
-                    });
-                }
-            }
-            return productsForList;
-
-            var addOrderItem = cart.ItemList
-                                          .Where(item => (item != null) && (item.Value.Category != null))
-                                          .Select(cAdd => Dal.OrderItem.Add(new DO.OrderItem()
-                                          {
-                                              ID = 0,
-                                              ProductID = cAdd.ID,
-                                              OrderID = orderID,
-                                              Price = cAdd.Price,
-                                              Amount = cAdd.Amount
-                                          }));
-
-        }
-       
-        public IEnumerable<BO.ProductForList> GetProductForListByCategory(BO.Enums.ECategory category)
-        {
-            IEnumerable<DO.Product?> productsList = new List<DO.Product?>();
-            List<BO.ProductForList> productsForList = new List<BO.ProductForList>();
+            // List<BO.ProductForList> productsForList = new List<BO.ProductForList>();
             if (Dal != null)
             {
                 productsList = Dal.Product.GetAll();
             }
-            foreach (var item in productsList)
-            {
-                if ((item != null) && (item.Value.Category != null))
-                {
-                    if (item.Value.Category.ToString()== category.ToString())
-                    {
-                        productsForList.Add(new BO.ProductForList()
-                        {
-                            ID = item.Value.ID,
-                            Name = item.Value.Name,
-                            Price = item.Value.Price,
-                            Category = (BO.Enums.ECategory)item.Value.Category
-                        });
-                    }
-                }
+            //foreach (var item in productsList)
+            //{
+            //    if ((item != null) && (item.Value.Category != null))
+            //    {
+            //        productsForList.Add(new BO.ProductForList()
+            //        {
+            //            ID = item.Value.ID,
+            //            Name = item.Value.Name,
+            //            Price = item.Value.Price,
+            //            Category = (BO.Enums.ECategory)item.Value.Category
+            //        });
+            //    }
+            //}
+            //return productsForList;
 
+            var addOrderItem = productsList
+                               .Where(item => (item != null) && (item.Value.Category != null))
+                               .Select(item => new BO.ProductForList()
+                               {
+                                   ID = item.Value.ID,
+                                   Name = item.Value.Name,
+                                   Price = item.Value.Price,
+                                   Category = (BO.Enums.ECategory)item.Value.Category
+                               });
+            return addOrderItem;
+        }
+
+        public IEnumerable<BO.ProductForList> GetProductForListByCategory(BO.Enums.ECategory category)
+        {
+            IEnumerable<DO.Product?> productsList = new List<DO.Product?>();
+            //List<BO.ProductForList> productsForList = new List<BO.ProductForList>();
+            if (Dal != null)
+            {
+                productsList = Dal.Product.GetAll();
             }
-            return productsForList;
+            //foreach (var item in productsList)
+            //{
+            //    if ((item != null) && (item.Value.Category != null))
+            //    {
+            //        if (item.Value.Category.ToString() == category.ToString())
+            //        {
+            //            productsForList.Add(new BO.ProductForList()
+            //            {
+            //                ID = item.Value.ID,
+            //                Name = item.Value.Name,
+            //                Price = item.Value.Price,
+            //                Category = (BO.Enums.ECategory)item.Value.Category
+            //            });
+            //        }
+            //    }
+
+            //}
+            //return productsForList;
+            var listByCategory = productsList
+                       .Where(item => (item != null) && (item.Value.Category != null) && (item.Value.Category.ToString() == category.ToString()))
+                       .Select(item => new BO.ProductForList()
+                       {
+                           ID = item!.Value.ID,
+                           Name = item.Value.Name,
+                           Price = item.Value.Price,
+                           Category = (BO.Enums.ECategory)item.Value.Category
+                       });
+            return listByCategory;
         }
 
         public BO.Product GetProductItem(int id)
@@ -141,9 +151,9 @@ namespace BlImplementation
                         InStock = p.InStock,
                         //AmoutInYourCart = CostumerCart.ItemList.FindAll(e => e?.ID == id).Count()
                         AmoutInYourCart = CostumerCart.ItemList
-                                   
+
                                     .GroupBy(e => e?.ID)
-                                     .Where(ID == id)
+                                     .Where(p.ID==id)
                                     .Count()
                     };
                     return PI;
@@ -232,20 +242,23 @@ namespace BlImplementation
                 orderList = Dal.OrderItem.GetAll();
             }
             bool flag = false;
-            foreach (var OI in orderList)
-            {
-                if (OI != null && OI.Value.ProductID == id)
-                {
-                    flag = true;
-                }
-            }
+            //foreach (var OI in orderList)
+            //{
+            //    if (OI != null && OI.Value.ProductID == id)
+            //    {
+            //        flag = true;
+            //    }
+            //}
+            flag = orderList
+                      .Where(OI => OI != null && OI.Value.ProductID == id)
+                      .(item => flag = true;) ;
             if (flag)
             {
                 throw new BO.ProductInUseException("product in use") { ProductInUse = id.ToString() };
             }
             try
             {
-                if(Dal != null)
+                if (Dal != null)
                 {
                     Dal.Product.Delete(id);
                 }
@@ -294,7 +307,7 @@ namespace BlImplementation
             {
                 throw new BO.NegativeIdException("id is too short") { NegativeId = id.ToString() };
             }
-            if ( string.IsNullOrEmpty(name))
+            if (string.IsNullOrEmpty(name))
             {
                 throw new BO.EmptyNameException("empty name") { EmptyName = null };
             }
