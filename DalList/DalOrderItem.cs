@@ -15,7 +15,10 @@ internal class DalOrderItem : IOrderItem
 /// <exception cref="Exception"></exception>
     public int Add(OrderItem _newOrderItem)
     {
-        if (DataSource._arrOrderItem.Exists(e => e?.OrderID == _newOrderItem.ID && e?.ProductID == _newOrderItem.ProductID))
+        if ((DataSource._arrOrderItem
+                     .Where(e => e?.OrderID == _newOrderItem.ID && e?.ProductID == _newOrderItem.ProductID)
+                     .Select(e => (DO.OrderItem?)e).FirstOrDefault() is not null))
+            //if (DataSource._arrOrderItem.Exists(e => e?.OrderID == _newOrderItem.ID && e?.ProductID == _newOrderItem.ProductID))
             throw new ItemAlreadyExistsException("order exists, can not add") { ItemAlreadyExists = _newOrderItem.ToString() };
 
         else

@@ -9,6 +9,7 @@ using BO;
 using DalList;
 using Factory = DalApi.Factory;
 using System.Resources;
+using Dal;
 
 namespace BlImplementation
 {
@@ -36,8 +37,10 @@ namespace BlImplementation
             else
             {
                 if (cart.ItemList == null) throw new ItemNotInCartException("item list not exsist") { ItemNotInCart = cart.ToString() };
-                bool exist = cart.ItemList.Exists(e => e?.ID == itemId);
-                if (exist)
+                var exist = cart.ItemList
+                    .Where(e => e?.ID == itemId)
+                    .Select(e => (BO.OrderItem?)e).FirstOrDefault();
+                if (exist is not null)
                 {
                     //BO.OrderItem BOI = cart.ItemList.Find(e => e?.ID == itemId) ?? new BO.OrderItem();
                     var BOI = cart.ItemList
@@ -118,8 +121,11 @@ namespace BlImplementation
         public BO.Cart UpdateAmount(BO.Cart cart, int itemId, int amount)
         {
             if (cart.ItemList == null) throw new ItemNotInCartException("item list not exsist") { ItemNotInCart = cart.ToString() };
-            bool exist = cart.ItemList.Exists(e => e?.ID == itemId);
-            if (!exist)
+            var exist = cart.ItemList
+                       .Where(e => e?.ID == itemId)
+                       .Select(e =>(BO.OrderItem?) e).FirstOrDefault();
+               // cart.ItemList.Exists(e => e?.ID == itemId);
+            if (exist is null)
             {
                 throw new BO.ItemNotInCartException("item not in cart") { ItemNotInCart = itemId.ToString() };
             }

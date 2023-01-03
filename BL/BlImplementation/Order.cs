@@ -255,8 +255,11 @@ public class Order : BlApi.IOrder
             ordersItem = (List<DO.OrderItem>)Dal.OrderItem.GetAll(e => e?.OrderID == orderId);
         }
 
-        bool flag = ordersItem.Exists(e => e.ProductID == productId && e.OrderID == orderId);
-        if (flag)
+        var flag = (ordersItem
+                       .Where(e => e.ProductID == productId && e.OrderID == orderId)
+                       .Select(e => (DO.OrderItem?)e).FirstOrDefault());
+            //ordersItem.Exists(e => e.ProductID == productId && e.OrderID == orderId);
+        if (flag is not null)
         {
             //find
             //DO.OrderItem OI = ordersItem.Find(e => e.ProductID == productId && e.OrderID == orderId);
@@ -436,7 +439,7 @@ public class Order : BlApi.IOrder
         //return BOorderItemList;
         var addOrderItem = orderItemList
             .Where(item=>item is not null)
-                          .Select(item => new BO.OrderItem()
+                          .Select(item =>(BO.OrderItem?) new BO.OrderItem()
                           {
                               numInOrder = count++,
                               ID = item!.Value.ID,
@@ -445,7 +448,7 @@ public class Order : BlApi.IOrder
                               Amount = item.Value.Amount,
                               sumItem = item.Value.Price * item.Value.Amount
 
-                          }).ToList();
+                          }).ToList();   
         return addOrderItem;
     
     }

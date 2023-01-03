@@ -18,7 +18,10 @@ internal class DalOrder : IOrder
     /// <exception cref="Exception">order exists</exception>
     public int Add(Order _o)
     {
-        if (DataSource._Orders.Exists(e => e?.CustomerName == _o.CustomerName && e?.CustomerAdress == _o.CustomerAdress && e?.CustomerEmail == _o.CustomerEmail && e?.OrderDate == _o.OrderDate))
+        if ((DataSource._Orders
+                     .Where(e => e?.ID == _o.ID)
+                     .Select(e => (DO.Order?)e).FirstOrDefault() is not null))
+            //if (DataSource._Orders.Exists(e => e?.CustomerName == _o.CustomerName && e?.CustomerAdress == _o.CustomerAdress && e?.CustomerEmail == _o.CustomerEmail && e?.OrderDate == _o.OrderDate))
             throw new ItemAlreadyExistsException("order exists, can not add") { ItemAlreadyExists = _o.ToString() };
         else
         {
