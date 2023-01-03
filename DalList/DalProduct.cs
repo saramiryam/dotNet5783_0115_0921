@@ -71,7 +71,7 @@ public class DalProduct:IProduct
     {
         if (DataSource._Products == null)
         { 
-            throw new RequestedItemNotFoundException("orders not exists,can not get") { RequestedItemNotFound = "jjj".ToString() }; 
+            throw new RequestedItemNotFoundException("product not exists,can not get") { RequestedItemNotFound = "jjj".ToString() }; 
         }
         if(predict == null)
         {

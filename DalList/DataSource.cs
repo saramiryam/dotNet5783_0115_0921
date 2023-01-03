@@ -35,6 +35,7 @@ public static class DataSource
         //להוסיף לפונקציה שתקבל סטרינג
         addNewProduct("big_notebook", ECategory.Notebooks, 6.9, 50);     //10000 
         addNewProduct("small notebook", ECategory.Notebooks, 4.9, 0);       ///10001
+        addNewProduct("Sudoku", ECategory.Games, 9.5, 41);                  //10010
         addNewProduct("campuse notebook", ECategory.Notebooks, 5.9, 35);      //10002
         addNewProduct("chanan notebook", ECategory.Notebooks, 4.9, 63);       //10003
         addNewProduct("pilot", ECategory.Pens, 9.9, 12);                    //10004
@@ -43,7 +44,6 @@ public static class DataSource
         addNewProduct("blue diary", ECategory.Diaries, 12.5, 38);           //10007         
         addNewProduct("red diary", ECategory.Diaries, 17, 65);               //10008
         addNewProduct("paintbrush", ECategory.ArtMaterials, 7, 25);          //10009
-        addNewProduct("Sudoku", ECategory.Games, 9.5, 41);                  //10010
         #endregion
         #region addNewOrderItem
         //  addNewOrder()

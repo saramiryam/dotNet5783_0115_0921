@@ -40,10 +40,11 @@ namespace BlImplementation
             //return productsForList;
 
             var addOrderItem = productsList
-                               .Where(item => (item != null) && (item.Value.Category != null))
+                               .Where(item => (item is not  null) && (item.Value.Category is not null))
+                               .OrderBy(item => item.Value.Name)
                                .Select(item => new BO.ProductForList()
                                {
-                                   ID = item.Value.ID,
+                                   ID = item!.Value.ID,
                                    Name = item.Value.Name,
                                    Price = item.Value.Price,
                                    Category = (BO.Enums.ECategory)item.Value.Category
@@ -97,7 +98,7 @@ namespace BlImplementation
             }
             else
             {
-                DO.Product p = new DO.Product();
+                DO.Product p = new();
                 try
                 {
                     if (Dal != null)
@@ -110,7 +111,7 @@ namespace BlImplementation
                     throw new BO.NegativeIdException("negative id") { NegativeId = id.ToString() };
 
                 }
-                BO.Product p1 = new BO.Product();
+                BO.Product p1 = new();
 
                 p1 = DOToBO(p);
                 return p1;
@@ -126,7 +127,7 @@ namespace BlImplementation
             }
             else
             {
-                DO.Product p = new DO.Product();
+                DO.Product p = new();
                 try
                 {
                     if (Dal != null)
@@ -142,7 +143,7 @@ namespace BlImplementation
                 if (p.Category is not null)
                 {
                     if (CostumerCart.ItemList == null) throw new ItemInCartNotExistsAsProductException("item list not exsist") { ItemInCartNotExistsAsProduct = p.ToString() };
-                    BO.ProductItem PI = new BO.ProductItem()
+                    BO.ProductItem PI = new()
                     {
                         ID = p.ID,
                         Name = p.Name,
@@ -150,11 +151,11 @@ namespace BlImplementation
                         Price = p.Price,
                         InStock = p.InStock,
                         //AmoutInYourCart = CostumerCart.ItemList.FindAll(e => e?.ID == id).Count()
-                        AmoutInYourCart = CostumerCart.ItemList
-
-                                    .GroupBy(e => e?.ID)
-                                     .Where(p.ID==id)
-                                    .Count()
+                        AmoutInYourCart = (from item in CostumerCart.ItemList
+                                          group item by item.ID into mygroup
+                                          where mygroup.Key == id
+                                          select (mygroup.Count())).First()
+                             
                     };
                     return PI;
                 }
@@ -170,7 +171,7 @@ namespace BlImplementation
             //לדאוג שהפונקציה מתחת תבדוק גם את תקינות הקטגוריה
             //להיזהר לר למחוק כדי שאם הוא לא יכיר את את הבדיקה נוכל להחזיר
 
-            CheckCorectData(p.ID, p.Name, p.Price, p.InStock);
+            CheckCorectData(p.ID, p.Name,p.Category, p.Price, p.InStock);
             try
             {
                 if (p.Category != null)
@@ -213,7 +214,7 @@ namespace BlImplementation
         public void UpdateProduct(BO.Product item)
         {
 
-            CheckCorectData(item.ID, item.Name, item.Price, item.InStock);
+            CheckCorectData(item.ID, item.Name,item.Category, item.Price, item.InStock);
             try
             {
                 if (item.Category is null || item.Name is null)
@@ -223,7 +224,7 @@ namespace BlImplementation
                     };
                 if (Dal != null)
                 {
-                    Dal.Product.Update(newProductWithData(item.ID, item.Name, (BO.Enums.ECategory)item.Category, item.Price, item.InStock));
+                    Dal.Product.Update(NewProductWithData(item.ID, item.Name, (BO.Enums.ECategory)item.Category, item.Price, item.InStock));
                 }
             }
             catch (DO.RequestedItemNotFoundException)
@@ -241,7 +242,7 @@ namespace BlImplementation
             {
                 orderList = Dal.OrderItem.GetAll();
             }
-            bool flag = false;
+         
             //foreach (var OI in orderList)
             //{
             //    if (OI != null && OI.Value.ProductID == id)
@@ -249,10 +250,10 @@ namespace BlImplementation
             //        flag = true;
             //    }
             //}
-            flag = orderList
-                      .Where(OI => OI != null && OI.Value.ProductID == id)
-                      .(item => flag = true;) ;
-            if (flag)
+           var flag = orderList
+                       .Where(oi => oi?.ProductID == id)
+                       .Select(e => (DO.OrderItem?)e).FirstOrDefault();
+            if (flag is not null)
             {
                 throw new BO.ProductInUseException("product in use") { ProductInUse = id.ToString() };
             }
@@ -278,11 +279,11 @@ namespace BlImplementation
         #region help methodes
 
         #region DO to BO
-        private BO.Product DOToBO(DO.Product p)
+        private static BO.Product DOToBO(DO.Product p)
         {
             if (p.Category != null)
             {
-                BO.Product p1 = new BO.Product()
+                BO.Product p1 = new()
                 {
                     ID = p.ID,
                     Name = p.Name,
@@ -301,7 +302,7 @@ namespace BlImplementation
         #endregion
 
         #region check corect data
-        public void CheckCorectData(int id, string? name, double price, int inStock)
+        public static void CheckCorectData(int id, string? name, BO.Enums.ECategory? category, double price, int inStock)
         {
             if (id < 100000)
             {
@@ -310,6 +311,10 @@ namespace BlImplementation
             if (string.IsNullOrEmpty(name))
             {
                 throw new BO.EmptyNameException("empty name") { EmptyName = null };
+            }
+            if (string.IsNullOrEmpty(category.ToString()))
+            {
+                throw new BO.GetEmptyCateporyException("empty category") { GetEmptyCatepory = null };
             }
             if (price <= 0)
             {
@@ -326,14 +331,16 @@ namespace BlImplementation
 
         #region new product with data
 
-        private static DO.Product newProductWithData(int id, string name, BO.Enums.ECategory category, double price, int inStock)
+        private static DO.Product NewProductWithData(int id, string name, BO.Enums.ECategory category, double price, int inStock)
         {
-            DO.Product p = new DO.Product();
-            p.ID = id;
-            p.Name = name;
-            p.Category = (DO.Enums.ECategory)category;
-            p.Price = price;
-            p.InStock = inStock;
+            DO.Product p = new()
+            {
+                ID = id,
+                Name = name,
+                Category = (DO.Enums.ECategory)category,
+                Price = price,
+                InStock = inStock
+            };
             return p;
         }
 
@@ -354,7 +361,8 @@ namespace BlImplementation
                     return BO.Enums.ECategory.ArtMaterials;
                 case "Games":
                     return BO.Enums.ECategory.Games;
-
+                default:
+                    break;
             }
             return BO.Enums.ECategory.Games;
         }

@@ -80,7 +80,7 @@ namespace PL.Product
             }
             catch(ProductAlreadyExistsException p) 
             {
-                Label ProductAlreadyExistsLable = new Label()
+                Label ProductAlreadyExistsLable = new()
                 {
                     Name = "ProductAlreadyExistsLabel",
                     Margin = new Thickness(290, 105, 0, 0),
@@ -94,7 +94,7 @@ namespace PL.Product
             }
             catch(NegativeIdException p)
             {
-                Label NegativeIdExceptionLable = new Label()
+                Label NegativeIdExceptionLable = new()
                 {
                     Name = "NegativeIdExceptionLable",
                     Margin = new Thickness(290, 105, 0, 0),
@@ -108,7 +108,7 @@ namespace PL.Product
             }
             catch (EmptyNameException p)
             {
-                Label EmptyNameExceptionLable = new Label()
+                Label EmptyNameExceptionLable = new()
                 {
                     Name = "EmptyNameExceptionLable",
                     Margin = new Thickness(288, 157, 0, 0),
@@ -120,9 +120,23 @@ namespace PL.Product
                 Grid.SetRow(EmptyNameExceptionLable, 1);
                 MainGrid.Children.Add(EmptyNameExceptionLable);
             }
+            catch (GetEmptyCateporyException p)
+            {
+                Label EmptyCateporyException = new()
+                {
+                    Name = "EmptyCateporyException",
+                    Margin = new Thickness(288, 214, 0, 0),
+                    Content = p.Message,
+                    HorizontalAlignment = HorizontalAlignment.Left,
+                    VerticalAlignment = VerticalAlignment.Top,
+                    Foreground = new SolidColorBrush(Colors.Red),
+                };
+                Grid.SetRow(EmptyCateporyException, 1);
+                MainGrid.Children.Add(EmptyCateporyException);
+            }
             catch (NegativePriceException p)
             {
-                Label NegativePriceExceptionLable = new Label()
+                Label NegativePriceExceptionLable = new()
                 {
                     Name = "NegativePriceExceptionLabel",
                     Margin = new Thickness(299, 246, 0, 0),
@@ -136,7 +150,7 @@ namespace PL.Product
             }
             catch (NegativeStockException p)
             {
-                Label NegativeStockExceptionLable = new Label()
+                Label NegativeStockExceptionLable = new()
                 {
                     Name = "NegativeStockExceptionLable",
                     Margin = new Thickness(299, 288, 0, 0),
@@ -166,7 +180,7 @@ namespace PL.Product
             if (child != null)
                 MainGrid.Children.Remove(child);
         }
-
+  
         private void price_TextChanged(object sender, TextChangedEventArgs e)
         {
             var child = MainGrid.Children.OfType<Control>().Where(x => x.Name == "NegativePriceExceptionLabel").FirstOrDefault();
@@ -181,6 +195,13 @@ namespace PL.Product
             if (child != null)
                 MainGrid.Children.Remove(child);
 
+        }
+
+        private void chooseCategoryToAdd_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var child = MainGrid.Children.OfType<Control>().Where(x => x.Name == "EmptyCateporyException").FirstOrDefault();
+            if (child != null)
+                MainGrid.Children.Remove(child);
         }
     }
 }

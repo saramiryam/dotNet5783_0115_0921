@@ -105,13 +105,15 @@ namespace BlTest
                 case 3://add
                     {
                         Console.WriteLine("Enter product details:");
+                        Console.WriteLine("ID:");
+                        int.TryParse(Console.ReadLine(), out parse);
+                        product1.ID = parse;
                         Console.WriteLine("Name:");
                         product1.Name = Console.ReadLine();
                         Console.WriteLine("Price:");
                         int.TryParse(Console.ReadLine(), out parse);
                         product1.Price = parse;
                         Console.WriteLine("type 1 for category Notebooks, 2- Pens, 3 - Diaries, 4 - ArtMaterials, 5-Games");
-                        var v=Console.ReadLine();
                         int category = int.Parse(Console.ReadLine()?? "category");
                         switch (category)
                         {
