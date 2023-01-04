@@ -1,4 +1,8 @@
-﻿using System;
+﻿//להוסיף אופציה של בחירת כל המוצרים
+//לשנות את פונקציית קבלת המוצרים לפרדיקט
+//לתקןאת הBIDING של הID
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,6 +17,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using BlImplementation;
 using BlApi;
+using BO;
+using System.Collections.ObjectModel;
 
 namespace PL;
 
@@ -21,44 +27,77 @@ namespace PL;
 /// </summary>
 public partial class MProductListWindow : Window
 {
+    #region prorerties
     BlApi.IBl? bl = BlApi.Factory.Get();
+    public System.Array Categories { get; set; } = Enum.GetValues(typeof(Enums.ECategory));
+    public Enums.ECategory? selectedCategory { get; set; } = null;
+    public BO.ProductForList? productToUp { get; set; }=new();
+    #region הפרופרטי של בחירת קטגוריה
+    //public readonly DependencyProperty selectedCategoryProperty = DependencyProperty.Register(nameof(selectedCategory),
+    //                                                                                                typeof(Enums.ECategory?),
+    //                                                                                                typeof(MProductListWindow));
+    //public Enums.ECategory? selectedCategory
+    //{
+    //    get { return (Enums.ECategory?)GetValue(selectedCategoryProperty); }
+    //    set { SetValue(selectedCategoryProperty, value); }
+    //}
+    #endregion
+    #region productsForListListProperty
+    public readonly DependencyProperty productsForListListProperty = DependencyProperty.Register(nameof(productsForListList),
+                                                                                                           typeof(ObservableCollection<ProductForList?>),
+                                                                                                   typeof(MProductListWindow));
+    public ObservableCollection<ProductForList?> productsForListList
+    {
+        get { return (ObservableCollection<ProductForList?>)GetValue(productsForListListProperty); }
+        set { SetValue(productsForListListProperty, value); }
+    }
+    #endregion
+    #region product to up property
+    //public readonly DependencyProperty productToUpProperty = DependencyProperty.Register(nameof(productToUp),
+    //                                                                                                       typeof(BO.Product),
+    //                                                                                               typeof(MProductListWindow));
+    //public BO.Product productToUp
+    //{
+    //    get { return (BO.Product)GetValue(productToUpProperty); }
+    //    set { SetValue(productToUpProperty, value); }
+    //}
+    #endregion
+    #endregion
+
+
+
+    public ObservableCollection<T> Convert<T>(IEnumerable<T> original)
+    {
+        return new ObservableCollection<T>(original);
+    }
+
+
     public MProductListWindow()
     {
+        productsForListList = Convert(bl.Product.GetListOfProduct());
         InitializeComponent();
-        ProductListView.ItemsSource = bl?.Product.GetListOfProduct();
-        CategorySelector.Items.Add(BO.Enums.ECategory.Notebooks);
-        CategorySelector.Items.Add(BO.Enums.ECategory.Games);
-        CategorySelector.Items.Add(BO.Enums.ECategory.Pens);
-        CategorySelector.Items.Add(BO.Enums.ECategory.ArtMaterials);
-        CategorySelector.Items.Add(BO.Enums.ECategory.Notebooks);
-        CategorySelector.Items.Add(BO.Enums.ECategory.Diaries);
-        CategorySelector.Items.Add("all products");
-        CategorySelector.Text = "all";
+        //  ProductListView.ItemsSource = (bl?.Product.GetListOfProduct());
+        // CategorySelector.Items.Add("all products");
 
     }
 
     private void CategorySelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
-        var cat=CategorySelector.SelectedItem;
-        if (cat is BO.Enums.ECategory)
-            ProductListView.ItemsSource = bl?.Product.GetProductForListByCategory((BO.Enums.ECategory)cat!);
-        else
-            ProductListView.ItemsSource = bl?.Product.GetListOfProduct();
+        if (selectedCategory is not null)
+            productsForListList = Convert(bl.Product.GetProductForListByCategory((Enums.ECategory)selectedCategory!));
     }
     private void ProductListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
     {
-
-        BO.ProductForList p = (BO.ProductForList)ProductListView.SelectedValue;
-        new Product.MProductWindow(p.ID).ShowDialog();
-        ProductListView.ItemsSource = bl?.Product.GetListOfProduct();
-   
-
+        if(productToUp is not null)
+       // BO.ProductForList p = (BO.ProductForList)ProductListView.SelectedValue;
+        new Product.MProductWindow(productToUp.ID).ShowDialog();
+        productsForListList=Convert(bl.Product.GetListOfProduct());
     }
 
     private void Add_Click_(object sender, RoutedEventArgs e)
     {
         new Product.MProductWindow().ShowDialog();
-        ProductListView.ItemsSource = bl?.Product.GetListOfProduct();
-  
+//        productsForListList = Convert(bl.Product.GetListOfProduct());
+
     }
 }

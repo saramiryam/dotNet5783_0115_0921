@@ -3,10 +3,11 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:PL"
+        xmlns:local="clr-namespace:PL.Product"
         mc:Ignorable="d"
-        Title="MProductForList" Height="640" Width="800">
-    <Grid Name="MainGrid">
+        Title="MProductForList" Height="640" Width="800"
+        DataContext="{Binding RelativeSource={RelativeSource self}}">
+    <Grid Name="MainGrid"      >
         <Grid.RowDefinitions>
             <RowDefinition Height="40*"/>
             <RowDefinition Height="500*"/>
@@ -18,14 +19,41 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions >
-            <ComboBox Name="CategorySelector" Grid.Column="1"  VerticalAlignment="Stretch" HorizontalAlignment="Stretch" SelectionChanged="CategorySelector_SelectionChanged"/>
-            <Label Content="category:" Grid.Column="0" HorizontalAlignment="Left" Margin="95,0,0,0" VerticalAlignment="Center"/>
+            <ComboBox Name="CategorySelector" Grid.Column="1"  VerticalAlignment="Stretch" HorizontalAlignment="Stretch" SelectionChanged="CategorySelector_SelectionChanged" SelectedItem="{Binding selectedCategory }" ItemsSource="{Binding Categories}"/>
+            <Label Content="category:" Grid.Column="0" HorizontalAlignment="Left" Margin="95,0,0,0" VerticalAlignment="Center" />
 
         </Grid>
-        <ListView x:Name="ProductListView" MouseDoubleClick="ProductListView_MouseDoubleClick"   Grid.Row="1" d:ItemsSource="{d:SampleData ItemCount=5}"  >
+        <ListView x:Name="ProductListView"  MouseDoubleClick="ProductListView_MouseDoubleClick"  SelectedValue="{Binding productToUp}" Grid.Row="1" ItemsSource="{Binding productsForListList}"  >
             <ListView.View>
                 <GridView>
-                    <GridViewColumn/>
+                    <GridViewColumn Width="Auto" Header="Id">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate >
+                                <TextBlock Margin="-5,-1" Text="{Binding ID}" TextAlignment="Right" Padding="3" />
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Width="Auto" Header="Name">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Margin="-5,-1" Text="{Binding Name}" Padding="3"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Width="Auto" Header="Category">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBox Margin="-5,-1" Text="{Binding Category}" HorizontalContentAlignment="Center" Padding="3" Width="100"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Width="Auto" Header="Price">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBox Margin="-5,-1" Text="{Binding Price}" HorizontalContentAlignment="Center" Padding="3" Width="40"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
                 </GridView>
             </ListView.View>
         </ListView>

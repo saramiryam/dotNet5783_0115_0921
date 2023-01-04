@@ -24,61 +24,60 @@ namespace PL.Product
     {
 
         BlApi.IBl? bl = BlApi.Factory.Get();
+        #region prorerties
+public readonly DependencyProperty ProductToUpOrAddProperty = DependencyProperty.Register(nameof(ProductToUpOrAdd),
+                                                                                                               typeof(BO.Product),
+                                                                                                       typeof(MProductWindow));
+        public  BO.Product ProductToUpOrAdd
+        {
+            get { return (BO.Product)GetValue(ProductToUpOrAddProperty); }
+            set { SetValue(ProductToUpOrAddProperty, value); }
+        } 
+        
+        public static System.Array Categories { get; set; } = Enum.GetValues(typeof(Enums.ECategory));
 
-        BO.Product productTOUp = new BO.Product();
 
+        #endregion
+        
         public MProductWindow()
         {
             InitializeComponent();
-            chooseCategoryToAdd.ItemsSource = Enum.GetValues(typeof(BO.Enums.ECategory));
-            
-
+            ProductToUpOrAdd = new();
 
         }
         public MProductWindow(int idToUpdate)
         {
-            InitializeComponent();
-            addOrUpdateButton.Content = "update";
             if (bl != null)
             {
-                productTOUp = bl.Product.GetProductItem(idToUpdate);
+                ProductToUpOrAdd = bl.Product.GetProductItem(idToUpdate);
             }
-            id.Text = productTOUp.ID.ToString();
-            id.IsReadOnly = true;
-            name.Text = productTOUp.Name!.ToString();
-            chooseCategoryToAdd.SelectedIndex = (int)productTOUp.Category!;
-            price.Text = productTOUp.Price.ToString();
-            inStock.Text = productTOUp.InStock.ToString();
-            chooseCategoryToAdd.ItemsSource = Enum.GetValues(typeof(BO.Enums.ECategory));
+            InitializeComponent();
+            addOrUpdateButton.Content = "update";
+         
+
 
         }
 
         private void addButton_Click(object sender, RoutedEventArgs e)
         {
-            int _id=int.Parse(id.Text.ToString());
-            string _Name = name.Text;
-            var _Cat = chooseCategoryToAdd.SelectedValue;
-            double _Price = double.Parse(price.Text);
-            int _InStock = int.Parse(inStock.Text);
-            string _action = addOrUpdateButton.Content.ToString()!;
             try
             {
 
                 if (addOrUpdateButton.Content.ToString() == "add")
                 {
-                    bl?.Product.AddProduct(new BO.Product() { ID = _id, Name = _Name, Category = (BO.Enums.ECategory)_Cat, Price = _Price, InStock = _InStock });
-                    MessageBox.Show("the product " + _Name + " add");
+                    bl?.Product.AddProduct(ProductToUpOrAdd);
+                        MessageBox.Show("the product " + ProductToUpOrAdd.Name + " add");
                     this.Close();
-                    
+
                 }
                 else
                 {
-                    bl?.Product.UpdateProduct(new BO.Product() { ID = _id, Name = _Name, Category = (BO.Enums.ECategory)_Cat, Price = _Price, InStock = _InStock });
-                    MessageBox.Show("the product " + _Name + " update");
+                    bl?.Product.UpdateProduct(ProductToUpOrAdd);
+                    MessageBox.Show("the product " + ProductToUpOrAdd.Name + " update");
                     this.Close();
                 }
             }
-            catch(ProductAlreadyExistsException p) 
+            catch (ProductAlreadyExistsException p)
             {
                 Label ProductAlreadyExistsLable = new()
                 {
@@ -89,10 +88,10 @@ namespace PL.Product
                     VerticalAlignment = VerticalAlignment.Top,
                     Foreground = new SolidColorBrush(Colors.Red),
                 };
-                Grid.SetRow(ProductAlreadyExistsLable,1 );
+                Grid.SetRow(ProductAlreadyExistsLable, 1);
                 MainGrid.Children.Add(ProductAlreadyExistsLable);
             }
-            catch(NegativeIdException p)
+            catch (NegativeIdException p)
             {
                 Label NegativeIdExceptionLable = new()
                 {
@@ -166,11 +165,12 @@ namespace PL.Product
 
 
         }
+        #region exceptions
 
         private void id_TextChanged(object sender, TextChangedEventArgs e)
         {
 
-            var child = MainGrid.Children.OfType<Control>().Where(x => x.Name == "NegativeIdExceptionLable"||x.Name== "ProductAlreadyExistsLabel").FirstOrDefault();
+            var child = MainGrid.Children.OfType<Control>().Where(x => x.Name == "NegativeIdExceptionLable" || x.Name == "ProductAlreadyExistsLabel").FirstOrDefault();
             if (child != null)
                 MainGrid.Children.Remove(child);
         }
@@ -180,7 +180,7 @@ namespace PL.Product
             if (child != null)
                 MainGrid.Children.Remove(child);
         }
-  
+
         private void price_TextChanged(object sender, TextChangedEventArgs e)
         {
             var child = MainGrid.Children.OfType<Control>().Where(x => x.Name == "NegativePriceExceptionLabel").FirstOrDefault();
@@ -188,7 +188,7 @@ namespace PL.Product
                 MainGrid.Children.Remove(child);
         }
 
-       
+
         private void inStock_TextChanged(object sender, TextChangedEventArgs e)
         {
             var child = MainGrid.Children.OfType<Control>().Where(x => x.Name == "NegativeStockExceptionLable").FirstOrDefault();
@@ -203,5 +203,7 @@ namespace PL.Product
             if (child != null)
                 MainGrid.Children.Remove(child);
         }
+        #endregion
+
     }
 }
