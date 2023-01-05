@@ -36,4 +36,9 @@ public partial class PProductItemList : Window
         ProductsItemList = new(bl.Product.GetProductItemList());
         InitializeComponent();
     }
+
+    private void goCart_Click(object sender, RoutedEventArgs e)
+    {
+        new NOItemsInCartWindow().Show();
+    }
 }

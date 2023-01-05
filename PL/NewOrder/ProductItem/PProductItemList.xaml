@@ -47,24 +47,33 @@
               </DataTemplate>
             </GridViewColumn.CellTemplate>
           </GridViewColumn>
-          <GridViewColumn Width="Auto" Header="in stock">
-            <GridViewColumn.CellTemplate>
-              <DataTemplate>
-                <TextBox Margin="-5,-1" Text="{Binding Instock}" IsReadOnly="True" HorizontalContentAlignment="Center" Padding="3" Width="40"/>
-              </DataTemplate>
-            </GridViewColumn.CellTemplate>
-          
-                <GridViewColumn.CellTemplate>
-              <DataTemplate>
-                <TextBox Margin="-5,-1" Text="{Binding Instock}" IsReadOnly="True" HorizontalContentAlignment="Center" Padding="3" Width="40"/>
-              </DataTemplate>
-            </GridViewColumn.CellTemplate>
-          </GridViewColumn>
-        </GridView>
+                    <GridViewColumn Width="Auto" Header="Price">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Margin="-5,-1" Text="{Binding Price}"  Padding="3" Width="100"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Width="Auto" Header="inStack">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Margin="-5,-1" Text="{Binding InStock}"  Padding="3" Width="100"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Width="Auto" Header="amount item in yuor cart">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Margin="-5,-1" Text="{Binding AmoutInYourCart}"  Padding="3" Width="200"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+
+                </GridView>
       </ListView.View>
     </ListView>
 
-    <Button x:Name="addOrUpdate" Content="Add new Product" Grid.Row="2" HorizontalAlignment="Left" Margin="565,2,0,0" Padding="5" Width="199" Click="Add_Click_" Height="28" VerticalAlignment="Top"/>
+    <Button x:Name="goCart" Content="My Cart" Grid.Row="2" HorizontalAlignment="Left" Margin="565,2,0,0" Padding="5" Width="199" Height="28" VerticalAlignment="Top" Click="goCart_Click"/>
 
   </Grid>
 

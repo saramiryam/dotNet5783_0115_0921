@@ -17,9 +17,9 @@ namespace PL.NewOrder.ProductItem
     /// <summary>
     /// Interaction logic for NPCart.xaml
     /// </summary>
-    public partial class NPCart : Window
+    public partial class NOItemsInCartWindow : Window
     {
-        public NPCart()
+        public NOItemsInCartWindow()
         {
             InitializeComponent();
         }

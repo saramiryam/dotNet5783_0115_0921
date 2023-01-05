@@ -139,7 +139,7 @@ namespace BlImplementation
                     //AmoutInYourCart = CostumerCart.ItemList.FindAll(e => e?.ID == id).Count()
                     AmoutInYourCart = (from item in orderItemList
                                        group item by item.Value.ID into mygroup
-                                       where mygroup.Key == id
+                                       where mygroup.Key == p.Value.ID
                                        select (mygroup.Count())).First()
 
 
