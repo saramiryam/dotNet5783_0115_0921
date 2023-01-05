@@ -12,7 +12,9 @@ namespace BlApi
 
         public IEnumerable<BO.ProductForList?> GetProductForListByCategory(BO.Enums.ECategory category);
 
-        public BO.Product GetProductItem(int id);
+        public BO.Product GetProductDetails (int id);
+
+        public IEnumerable< BO.ProductItem?> GetProductItemList();
 
         public BO.ProductItem GetProductItemForCatalog(int id, BO.Cart CostumerCart);
 

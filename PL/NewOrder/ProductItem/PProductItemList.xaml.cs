@@ -33,7 +33,7 @@ public partial class PProductItemList : Window
     }
     public PProductItemList()
     {
-        //ProductsItemList=new(bl.Product.)
+        ProductsItemList = new(bl.Product.GetProductItemList());
         InitializeComponent();
     }
 }

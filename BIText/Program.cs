@@ -93,7 +93,7 @@ namespace BlTest
 
                         try
                         {
-                            Console.WriteLine(blVariable?.Product.GetProductItem(product.ID));
+                            Console.WriteLine(blVariable?.Product.GetProductDetails(product.ID));
                         }
                         catch (Exception e)
                         {
@@ -175,7 +175,7 @@ namespace BlTest
                         {
                             if (blVariable != null)
                             {
-                                product = blVariable.Product.GetProductItem(Id);
+                                product = blVariable.Product.GetProductDetails(Id);
                             }
                         }
                         catch (Exception e)
@@ -270,11 +270,11 @@ namespace BlTest
                                 orderItem = new BO.OrderItem()
                                 {
 
-                                    Name = blVariable.Product.GetProductItem(productId).Name,//manager
+                                    Name = blVariable.Product.GetProductDetails(productId).Name,//manager
                                     ID = productId,
-                                    Price = blVariable.Product.GetProductItem(productId).Price,//manager
+                                    Price = blVariable.Product.GetProductDetails(productId).Price,//manager
                                     Amount = amount,
-                                    sumItem = blVariable.Product.GetProductItem(productId).Price * amount
+                                    sumItem = blVariable.Product.GetProductDetails(productId).Price * amount
                                 };
                             }
                             else
@@ -330,11 +330,11 @@ namespace BlTest
                                 orderItem = new BO.OrderItem()
                                 {
 
-                                    Name = blVariable.Product.GetProductItem(productId).Name,
+                                    Name = blVariable.Product.GetProductDetails(productId).Name,
                                     ID = productId,
-                                    Price = blVariable.Product.GetProductItem(productId).Price,
+                                    Price = blVariable.Product.GetProductDetails(productId).Price,
                                     Amount = amount,
-                                    sumItem = blVariable.Product.GetProductItem(productId).Price * amount
+                                    sumItem = blVariable.Product.GetProductDetails(productId).Price * amount
 
                                 };
                             }
@@ -400,11 +400,11 @@ namespace BlTest
                                 orderItem = new BO.OrderItem()
                                 {
 
-                                    Name = blVariable.Product.GetProductItem(productId).Name,
+                                    Name = blVariable.Product.GetProductDetails(productId).Name,
                                     ID = productId,
-                                    Price = blVariable.Product.GetProductItem(productId).Price,
+                                    Price = blVariable.Product.GetProductDetails(productId).Price,
                                     Amount = amount,
-                                    sumItem = blVariable.Product.GetProductItem(productId).Price * amount
+                                    sumItem = blVariable.Product.GetProductDetails(productId).Price * amount
 
                                 };
                             }

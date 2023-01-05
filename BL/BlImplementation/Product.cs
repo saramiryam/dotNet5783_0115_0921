@@ -90,7 +90,7 @@ namespace BlImplementation
             return listByCategory;
         }
 
-        public BO.Product GetProductItem(int id)
+        public BO.Product GetProductDetails(int id)
         {
             if (id <= 0)
             {
@@ -117,6 +117,33 @@ namespace BlImplementation
                 return p1;
 
             }
+        }
+        public IEnumerable<BO.ProductItem?> GetProductItemList()
+        {
+            IEnumerable<DO.Product?> productsList = new List<DO.Product?>();
+            IEnumerable<DO.OrderItem?> orderItemList = new List<DO.OrderItem?>();
+            if (Dal != null)
+            {
+                productsList = Dal.Product.GetAll();
+                orderItemList = Dal.OrderItem.GetAll();
+            }
+            return productsList
+                .Where(product=>product is not null&&product.Value.Category is not null)
+                .Select(p=> new BO.ProductItem()
+                {
+                    ID = p.Value.ID,
+                    Name = p?.Name,
+                    Category = (BO.Enums.ECategory)p?.Category,
+                    Price = p.Value.Price,
+                    InStock = p.Value.InStock,
+                    //AmoutInYourCart = CostumerCart.ItemList.FindAll(e => e?.ID == id).Count()
+                    AmoutInYourCart = (from item in orderItemList
+                                       group item by item.Value.ID into mygroup
+                                       where mygroup.Key == id
+                                       select (mygroup.Count())).First()
+
+
+                }).ToList();
         }
 
         public BO.ProductItem GetProductItemForCatalog(int id, BO.Cart CostumerCart)

@@ -52,7 +52,7 @@ namespace PL.Product
 
             if (bl != null)
             {
-                ProductToUpOrAdd = bl.Product.GetProductItem(idToUpdate);
+                ProductToUpOrAdd = bl.Product.GetProductDetails(idToUpdate);
             }
             MyContent = "update";
             InitializeComponent();
