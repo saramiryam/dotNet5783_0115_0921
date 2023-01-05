@@ -22,7 +22,7 @@
         <TextBox x:Name="price" HorizontalAlignment="Left" Margin="289,231,0,0" TextWrapping="Wrap" Text="{Binding Price,Mode=TwoWay}" VerticalAlignment="Top" Width="120" TextChanged="price_TextChanged"/>
         <Label Content="inStock" HorizontalAlignment="Left" Margin="196,267,0,0" VerticalAlignment="Top"/>
         <TextBox x:Name="inStock" HorizontalAlignment="Left" Margin="289,271,0,0" TextWrapping="Wrap" Text="{Binding InStock,Mode=TwoWay}" VerticalAlignment="Top" Width="120" TextChanged="inStock_TextChanged"/>
-        <Button x:Name="addOrUpdateButton" Content="add" HorizontalAlignment="Left" Margin="479,349,0,0" VerticalAlignment="Top" Click="addButton_Click" />
+        <Button x:Name="addOrUpdateButton" Content="{Binding Source={x:Static local:MProductWindow.MyContent}}" HorizontalAlignment="Left" Margin="479,349,0,0" VerticalAlignment="Top" Click="addButton_Click" />
 
     </Grid>
 

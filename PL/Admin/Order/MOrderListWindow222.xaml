@@ -5,9 +5,58 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL.Admin.Order"
         mc:Ignorable="d"
-        Title="MOrderListWindow" Height="450" Width="800">
-    <Grid>
-        <Button Content="update" HorizontalAlignment="Left" Margin="428,170,0,0" VerticalAlignment="Top" Click="Button_Click"/>
+        Title="MOrderListWindow" Height="450" Width="800"
+        DataContext="{Binding RelativeSource={RelativeSource self}}">
+    <Grid Name="MainGrid"      >
+        <Grid.RowDefinitions>
+            <RowDefinition Height="500*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <ListView x:Name="ordersListView" MouseDoubleClick="ordersListView_MouseDoubleClick" SelectedValue="{Binding OrderToUp}"  ItemsSource="{Binding OrdersForListList}" SelectionChanged="ordersListView_SelectionChanged"  >
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Width="Auto" Header="Id">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate >
+                                <TextBlock Margin="-5,-1" Text="{Binding OrderID}" TextAlignment="Center" Padding="3" />
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Width="Auto" Header="Customer name">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Margin="-5,-1" Text="{Binding CustomerName}" TextAlignment="Center" Padding="3"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Width="Auto" Header="Status">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Margin="-5,-1" Text="{Binding Status}" TextAlignment="Center" Padding="3" Width="100"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Width="Auto" Header="TotalSum">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Margin="-5,-1" Text="{Binding AmountOfItem}"  TextAlignment="Center" Padding="3" Width="50"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Width="Auto" Header="TotalSum">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Margin="-5,-1" Text="{Binding TotalSum}"  TextAlignment="Center" Padding="3" Width="40"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                </GridView>
+            </ListView.View>
+        </ListView>
+
 
     </Grid>
+
+
 </Window>

@@ -43,7 +43,7 @@ public partial class MProductListWindow : Window
     //}
     #endregion
     #region productsForListListProperty
-    public readonly DependencyProperty productsForListListProperty = DependencyProperty.Register(nameof(productsForListList),
+    public static readonly DependencyProperty productsForListListProperty = DependencyProperty.Register(nameof(productsForListList),
                                                                                                            typeof(ObservableCollection<ProductForList?>),
                                                                                                    typeof(MProductListWindow));
     public ObservableCollection<ProductForList?> productsForListList
@@ -66,15 +66,10 @@ public partial class MProductListWindow : Window
 
 
 
-    public ObservableCollection<T> Convert<T>(IEnumerable<T> original)
-    {
-        return new ObservableCollection<T>(original);
-    }
-
 
     public MProductListWindow()
     {
-        productsForListList = Convert(bl.Product.GetListOfProduct());
+        productsForListList = new(bl.Product.GetListOfProduct());
         InitializeComponent();
         //  ProductListView.ItemsSource = (bl?.Product.GetListOfProduct());
         // CategorySelector.Items.Add("all products");
@@ -84,14 +79,14 @@ public partial class MProductListWindow : Window
     private void CategorySelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
         if (selectedCategory is not null)
-            productsForListList = Convert(bl.Product.GetProductForListByCategory((Enums.ECategory)selectedCategory!));
+            productsForListList = new(bl.Product.GetProductForListByCategory((Enums.ECategory)selectedCategory!));
     }
     private void ProductListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
     {
         if(productToUp is not null)
        // BO.ProductForList p = (BO.ProductForList)ProductListView.SelectedValue;
         new Product.MProductWindow(productToUp.ID).ShowDialog();
-        productsForListList=Convert(bl.Product.GetListOfProduct());
+        productsForListList=new(bl.Product.GetListOfProduct());
     }
 
     private void Add_Click_(object sender, RoutedEventArgs e)

@@ -23,10 +23,10 @@ namespace PL.Product
     public partial class MProductWindow : Window
     {
 
-        BlApi.IBl? bl = BlApi.Factory.Get();
         #region prorerties
-        
-        public  BO.Product ProductToUpOrAdd
+        BlApi.IBl? bl = BlApi.Factory.Get();
+        public static string MyContent { get; set; }="add";
+        public BO.Product ProductToUpOrAdd
         {
             get { return (BO.Product)GetValue(ProductToUpOrAddProperty); }
             set { SetValue(ProductToUpOrAddProperty, value); }
@@ -42,6 +42,7 @@ namespace PL.Product
         public MProductWindow()
         {
             ProductToUpOrAdd = new();
+            MyContent = "add";
             InitializeComponent();
 
         }
@@ -53,8 +54,8 @@ namespace PL.Product
             {
                 ProductToUpOrAdd = bl.Product.GetProductItem(idToUpdate);
             }
+            MyContent = "update";
             InitializeComponent();
-            addOrUpdateButton.Content = "update";
             
 
 

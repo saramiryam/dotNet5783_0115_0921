@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PL.Product;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,8 +20,27 @@ namespace PL.Admin.Order
     /// </summary>
     public partial class MOrderWindow : Window
     {
-        public MOrderWindow()
+        #region prorerties
+        BlApi.IBl? bl = BlApi.Factory.Get();
+
+        public BO.Order OrderToUp
         {
+            get { return (BO.Order)GetValue(OrderToUpProperty); }
+            set { SetValue(OrderToUpProperty, value); }
+        }
+        public static readonly DependencyProperty OrderToUpProperty = DependencyProperty.Register(nameof(OrderToUp),
+                                                                                                               typeof(BO.Order),
+                                                                                                       typeof(MOrderWindow));
+
+
+        #endregion
+
+        public MOrderWindow(int orderID)
+        {
+            if (bl != null)
+            {
+                OrderToUp = bl.Order.GetOrderDetails(orderID);
+            }
             InitializeComponent();
         }
     }
