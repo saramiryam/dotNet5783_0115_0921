@@ -31,7 +31,7 @@ namespace PL.Product
             get { return (BO.Product)GetValue(ProductToUpOrAddProperty); }
             set { SetValue(ProductToUpOrAddProperty, value); }
         }
-        public readonly DependencyProperty ProductToUpOrAddProperty = DependencyProperty.Register(nameof(ProductToUpOrAdd),
+        public static readonly DependencyProperty ProductToUpOrAddProperty = DependencyProperty.Register(nameof(ProductToUpOrAdd),
                                                                                                                typeof(BO.Product),
                                                                                                        typeof(MProductWindow));
         public static System.Array Categories { get; set; } = Enum.GetValues(typeof(Enums.ECategory));

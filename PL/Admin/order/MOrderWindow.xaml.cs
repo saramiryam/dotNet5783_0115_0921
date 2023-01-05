@@ -12,14 +12,14 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace PL.order
+namespace PL.Admin.Order
 {
     /// <summary>
-    /// Interaction logic for OrderWindow.xaml
+    /// Interaction logic for MOrderWindow.xaml
     /// </summary>
-    public partial class OrderWindow : Window
+    public partial class MOrderWindow : Window
     {
-        public OrderWindow()
+        public MOrderWindow()
         {
             InitializeComponent();
         }

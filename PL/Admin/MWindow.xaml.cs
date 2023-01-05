@@ -14,6 +14,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using BlImplementation;
 using BlApi;
+using PL.Admin.Order;
 
 namespace PL
 {
@@ -34,6 +35,12 @@ namespace PL
         private void productList_Click(object sender, RoutedEventArgs e)
         {
             new MProductListWindow().Show();
+            this.Close();
+        }
+
+        private void orderList_Click(object sender, RoutedEventArgs e)
+        {
+           new MOrderListWindow().Show();
             this.Close();
         }
     }

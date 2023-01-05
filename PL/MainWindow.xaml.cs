@@ -1,4 +1,7 @@
-﻿using System;
+﻿using PL.NewOrder;
+using PL.NewOrder.ProductItem;
+using PL.OrderTracking;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,7 +13,6 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace PL
@@ -18,11 +20,29 @@ namespace PL
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Page
+    public partial class MainWindow : Window
     {
         public MainWindow()
         {
             InitializeComponent();
+        }
+
+        private void Admin_Click(object sender, RoutedEventArgs e)
+        {
+            new MWindow().Show();
+            this.Close();
+        }
+
+        private void NewOrder_Click(object sender, RoutedEventArgs e)
+        {
+          new PProductItemList().Show();
+            this.Close();
+        }
+
+        private void OrderTracking_Click(object sender, RoutedEventArgs e)
+        {
+            new OTWindow().Show();
+            this.Close();
         }
     }
 }

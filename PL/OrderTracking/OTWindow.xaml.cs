@@ -10,7 +10,6 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace PL.OrderTracking
@@ -18,7 +17,7 @@ namespace PL.OrderTracking
     /// <summary>
     /// Interaction logic for OTWindow.xaml
     /// </summary>
-    public partial class OTWindow : Page
+    public partial class OTWindow : Window
     {
         public OTWindow()
         {

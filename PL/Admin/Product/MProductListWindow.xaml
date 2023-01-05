@@ -43,14 +43,14 @@
                     <GridViewColumn Width="Auto" Header="Category">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <TextBox Margin="-5,-1" Text="{Binding Category}" HorizontalContentAlignment="Center" Padding="3" Width="100"/>
+                                <TextBox Margin="-5,-1" Text="{Binding Category}" IsReadOnly="True" HorizontalContentAlignment="Center" Padding="3" Width="100"/>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
                     <GridViewColumn Width="Auto" Header="Price">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <TextBox Margin="-5,-1" Text="{Binding Price}" HorizontalContentAlignment="Center" Padding="3" Width="40"/>
+                                <TextBox Margin="-5,-1" Text="{Binding Price}" IsReadOnly="True" HorizontalContentAlignment="Center" Padding="3" Width="40"/>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
