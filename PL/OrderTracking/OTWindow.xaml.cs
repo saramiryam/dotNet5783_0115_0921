@@ -13,14 +13,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace PL
+namespace PL.OrderTracking
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for OTWindow.xaml
     /// </summary>
-    public partial class MainWindow : Page
+    public partial class OTWindow : Page
     {
-        public MainWindow()
+        public OTWindow()
         {
             InitializeComponent();
         }

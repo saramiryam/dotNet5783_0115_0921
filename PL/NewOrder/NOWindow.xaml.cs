@@ -13,14 +13,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace PL
+namespace PL.NewOrder
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for NOWindow.xaml
     /// </summary>
-    public partial class MainWindow : Page
+    public partial class NOWindow : Page
     {
-        public MainWindow()
+        public NOWindow()
         {
             InitializeComponent();
         }

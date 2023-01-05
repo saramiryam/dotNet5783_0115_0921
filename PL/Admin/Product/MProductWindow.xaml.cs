@@ -25,15 +25,15 @@ namespace PL.Product
 
         BlApi.IBl? bl = BlApi.Factory.Get();
         #region prorerties
-public readonly DependencyProperty ProductToUpOrAddProperty = DependencyProperty.Register(nameof(ProductToUpOrAdd),
-                                                                                                               typeof(BO.Product),
-                                                                                                       typeof(MProductWindow));
+        
         public  BO.Product ProductToUpOrAdd
         {
             get { return (BO.Product)GetValue(ProductToUpOrAddProperty); }
             set { SetValue(ProductToUpOrAddProperty, value); }
-        } 
-        
+        }
+        public readonly DependencyProperty ProductToUpOrAddProperty = DependencyProperty.Register(nameof(ProductToUpOrAdd),
+                                                                                                               typeof(BO.Product),
+                                                                                                       typeof(MProductWindow));
         public static System.Array Categories { get; set; } = Enum.GetValues(typeof(Enums.ECategory));
 
 
@@ -41,19 +41,21 @@ public readonly DependencyProperty ProductToUpOrAddProperty = DependencyProperty
         
         public MProductWindow()
         {
-            InitializeComponent();
             ProductToUpOrAdd = new();
+            InitializeComponent();
 
         }
         public MProductWindow(int idToUpdate)
         {
+            ProductToUpOrAdd = new();
+
             if (bl != null)
             {
                 ProductToUpOrAdd = bl.Product.GetProductItem(idToUpdate);
             }
             InitializeComponent();
             addOrUpdateButton.Content = "update";
-         
+            
 
 
         }

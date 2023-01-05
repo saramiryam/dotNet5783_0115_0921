@@ -10,17 +10,16 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace PL
+namespace PL.NewOrder.ProductItem
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for PProductItemList.xaml
     /// </summary>
-    public partial class MainWindow : Page
+    public partial class PProductItemList : Window
     {
-        public MainWindow()
+        public PProductItemList()
         {
             InitializeComponent();
         }

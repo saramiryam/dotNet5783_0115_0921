@@ -15,7 +15,7 @@
         <Label x:Name="idLabel" Content="id"   HorizontalAlignment="Left" Margin="225,91,0,0" VerticalAlignment="Top"/>
         <TextBox x:Name="id" HorizontalAlignment="Left" Margin="289,91,0,0" TextWrapping="Wrap" Text="{Binding ID,Mode=TwoWay}" VerticalAlignment="Top" Width="120" IsReadOnly="False" TextChanged="id_TextChanged"/>
         <Label   Content="chooseCategoryToAdd" HorizontalAlignment="Left" Margin="140,188,0,0" VerticalAlignment="Top"/>
-        <ComboBox x:Name="chooseCategoryToAdd" Text="{Binding Category,Mode=TwoWay}" HorizontalAlignment="Left" Margin="289,190,0,0" ItemsSource="{Binding Source={x:Static local:MProductWindow.Categories}}" VerticalAlignment="Top" Width="120" SelectionChanged="chooseCategoryToAdd_SelectionChanged"/>
+        <ComboBox x:Name="chooseCategoryToAdd" SelectedItem="{Binding Category,Mode=TwoWay}"  HorizontalAlignment="Left" Margin="289,190,0,0" ItemsSource="{Binding Source={x:Static local:MProductWindow.Categories}}" VerticalAlignment="Top" Width="120" SelectionChanged="chooseCategoryToAdd_SelectionChanged"/>
         <Label Content="name" HorizontalAlignment="Left" Margin="203,139,0,0" VerticalAlignment="Top"/>
         <TextBox x:Name="name" HorizontalAlignment="Left" Margin="289,139,0,0" TextWrapping="Wrap" Text="{Binding Name,Mode=TwoWay}" VerticalAlignment="Top" Width="120" TextChanged="name_TextChanged"/>
         <Label Content="price" HorizontalAlignment="Left" Margin="202,231,0,0" VerticalAlignment="Top"/>
