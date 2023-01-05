@@ -61,7 +61,7 @@
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
-                    <GridViewColumn Width="Auto" Header="amount item in yuor cart">
+                    <GridViewColumn Width="Auto" Header="amount item in your cart">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <TextBlock Margin="-5,-1" Text="{Binding AmoutInYourCart}"  Padding="3" Width="200"/>

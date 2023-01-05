@@ -137,10 +137,10 @@ namespace BlImplementation
                     Price = p.Value.Price,
                     InStock = p.Value.InStock,
                     //AmoutInYourCart = CostumerCart.ItemList.FindAll(e => e?.ID == id).Count()
-                    AmoutInYourCart = (from item in orderItemList
-                                       group item by item.Value.ID into mygroup
-                                       where mygroup.Key == p.Value.ID
-                                       select (mygroup.Count())).First()
+                    AmoutInYourCart =(from item in orderItemList
+                                         group item by item.Value.ProductID into mygroup
+                                         where mygroup.Key == p.Value.ID
+                                         select (mygroup.Count())).FirstOrDefault()
 
 
                 }).ToList();
