@@ -41,4 +41,14 @@ public partial class PProductItemList : Window
     {
         new NOItemsInCartWindow().Show();
     }
+
+    private void plus_Click(object sender, RoutedEventArgs e)
+    {
+
+    }
+
+    private void ProductItemListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+    {
+
+    }
 }

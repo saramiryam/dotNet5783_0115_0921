@@ -66,17 +66,17 @@ namespace PL.Product
             try
             {
 
-                if (addOrUpdateButton.Content.ToString() == "add")
+                if (MyContent == "add")
                 {
                     bl?.Product.AddProduct(ProductToUpOrAdd);
-                        MessageBox.Show("the product " + ProductToUpOrAdd.Name + " add");
+                        MessageBox.Show("the product " + ProductToUpOrAdd.Name +" "+ MyContent);
                     this.Close();
 
                 }
                 else
                 {
                     bl?.Product.UpdateProduct(ProductToUpOrAdd);
-                    MessageBox.Show("the product " + ProductToUpOrAdd.Name + " update");
+                    MessageBox.Show("the product " + ProductToUpOrAdd.Name + " " + MyContent);
                     this.Close();
                 }
             }
