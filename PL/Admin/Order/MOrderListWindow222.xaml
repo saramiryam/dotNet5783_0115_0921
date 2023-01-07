@@ -37,7 +37,7 @@
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
-                    <GridViewColumn Width="Auto" Header="TotalSum">
+                    <GridViewColumn Width="Auto" Header="Amount Of Item">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <TextBlock Margin="-5,-1" Text="{Binding AmountOfItem}"  TextAlignment="Center" Padding="3" Width="50"/>

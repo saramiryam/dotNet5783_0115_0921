@@ -5,8 +5,22 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL.Admin.Order"
         mc:Ignorable="d"
-        Title="MOrderWindow" Height="450" Width="800">
+        Title="MOrderWindow" Height="450" Width="800"
+        DataContext="{Binding RelativeSource={RelativeSource self}}">
     <Grid>
-        
+        <Grid x:Name="MainGrid" DataContext="{Binding OrderToUp}">
+            <!--<Label  Content="id"   HorizontalAlignment="Left" Margin="224,87,0,0" VerticalAlignment="Top"/>
+            <TextBox x:Name="id" HorizontalAlignment="Left" Margin="289,91,0,0" TextWrapping="Wrap" Text="{Binding OrderID,Mode=TwoWay}" VerticalAlignment="Top" Width="120" IsReadOnly="False" TextChanged="id_TextChanged"/>
+            <Label   Content="customer name" HorizontalAlignment="Left" Margin="156,186,0,0" VerticalAlignment="Top"/>
+            <TextBox x:Name="customerName" HorizontalAlignment="Left" Margin="289,190,0,0" TextWrapping="Wrap" Text="{Binding CustomerName,Mode=TwoWay}" VerticalAlignment="Top" Width="120" IsReadOnly="True" TextChanged="name_TextChanged" />
+            <Label Content="status" HorizontalAlignment="Left" Margin="207,135,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.606,1.385"/>
+            <TextBox x:Name="status" HorizontalAlignment="Left" Margin="289,139,0,0" TextWrapping="Wrap" Text="{Binding Status,Mode=TwoWay}" VerticalAlignment="Top" Width="120" IsReadOnly="False" TextChanged="name_TextChanged"/>
+            <Label Content="amount of item" HorizontalAlignment="Left" Margin="156,231,0,0" VerticalAlignment="Top"/>
+            <TextBox x:Name="AmountOfItem" HorizontalAlignment="Left" Margin="289,239,0,0" TextWrapping="Wrap" Text="{Binding AmountOfItem,Mode=TwoWay}" VerticalAlignment="Top" Width="120" IsReadOnly="False" TextChanged="price_TextChanged"/>
+            <Label Content="total sum" HorizontalAlignment="Left" Margin="188,280,0,0" VerticalAlignment="Top"/>
+            <TextBox x:Name="TotalSum" HorizontalAlignment="Left" Margin="289,280,0,0" TextWrapping="Wrap" Text="{Binding TotalSum,Mode=TwoWay}" VerticalAlignment="Top" Width="120"  IsReadOnly="False" TextChanged="inStock_TextChanged"/>
+            --><!--<Button x:Name="addOrUpdateButton" Content="{Binding Source={x:Static local:MProductWindow.MyContent}}" HorizontalAlignment="Left" Margin="479,349,0,0" VerticalAlignment="Top" Click="addButton_Click" />-->
+
+        </Grid>
     </Grid>
 </Window>

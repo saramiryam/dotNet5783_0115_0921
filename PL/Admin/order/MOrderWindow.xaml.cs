@@ -23,13 +23,13 @@ namespace PL.Admin.Order
         #region prorerties
         BlApi.IBl? bl = BlApi.Factory.Get();
 
-        public BO.Order OrderToUp
+        public BO.OrderForList OrderToUp
         {
-            get { return (BO.Order)GetValue(OrderToUpProperty); }
+            get { return (BO.OrderForList)GetValue(OrderToUpProperty); }
             set { SetValue(OrderToUpProperty, value); }
         }
         public static readonly DependencyProperty OrderToUpProperty = DependencyProperty.Register(nameof(OrderToUp),
-                                                                                                               typeof(BO.Order),
+                                                                                                               typeof(BO.OrderForList),
                                                                                                        typeof(MOrderWindow));
 
 
@@ -39,9 +39,14 @@ namespace PL.Admin.Order
         {
             if (bl != null)
             {
-                OrderToUp = bl.Order.GetOrderDetails(orderID);
+               // OrderToUp = (BO.OrderForList)bl.Order.GetOrderDetails(orderID);
             }
             InitializeComponent();
+        }
+
+        private void id_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
         }
     }
 }
