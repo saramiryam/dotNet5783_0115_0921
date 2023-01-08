@@ -17,12 +17,13 @@ namespace BlApi
         public BO.ProductItem? GetProductItemDetails(int id);
 
 
-        public IEnumerable< BO.ProductItem?> GetProductItemList();
+        public IEnumerable< BO.ProductItem?> GetProductItemList(Func<DO.Product?, bool>? predict = null);
+        public IEnumerable<BO.ProductItem?> GetProductItemListGrouping();
+
 
         public BO.ProductItem GetProductItemForCatalog(int id, BO.Cart CostumerCart);
 
         public int AddProduct(BO.Product p);
-        public void AddProductFromWindow(int ID,string name,string category,double price, int inStock, string action);
 
         public void UpdateProduct(BO.Product item);
 

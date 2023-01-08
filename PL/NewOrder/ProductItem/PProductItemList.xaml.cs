@@ -76,7 +76,7 @@ public partial class PProductItemList : Window
     private void CategorySelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
         if (selectedCategory is not null)
-            ProductsItemList = new(bl.Product.GetProductItemList());
+            ProductsItemList = new(bl.Product.GetProductItemList(e=> (bool)(e?.Category.Equals((DO.Enums.ECategory)selectedCategory))));
         ///////////////////////////////////////////////////////////////////
     }
 
@@ -98,6 +98,12 @@ public partial class PProductItemList : Window
     {
         CartItemList.Add(Product);
         MessageBox.Show(Product.Name);
+
+    }
+
+    private void Button_Click(object sender, RoutedEventArgs e)
+    {
+        ProductsItemList = new(bl.Product.GetProductItemListGrouping());
 
     }
 }

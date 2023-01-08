@@ -30,7 +30,7 @@
             <TextBox x:Name="ItemList" HorizontalAlignment="Left" Margin="289,380,0,0" TextWrapping="Wrap" Text="{Binding ItemList,Mode=TwoWay}" VerticalAlignment="Top" Width="120"  IsReadOnly="False" TextChanged="item_list_TextChanged"/>
             <Label Content="total sum" HorizontalAlignment="Left" Margin="188,400,0,0" VerticalAlignment="Top"/>
             <TextBox x:Name="TotalSum" HorizontalAlignment="Left" Margin="289,400,0,0" TextWrapping="Wrap" Text="{Binding TotalSum,Mode=TwoWay}" VerticalAlignment="Top" Width="120"  IsReadOnly="False" TextChanged="totalSum_TextChanged"/>
-            <Button x:Name="addOrUpdateButton" Content="{Binding Source={x:Static local:MProductWindow.MyContent}}" HorizontalAlignment="Left" Margin="479,349,0,0" VerticalAlignment="Top" Click="addButton_Click" />
+            <!--<Button x:Name="addOrUpdateButton" Content="{Binding Source={x:Static local:MProductWindow.MyContent}}" HorizontalAlignment="Left" Margin="479,349,0,0" VerticalAlignment="Top" Click="addButton_Click" />-->
 
         </Grid>
     </Grid>

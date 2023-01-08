@@ -2,7 +2,10 @@
 using BO;
 using DalApi;
 using DO;
+using System;
 using System.Linq;
+using System.Security.Cryptography;
+using System.Text.RegularExpressions;
 using Factory = DalApi.Factory;
 
 namespace BlImplementation
@@ -40,7 +43,7 @@ namespace BlImplementation
             //return productsForList;
 
             var addOrderItem = productsList
-                               .Where(item => (item is not  null) && (item.Value.Category is not null))
+                               .Where(item => (item is not null) && (item.Value.Category is not null))
                                .OrderBy(item => item.Value.Name)
                                .Select(item => new BO.ProductForList()
                                {
@@ -149,7 +152,7 @@ namespace BlImplementation
                 orderItemList = Dal.OrderItem.GetAll();
             }
             return productsList
-               .Where(product => product is not null && product.Value.ID==id)
+               .Where(product => product is not null && product.Value.ID == id)
                .Select(p => new BO.ProductItem()
                {
                    ID = p.Value.ID,
@@ -167,8 +170,8 @@ namespace BlImplementation
                }).FirstOrDefault();
 
         }
-       
-        public IEnumerable<BO.ProductItem?> GetProductItemList()
+
+        public IEnumerable<BO.ProductItem?> GetProductItemList(Func<DO.Product?, bool>? predict = null)
         {
             IEnumerable<DO.Product?> productsList = new List<DO.Product?>();
             IEnumerable<DO.OrderItem?> orderItemList = new List<DO.OrderItem?>();
@@ -177,9 +180,70 @@ namespace BlImplementation
                 productsList = Dal.Product.GetAll();
                 orderItemList = Dal.OrderItem.GetAll();
             }
-            return productsList
-                .Where(product=>product is not null&&product.Value.Category is not null)
-                .Select(p=> new BO.ProductItem()
+            if (predict == null)
+                return productsList
+                    .Where(product => product is not null && product.Value.Category is not null)
+                    .Select(p => new BO.ProductItem()
+                    {
+                        ID = p.Value.ID,
+                        Name = p?.Name,
+                        Category = (BO.Enums.ECategory)p?.Category,
+                        Price = p.Value.Price,
+                        InStock = p.Value.InStock,
+                        //AmoutInYourCart = CostumerCart.ItemList.FindAll(e => e?.ID == id).Count()
+                        AmoutInYourCart = (from item in orderItemList
+                                           group item by item.Value.ProductID into mygroup
+                                           where mygroup.Key == p.Value.ID
+                                           select (mygroup.Count())).FirstOrDefault()
+
+
+                    }).ToList();
+            else
+                return productsList
+               .Where(product => product is not null && product.Value.Category is not null && (predict(product)))
+               .Select(p => new BO.ProductItem()
+               {
+                   ID = p.Value.ID,
+                   Name = p?.Name,
+                   Category = (BO.Enums.ECategory)p?.Category,
+                   Price = p.Value.Price,
+                   InStock = p.Value.InStock,
+                   AmoutInYourCart = (from item in orderItemList
+                                      group item by item.Value.ProductID into mygroup
+                                      where mygroup.Key == p.Value.ID
+                                      select (mygroup.Count())).FirstOrDefault()
+
+
+               }).ToList();
+        }
+        public IEnumerable<BO.ProductItem?> GetProductItemListGrouping()
+        {
+            IEnumerable<DO.Product?> productsList = new List<DO.Product?>();
+            IEnumerable<DO.OrderItem?> orderItemList = new List<DO.OrderItem?>();
+            if (Dal != null)
+            {
+                productsList = Dal.Product.GetAll();
+                orderItemList = Dal.OrderItem.GetAll();
+            }
+            //return (from product in productsList
+            //        where product is not null
+            //        group product by product.Value.Category into mygroup
+            //        select new BO.ProductItem()
+            //        {
+            //            ID = product.Value.ID,
+            //            Name = product?.Name,
+            //            Category = (BO.Enums.ECategory)product?.Category,
+            //            Price = product.Value.Price,
+            //            InStock = product.Value.InStock,
+            //            AmoutInYourCart = (from item in orderItemList
+            //                               group item by item.Value.ProductID into newgrp
+            //                               where newgrp.Key == product.Value.ID
+            //                               select (newgrp.Count())).FirstOrDefault()
+            //        }).ToList();
+
+            var list= productsList
+                .Where(product => product is not null && product.Value.Category is not null)
+                .Select(p => new BO.ProductItem()
                 {
                     ID = p.Value.ID,
                     Name = p?.Name,
@@ -187,16 +251,17 @@ namespace BlImplementation
                     Price = p.Value.Price,
                     InStock = p.Value.InStock,
                     //AmoutInYourCart = CostumerCart.ItemList.FindAll(e => e?.ID == id).Count()
-                    AmoutInYourCart =(from item in orderItemList
-                                         group item by item.Value.ProductID into mygroup
-                                         where mygroup.Key == p.Value.ID
-                                         select (mygroup.Count())).FirstOrDefault()
+                    AmoutInYourCart = (from item in orderItemList
+                                       group item by item.Value.ProductID into mygroup
+                                       where mygroup.Key == p.Value.ID
+                                       select (mygroup.Count())).FirstOrDefault()
 
 
                 }).ToList();
+            return list.ToList();
+                ;
         }
-
-        public BO.ProductItem GetProductItemForCatalog(int id, BO.Cart CostumerCart)
+    public BO.ProductItem GetProductItemForCatalog(int id, BO.Cart CostumerCart)
         {
             if (id <= 0)
             {
@@ -286,15 +351,6 @@ namespace BlImplementation
             }
         }
 
-        public void AddProductFromWindow(int id, string name, string category, double price, int inStock, string action)
-        {
-
-            BO.Product newProduct = new() { ID = id, Name = name, Category = GetCategory(category), Price = price, InStock = inStock };
-            if (action == "add")
-                AddProduct(newProduct);
-            else
-                UpdateProduct(newProduct);
-        }
 
         public void UpdateProduct(BO.Product item)
         {
