@@ -9,16 +9,19 @@ namespace BlApi
     public interface IProduct
     {
         public IEnumerable<BO.ProductForList?> GetListOfProduct();
+        public BO.ProductForList? GetProductForList(int id);
 
         public IEnumerable<BO.ProductForList?> GetProductForListByCategory(BO.Enums.ECategory category);
 
         public BO.Product GetProductDetails (int id);
+        public BO.ProductItem? GetProductItemDetails(int id);
+
 
         public IEnumerable< BO.ProductItem?> GetProductItemList();
 
         public BO.ProductItem GetProductItemForCatalog(int id, BO.Cart CostumerCart);
 
-        public void AddProduct(BO.Product p);
+        public int AddProduct(BO.Product p);
         public void AddProductFromWindow(int ID,string name,string category,double price, int inStock, string action);
 
         public void UpdateProduct(BO.Product item);

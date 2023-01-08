@@ -7,23 +7,24 @@
         mc:Ignorable="d"
         Title="PProductItemList" Height="450" Width="800"
   DataContext="{Binding RelativeSource={RelativeSource self}}">
-  <Grid Name="MainGrid"      >
-    <Grid.RowDefinitions>
-      <RowDefinition Height="40*"/>
-      <RowDefinition Height="500*"/>
-      <RowDefinition Height="Auto"/>
-    </Grid.RowDefinitions>
-    <Grid Name="UpGrid" HorizontalAlignment="Stretch" Height="auto" Grid.Row="0"
-        VerticalAlignment="Stretch" Width="auto">
-      <Grid.ColumnDefinitions>
-        <ColumnDefinition Width="*"/>
-        <ColumnDefinition Width="*"/>
-      </Grid.ColumnDefinitions >
-      <!--<combobox name="categoryselector" grid.column="1"  verticalalignment="stretch" horizontalalignment="stretch" selectionchanged="categoryselector_selectionchanged" selecteditem="{binding selectedcategory }" itemssource="{binding categories}"/>
-      <label content="category:" grid.column="0" horizontalalignment="left" margin="95,0,0,0" verticalalignment="center" />-->
+    <Grid Name="MainGrid"      >
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40*"/>
+            <RowDefinition Height="500*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Grid Name="UpGrid" HorizontalAlignment="Stretch" Height="auto" Grid.Row="0"
+            VerticalAlignment="Stretch" Width="auto">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions >
+            <ComboBox Name="CategorySelector" Grid.Column="1"  VerticalAlignment="Stretch" HorizontalAlignment="Stretch" SelectionChanged="CategorySelector_SelectionChanged" SelectedItem="{Binding selectedCategory }" ItemsSource="{Binding Categories}"/>
+            <Label Content="category:" Grid.Column="0" HorizontalAlignment="Left" Margin="95,0,0,0" VerticalAlignment="Center" />
 
-    </Grid>
-    <ListView x:Name="ProductItemListView"   Grid.Row="1" ItemsSource="{Binding ProductsItemList}"  >
+        </Grid>
+
+        <ListView x:Name="ProductItemListView"   Grid.Row="1" MouseDoubleClick="ProductItemListView_MouseDoubleClick" SelectedValue="{Binding Product}" ItemsSource="{Binding ProductsItemList}"  >
       <ListView.View>
         <GridView>
           <GridViewColumn Width="Auto" Header="Name">
@@ -40,7 +41,7 @@
               </DataTemplate>
             </GridViewColumn.CellTemplate>
           </GridViewColumn>
-                    <GridViewColumn Width="Auto" Header="Price">
+                    <GridViewColumn Width="100" Header="Price">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <TextBlock Margin="-5,-1" TextAlignment="Center" Text="{Binding Price}"  Padding="3" Width="100"/>
@@ -51,10 +52,9 @@
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <Grid>
-                                    <Button x:Name="minus"  Content="-" Grid.Row="2" HorizontalAlignment="Left" Margin="-33,-1" Padding="5" Width="20" Height="28" VerticalAlignment="Top" />
-                                <TextBlock Margin="-5,-1" TextAlignment="Center" Text="{Binding AmoutInYourCart}"  Padding="3" Width="200"/>
-                                    <Button x:Name="plus"  Content="+" Grid.Row="2" HorizontalAlignment="Right" Margin="-33,-1" Padding="5" Width="20" Height="28" VerticalAlignment="Top" />
-
+                                    <Button x:Name="minus"  Content="-" Grid.Row="2" HorizontalAlignment="Left" Margin="-33,-1" Click="minus_Click" Padding="5" Width="20" Height="28" VerticalAlignment="Top" />
+                                    <TextBlock Margin="-5,-1" TextAlignment="Center" Text="{Binding Source={x:Static local:PProductItemList.Amount}}"  Padding="3" Width="50"/>
+                                    <Button x:Name="plus"  Content="+" Grid.Row="2" HorizontalAlignment="Right" Click="Plus_Click" Margin="-33,1" Padding="5" Width="20" Height="28" VerticalAlignment="Top" />
                                 </Grid>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
@@ -63,7 +63,7 @@
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <Grid>
-                                    <Button x:Name="addToCart"  Content="add to my cart" Grid.Row="2" HorizontalAlignment="Right" Margin="-200,-1" Padding="5" Width="100" Height="28" VerticalAlignment="Top" />
+                                    <Button x:Name="addToCart"  Content="add to my cart" Grid.Row="2" HorizontalAlignment="Right" Margin="-200,-1" Padding="5" Width="100" Height="28" VerticalAlignment="Top" Click="addToCart_Click" />
 
                                 </Grid>
                             </DataTemplate>

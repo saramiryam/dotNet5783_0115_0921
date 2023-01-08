@@ -35,25 +35,24 @@ namespace PL.Product
                                                                                                                typeof(BO.Product),
                                                                                                        typeof(MProductWindow));
         public static System.Array Categories { get; set; } = Enum.GetValues(typeof(Enums.ECategory));
-
+        private Action<ProductForList> Action;
 
         #endregion
-        
-        public MProductWindow()
+
+        public MProductWindow(Action<ProductForList> Action)
         {
             ProductToUpOrAdd = new();
             MyContent = "add";
             InitializeComponent();
-
+            this.Action = Action;
         }
         public MProductWindow(int idToUpdate)
         {
-            ProductToUpOrAdd = new();
-
             if (bl != null)
             {
                 ProductToUpOrAdd = bl.Product.GetProductDetails(idToUpdate);
             }
+
             MyContent = "update";
             InitializeComponent();
             
@@ -68,7 +67,8 @@ namespace PL.Product
 
                 if (MyContent == "add")
                 {
-                    bl?.Product.AddProduct(ProductToUpOrAdd);
+                   int id= bl.Product.AddProduct(ProductToUpOrAdd);
+                    Action(bl.Product.GetProductForList(id));
                         MessageBox.Show("the product " + ProductToUpOrAdd.Name +" "+ MyContent);
                     this.Close();
 

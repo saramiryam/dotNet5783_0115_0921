@@ -81,6 +81,7 @@ public partial class MProductListWindow : Window
         if (selectedCategory is not null)
             productsForListList = new(bl.Product.GetProductForListByCategory((Enums.ECategory)selectedCategory!));
     }
+    private void addProduct(ProductForList product)=>productsForListList.ToList().Add(product);
     private void ProductListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
     {
         if(productToUp is not null)
@@ -91,7 +92,7 @@ public partial class MProductListWindow : Window
 
     private void Add_Click_(object sender, RoutedEventArgs e)
     {
-        new Product.MProductWindow().ShowDialog();
+        new Product.MProductWindow(addProduct).ShowDialog();
 //        productsForListList = Convert(bl.Product.GetListOfProduct());
 
     }

@@ -5,8 +5,15 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL.NewOrder.ProductItem"
         mc:Ignorable="d"
-        Title="NPProductItemUPdateWindow" Height="450" Width="800">
-    <Grid>
-        
+        Title="NPProductItemUPdateWindow" Height="200" Width="200"
+        DataContext="{Binding RelativeSource={RelativeSource self}}">
+
+
+    <Grid DataContext="{Binding ProductToSee}">
+        <TextBlock  Text="{Binding ID}" HorizontalAlignment="Left" Margin="90,40,0,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
+        <TextBlock  Text="{Binding Name}" HorizontalAlignment="Left" Margin="90,60,0,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
+        <TextBlock  Text="{Binding Category}" HorizontalAlignment="Left" Margin="90,80,0,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
+        <TextBlock  Text="{Binding AmoutInYourCart}" HorizontalAlignment="Left" Margin="90,100,0,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
+        <TextBlock  Text="{Binding InStock}" HorizontalAlignment="Left" Margin="90,120,0,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
     </Grid>
 </Window>

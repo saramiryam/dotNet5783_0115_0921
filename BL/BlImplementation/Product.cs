@@ -51,7 +51,24 @@ namespace BlImplementation
                                });
             return addOrderItem;
         }
+        public BO.ProductForList? GetProductForList(int id)
+        {
+            IEnumerable<DO.Product?> productsList = new List<DO.Product?>();
+            if (Dal != null)
+            {
+                productsList = Dal.Product.GetAll();
+            }
+            return productsList
+             .Where(item => (item != null) && (item.Value.ID == id))
+             .Select(item => new BO.ProductForList()
+             {
+                 ID = item!.Value.ID,
+                 Name = item.Value.Name,
+                 Price = item.Value.Price,
+                 Category = (BO.Enums.ECategory)item.Value.Category
+             }).FirstOrDefault();
 
+        }
         public IEnumerable<BO.ProductForList> GetProductForListByCategory(BO.Enums.ECategory category)
         {
             IEnumerable<DO.Product?> productsList = new List<DO.Product?>();
@@ -118,6 +135,39 @@ namespace BlImplementation
 
             }
         }
+        public BO.ProductItem? GetProductItemDetails(int id)
+        {
+            if (id <= 0)
+            {
+                throw new BO.NegativeIdException("negative id") { NegativeId = id.ToString() };
+            }
+            IEnumerable<DO.Product?> productsList = new List<DO.Product?>();
+            IEnumerable<DO.OrderItem?> orderItemList = new List<DO.OrderItem?>();
+            if (Dal != null)
+            {
+                productsList = Dal.Product.GetAll();
+                orderItemList = Dal.OrderItem.GetAll();
+            }
+            return productsList
+               .Where(product => product is not null && product.Value.ID==id)
+               .Select(p => new BO.ProductItem()
+               {
+                   ID = p.Value.ID,
+                   Name = p?.Name,
+                   Category = (BO.Enums.ECategory)p?.Category,
+                   Price = p.Value.Price,
+                   InStock = p.Value.InStock,
+                   //AmoutInYourCart = CostumerCart.ItemList.FindAll(e => e?.ID == id).Count()
+                   AmoutInYourCart = (from item in orderItemList
+                                      group item by item.Value.ProductID into mygroup
+                                      where mygroup.Key == p.Value.ID
+                                      select (mygroup.Count())).FirstOrDefault()
+
+
+               }).FirstOrDefault();
+
+        }
+       
         public IEnumerable<BO.ProductItem?> GetProductItemList()
         {
             IEnumerable<DO.Product?> productsList = new List<DO.Product?>();
@@ -193,10 +243,11 @@ namespace BlImplementation
             }
         }
 
-        public void AddProduct(BO.Product p)
+        public int AddProduct(BO.Product p)
         {
             //לדאוג שהפונקציה מתחת תבדוק גם את תקינות הקטגוריה
             //להיזהר לר למחוק כדי שאם הוא לא יכיר את את הבדיקה נוכל להחזיר
+            int MyID;
 
             CheckCorectData(p.ID, p.Name,p.Category, p.Price, p.InStock);
             try
@@ -205,7 +256,7 @@ namespace BlImplementation
                 {
                     if (Dal != null)
                     {
-                        Dal.Product.Add(new DO.Product()
+                       MyID= Dal.Product.Add(new DO.Product()
                         {
                             ID = p.ID,
                             Name = p.Name,
@@ -214,12 +265,19 @@ namespace BlImplementation
                             InStock = p.InStock
 
                         });
+                        return MyID;
+
                     }
+                    ////////////////////
+                    return MyID=0;
+
+
                 }
                 else
                 {
                     throw new GetEmptyCateporyException("the product category is empty") { GetEmptyCatepory = null };
                 }
+
             }
             catch (DO.ItemAlreadyExistsException)
             {

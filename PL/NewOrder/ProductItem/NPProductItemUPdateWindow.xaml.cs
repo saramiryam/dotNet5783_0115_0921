@@ -12,16 +12,19 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace PL.NewOrder.ProductItem
+namespace PL.NewOrder.ProductItem;
+
+/// <summary>
+/// Interaction logic for NPProductItemUPdateWindow.xaml
+/// </summary>
+public partial class NPProductItemUPdateWindow : Window
 {
-    /// <summary>
-    /// Interaction logic for NPProductItemUPdateWindow.xaml
-    /// </summary>
-    public partial class NPProductItemUPdateWindow : Window
-    {
-        public NPProductItemUPdateWindow()
-        {
-            InitializeComponent();
-        }
+    BlApi.IBl? bl = BlApi.Factory.Get();
+    public BO.ProductItem? ProductToSee { get; set; } = new();
+
+    public NPProductItemUPdateWindow(int id) { 
+        if (bl != null)
+            ProductToSee = bl.Product.GetProductItemDetails(id);
+        InitializeComponent();
     }
 }
