@@ -172,7 +172,6 @@ namespace PL.Product
 
         private void id_TextChanged(object sender, TextChangedEventArgs e)
         {
-
             var child = MainGrid.Children.OfType<Control>().Where(x => x.Name == "NegativeIdExceptionLable" || x.Name == "ProductAlreadyExistsLabel").FirstOrDefault();
             if (child != null)
                 MainGrid.Children.Remove(child);

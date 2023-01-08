@@ -1,6 +1,8 @@
-﻿using PL.Product;
+﻿using BO;
+using PL.Product;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -29,8 +31,20 @@ namespace PL.Admin.Order
             set { SetValue(OrderToUpProperty, value); }
         }
         public static readonly DependencyProperty OrderToUpProperty = DependencyProperty.Register(nameof(OrderToUp),
-                                                                                                               typeof(BO.Order),
-                                                                                                       typeof(MOrderWindow));
+                                                                                                  typeof(BO.Order),
+                                                                                                  typeof(MOrderWindow));
+        #region order item
+        public BO.OrderItem? orderItemToUp { get; set; } = new();
+
+        public static readonly DependencyProperty orderItemListProperty = DependencyProperty.Register(nameof(orderItemList),
+                                                                                                      typeof(ObservableCollection<OrderItem?>),
+                                                                                                      typeof(MOrderWindow));
+        public ObservableCollection<OrderItem?> orderItemList
+        {
+            get { return (ObservableCollection<OrderItem?>)GetValue(orderItemListProperty); }
+            set { SetValue(orderItemListProperty, value); }
+        }
+        #endregion
 
 
         #endregion
@@ -39,7 +53,7 @@ namespace PL.Admin.Order
         {
             if (bl != null)
             {
-                 OrderToUp = bl.Order.GetOrderDetails(orderID);
+                OrderToUp = bl.Order.GetOrderDetails(orderID);
             }
             InitializeComponent();
         }
@@ -90,6 +104,11 @@ namespace PL.Admin.Order
         }
 
         private void totalSum_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+        }
+
+        private void OTButton_Click(object sender, RoutedEventArgs e)
         {
 
         }
