@@ -85,7 +85,7 @@ public partial class MProductListWindow : Window
     {
         if(productToUp is not null)
        // BO.ProductForList p = (BO.ProductForList)ProductListView.SelectedValue;
-        new Product.MProductWindow(productToUp.ID).ShowDialog();
+        new PL.Product.MProductWindow(productToUp.ID).ShowDialog();
         productsForListList=new(bl.Product.GetListOfProduct());
     }
 

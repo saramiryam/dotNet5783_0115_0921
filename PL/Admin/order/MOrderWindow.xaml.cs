@@ -23,13 +23,13 @@ namespace PL.Admin.Order
         #region prorerties
         BlApi.IBl? bl = BlApi.Factory.Get();
 
-        public BO.OrderForList OrderToUp
+        public BO.Order OrderToUp
         {
-            get { return (BO.OrderForList)GetValue(OrderToUpProperty); }
+            get { return (BO.Order)GetValue(OrderToUpProperty); }
             set { SetValue(OrderToUpProperty, value); }
         }
         public static readonly DependencyProperty OrderToUpProperty = DependencyProperty.Register(nameof(OrderToUp),
-                                                                                                               typeof(BO.OrderForList),
+                                                                                                               typeof(BO.Order),
                                                                                                        typeof(MOrderWindow));
 
 
@@ -39,12 +39,57 @@ namespace PL.Admin.Order
         {
             if (bl != null)
             {
-               // OrderToUp = (BO.OrderForList)bl.Order.GetOrderDetails(orderID);
+                 OrderToUp = bl.Order.GetOrderDetails(orderID);
             }
             InitializeComponent();
         }
 
         private void id_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+        }
+
+        private void status_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+        }
+
+        private void name_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+        }
+
+        private void order_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+        }
+
+        private void email_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+        }
+
+        private void adress_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+        }
+
+        private void ship_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+        }
+
+        private void delivery_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+        }
+
+        private void item_list_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+        }
+
+        private void totalSum_TextChanged(object sender, TextChangedEventArgs e)
         {
 
         }
