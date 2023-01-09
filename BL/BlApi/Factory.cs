@@ -9,9 +9,12 @@ namespace BlApi;
 
 public static class Factory
 {
-    public static IBl? Get()
+    //public static IBl? Get()
+
+    public static IBl Get()
     {
         Bl bl = new Bl();
         return bl;
     }
 }
+

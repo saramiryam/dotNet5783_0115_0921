@@ -5,8 +5,22 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL.Admin.Order"
         mc:Ignorable="d"
-        Title="MOrderTrackingWindow" Height="450" Width="800">
-    <Grid>
-        
+        Title="MOrderTrackingWindow" Height="450" Width="800"
+         DataContext="{Binding RelativeSource={RelativeSource self}}">
+
+    <Grid DataContext="{Binding orderTrackingToUp}">
+        <Label Content="Id"   HorizontalAlignment="Left" Margin="250,91,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="id" HorizontalAlignment="Left" Margin="289,91,0,0" TextWrapping="Wrap" Text="{Binding ID}" VerticalAlignment="Top" Width="120" IsReadOnly="False" TextChanged="id_TextChanged"/>
+        <Label  Content="Status"   HorizontalAlignment="Left" Margin="225,120,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="status" HorizontalAlignment="Left" Margin="289,120,0,0" TextWrapping="Wrap" Text="{Binding Status}" VerticalAlignment="Top" Width="120" IsReadOnly="False" TextChanged="id_TextChanged"/>
+
+        <!--d:ItemsSource="{Binding listOfStatus}"-->
+        <ListView x:Name="OrderTrackingListView" Margin="289,150,250,100"  ItemsSource="{Binding listOfStatus}" >
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn/>
+                </GridView>
+            </ListView.View>
+        </ListView>
     </Grid>
 </Window>

@@ -14,6 +14,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using static BO.Enums;
 
 namespace PL.Admin.Order
 {
@@ -33,17 +34,14 @@ namespace PL.Admin.Order
         public static readonly DependencyProperty OrderToUpProperty = DependencyProperty.Register(nameof(OrderToUp),
                                                                                                   typeof(BO.Order),
                                                                                                   typeof(MOrderWindow));
+        public static string MyContent { get; set; } = "";
+
+        public static bool anable { get; set; }=true;
+        
         #region order item
         public BO.OrderItem? orderItemToUp { get; set; } = new();
 
-        public static readonly DependencyProperty orderItemListProperty = DependencyProperty.Register(nameof(orderItemList),
-                                                                                                      typeof(ObservableCollection<OrderItem?>),
-                                                                                                      typeof(MOrderWindow));
-        public ObservableCollection<OrderItem?> orderItemList
-        {
-            get { return (ObservableCollection<OrderItem?>)GetValue(orderItemListProperty); }
-            set { SetValue(orderItemListProperty, value); }
-        }
+      
         #endregion
 
 
@@ -54,6 +52,23 @@ namespace PL.Admin.Order
             if (bl != null)
             {
                 OrderToUp = bl.Order.GetOrderDetails(orderID);
+            }
+            if (OrderToUp.Status == BO.Enums.EStatus.Done)
+            {
+                MyContent = "send";
+                anable = true;
+
+            }
+            else if (OrderToUp.Status == BO.Enums.EStatus.Sent)
+            {
+                MyContent = "Provide";
+                anable = true;
+
+            }
+            else
+            {
+                MyContent = "alredy Provided";
+                anable =false;   
             }
             InitializeComponent();
         }
@@ -110,7 +125,21 @@ namespace PL.Admin.Order
 
         private void OTButton_Click(object sender, RoutedEventArgs e)
         {
+            new Order.MOrderTrackingWindow(OrderToUp.ID).ShowDialog();
+        }
 
+        private void ChengeButton_Click(object sender, RoutedEventArgs e)
+        {
+            
+            if (MyContent == "Provide")
+            {
+                
+                MessageBox.Show(bl.Order.UpdateDeliveryDate(OrderToUp.ID).Status.ToString());
+            }
+            else if (MyContent == "send")
+            {
+                MessageBox.Show(bl.Order.UpdateShipDate(OrderToUp.ID).Status.ToString());
+            }
         }
     }
 }

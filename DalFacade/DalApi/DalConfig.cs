@@ -19,3 +19,4 @@ static class DalConfig
         s_dalPackages = packages.ToDictionary(p => "" + p.Name, p => p.Value);
     }
 }
+
