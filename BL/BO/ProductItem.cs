@@ -6,13 +6,30 @@ namespace BO;
 public class ProductItem
 {
     #region product properties
-
+    public event Action<BO.ProductItem> AddNewProduct;
     public int ID { get; set; }
     public string? Name { get; set; }
     public ECategory? Category { get; set; }
     public double Price { get; set; }
     public int InStock { get; set; }
     public int AmoutInYourCart { get; set; }
+    private BO.ProductItem newProduct;
+    public BO.ProductItem NewProduct
+    {
+        get { return newProduct; }
+        set
+        {
+            if (newProduct is not null)
+            {
+                if (AddNewProduct != null)
+                {
+                    AddNewProduct(value);
+                }
+            }
+            newProduct = value;
+        }
+
+    }
 
 
     #endregion
