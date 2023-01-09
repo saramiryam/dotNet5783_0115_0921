@@ -5,15 +5,33 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL.NewOrder.ProductItem"
         mc:Ignorable="d"
-        Title="NPProductItemUPdateWindow" Height="200" Width="200"
+        Title="NPProductItemUPdateWindow" Height="450" Width="800"
         DataContext="{Binding RelativeSource={RelativeSource self}}">
+    <Grid Name="MainGrid"      >
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="40*"/>
+            <RowDefinition Height="500*"/>
+        </Grid.RowDefinitions>
+        <Button x:Name="goCart" Content="My Cart" Grid.Row="0" HorizontalAlignment="Left" Margin="565,2,0,0" Padding="5" Width="199" Height="28" VerticalAlignment="Top" Click="goCart_Click"/>
+        <Button  Content="back" Grid.Row="0" HorizontalAlignment="Left" Margin="10,3,0,0" Padding="5" Width="199" Height="28" VerticalAlignment="Top" Click="Back_Click"/>
+
+        <Grid DataContext="{Binding ProductToAdd}">
+            <TextBlock  Text="{Binding ID}" HorizontalAlignment="Left" Margin="90,40,0,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
+            <TextBlock  Text="{Binding Name}" HorizontalAlignment="Left" Margin="90,60,0,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
+            <TextBlock  Text="{Binding Category}" HorizontalAlignment="Left" Margin="90,80,0,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
+            <TextBlock  Text="{Binding AmoutInYourCart}" HorizontalAlignment="Left" Margin="90,100,0,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
+            <TextBlock  Text="{Binding InStock}" HorizontalAlignment="Left" Margin="90,120,0,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
 
 
-    <Grid DataContext="{Binding ProductToSee}">
-        <TextBlock  Text="{Binding ID}" HorizontalAlignment="Left" Margin="90,40,0,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
-        <TextBlock  Text="{Binding Name}" HorizontalAlignment="Left" Margin="90,60,0,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
-        <TextBlock  Text="{Binding Category}" HorizontalAlignment="Left" Margin="90,80,0,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
-        <TextBlock  Text="{Binding AmoutInYourCart}" HorizontalAlignment="Left" Margin="90,100,0,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
-        <TextBlock  Text="{Binding InStock}" HorizontalAlignment="Left" Margin="90,120,0,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
+
+
+
+            <Button x:Name="minus"  Content="-" HorizontalAlignment="Left" Margin="43,228,0,0" Click="minus_Click" Padding="5" Width="20" Height="28" VerticalAlignment="Top" />
+            <TextBlock  Text="{Binding AmoutInYourCart}" TextAlignment="Center" HorizontalAlignment="Left" Margin="65,231,0,0" Width="50" TextWrapping="Wrap" VerticalAlignment="Top" Height="22"/>
+            <Button x:Name="plus"  Content="+" HorizontalAlignment="Right" Click="Plus_Click" Margin="0,228,660,0" Padding="5" Width="20" Height="28" VerticalAlignment="Top" />
+            <Button x:Name="addToCart"  Content="add to my cart" HorizontalAlignment="Left" Margin="200,228,0,0" Padding="5" Width="100" Height="28" VerticalAlignment="Top" Click="addToCart_Click" />
+
+        </Grid>
     </Grid>
 </Window>

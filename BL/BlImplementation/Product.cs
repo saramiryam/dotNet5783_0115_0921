@@ -3,6 +3,7 @@ using BO;
 using DalApi;
 using DO;
 using System;
+using System.Collections.Immutable;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text.RegularExpressions;
@@ -151,7 +152,7 @@ namespace BlImplementation
                 productsList = Dal.Product.GetAll();
                 orderItemList = Dal.OrderItem.GetAll();
             }
-            return productsList
+            var p= productsList
                .Where(product => product is not null && product.Value.ID == id)
                .Select(p => new BO.ProductItem()
                {
@@ -161,14 +162,11 @@ namespace BlImplementation
                    Price = p.Value.Price,
                    InStock = p.Value.InStock,
                    //AmoutInYourCart = CostumerCart.ItemList.FindAll(e => e?.ID == id).Count()
-                   AmoutInYourCart = (from item in orderItemList
-                                      group item by item.Value.ProductID into mygroup
-                                      where mygroup.Key == p.Value.ID
-                                      select (mygroup.Count())).FirstOrDefault()
+                   AmoutInYourCart = 0
 
 
-               }).FirstOrDefault();
-
+               }).First();
+            return p;
         }
 
         public IEnumerable<BO.ProductItem?> GetProductItemList(Func<DO.Product?, bool>? predict = null)
@@ -239,26 +237,32 @@ namespace BlImplementation
             //                               group item by item.Value.ProductID into newgrp
             //                               where newgrp.Key == product.Value.ID
             //                               select (newgrp.Count())).FirstOrDefault()
-            //        }).ToList();
+                    //}).ToList();
 
-            var list= productsList
+            var list = productsList
                 .Where(product => product is not null && product.Value.Category is not null)
-                .Select(p => new BO.ProductItem()
-                {
-                    ID = p.Value.ID,
-                    Name = p?.Name,
-                    Category = (BO.Enums.ECategory)p?.Category,
-                    Price = p.Value.Price,
-                    InStock = p.Value.InStock,
-                    //AmoutInYourCart = CostumerCart.ItemList.FindAll(e => e?.ID == id).Count()
-                    AmoutInYourCart = (from item in orderItemList
-                                       group item by item.Value.ProductID into mygroup
-                                       where mygroup.Key == p.Value.ID
-                                       select (mygroup.Count())).FirstOrDefault()
+                .GroupBy(p => p.Value.Category)
+               .Select(p => p.Key).ToList();
+               
+                
+                
+                //.Select(p => new BO.ProductItem()
+                //{
+                //    ID = p.Value.ID,
+                //    Name = p?.Name,
+                //    Category = (BO.Enums.ECategory)p?.Category,
+                //    Price = p.Value.Price,
+                //    InStock = p.Value.InStock,
+                //    //AmoutInYourCart = CostumerCart.ItemList.FindAll(e => e?.ID == id).Count()
+                //    AmoutInYourCart = (from item in orderItemList
+                //                       group item by item.Value.ProductID into mygroup
+                //                       where mygroup.Key == p.Value.ID
+                //                       select (mygroup.Count())).FirstOrDefault()
 
 
-                }).ToList();
-            return list.ToList();
+                //}).ToList();
+                IEnumerable< BO.ProductItem> o= new List<BO.ProductItem>(); 
+            return o;
                 ;
         }
     public BO.ProductItem GetProductItemForCatalog(int id, BO.Cart CostumerCart)
