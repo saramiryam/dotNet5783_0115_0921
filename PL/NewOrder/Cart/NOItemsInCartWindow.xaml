@@ -4,9 +4,39 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL.NewOrder.ProductItem"
-        mc:Ignorable="d"
-        Title="NPCart" Height="450" Width="800">
-    <Grid>
         
+        mc:Ignorable="d"
+        Title="NPCart" Height="450" Width="800"
+        DataContext="{Binding RelativeSource={RelativeSource self}}">
+
+    <Grid>
+        <ListView x:Name="ProductListView" Grid.Row="1" ItemsSource="{Binding}" DataContext="{Binding Cart.ItemList}" >
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Width="Auto" Header="Name">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Margin="-5,-1" TextAlignment="Center" Text="{Binding n }" Padding="3"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Width="Auto" Header="Category">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBox Margin="-5,-1" Text="{Binding }" IsReadOnly="True" HorizontalContentAlignment="Center" Padding="3" Width="100"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Width="100" Header="Price">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Margin="-5,-1" TextAlignment="Center" Text="{Binding Price}"  Padding="3" Width="100"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+
+                </GridView>
+            </ListView.View>
+        </ListView>
     </Grid>
 </Window>

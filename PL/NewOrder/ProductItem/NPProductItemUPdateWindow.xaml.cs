@@ -92,7 +92,7 @@ public partial class NPProductItemUPdateWindow : Window
     }
     private void goCart_Click(object sender, RoutedEventArgs e)
     {
-        new NOItemsInCartWindow().Show();
+        new NOItemsInCartWindow(Cart).Show();
         Close();
 
     }

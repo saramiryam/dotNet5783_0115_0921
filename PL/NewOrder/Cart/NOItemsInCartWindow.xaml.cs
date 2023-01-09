@@ -12,16 +12,24 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace PL.NewOrder.ProductItem
+namespace PL.NewOrder.ProductItem;
+
+/// <summary>
+/// Interaction logic for NPCart.xaml
+/// </summary>
+public partial class NOItemsInCartWindow : Window
 {
-    /// <summary>
-    /// Interaction logic for NPCart.xaml
-    /// </summary>
-    public partial class NOItemsInCartWindow : Window
+    public static readonly DependencyProperty CartProperty = DependencyProperty.Register(nameof(Cart),
+                                                                                               typeof(BO.Cart),
+                                                                                       typeof(NOItemsInCartWindow));
+    public BO.Cart Cart
     {
-        public NOItemsInCartWindow()
-        {
-            InitializeComponent();
-        }
+        get { return (BO.Cart)GetValue(CartProperty); }
+        set { SetValue(CartProperty, value); }
+    }
+    public NOItemsInCartWindow(BO.Cart MyCart)
+    {
+        Cart = MyCart;
+        InitializeComponent();
     }
 }

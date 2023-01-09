@@ -110,7 +110,6 @@ namespace BlImplementation
                        });
             return listByCategory;
         }
-
         public BO.Product GetProductDetails(int id)
         {
             if (id <= 0)
@@ -168,7 +167,6 @@ namespace BlImplementation
                }).First();
             return p;
         }
-
         public IEnumerable<BO.ProductItem?> GetProductItemList(Func<DO.Product?, bool>? predict = null)
         {
             IEnumerable<DO.Product?> productsList = new List<DO.Product?>();
@@ -265,7 +263,7 @@ namespace BlImplementation
             return o;
                 ;
         }
-    public BO.ProductItem GetProductItemForCatalog(int id, BO.Cart CostumerCart)
+        public BO.ProductItem GetProductItemForCatalog(int id, BO.Cart CostumerCart)
         {
             if (id <= 0)
             {
@@ -491,28 +489,6 @@ namespace BlImplementation
 
         #endregion
 
-        #region GetCategory
-        private static BO.Enums.ECategory GetCategory(string category)
-        {
-            switch (category)
-            {
-                case "Notebooks":
-                    return BO.Enums.ECategory.Notebooks;
-                case "Pens":
-                    return BO.Enums.ECategory.Pens;
-                case "Diaries":
-                    return BO.Enums.ECategory.Diaries;
-                case "ArtMaterials":
-                    return BO.Enums.ECategory.ArtMaterials;
-                case "Games":
-                    return BO.Enums.ECategory.Games;
-                default:
-                    break;
-            }
-            return BO.Enums.ECategory.Games;
-        }
-
-        #endregion
 
         #endregion
 

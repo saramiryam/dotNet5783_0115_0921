@@ -85,7 +85,7 @@ public partial class PProductItemList : Window
 
     private void goCart_Click(object sender, RoutedEventArgs e)
     {
-        new NOItemsInCartWindow().Show();
+        new NOItemsInCartWindow(Cart).Show();
        // ProductToAdd.AddNewProduct += new Action<BO.ProductItem>(addNewProductToCart);
 
     }
