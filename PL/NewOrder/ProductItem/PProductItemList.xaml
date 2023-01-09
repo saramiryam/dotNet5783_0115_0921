@@ -21,7 +21,17 @@
             </Grid.ColumnDefinitions >
             <ComboBox Name="CategorySelector" Grid.Column="1"  VerticalAlignment="Stretch" HorizontalAlignment="Stretch" SelectionChanged="CategorySelector_SelectionChanged" SelectedItem="{Binding selectedCategory }" ItemsSource="{Binding Categories}"/>
             <Label Content="category:" Grid.Column="0" HorizontalAlignment="Left" Margin="95,0,0,0" VerticalAlignment="Center" />
-
+            <CheckBox Name="chkEnable" Checked="Button_Click" Content="מיון לפי קטגוריות"/>
+            <!--<Button Content="O.K." Click="Button_Click" IsEnabled="{Binding Path=IsChecked, ElementName=chkEnable}" RenderTransformOrigin="0.5,0.5" Margin="330,2,0,8">
+                <Button.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform/>
+                        <RotateTransform Angle="0.862"/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </Button.RenderTransform>
+            </Button>-->
         </Grid>
 
         <ListView x:Name="ProductItemListView"   Grid.Row="1" MouseDoubleClick="ProductItemListView_MouseDoubleClick" SelectedValue="{Binding Product}" ItemsSource="{Binding ProductsItemList}"  >
