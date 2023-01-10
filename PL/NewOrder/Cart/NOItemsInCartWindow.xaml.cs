@@ -19,17 +19,30 @@ namespace PL.NewOrder.ProductItem;
 /// </summary>
 public partial class NOItemsInCartWindow : Window
 {
-    public static readonly DependencyProperty CartProperty = DependencyProperty.Register(nameof(Cart),
+    public BO.OrderItem ProductToChange { get; set; } = new();
+
+    public static readonly DependencyProperty MyCartProperty = DependencyProperty.Register(nameof(MyCart),
                                                                                                typeof(BO.Cart),
                                                                                        typeof(NOItemsInCartWindow));
-    public BO.Cart Cart
+    public BO.Cart MyCart
     {
-        get { return (BO.Cart)GetValue(CartProperty); }
-        set { SetValue(CartProperty, value); }
+        get { return (BO.Cart)GetValue(MyCartProperty); }
+        set { SetValue(MyCartProperty, value); }
     }
     public NOItemsInCartWindow(BO.Cart MyCart)
     {
-        Cart = MyCart;
+        ProductToChange = new();
+        this.MyCart = MyCart;
         InitializeComponent();
+    }
+    private void Back_Click(object sender, RoutedEventArgs e)
+    {
+        new PProductItemList(MyCart).Show();
+        Close();
+    }
+
+    private void ListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+    {
+        new NPProductItemUPdateWindow(MyCart,ProductToChange.ID).Show();
     }
 }

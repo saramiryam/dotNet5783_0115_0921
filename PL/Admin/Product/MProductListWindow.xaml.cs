@@ -69,7 +69,7 @@ public partial class MProductListWindow : Window
 
     public MProductListWindow()
     {
-        productsForListList = new(bl.Product.GetListOfProduct());
+        productsForListList = new ObservableCollection<ProductForList?>(bl.Product.GetListOfProduct().Cast<ProductForList?>()); ;
         InitializeComponent();
         //  ProductListView.ItemsSource = (bl?.Product.GetListOfProduct());
         // CategorySelector.Items.Add("all products");
@@ -81,7 +81,12 @@ public partial class MProductListWindow : Window
         if (selectedCategory is not null)
             productsForListList = new(bl.Product.GetProductForListByCategory((Enums.ECategory)selectedCategory!));
     }
-    private void addProduct(ProductForList product)=>productsForListList.ToList().Add(product);
+    public void addProduct(ProductForList product) => productsForListList.Insert(productsForListList.Count, product);
+    public void updateProduct(ProductForList product)
+    {
+        int index = productsForListList.IndexOf(product) + 1;
+        productsForListList[index] = product;
+    }
     private void ProductListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
     {
         if(productToUp is not null)

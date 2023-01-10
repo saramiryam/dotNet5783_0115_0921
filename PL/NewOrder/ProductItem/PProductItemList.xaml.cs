@@ -99,11 +99,16 @@ public partial class PProductItemList : Window
 
     private void ProductItemListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
     {
-        if(Cart is null)
-           new NPProductItemUPdateWindow(Product.ID).Show();
+        if (Cart is null)
+        {
+            new NPProductItemUPdateWindow(Product.ID).Show();
+            Close();
+        }
         else
-            new NPProductItemUPdateWindow(Cart, Product.ID).Show(); 
-        Close();
+        {
+            new NPProductItemUPdateWindow(Cart, Product.ID).Show();
+            Close();
+        }
     }
 
  

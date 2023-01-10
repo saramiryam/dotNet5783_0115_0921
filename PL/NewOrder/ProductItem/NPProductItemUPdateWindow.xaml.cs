@@ -23,7 +23,7 @@ public partial class NPProductItemUPdateWindow : Window
     Action<BO.ProductItem> AddNewProduct;
     BlApi.IBl? bl = BlApi.Factory.Get();
     public static string Action { get; set; } = "";
-    public  int Amount { get; set; } = 0;
+ //   public  int Amount { get; set; } = 0;
     public BO.ProductItem? ProductToAdd { get; set; } = new();
     public static readonly DependencyProperty CartProperty = DependencyProperty.Register(nameof(Cart),
                                                                                                typeof(BO.Cart),
@@ -42,16 +42,26 @@ public partial class NPProductItemUPdateWindow : Window
     //    set { SetValue(CartItemListProperty, value); }
     //}
 
+    public static readonly DependencyProperty AmountProperty = DependencyProperty.Register(nameof(Amount),
+                                                                                                  typeof(int),
+                                                                                          typeof(NPProductItemUPdateWindow));
+    public int  Amount
+    {
+        get { return (int)GetValue(AmountProperty); }
+        set { SetValue(AmountProperty, value); }
+    }
 
     public NPProductItemUPdateWindow(int id) { 
         if (bl != null)
             ProductToAdd = bl.Product.GetProductItemDetails(id);
         Cart= new BO.Cart();
+        Amount=0;
         Cart.ItemList = new List< BO.OrderItem?>();
         InitializeComponent();
     }
     public NPProductItemUPdateWindow(BO.Cart MyCart,int id)
     {
+        Amount = 0;
         if (bl != null)
             ProductToAdd = bl.Product.GetProductItemDetails(id);
         Cart = MyCart;
@@ -61,7 +71,6 @@ public partial class NPProductItemUPdateWindow : Window
     {
         Action = "+";
         Amount += 1;
-        MessageBox.Show(Action + Amount);
 
 
     }
@@ -70,17 +79,19 @@ public partial class NPProductItemUPdateWindow : Window
         Action = "-";
         if (Amount > 0)
             Amount -= 1;
-        MessageBox.Show(Action + Amount);
 
     }
 
     private void addToCart_Click(object sender, RoutedEventArgs e)
     {
-        Cart = bl.Cart.AddItemToCart(Cart, ProductToAdd.ID);
+        for (int i = 0; i < Amount; i++)
+        {
+            Cart = bl.Cart.AddItemToCart(Cart, ProductToAdd.ID);
+        }
         //AddNewProduct(ProductToAdd);
         //ProductToAdd.AddNewProduct += new Action<BO.ProductItem>(addNewProductToCart);
         foreach (var i in Cart.ItemList) {
-            MessageBox.Show(i.Name);
+            MessageBox.Show(i.Name+i.Amount);
         }
         
 

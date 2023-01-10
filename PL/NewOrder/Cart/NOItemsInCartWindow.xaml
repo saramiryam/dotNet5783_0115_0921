@@ -8,35 +8,22 @@
         mc:Ignorable="d"
         Title="NPCart" Height="450" Width="800"
         DataContext="{Binding RelativeSource={RelativeSource self}}">
-
     <Grid>
-        <ListView x:Name="ProductListView" Grid.Row="1" ItemsSource="{Binding}" DataContext="{Binding Cart.ItemList}" >
-            <ListView.View>
-                <GridView>
-                    <GridViewColumn Width="Auto" Header="Name">
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
-                                <TextBlock Margin="-5,-1" TextAlignment="Center" Text="{Binding n }" Padding="3"/>
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
-                    <GridViewColumn Width="Auto" Header="Category">
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
-                                <TextBox Margin="-5,-1" Text="{Binding }" IsReadOnly="True" HorizontalContentAlignment="Center" Padding="3" Width="100"/>
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
-                    <GridViewColumn Width="100" Header="Price">
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
-                                <TextBlock Margin="-5,-1" TextAlignment="Center" Text="{Binding Price}"  Padding="3" Width="100"/>
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
+        <!--<Grid.RowDefinitions>
+            <RowDefinition Height="40* "/>
+            <RowDefinition Height="400*"/>
+        </Grid.RowDefinitions>-->
+        <Button Content="back" Grid.Row="0" HorizontalAlignment="Left" Margin="34,3,0,0" Padding="5" Width="199" Height="28" VerticalAlignment="Top" Click="Back_Click"/>
 
-                </GridView>
-            </ListView.View>
-        </ListView>
+        <Grid DataContext="{Binding}">
+            <ListView   Grid.Row="1" ItemsSource="{Binding MyCart.ItemList}" MouseDoubleClick="ListView_MouseDoubleClick" SelectedItem="{Binding ProductToChange}" SelectedValue="{Binding ProductToChange}" >
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn/>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+        </Grid>
+
     </Grid>
 </Window>

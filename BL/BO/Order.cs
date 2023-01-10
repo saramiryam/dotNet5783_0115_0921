@@ -44,25 +44,39 @@ public class Order
     #endregion
     public override string ToString()
     {
-        string item = "";
-        if (ItemList != null)
+        string itemsList = "";
+        foreach (OrderItem item in ItemList)
         {
-            foreach (OrderItem OneItem in ItemList)
-            {
-                item += OneItem;
-            }
+            itemsList += (item.ToString());
         }
-        return
-    $@" order ID: {ID}
-        customer name: {CustomerName}, 
-        customer email: {CustomerEmail}
-        customerAddress: {CustomerAdress}
-        order status: {Status}
+        return (
+       $@"
+        Order ID:{ID},
+        customer name: {CustomerName},
+        customer email: {CustomerEmail},
+        customer address: {CustomerAdress},
+        order status: {Status},
         orderDate: {OrderDate}
-        shipDate: {ShipDate}
-        all order items:{item}
-        deliveryDate: {DeliveryDate}
-        total order price: {TotalSum}";
-    }
+        ship Date:{ShipDate},
+        delivery Date:{DeliveryDate},
+        Items List:{itemsList},
+        total Sum: {TotalSum}");
 
+
+
+    }
 }
+//        return
+//    $@" order ID: {ID}
+//        customer name: {CustomerName}, 
+//        customer email: {CustomerEmail}
+//        customerAddress: {CustomerAdress}
+//        order status: {Status}
+//        orderDate: {OrderDate}
+//        shipDate: {ShipDate}
+//        all order items:{item}
+//        deliveryDate: {DeliveryDate}
+//        total order price: {TotalSum}";
+//    }
+
+//}
