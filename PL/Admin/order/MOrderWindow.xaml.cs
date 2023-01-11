@@ -53,15 +53,15 @@ namespace PL.Admin.Order
             {
                 OrderToUp = bl.Order.GetOrderDetails(orderID);
             }
-            if (OrderToUp.Status == BO.Enums.EStatus.Done)
+            if (OrderToUp.Status == BO.Enums.EStatus.Sent)
             {
-                MyContent = "send";
+                MyContent = "Provide";
                 anable = true;
 
             }
-            else if (OrderToUp.Status == BO.Enums.EStatus.Sent)
+            else if(OrderToUp.Status == BO.Enums.EStatus.Done)
             {
-                MyContent = "Provide";
+                MyContent = "send";
                 anable = true;
 
             }
