@@ -51,20 +51,21 @@ public partial class NPProductItemUPdateWindow : Window
         set { SetValue(AmountProperty, value); }
     }
 
-    public NPProductItemUPdateWindow(int id) { 
+    public NPProductItemUPdateWindow(int id) {
+        Cart = new BO.Cart();
         if (bl != null)
-            ProductToAdd = bl.Product.GetProductItemDetails(id);
-        Cart= new BO.Cart();
-        Amount=0;
+            ProductToAdd = bl.Product.GetProductItemDetails(Cart,id);
+      
+        Amount=1;
         Cart.ItemList = new List< BO.OrderItem?>();
         InitializeComponent();
     }
     public NPProductItemUPdateWindow(BO.Cart MyCart,int id)
     {
-        Amount = 0;
-        if (bl != null)
-            ProductToAdd = bl.Product.GetProductItemDetails(id);
+        Amount = 1;
         Cart = MyCart;
+        if (bl != null)
+            ProductToAdd = bl.Product.GetProductItemDetails(Cart,id);
         InitializeComponent();
     }
     private void Plus_Click(object sender, RoutedEventArgs e)
@@ -87,11 +88,6 @@ public partial class NPProductItemUPdateWindow : Window
         for (int i = 0; i < Amount; i++)
         {
             Cart = bl.Cart.AddItemToCart(Cart, ProductToAdd.ID);
-        }
-        //AddNewProduct(ProductToAdd);
-        //ProductToAdd.AddNewProduct += new Action<BO.ProductItem>(addNewProductToCart);
-        foreach (var i in Cart.ItemList) {
-            MessageBox.Show(i.Name+i.Amount);
         }
         
 

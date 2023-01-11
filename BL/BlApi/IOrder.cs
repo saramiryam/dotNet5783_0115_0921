@@ -11,6 +11,8 @@ public interface IOrder
     public IEnumerable<BO.OrderForList?> GetListOfOrders();
 
     public BO.Order GetOrderDetails(int OrderId);
+    
+    public BO.OrderItem GetOrderItemDetails(int OrderId);
 
     public BO.Order UpdateShipDate(int orderId);
 

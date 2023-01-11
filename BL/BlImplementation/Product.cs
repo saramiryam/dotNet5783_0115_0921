@@ -28,20 +28,6 @@ namespace BlImplementation
             {
                 productsList = Dal.Product.GetAll();
             }
-            //foreach (var item in productsList)
-            //{
-            //    if ((item != null) && (item.Value.Category != null))
-            //    {
-            //        productsForList.Add(new BO.ProductForList()
-            //        {
-            //            ID = item.Value.ID,
-            //            Name = item.Value.Name,
-            //            Price = item.Value.Price,
-            //            Category = (BO.Enums.ECategory)item.Value.Category
-            //        });
-            //    }
-            //}
-            //return productsForList;
 
             var addOrderItem = productsList
                                .Where(item => (item is not null) && (item.Value.Category is not null))
@@ -138,18 +124,18 @@ namespace BlImplementation
 
             }
         }
-        public BO.ProductItem? GetProductItemDetails(int id)
+        public BO.ProductItem? GetProductItemDetails(BO.Cart MyCart,int id)
         {
             if (id <= 0)
             {
                 throw new BO.NegativeIdException("negative id") { NegativeId = id.ToString() };
             }
             IEnumerable<DO.Product?> productsList = new List<DO.Product?>();
-            IEnumerable<DO.OrderItem?> orderItemList = new List<DO.OrderItem?>();
+            IEnumerable<BO.OrderItem?> orderItemList = new List<BO.OrderItem?>();
             if (Dal != null)
             {
                 productsList = Dal.Product.GetAll();
-                orderItemList = Dal.OrderItem.GetAll();
+                orderItemList = MyCart.ItemList;
             }
             var p= productsList
                .Where(product => product is not null && product.Value.ID == id)
@@ -161,20 +147,23 @@ namespace BlImplementation
                    Price = p.Value.Price,
                    InStock = p.Value.InStock,
                    //AmoutInYourCart = CostumerCart.ItemList.FindAll(e => e?.ID == id).Count()
-                   AmoutInYourCart = 0
+                   AmoutInYourCart = (from item in orderItemList
+                                      group item by item.ID into mygroup
+                                      where mygroup.Key == p.Value.ID
+                                      select (mygroup.Count())).FirstOrDefault()
 
 
                }).First();
             return p;
         }
-        public IEnumerable<BO.ProductItem?> GetProductItemList(Func<DO.Product?, bool>? predict = null)
+        public IEnumerable<BO.ProductItem?> GetProductItemList(BO.Cart MyCart, Func<DO.Product?, bool>? predict = null)
         {
             IEnumerable<DO.Product?> productsList = new List<DO.Product?>();
-            IEnumerable<DO.OrderItem?> orderItemList = new List<DO.OrderItem?>();
+            IEnumerable<BO.OrderItem?> orderItemList = new List<BO.OrderItem?>();
             if (Dal != null)
             {
                 productsList = Dal.Product.GetAll();
-                orderItemList = Dal.OrderItem.GetAll();
+                orderItemList =MyCart.ItemList;
             }
             if (predict == null)
                 return productsList
@@ -187,10 +176,10 @@ namespace BlImplementation
                         Price = p.Value.Price,
                         InStock = p.Value.InStock,
                         //AmoutInYourCart = CostumerCart.ItemList.FindAll(e => e?.ID == id).Count()
-                        AmoutInYourCart = (from item in orderItemList
-                                           group item by item.Value.ProductID into mygroup
+                        AmoutInYourCart = ((from item in orderItemList
+                                           group item by item.ID into mygroup
                                            where mygroup.Key == p.Value.ID
-                                           select (mygroup.Count())).FirstOrDefault()
+                                           select (mygroup.Count())).FirstOrDefault())
 
 
                     }).ToList();
@@ -205,7 +194,7 @@ namespace BlImplementation
                    Price = p.Value.Price,
                    InStock = p.Value.InStock,
                    AmoutInYourCart = (from item in orderItemList
-                                      group item by item.Value.ProductID into mygroup
+                                      group item by item.ID into mygroup
                                       where mygroup.Key == p.Value.ID
                                       select (mygroup.Count())).FirstOrDefault()
 

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PL.NewOrder.Cart;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,6 +20,7 @@ namespace PL.NewOrder.ProductItem;
 /// </summary>
 public partial class NOItemsInCartWindow : Window
 {
+    BlApi.IBl? bl = BlApi.Factory.Get();
     public BO.OrderItem ProductToChange { get; set; } = new();
 
     public static readonly DependencyProperty MyCartProperty = DependencyProperty.Register(nameof(MyCart),
@@ -40,9 +42,17 @@ public partial class NOItemsInCartWindow : Window
         new PProductItemList(MyCart).Show();
         Close();
     }
+    private void Submit_Click(object sender, RoutedEventArgs e)
+    {
+        bl.Cart.SubmitOrder(MyCart, MyCart.CustomerName, MyCart.CustomerEmail, MyCart.CustomerAdress);
+        MessageBox.Show("ההזמנה בוצעה");
+        new MainWindow().Show();
+        Close();
+    }
 
     private void ListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
     {
-        new NPProductItemUPdateWindow(MyCart,ProductToChange.ID).Show();
+        new NOItemToUpFromCart(MyCart,ProductToChange.ID).Show();
+        Close();
     }
 }

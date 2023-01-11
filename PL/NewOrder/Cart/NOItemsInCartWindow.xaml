@@ -9,14 +9,16 @@
         Title="NPCart" Height="450" Width="800"
         DataContext="{Binding RelativeSource={RelativeSource self}}">
     <Grid>
-        <!--<Grid.RowDefinitions>
-            <RowDefinition Height="40* "/>
-            <RowDefinition Height="400*"/>
-        </Grid.RowDefinitions>-->
-        <Button Content="back" Grid.Row="0" HorizontalAlignment="Left" Margin="34,3,0,0" Padding="5" Width="199" Height="28" VerticalAlignment="Top" Click="Back_Click"/>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="45"/>
 
-        <Grid DataContext="{Binding}">
-            <ListView   Grid.Row="1" ItemsSource="{Binding MyCart.ItemList}" MouseDoubleClick="ListView_MouseDoubleClick" SelectedItem="{Binding ProductToChange}" SelectedValue="{Binding ProductToChange}" >
+            <RowDefinition Height="500*"/>
+            <!--<RowDefinition Height="500*"/>-->
+
+        </Grid.RowDefinitions>
+
+        <Grid DataContext="{Binding}"  Grid.Row="1">
+            <ListView   ItemsSource="{Binding MyCart.ItemList}" MouseDoubleClick="ListView_MouseDoubleClick" SelectedItem="{Binding ProductToChange}" SelectedValue="{Binding ProductToChange}" >
                 <ListView.View>
                     <GridView>
                         <GridViewColumn/>
@@ -24,6 +26,10 @@
                 </ListView.View>
             </ListView>
         </Grid>
+        <Grid Grid.Row="0">
+            <Button Content="back" HorizontalAlignment="Left" Margin="10,7,0,0"  Width="199" Height="28" VerticalAlignment="Top" Click="Back_Click" FontSize="22" FontFamily="Sitka Small"/>
+            <Button Content="submit" HorizontalAlignment="Left" Margin="568,7,0,0"  Width="199" Height="28" VerticalAlignment="Top" Click="Submit_Click" FontSize="22" FontFamily="Sitka Small"/>
 
+        </Grid>
     </Grid>
 </Window>

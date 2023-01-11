@@ -14,10 +14,10 @@ namespace BlApi
         public IEnumerable<BO.ProductForList?> GetProductForListByCategory(BO.Enums.ECategory category);
 
         public BO.Product GetProductDetails (int id);
-        public BO.ProductItem? GetProductItemDetails(int id);
+        public BO.ProductItem? GetProductItemDetails(BO.Cart MyCart, int id);
 
 
-        public IEnumerable< BO.ProductItem?> GetProductItemList(Func<DO.Product?, bool>? predict = null);
+        public IEnumerable< BO.ProductItem?> GetProductItemList(BO.Cart MyCart, Func<DO.Product?, bool>? predict = null);
         public IEnumerable<BO.ProductItem?> GetProductItemListGrouping();
 
 

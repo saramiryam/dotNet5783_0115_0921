@@ -121,6 +121,7 @@ namespace BlImplementation
         public BO.Cart UpdateAmount(BO.Cart cart, int itemId, int amount)
         {
             if (cart.ItemList == null) throw new ItemNotInCartException("item list not exsist") { ItemNotInCart = cart.ToString() };
+            var f = cart.ItemList;
             var exist = cart.ItemList
                        .Where(e => e?.ID == itemId)
                        .Select(e =>(BO.OrderItem?) e).FirstOrDefault();

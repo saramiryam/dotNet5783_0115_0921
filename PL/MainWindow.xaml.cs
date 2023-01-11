@@ -1,4 +1,5 @@
 ﻿using PL.NewOrder;
+using PL.NewOrder.Cart;
 using PL.NewOrder.ProductItem;
 using PL.OrderTracking;
 using System;
@@ -35,7 +36,7 @@ namespace PL
 
         private void NewOrder_Click(object sender, RoutedEventArgs e)
         {
-          new PProductItemList().Show();
+          new NOUserDetails().Show();
             this.Close();
         }
 

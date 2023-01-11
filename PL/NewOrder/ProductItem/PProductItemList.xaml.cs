@@ -45,14 +45,14 @@ public partial class PProductItemList : Window
         get { return (BO.Cart)GetValue(CartProperty); }
         set { SetValue(CartProperty, value); }
     }
-    public static readonly DependencyProperty CartItemListProperty = DependencyProperty.Register(nameof(CartItemList),
-                                                                                                  typeof(ObservableCollection<BO.ProductItem?>),
-                                                                                          typeof(PProductItemList));
-    public ObservableCollection<BO.ProductItem?> CartItemList
-    {
-        get { return (ObservableCollection<BO.ProductItem?>)GetValue(CartItemListProperty); }
-        set { SetValue(CartItemListProperty, value); }
-    }
+    //public static readonly DependencyProperty CartItemListProperty = DependencyProperty.Register(nameof(CartItemList),
+    //                                                                                              typeof(ObservableCollection<BO.ProductItem?>),
+    //                                                                                      typeof(PProductItemList));
+    //public ObservableCollection<BO.ProductItem?> CartItemList
+    //{
+    //    get { return (ObservableCollection<BO.ProductItem?>)GetValue(CartItemListProperty); }
+    //    set { SetValue(CartItemListProperty, value); }
+    //}
     //public static readonly DependencyProperty AmountsProperty =
     //            DependencyProperty.Register(nameof(Amounts),
     //                                        typeof(int), typeof(PProductItemList));
@@ -65,9 +65,10 @@ public partial class PProductItemList : Window
     public PProductItemList()
     {
         Amount = 0;
-        CartItemList = new();
+        Cart = new();
+        //CartItemList = new();
   //      ProductToAdd.AddNewProduct += new Action<BO.ProductItem>(addNewProductToCart);
-        ProductsItemList = new(bl.Product.GetProductItemList());
+        ProductsItemList = new(bl.Product.GetProductItemList(Cart));
         InitializeComponent();
     }
     public PProductItemList(BO.Cart MyCart)
@@ -75,7 +76,7 @@ public partial class PProductItemList : Window
         Amount = 0;
         Cart=MyCart;
       //  ProductToAdd.AddNewProduct += new Action<BO.ProductItem>(addNewProductToCart);
-        ProductsItemList = new(bl.Product.GetProductItemList());
+        ProductsItemList = new(bl.Product.GetProductItemList(Cart));
         InitializeComponent();
     }
     //public void addNewProductToCart(BO.ProductItem p)
@@ -86,6 +87,7 @@ public partial class PProductItemList : Window
     private void goCart_Click(object sender, RoutedEventArgs e)
     {
         new NOItemsInCartWindow(Cart).Show();
+        Close();
        // ProductToAdd.AddNewProduct += new Action<BO.ProductItem>(addNewProductToCart);
 
     }
@@ -94,7 +96,7 @@ public partial class PProductItemList : Window
     private void CategorySelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
         if (selectedCategory is not null)
-            ProductsItemList = new(bl.Product.GetProductItemList(e=> (bool)(e?.Category.Equals((DO.Enums.ECategory)selectedCategory))));
+            ProductsItemList = new(bl.Product.GetProductItemList(Cart,e=> (bool)(e?.Category.Equals((DO.Enums.ECategory)selectedCategory))));
     }
 
     private void ProductItemListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)

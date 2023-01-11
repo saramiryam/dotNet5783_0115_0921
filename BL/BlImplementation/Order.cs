@@ -80,6 +80,48 @@ public class Order : BlApi.IOrder
         }
     }
 
+    public BO.OrderItem GetOrderItemDetails(int ItemId)
+    {
+
+        if (ItemId <= 0)
+        {
+            throw new BO.NegativeIdException("negative id") { NegativeId = ItemId.ToString() };
+        }
+        else
+        {
+            DO.OrderItem item = new();
+            BO.OrderItem newItem = new();
+            try
+            {
+                if (Dal != null)
+                {
+                    IEnumerable<DO.OrderItem?> OrderItems = Dal.OrderItem.GetAll();
+                     newItem = (OrderItems
+                         .Where(i => i is not null && i.Value.ProductID == ItemId)
+                         .Select(i => new BO.OrderItem()
+                         {
+                             ID = i.Value.ProductID,
+                             Name = (from product in Dal.Product.GetAll()
+                                     where product.Value.ID == i.Value.ProductID
+                                     select new { product.Value.Name }).First().Name,
+                             Price = i.Value.Price,
+                             Amount = i.Value.Amount,
+                             sumItem=i.Value.Amount*i.Value.Price
+                         })).First();
+                         ;
+                }
+            }
+            catch (DO.RequestedItemNotFoundException)
+            {
+                throw new BO.OrderNotExistsException("order not exists") { OrderNotExists = newItem.ToString() };
+
+            }
+            return newItem;
+
+
+        }
+    }
+
     public BO.Order UpdateShipDate(int id)
     {
 

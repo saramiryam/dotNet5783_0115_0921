@@ -27,7 +27,7 @@
             <Label Content="delivery date" HorizontalAlignment="Left" Margin="188,195,0,0" VerticalAlignment="Top"/>
             <TextBox HorizontalAlignment="Left" Margin="289,195,0,0" TextWrapping="Wrap" Text="{Binding DeliveryDate,Mode=TwoWay}" VerticalAlignment="Top" Width="150"  IsReadOnly="False" TextChanged="delivery_TextChanged"/>
             <Label Content="total sum" HorizontalAlignment="Left" Margin="188,220,0,0" VerticalAlignment="Top"/>
-            <TextBox HorizontalAlignment="Left" Margin="289,220,0,0" TextWrapping="Wrap" Text="{Binding ItemList,Mode=TwoWay}" VerticalAlignment="Top" Width="150"  IsReadOnly="False" TextChanged="totalSum_TextChanged"/>
+            <TextBox HorizontalAlignment="Left" Margin="289,220,0,0" TextWrapping="Wrap" Text="{Binding TotalSum,Mode=TwoWay}" VerticalAlignment="Top" Width="150"  IsReadOnly="False" TextChanged="totalSum_TextChanged"/>
 
 
         </Grid>
