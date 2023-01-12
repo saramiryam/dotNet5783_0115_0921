@@ -26,10 +26,10 @@ namespace PL
         public MWindow()
         {
             InitializeComponent();
-    
-       
+
+
         }
-       BlApi.IBl? bl =BlApi.Factory.Get();
+        BlApi.IBl? bl = BlApi.Factory.Get();
 
 
         private void productList_Click(object sender, RoutedEventArgs e)
@@ -40,8 +40,14 @@ namespace PL
 
         private void orderList_Click(object sender, RoutedEventArgs e)
         {
-           new MOrderListWindow().Show();
+            new MOrderListWindow().Show();
             this.Close();
+        }
+
+        private void backToMain_Click(object sender, RoutedEventArgs e)
+        {
+            new MainWindow().Show();
+            Close();
         }
     }
 }

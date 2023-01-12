@@ -53,15 +53,15 @@ namespace PL.Admin.Order
             {
                 OrderToUp = bl.Order.GetOrderDetails(orderID);
             }
-            if (OrderToUp.Status == BO.Enums.EStatus.Sent)
+            if (OrderToUp.Status == BO.Enums.EStatus.Done)
             {
-                MyContent = "Provide";
+                MyContent = "send";
                 anable = true;
 
             }
-            else if(OrderToUp.Status == BO.Enums.EStatus.Done)
+            else if (OrderToUp.Status == BO.Enums.EStatus.Sent)
             {
-                MyContent = "send";
+                MyContent = "Provide";
                 anable = true;
 
             }
@@ -140,6 +140,13 @@ namespace PL.Admin.Order
             {
                 MessageBox.Show(bl.Order.UpdateShipDate(OrderToUp.ID).Status.ToString());
             }
+        }
+
+        private void backButton_Click(object sender, RoutedEventArgs e)
+        {
+
+            new MOrderListWindow().Show();
+            Close();
         }
     }
 }

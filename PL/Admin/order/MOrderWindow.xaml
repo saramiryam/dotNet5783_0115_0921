@@ -32,7 +32,7 @@
 
         </Grid>
         <Button x:Name="change" IsEnabled="{Binding anable}" Content="{Binding MyContent}" HorizontalAlignment="Left" Margin="600,250,0,0" VerticalAlignment="Top" Click="ChengeButton_Click" />
-
+        <Button x:Name="back"  Content="back" HorizontalAlignment="Left" Margin="600,150,0,0" VerticalAlignment="Top" Click="backButton_Click" />
         <Button x:Name="orderTracking" Content="Order Tracking" HorizontalAlignment="Left" Margin="600,220,0,0" VerticalAlignment="Top" Click="OTButton_Click" />
 
         <Grid Margin="270,280,260,0">

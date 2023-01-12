@@ -7,13 +7,16 @@
         mc:Ignorable="d"
         Title="MOrderListWindow" Height="450" Width="800"
         DataContext="{Binding RelativeSource={RelativeSource self}}">
-    <Grid Name="MainGrid"      >
+    <Grid>
+        <Button  Content="back" Grid.Row="0" HorizontalAlignment="Left" Margin="20,8,6,0" Padding="3" Width="150" Height="23" VerticalAlignment="Top" Click="Back_Click"/>
+
+        <Grid Name="MainGrid"      >
         <Grid.RowDefinitions>
             <RowDefinition Height="500*"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-        <ListView x:Name="ordersListView" MouseDoubleClick="ordersListView_MouseDoubleClick" SelectedValue="{Binding OrderToUp}"  ItemsSource="{Binding OrdersForListList}" SelectionChanged="ordersListView_SelectionChanged"  >
+            <ListView Margin="0,40,0,0" x:Name="ordersListView" MouseDoubleClick="ordersListView_MouseDoubleClick" SelectedValue="{Binding OrderToUp}"  ItemsSource="{Binding OrdersForListList}" SelectionChanged="ordersListView_SelectionChanged"  >
             <ListView.View>
                 <GridView>
                     <GridViewColumn Width="Auto" Header="Id">
@@ -54,7 +57,7 @@
                 </GridView>
             </ListView.View>
         </ListView>
-
+        </Grid>
 
     </Grid>
 

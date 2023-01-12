@@ -23,7 +23,7 @@ namespace PL.Admin.Order;
 public partial class MOrderTrackingWindow : Window
 {
     BlApi.IBl? bl = BlApi.Factory.Get();
-
+    int orderId;
     public BO.OrderTracking? orderTrackingToUp { get; set; } = new();
 
     public MOrderTrackingWindow(int id)
@@ -32,13 +32,15 @@ public partial class MOrderTrackingWindow : Window
         {
             orderTrackingToUp = bl.Order.GetOrderTracking(id);
         }
+        orderId=id; 
         InitializeComponent();
     }
 
-    private void id_TextChanged(object sender, TextChangedEventArgs e)
+
+    private void Back_Click(object sender, RoutedEventArgs e)
     {
+        new MOrderWindow(orderId).ShowDialog();
+        Close();
 
     }
-
-   
 }

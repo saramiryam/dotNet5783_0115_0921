@@ -1,4 +1,5 @@
 ﻿using BO;
+using PL.NewOrder.ProductItem;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -47,7 +48,18 @@ public partial class MOrderListWindow : Window
     private void ordersListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
     {
         if (OrderToUp is not null)
+        {
             new MOrderWindow(OrderToUp.OrderID).ShowDialog();
-        OrdersForListList = new(bl.Order.GetListOfOrders());
+           OrdersForListList = new(bl.Order.GetListOfOrders());
+        }
+ 
+       
+    }
+    private void Back_Click(object sender, RoutedEventArgs e)
+    {
+        new MWindow().Show();
+        Close();
     }
 }
+
+
