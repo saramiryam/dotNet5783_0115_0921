@@ -35,8 +35,9 @@
         <Button x:Name="back"  Content="back" HorizontalAlignment="Left" Margin="600,150,0,0" VerticalAlignment="Top" Click="backButton_Click" />
         <Button x:Name="orderTracking" Content="Order Tracking" HorizontalAlignment="Left" Margin="600,220,0,0" VerticalAlignment="Top" Click="OTButton_Click" />
 
-        <Grid Margin="270,280,260,0">
-            <ListView x:Name="OrderItemListView" Grid.Row="1" ItemsSource="{Binding ItemList}" >
+        <Grid Margin="150,280,150,0">
+            <!--ItemsSource="{Binding MyCart.ItemList}" MouseDoubleClick="ListView_MouseDoubleClick" SelectedItem="{Binding ProductToChange}" SelectedValue="{Binding ProductToChange}"-->
+            <ListView x:Name="OrderItemListView" Grid.Row="1" ItemsSource="{Binding OrderToUp.ItemList}" >
                 <ListView.View>
                     <GridView>
                         <GridViewColumn Width="Auto" Header="NumInOrder">
