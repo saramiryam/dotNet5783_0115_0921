@@ -141,5 +141,12 @@ namespace PL.Admin.Order
                 MessageBox.Show(bl.Order.UpdateShipDate(OrderToUp.ID).Status.ToString());
             }
         }
+
+        private void backButton_Click(object sender, RoutedEventArgs e)
+        {
+
+            new MOrderListWindow().Show();
+            Close();
+        }
     }
 }
