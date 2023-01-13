@@ -1,4 +1,5 @@
 ﻿using BO;
+using PL.OrderTracking;
 using PL.Product;
 using System;
 using System.Collections.Generic;
@@ -37,7 +38,9 @@ namespace PL.Admin.Order
         public static string MyContent { get; set; } = "";
 
         public static bool anable { get; set; }=true;
-        
+        public static bool CanChange { get; set; } = true;
+        public  int id { get; set; }
+
         #region order item
         public BO.OrderItem? orderItemToUp { get; set; } = new();
 
@@ -47,86 +50,48 @@ namespace PL.Admin.Order
 
         #endregion
 
-        public MOrderWindow(int orderID)
+        public MOrderWindow(int orderID,bool change)
         {
+            id=orderID;
+            CanChange=change;
             if (bl != null)
             {
                 OrderToUp = bl.Order.GetOrderDetails(orderID);
             }
             if (OrderToUp.Status == BO.Enums.EStatus.Done)
-            {
+            { 
+                if(CanChange == true)
+                {
+                    anable = false;
+                }
+                else
+                {
+                    anable = true;
+                }
                 MyContent = "send";
-                anable = true;
-
-            }
+             }
             else if (OrderToUp.Status == BO.Enums.EStatus.Sent)
             {
+                if (CanChange == true)
+                {
+                    anable = false;
+                }
+                else
+                {
+                    anable = true;
+                }
                 MyContent = "Provide";
-                anable = true;
 
             }
             else
             {
                 MyContent = "alredy Provided";
-                anable =false;   
+               anable =false;   
             }
             InitializeComponent();
         }
 
-        private void id_TextChanged(object sender, TextChangedEventArgs e)
-        {
-
-        }
-
-        private void status_TextChanged(object sender, TextChangedEventArgs e)
-        {
-
-        }
-
-        private void name_TextChanged(object sender, TextChangedEventArgs e)
-        {
-
-        }
-
-        private void order_TextChanged(object sender, TextChangedEventArgs e)
-        {
-
-        }
-
-        private void email_TextChanged(object sender, TextChangedEventArgs e)
-        {
-
-        }
-
-        private void adress_TextChanged(object sender, TextChangedEventArgs e)
-        {
-
-        }
-
-        private void ship_TextChanged(object sender, TextChangedEventArgs e)
-        {
-
-        }
-
-        private void delivery_TextChanged(object sender, TextChangedEventArgs e)
-        {
-
-        }
-
-        private void item_list_TextChanged(object sender, TextChangedEventArgs e)
-        {
-
-        }
-
-        private void totalSum_TextChanged(object sender, TextChangedEventArgs e)
-        {
-
-        }
-
-        private void OTButton_Click(object sender, RoutedEventArgs e)
-        {
-            new Order.MOrderTrackingWindow(OrderToUp.ID).ShowDialog();
-        }
+        
 
         private void ChengeButton_Click(object sender, RoutedEventArgs e)
         {
@@ -144,8 +109,14 @@ namespace PL.Admin.Order
 
         private void backButton_Click(object sender, RoutedEventArgs e)
         {
-
-            new MOrderListWindow().Show();
+            if (CanChange == true)
+            {
+                new OOrderTracking(id).Show();
+            }
+            else
+            {
+                new MOrderListWindow().Show();
+            }
             Close();
         }
     }
