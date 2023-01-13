@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PL.Admin.Order;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,9 +20,30 @@ namespace PL.OrderTracking
     /// </summary>
     public partial class OOrderTracking : Window
     {
-        public OOrderTracking()
+        BlApi.IBl? bl = BlApi.Factory.Get();
+        public int orderId { get; set; }
+        public BO.OrderTracking? orderTrackingToUp { get; set; } = new();
+
+        public OOrderTracking(int id)
         {
-            InitializeComponent();
+            orderId = id;
+            if (bl != null)
+            {
+                orderTrackingToUp = bl.Order.GetOrderTracking(orderId);
+            }
+             InitializeComponent();
+        }
+
+        private void orderButton_Click(object sender, RoutedEventArgs e)
+        {
+            new MOrderWindow(orderId, true).Show();
+            Close();
+        }
+
+        private void backButton_Click(object sender, RoutedEventArgs e)
+        {
+            new OTWindow().Show();
+            Close();
         }
     }
 }

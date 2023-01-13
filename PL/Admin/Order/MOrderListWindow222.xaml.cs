@@ -49,8 +49,9 @@ public partial class MOrderListWindow : Window
     {
         if (OrderToUp is not null)
         {
-            new MOrderWindow(OrderToUp.OrderID).ShowDialog();
+            new MOrderWindow(OrderToUp.OrderID,false).ShowDialog();
            OrdersForListList = new(bl.Order.GetListOfOrders());
+            Close();
         }
  
        

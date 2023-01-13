@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PL.Admin.Order;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,9 +20,41 @@ namespace PL.OrderTracking
     /// </summary>
     public partial class OTWindow : Window
     {
+        BlApi.IBl? bl = BlApi.Factory.Get();
+
+        public static readonly DependencyProperty MyIdProperty = DependencyProperty.Register(nameof(MyId),
+                                                                                             typeof(int),
+                                                                                     typeof(OTWindow));
+        public int MyId
+        {
+            get { return (int)GetValue(MyIdProperty); }
+            set { SetValue(MyIdProperty, value); }
+        }
         public OTWindow()
         {
             InitializeComponent();
+        }
+
+        //private void IdChange_TextChanged(object sender, TextChangedEventArgs e)
+        //{
+        //    if((MyId>199999) && (MyId < 1000000))
+        //    {
+        //        CanGet=true;
+        //    }
+        //}
+
+        private void getButton_Click(object sender, RoutedEventArgs e)
+        {
+            new OOrderTracking(MyId).Show();
+            Close();
+            
+            
+        }
+
+        private void backButton_Click(object sender, RoutedEventArgs e)
+        {
+            new MainWindow().Show();
+            Close();
         }
     }
 }
