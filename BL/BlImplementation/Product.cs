@@ -135,35 +135,36 @@ namespace BlImplementation
             if (Dal != null)
             {
                 productsList = Dal.Product.GetAll();
-                orderItemList = MyCart.ItemList;
             }
-            var p= productsList
-               .Where(product => product is not null && product.Value.ID == id)
-               .Select(p => new BO.ProductItem()
-               {
-                   ID = p.Value.ID,
-                   Name = p?.Name,
-                   Category = (BO.Enums.ECategory)p?.Category,
-                   Price = p.Value.Price,
-                   InStock = p.Value.InStock,
-                   //AmoutInYourCart = CostumerCart.ItemList.FindAll(e => e?.ID == id).Count()
-                   AmoutInYourCart = (from item in orderItemList
-                                      group item by item.ID into mygroup
-                                      where mygroup.Key == p.Value.ID
-                                      select (mygroup.Count())).FirstOrDefault()
+            orderItemList = MyCart.ItemList;
+
+           
+                var p = productsList
+                   .Where(product => product is not null && product.Value.ID == id)
+                   .Select(p => new BO.ProductItem()
+                   {
+                       ID = p.Value.ID,
+                       Name = p?.Name,
+                       Category = (BO.Enums.ECategory)p?.Category,
+                       Price = p.Value.Price,
+                       InStock = p.Value.InStock,
+                       AmoutInYourCart = (from item in orderItemList
+                                          where item?.ID == p.Value.ID
+                                          select (item.Amount)).FirstOrDefault()
 
 
-               }).First();
+                   }).First();
+            
             return p;
         }
-        public IEnumerable<BO.ProductItem?> GetProductItemList(BO.Cart MyCart, Func<DO.Product?, bool>? predict = null)
+        public IEnumerable<BO.ProductItem?> GetProductItemList( Func<DO.Product?, bool>? predict = null)
         {
             IEnumerable<DO.Product?> productsList = new List<DO.Product?>();
-            IEnumerable<BO.OrderItem?> orderItemList = new List<BO.OrderItem?>();
+            IEnumerable<DO.OrderItem?> orderItemList = new List<DO.OrderItem?>();
             if (Dal != null)
             {
                 productsList = Dal.Product.GetAll();
-                orderItemList =MyCart.ItemList;
+                orderItemList = Dal.OrderItem.GetAll();
             }
             if (predict == null)
                 return productsList
@@ -177,7 +178,7 @@ namespace BlImplementation
                         InStock = p.Value.InStock,
                         //AmoutInYourCart = CostumerCart.ItemList.FindAll(e => e?.ID == id).Count()
                         AmoutInYourCart = ((from item in orderItemList
-                                           group item by item.ID into mygroup
+                                           group item by item?.ID into mygroup
                                            where mygroup.Key == p.Value.ID
                                            select (mygroup.Count())).FirstOrDefault())
 
@@ -194,64 +195,14 @@ namespace BlImplementation
                    Price = p.Value.Price,
                    InStock = p.Value.InStock,
                    AmoutInYourCart = (from item in orderItemList
-                                      group item by item.ID into mygroup
+                                      group item by item?.ID into mygroup
                                       where mygroup.Key == p.Value.ID
                                       select (mygroup.Count())).FirstOrDefault()
 
 
                }).ToList();
         }
-        public IEnumerable<BO.ProductItem?> GetProductItemListGrouping()
-        {
-            IEnumerable<DO.Product?> productsList = new List<DO.Product?>();
-            IEnumerable<DO.OrderItem?> orderItemList = new List<DO.OrderItem?>();
-            if (Dal != null)
-            {
-                productsList = Dal.Product.GetAll();
-                orderItemList = Dal.OrderItem.GetAll();
-            }
-            //return (from product in productsList
-            //        where product is not null
-            //        group product by product.Value.Category into mygroup
-            //        select new BO.ProductItem()
-            //        {
-            //            ID = product.Value.ID,
-            //            Name = product?.Name,
-            //            Category = (BO.Enums.ECategory)product?.Category,
-            //            Price = product.Value.Price,
-            //            InStock = product.Value.InStock,
-            //            AmoutInYourCart = (from item in orderItemList
-            //                               group item by item.Value.ProductID into newgrp
-            //                               where newgrp.Key == product.Value.ID
-            //                               select (newgrp.Count())).FirstOrDefault()
-                    //}).ToList();
-
-            var list = productsList
-                .Where(product => product is not null && product.Value.Category is not null)
-                .GroupBy(p => p.Value.Category)
-               .Select(p => p.Key).ToList();
-               
-                
-                
-                //.Select(p => new BO.ProductItem()
-                //{
-                //    ID = p.Value.ID,
-                //    Name = p?.Name,
-                //    Category = (BO.Enums.ECategory)p?.Category,
-                //    Price = p.Value.Price,
-                //    InStock = p.Value.InStock,
-                //    //AmoutInYourCart = CostumerCart.ItemList.FindAll(e => e?.ID == id).Count()
-                //    AmoutInYourCart = (from item in orderItemList
-                //                       group item by item.Value.ProductID into mygroup
-                //                       where mygroup.Key == p.Value.ID
-                //                       select (mygroup.Count())).FirstOrDefault()
-
-
-                //}).ToList();
-                IEnumerable< BO.ProductItem> o= new List<BO.ProductItem>(); 
-            return o;
-                ;
-        }
+       
         public BO.ProductItem GetProductItemForCatalog(int id, BO.Cart CostumerCart)
         {
             if (id <= 0)

@@ -44,9 +44,8 @@ public partial class NOItemsInCartWindow : Window
     }
     private void Submit_Click(object sender, RoutedEventArgs e)
     {
-        bl.Cart.SubmitOrder(MyCart, MyCart.CustomerName, MyCart.CustomerEmail, MyCart.CustomerAdress);
-        MessageBox.Show("ההזמנה בוצעה");
-        new MainWindow().Show();
+     
+        new NOUserDetails(MyCart).Show();
         Close();
     }
 

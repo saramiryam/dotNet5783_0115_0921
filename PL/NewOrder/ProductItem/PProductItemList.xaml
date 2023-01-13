@@ -23,8 +23,7 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions >
             <ComboBox Name="CategorySelector" Grid.Column="1"  VerticalAlignment="Stretch" HorizontalAlignment="Stretch" SelectionChanged="CategorySelector_SelectionChanged" SelectedItem="{Binding selectedCategory }" ItemsSource="{Binding Categories}"/>
-            <Label Content="category:" Grid.Column="0" HorizontalAlignment="Left" Margin="95,0,0,0" VerticalAlignment="Center" />
-            <CheckBox Name="chkEnable" Checked="Button_Click" Content="מיון לפי קטגוריות"/>
+            <CheckBox Name="chkEnable" Checked="chkEnable_Click" Margin="95,8,0,0" Content="מיון לפי קטגוריות"/>
 
         </Grid>
 
@@ -49,6 +48,13 @@
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <TextBlock Margin="-5,-1" TextAlignment="Center" Text="{Binding Price}"  Padding="3" Width="100"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Width="100" Header="inStock">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate><!--Text="{x:Static local:PProductItemList.InStockCnvrt}"-->
+                                <TextBlock Margin="-5,-1" TextAlignment="Center" Text="true"   Padding="3" Width="100"/>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>

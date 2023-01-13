@@ -7,7 +7,10 @@
         mc:Ignorable="d"
         Title="NPProductItemUPdateWindow" Height="450" Width="800"
         DataContext="{Binding RelativeSource={RelativeSource self}}">
-    <Grid Name="MainGrid"      >
+    <Window.Resources>
+        <local:CnvrtIntToBool x:Key="myCnvrtr"/>
+    </Window.Resources>
+    <Grid Name="MainGrid">
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="40*"/>
@@ -21,7 +24,7 @@
             <TextBlock  Text="{Binding Name}" HorizontalAlignment="Left" Margin="90,60,0,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
             <TextBlock  Text="{Binding Category}" HorizontalAlignment="Left" Margin="90,80,0,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
             <TextBlock  Text="{Binding AmoutInYourCart}" HorizontalAlignment="Left" Margin="90,100,0,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
-            <TextBlock  Text="{Binding InStock}" HorizontalAlignment="Left" Margin="90,120,0,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
+            <TextBlock  Text="{Binding InStock, ElementName=chkVisible, Converter={StaticResource myCnvrtr}}" HorizontalAlignment="Left" Margin="90,120,0,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
         </Grid>
         <Grid>
 

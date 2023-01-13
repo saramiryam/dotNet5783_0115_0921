@@ -12,7 +12,7 @@ public interface IOrder
 
     public BO.Order GetOrderDetails(int OrderId);
     
-    public BO.OrderItem GetOrderItemDetails(int OrderId);
+    public BO.OrderItem GetOrderItemDetails(BO.Cart MyCart,int OrderId);
 
     public BO.Order UpdateShipDate(int orderId);
 

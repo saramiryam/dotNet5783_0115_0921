@@ -36,7 +36,7 @@ namespace PL
 
         private void NewOrder_Click(object sender, RoutedEventArgs e)
         {
-          new NOUserDetails().Show();
+          new PProductItemList().Show();
             this.Close();
         }
 
