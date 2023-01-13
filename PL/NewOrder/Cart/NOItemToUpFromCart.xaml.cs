@@ -1,4 +1,5 @@
-﻿using PL.NewOrder.ProductItem;
+﻿using BO;
+using PL.NewOrder.ProductItem;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -51,7 +52,7 @@ namespace PL.NewOrder.Cart
         public NOItemToUpFromCart(BO.Cart MyCart,int id)
         {
             if (bl != null)
-                ItemToChage=bl.Order.GetOrderItemDetails(id);
+                ItemToChage=bl.Order.GetOrderItemDetails(MyCart, id);
             Cart = MyCart;
             Amount = ItemToChage.Amount;
             InitializeComponent();
@@ -59,13 +60,32 @@ namespace PL.NewOrder.Cart
 
         private void UpdateItem_Click(object sender, RoutedEventArgs e)
         {
-            Cart=bl.Cart.UpdateAmount(Cart,ItemToChage.ID,Amount);
-        }
+            try
+            {
+                Cart = bl.Cart.UpdateAmount(Cart, ItemToChage.ID, Amount);
+                MessageBox.Show("UPDATE item");
+                new NOItemsInCartWindow(Cart).Show();
+                Close();
+            }
+            catch (ProductNotInStockException ex)
+            {
+                MessageBox.Show(ex.Message.ToString());
+            }
+            }
         private void RemoveItem_Click(object sender, RoutedEventArgs e)
         {
             Amount = 0;
-            Cart = bl.Cart.UpdateAmount(Cart, ItemToChage.ID, Amount);
-
+            try
+            {
+                Cart = bl.Cart.UpdateAmount(Cart, ItemToChage.ID, Amount);
+                MessageBox.Show("remove item");
+                new NOItemsInCartWindow(Cart).Show();
+                Close();
+            }
+            catch(ProductNotInStockException ex)
+            {
+                MessageBox.Show(ex.Message.ToString());
+            }
         }
         private void Plus_Click(object sender, RoutedEventArgs e)
         {

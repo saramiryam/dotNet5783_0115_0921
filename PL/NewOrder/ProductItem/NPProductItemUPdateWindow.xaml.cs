@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BO;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -57,13 +58,14 @@ public partial class NPProductItemUPdateWindow : Window
             ProductToAdd = bl.Product.GetProductItemDetails(Cart,id);
       
         Amount=1;
-        Cart.ItemList = new List< BO.OrderItem?>();
+     //   Cart.ItemList = new List< BO.OrderItem?>();
         InitializeComponent();
     }
     public NPProductItemUPdateWindow(BO.Cart MyCart,int id)
     {
         Amount = 1;
         Cart = MyCart;
+        if (MyCart.ItemList is null) MyCart.ItemList = new List<OrderItem?>();
         if (bl != null)
             ProductToAdd = bl.Product.GetProductItemDetails(Cart,id);
         InitializeComponent();
@@ -85,9 +87,20 @@ public partial class NPProductItemUPdateWindow : Window
 
     private void addToCart_Click(object sender, RoutedEventArgs e)
     {
-        for (int i = 0; i < Amount; i++)
+        try
         {
-            Cart = bl.Cart.AddItemToCart(Cart, ProductToAdd.ID);
+            for (int i = 0; i < Amount-ProductToAdd.AmoutInYourCart; i++)
+            {
+                Cart = bl.Cart.AddItemToCart(Cart, ProductToAdd.ID);
+                //ProductToAdd.AmoutInYourCart++;
+            }
+            new PProductItemList(Cart).Show();
+        Close();
+        }
+        catch(ProductNotInStockException ex)
+        {
+            MessageBox.Show(ex.Message.ToString());
+            new PProductItemList(Cart).Show();  
         }
         
 

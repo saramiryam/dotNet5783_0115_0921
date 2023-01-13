@@ -80,7 +80,7 @@ public class Order : BlApi.IOrder
         }
     }
 
-    public BO.OrderItem GetOrderItemDetails(int ItemId)
+    public BO.OrderItem GetOrderItemDetails(BO.Cart MyCart,int ItemId)
     {
 
         if (ItemId <= 0)
@@ -95,18 +95,19 @@ public class Order : BlApi.IOrder
             {
                 if (Dal != null)
                 {
-                    IEnumerable<DO.OrderItem?> OrderItems = Dal.OrderItem.GetAll();
+                    IEnumerable<BO.OrderItem?> OrderItems = MyCart.ItemList;
                      newItem = (OrderItems
-                         .Where(i => i is not null && i.Value.ProductID == ItemId)
+                         .Where(i => i is not null && i.ID == ItemId)
                          .Select(i => new BO.OrderItem()
                          {
-                             ID = i.Value.ProductID,
+                             numInOrder=i.numInOrder,
+                             ID = i.ID,
                              Name = (from product in Dal.Product.GetAll()
-                                     where product.Value.ID == i.Value.ProductID
+                                     where product.Value.ID == i.ID
                                      select new { product.Value.Name }).First().Name,
-                             Price = i.Value.Price,
-                             Amount = i.Value.Amount,
-                             sumItem=i.Value.Amount*i.Value.Price
+                             Price = i.Price,
+                             Amount = i.Amount,
+                             sumItem=i.Amount*i.Price
                          })).First();
                          ;
                 }

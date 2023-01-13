@@ -1,4 +1,5 @@
-﻿using BO;
+﻿using BlApi;
+using BO;
 using PL.NewOrder.ProductItem;
 using System;
 using System.Collections.Generic;
@@ -31,17 +32,25 @@ namespace PL.NewOrder.Cart
             get { return (BO.Cart)GetValue(CartProperty); }
             set { SetValue(CartProperty, value); }
         }
-        public NOUserDetails()
+        public NOUserDetails(BO.Cart MyCart)
         {
-            Cart = new();
-            Cart.ItemList = new List<BO.OrderItem>();
+            Cart = MyCart;
             InitializeComponent();
         }
         private void Submit_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("הפרטים נשמרו");
-            new PProductItemList(Cart).Show();
-            Close();
+            try
+            {
+                bl.Cart.SubmitOrder(Cart, Cart.CustomerName, Cart.CustomerEmail, Cart.CustomerAdress);
+                MessageBox.Show("ההזמנה בוצעה");
+                new MainWindow().Show();
+                Close();
+            }
+            catch (ItemInCartNotExistsAsProductException ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
         }
         private void Back_Click(object sender, RoutedEventArgs e)
         {
