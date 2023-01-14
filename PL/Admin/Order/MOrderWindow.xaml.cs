@@ -1,4 +1,5 @@
 ﻿using BO;
+using DO;
 using PL.OrderTracking;
 using PL.Product;
 using System;
@@ -35,7 +36,15 @@ namespace PL.Admin.Order
         public static readonly DependencyProperty OrderToUpProperty = DependencyProperty.Register(nameof(OrderToUp),
                                                                                                   typeof(BO.Order),
                                                                                                   typeof(MOrderWindow));
-        public static string MyContent { get; set; } = "";
+        public string MyContent
+        {
+            get { return (string)GetValue(MyContentProperty); }
+            set { SetValue(MyContentProperty, value); }
+        }
+        public static readonly DependencyProperty MyContentProperty = DependencyProperty.Register(nameof(MyContent),
+                                                                                                  typeof(string),
+                                                                                                  typeof(MOrderWindow));
+       // public static string MyContent { get; set; } = "";
 
         public static bool anable { get; set; } = true;
         public static bool fromOT { get; set; } = true;
@@ -54,9 +63,12 @@ namespace PL.Admin.Order
         {
             fromOT = OTOrNot;
             id = orderID;
-            if (bl != null)
-            {
+            try { 
                 OrderToUp = bl.Order.GetOrderDetails(orderID);
+            }
+            catch (RequestedItemNotFoundException ex)
+            {
+                MessageBox.Show(ex.Message.ToString());
             }
             if (OrderToUp.Status == BO.Enums.EStatus.Done)
             {
@@ -75,6 +87,10 @@ namespace PL.Admin.Order
                 MyContent = "alredy Provided";
                 anable = false;
             }
+            if (fromOT == true)
+            {
+                anable = false;
+            }
             InitializeComponent();
         }
 
@@ -85,14 +101,32 @@ namespace PL.Admin.Order
 
             if (MyContent == "Provide")
             {
-                OrderToUp = bl.Order.UpdateDeliveryDate(OrderToUp.ID);
-                MessageBox.Show(OrderToUp.Status.ToString());
+                try
+                {
+                 OrderToUp = bl.Order.UpdateDeliveryDate(OrderToUp.ID);
+                 MessageBox.Show(OrderToUp.Status.ToString());
+                 MyContent = "alredy Provided";
+                 anable = false;
+
+                }
+                catch (RequestedItemNotFoundException ex)
+                {
+                    MessageBox.Show(ex.Message.ToString());
+                }
+
             }
             else if (MyContent == "send")
             {
-                OrderToUp = bl.Order.UpdateShipDate(OrderToUp.ID);
-                MessageBox.Show(OrderToUp.Status.ToString());
-                MyContent = "Provide";
+                try
+                {
+                    OrderToUp = bl.Order.UpdateShipDate(OrderToUp.ID);
+                    MessageBox.Show(OrderToUp.Status.ToString());
+                    MyContent = "Provide";
+                }
+                catch (RequestedItemNotFoundException ex)
+                {
+                    MessageBox.Show(ex.Message.ToString());
+                }
             }
         }
 
@@ -103,11 +137,7 @@ namespace PL.Admin.Order
                 new OOrderTracking(id).Show();
                 
             }
-            else
-            {
-                //new MOrderListWindow().Show();
-            }
-           Close();
+           this.Close();
         }
     }
 }
