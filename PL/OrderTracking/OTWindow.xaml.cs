@@ -47,10 +47,17 @@ namespace PL.OrderTracking
 
         private void getButton_Click(object sender, RoutedEventArgs e)
         {
-            new OOrderTracking(MyId).Show();
-            Close();
-
-
+            try
+            {
+                new OOrderTracking(MyId).Show();
+                Close();
+            }
+            catch(BO.OrderNotExistsException ex)
+            {
+                MessageBox.Show(ex.Message);    
+                MyId = 0;
+            }
+            
         }
 
         private void backButton_Click(object sender, RoutedEventArgs e)
