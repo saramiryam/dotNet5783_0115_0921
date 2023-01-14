@@ -39,7 +39,7 @@ public partial class MOrderTrackingWindow : Window
 
     private void Back_Click(object sender, RoutedEventArgs e)
     {
-        new MOrderWindow(orderId,false).ShowDialog();
+        new MOrderWindow(orderId,true).ShowDialog();
         Close();
 
     }
