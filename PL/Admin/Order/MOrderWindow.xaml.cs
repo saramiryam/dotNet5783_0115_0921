@@ -38,7 +38,7 @@ namespace PL.Admin.Order
         public static string MyContent { get; set; } = "";
 
         public static bool anable { get; set; } = true;
-        public static bool CanChange { get; set; } = true;
+        public static bool fromOT { get; set; } = true;
         public int id { get; set; }
 
         #region order item
@@ -50,36 +50,23 @@ namespace PL.Admin.Order
 
         #endregion
 
-        public MOrderWindow(int orderID, bool change)
+        public MOrderWindow(int orderID, bool OTOrNot)
         {
+            fromOT = OTOrNot;
             id = orderID;
-            CanChange = change;
             if (bl != null)
             {
                 OrderToUp = bl.Order.GetOrderDetails(orderID);
             }
             if (OrderToUp.Status == BO.Enums.EStatus.Done)
             {
-                if (CanChange == true)
-                {
-                    anable = false;
-                }
-                else
-                {
-                    anable = true;
-                }
+
+                anable = true;
                 MyContent = "send";
             }
             else if (OrderToUp.Status == BO.Enums.EStatus.Sent)
             {
-                if (CanChange == true)
-                {
-                    anable = false;
-                }
-                else
-                {
-                    anable = true;
-                }
+                anable = true;
                 MyContent = "Provide";
 
             }
@@ -103,23 +90,24 @@ namespace PL.Admin.Order
             }
             else if (MyContent == "send")
             {
-                MyContent = "Provide";
                 OrderToUp = bl.Order.UpdateShipDate(OrderToUp.ID);
                 MessageBox.Show(OrderToUp.Status.ToString());
+                MyContent = "Provide";
             }
         }
 
         private void backButton_Click(object sender, RoutedEventArgs e)
         {
-            if (CanChange == true)
+            if (fromOT == true)
             {
                 new OOrderTracking(id).Show();
+                
             }
             else
             {
-                new MOrderListWindow().Show();
+                //new MOrderListWindow().Show();
             }
-            Close();
+           Close();
         }
     }
 }

@@ -60,6 +60,7 @@ public partial class PProductItemList : Window
         Cart = MyCart;
         ProductsItemList = new(bl.Product.GetProductItemList());
         InitializeComponent();
+
     }
     public static string InStockCnvrt()
     {
