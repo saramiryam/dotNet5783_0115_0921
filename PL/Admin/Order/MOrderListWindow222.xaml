@@ -8,9 +8,8 @@
         Title="MOrderListWindow" Height="450" Width="800"
         DataContext="{Binding RelativeSource={RelativeSource self}}">
     <Grid>
-        <Button  Content="back" Grid.Row="0" HorizontalAlignment="Left" Margin="20,8,6,0" Padding="3" Width="150" Height="23" VerticalAlignment="Top" Click="Back_Click"/>
-
-        <Grid Name="MainGrid"      >
+        <Button  Content="back" Grid.Row="0" Background="Yellow" FontWeight="ExtraBlack" Foreground="blue" HorizontalAlignment="Left" Margin="20,8,6,0" Padding="3" Width="150" Height="23" VerticalAlignment="Top" Click="Back_Click"/>
+        <Grid Name="MainGrid" >
         <Grid.RowDefinitions>
             <RowDefinition Height="500*"/>
             <RowDefinition Height="Auto"/>

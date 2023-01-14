@@ -10,12 +10,12 @@
 
     <Grid DataContext="{Binding orderTrackingToUp}">
         <Label Content="Id"   HorizontalAlignment="Left" Margin="250,91,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="id" HorizontalAlignment="Left" Margin="289,91,0,0" TextWrapping="Wrap" Text="{Binding ID}" VerticalAlignment="Top" Width="120" IsReadOnly="True" />
+        <TextBox Background="LightBlue"  x:Name="id" HorizontalAlignment="Left" Margin="289,91,0,0" TextWrapping="Wrap" Text="{Binding ID}" VerticalAlignment="Top" Width="120" IsReadOnly="True" />
         <Label  Content="Status"   HorizontalAlignment="Left" Margin="225,120,0,0" VerticalAlignment="Top"/>
-        <Button x:Name="back"  Content="back" HorizontalAlignment="Left" Margin="670,300,0,0" Padding="10" VerticalAlignment="Top" Click="backButton_Click" />
+        <Button Background="Yellow" FontWeight="ExtraBlack" Foreground="Blue" x:Name="back"  Content="back" HorizontalAlignment="Left" Margin="670,300,0,0" Padding="10" VerticalAlignment="Top" Click="backButton_Click" />
 
-        <Button Content="go to order" HorizontalAlignment="Left" Margin="650,150,0,0" Padding="10" VerticalAlignment="Top" Click="orderButton_Click" />
-        <TextBox x:Name="status" HorizontalAlignment="Left" Margin="289,120,0,0" TextWrapping="Wrap" Text="{Binding Status}" VerticalAlignment="Top" Width="120" IsReadOnly="True" />
+        <Button Background="Yellow" FontWeight="ExtraBlack" Foreground="Blue" Content="go to order" HorizontalAlignment="Left" Margin="650,150,0,0" Padding="10" VerticalAlignment="Top" Click="orderButton_Click" />
+        <TextBox Background="LightBlue" x:Name="status" HorizontalAlignment="Left" Margin="289,120,0,0" TextWrapping="Wrap" Text="{Binding Status}" VerticalAlignment="Top" Width="120" IsReadOnly="True" />
         <ListView x:Name="OrderTrackingListView" Margin="289,150,250,100"  ItemsSource="{Binding listOfStatus}" >
             <ListView.View>
                 <GridView>

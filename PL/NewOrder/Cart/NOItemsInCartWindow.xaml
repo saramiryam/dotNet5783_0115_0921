@@ -27,8 +27,8 @@
             </ListView>
         </Grid>
         <Grid Grid.Row="0">
-            <Button Content="back" HorizontalAlignment="Left" Margin="10,7,0,0"  Width="199" Height="28" VerticalAlignment="Top" Click="Back_Click" FontSize="22" FontFamily="Sitka Small"/>
-            <Button Content="submit" HorizontalAlignment="Left" Margin="568,7,0,0"  Width="199" Height="28" VerticalAlignment="Top" Click="Submit_Click" FontSize="22" FontFamily="Sitka Small"/>
+            <Button Content="back" Background="Yellow" FontWeight="ExtraBlack" Foreground="Blue" HorizontalAlignment="Left" Margin="10,7,0,0"  Width="199" Height="28" VerticalAlignment="Top" Click="Back_Click" FontSize="22" FontFamily="Sitka Small"/>
+            <Button Content="submit" Background="Yellow" FontWeight="ExtraBlack" Foreground="Blue" HorizontalAlignment="Left" Margin="568,7,0,0"  Width="199" Height="28" VerticalAlignment="Top" Click="Submit_Click" FontSize="22" FontFamily="Sitka Small"/>
 
         </Grid>
         <Grid Grid.Row="2">

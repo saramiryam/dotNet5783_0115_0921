@@ -11,28 +11,28 @@
     <Grid>
         <Grid x:Name="MainGrid"  DataContext="{Binding OrderToUp}">
             <Label  Content="id"   HorizontalAlignment="Left" Margin="224,20,0,0" VerticalAlignment="Top"/>
-            <TextBox HorizontalAlignment="Left" Margin="289,20,0,0" TextWrapping="Wrap" Text="{Binding ID,Mode=TwoWay}" VerticalAlignment="Top" Width="150" IsReadOnly="True" />
+            <TextBox Background="LightBlue"  HorizontalAlignment="Left" Margin="289,20,0,0" TextWrapping="Wrap" Text="{Binding ID,Mode=TwoWay}" VerticalAlignment="Top" Width="150" IsReadOnly="True" />
             <Label Content="customer name" HorizontalAlignment="Left" Margin="156,45,0,0" VerticalAlignment="Top"/>
-            <TextBox HorizontalAlignment="Left" Margin="289,45,0,0" TextWrapping="Wrap" Text="{Binding CustomerName,Mode=TwoWay}" VerticalAlignment="Top" Width="150" IsReadOnly="True"  />
+            <TextBox Background="LightBlue" HorizontalAlignment="Left" Margin="289,45,0,0" TextWrapping="Wrap" Text="{Binding CustomerName,Mode=TwoWay}" VerticalAlignment="Top" Width="150" IsReadOnly="True"  />
             <Label Content="customer email" HorizontalAlignment="Left" Margin="188,70,0,0" VerticalAlignment="Top"/>
-            <TextBox HorizontalAlignment="Left" Margin="289,70,0,0" TextWrapping="Wrap" Text="{Binding CustomerEmail,Mode=TwoWay}" VerticalAlignment="Top" Width="150"  IsReadOnly="True" />
+            <TextBox Background="LightBlue" HorizontalAlignment="Left" Margin="289,70,0,0" TextWrapping="Wrap" Text="{Binding CustomerEmail,Mode=TwoWay}" VerticalAlignment="Top" Width="150"  IsReadOnly="True" />
             <Label Content="customer adress" HorizontalAlignment="Left" Margin="188,95,0,0" VerticalAlignment="Top"/>
-            <TextBox HorizontalAlignment="Left" Margin="289,95,0,0" TextWrapping="Wrap" Text="{Binding CustomerAdress,Mode=TwoWay}" VerticalAlignment="Top" Width="150"  IsReadOnly="True" />
+            <TextBox Background="LightBlue" HorizontalAlignment="Left" Margin="289,95,0,0" TextWrapping="Wrap" Text="{Binding CustomerAdress,Mode=TwoWay}" VerticalAlignment="Top" Width="150"  IsReadOnly="True" />
             <Label Content="status" HorizontalAlignment="Left" Margin="207,120,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.606,1.385"/>
-            <TextBox HorizontalAlignment="Left" Margin="289,120,0,0" TextWrapping="Wrap" Text="{Binding Status,Mode=TwoWay}" VerticalAlignment="Top" Width="150" IsReadOnly="True" />
+            <TextBox Background="LightBlue" HorizontalAlignment="Left" Margin="289,120,0,0" TextWrapping="Wrap" Text="{Binding Status,Mode=TwoWay}" VerticalAlignment="Top" Width="150" IsReadOnly="True" />
             <Label Content="order date" HorizontalAlignment="Left" Margin="195,145,0,0" VerticalAlignment="Top"/>
-            <TextBox HorizontalAlignment="Left" Margin="289,145,0,0" TextWrapping="Wrap" Text="{Binding OrderDate,Mode=TwoWay}" VerticalAlignment="Top" Width="150" IsReadOnly="True" />
+            <TextBox Background="LightBlue" HorizontalAlignment="Left" Margin="289,145,0,0" TextWrapping="Wrap" Text="{Binding OrderDate,Mode=TwoWay}" VerticalAlignment="Top" Width="150" IsReadOnly="True" />
             <Label Content="ship date" HorizontalAlignment="Left" Margin="188,170,0,0" VerticalAlignment="Top"/>
-            <TextBox HorizontalAlignment="Left" Margin="289,170,0,0" TextWrapping="Wrap" Text="{Binding ShipDate,Mode=TwoWay}" VerticalAlignment="Top" Width="150"  IsReadOnly="True" />
+            <TextBox Background="LightBlue" HorizontalAlignment="Left" Margin="289,170,0,0" TextWrapping="Wrap" Text="{Binding ShipDate,Mode=TwoWay}" VerticalAlignment="Top" Width="150"  IsReadOnly="True" />
             <Label Content="delivery date" HorizontalAlignment="Left" Margin="188,195,0,0" VerticalAlignment="Top"/>
-            <TextBox HorizontalAlignment="Left" Margin="289,195,0,0" TextWrapping="Wrap" Text="{Binding DeliveryDate,Mode=TwoWay}" VerticalAlignment="Top" Width="150"  IsReadOnly="True" />
+            <TextBox Background="LightBlue" HorizontalAlignment="Left" Margin="289,195,0,0" TextWrapping="Wrap" Text="{Binding DeliveryDate,Mode=TwoWay}" VerticalAlignment="Top" Width="150"  IsReadOnly="True" />
             <Label Content="total sum" HorizontalAlignment="Left" Margin="188,220,0,0" VerticalAlignment="Top"/>
-            <TextBox HorizontalAlignment="Left" Margin="289,220,0,0" TextWrapping="Wrap" Text="{Binding TotalSum,Mode=TwoWay}" VerticalAlignment="Top" Width="150"  IsReadOnly="True" />
+            <TextBox Background="LightBlue" HorizontalAlignment="Left" Margin="289,220,0,0" TextWrapping="Wrap" Text="{Binding TotalSum,Mode=TwoWay}" VerticalAlignment="Top" Width="150"  IsReadOnly="True" />
 
 
         </Grid>
-        <Button x:Name="change" IsEnabled="{Binding anable,Mode=TwoWay}" Content="{Binding MyContent,Mode=TwoWay}" HorizontalAlignment="Left" Margin="600,250,0,0" VerticalAlignment="Top" Click="ChengeButton_Click" />
-        <Button x:Name="back"  Content="back" HorizontalAlignment="Left" Margin="600,150,0,0" VerticalAlignment="Top" Click="backButton_Click" />
+        <Button x:Name="change" Background="Yellow" FontWeight="ExtraBlack" Foreground="blue" IsEnabled="{Binding anable,Mode=TwoWay}" Content="{Binding MyContent,Mode=TwoWay}" HorizontalAlignment="Left" Margin="600,250,0,0" VerticalAlignment="Top" Click="ChengeButton_Click" />
+        <Button x:Name="back"  Background="Yellow" FontWeight="ExtraBlack" Foreground="blue" Content="back" HorizontalAlignment="Left" Margin="600,150,0,0" VerticalAlignment="Top" Click="backButton_Click" />
         <Grid Margin="150,280,150,10">
             <!--ItemsSource="{Binding MyCart.ItemList}" MouseDoubleClick="ListView_MouseDoubleClick" SelectedItem="{Binding ProductToChange}" SelectedValue="{Binding ProductToChange}"-->
             <ListView x:Name="OrderItemListView" Grid.Row="1" ItemsSource="{Binding OrderToUp.ItemList}" >

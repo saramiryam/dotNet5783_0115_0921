@@ -15,6 +15,6 @@
 
         <Button  Width="120" Height="70"  Name="productList"  Content="products" VerticalAlignment="Top" Click="productList_Click" FontStyle="Oblique" FontSize="25" FontWeight="ExtraBlack" Foreground="blue" Background="Yellow" RenderTransformOrigin="3.043,1.523" Margin="615,50,65,0"></Button>
         <Button  Width="120" Height="70"  Name="orderList"  Content="orders" VerticalAlignment="Top" Click="orderList_Click" FontStyle="Oblique" FontSize="25" FontWeight="ExtraBlack" Foreground="blue" Background="Yellow" RenderTransformOrigin="3.043,1.523" Margin="615,150,65,0"></Button>
-       
+
     </Grid>
 </Window>

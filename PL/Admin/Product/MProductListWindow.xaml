@@ -14,7 +14,7 @@
             <RowDefinition Height="500*"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        <Button  Content="back" Grid.Row="0" HorizontalAlignment="Left" Margin="10,3,0,0" Padding="5" Width="199" Height="28" VerticalAlignment="Top" Click="Back_Click"/>
+        <Button  Content="back" Background="Yellow" FontWeight="ExtraBlack" Foreground="Blue" Grid.Row="0" HorizontalAlignment="Left" Margin="10,3,0,0" Padding="5" Width="199" Height="28" VerticalAlignment="Top" Click="Back_Click"/>
         <Grid Name="UpGrid" HorizontalAlignment="Stretch" Height="auto" Grid.Row="1"
             VerticalAlignment="Stretch" Width="auto">
             <Grid.ColumnDefinitions>

@@ -13,8 +13,8 @@
             <RowDefinition Height="40*"/>
             <RowDefinition Height="500*"/>
         </Grid.RowDefinitions>
-        <Button x:Name="goCart" Content="My Cart" Grid.Row="0" HorizontalAlignment="Left" Margin="565,2,0,0" Padding="5" Width="199" Height="28" VerticalAlignment="Top" Click="goCart_Click"/>
-        <Button  Content="back" Grid.Row="0" HorizontalAlignment="Left" Margin="10,3,0,0" Padding="5" Width="199" Height="28" VerticalAlignment="Top" Click="Back_Click"/>
+        <Button Background="Yellow" FontWeight="ExtraBlack" Foreground="Blue" x:Name="goCart" Content="My Cart" Grid.Row="0" HorizontalAlignment="Left" Margin="565,2,0,0" Padding="5" Width="199" Height="28" VerticalAlignment="Top" Click="goCart_Click"/>
+        <Button Background="Yellow" FontWeight="ExtraBlack" Foreground="Blue" Content="back" Grid.Row="0" HorizontalAlignment="Left" Margin="10,3,0,0" Padding="5" Width="199" Height="28" VerticalAlignment="Top" Click="Back_Click"/>
 
         <Grid DataContext="{Binding ItemToChage}">
             <TextBlock  Text="{Binding numInOrder}" HorizontalAlignment="Left" Margin="90,40,0,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
@@ -26,11 +26,11 @@
         </Grid>
 
         <Grid DataContext="{Binding Amount}">
-            <Button x:Name="minus"  Content="-" HorizontalAlignment="Left" Margin="43,228,0,0" Click="minus_Click" Padding="5" Width="20" Height="28" VerticalAlignment="Top" />
+            <Button Background="Yellow" FontWeight="ExtraBlack" Foreground="Blue" x:Name="minus"  Content="-" HorizontalAlignment="Left" Margin="43,228,0,0" Click="minus_Click" Padding="5" Width="20" Height="28" VerticalAlignment="Top" />
             <TextBlock  Text="{Binding}" TextAlignment="Center" HorizontalAlignment="Left" Margin="65,231,0,0" Width="50" TextWrapping="Wrap" VerticalAlignment="Top" Height="22"/>
-            <Button x:Name="plus"  Content="+" HorizontalAlignment="Right" Click="Plus_Click" Margin="0,228,660,0" Padding="5" Width="20" Height="28" VerticalAlignment="Top" />
-            <Button  Content="update amount" HorizontalAlignment="Left" Margin="200,228,0,0" Padding="5" Width="100" Height="28" VerticalAlignment="Top" Click="UpdateItem_Click" />
-            <Button  Content="remove" HorizontalAlignment="Left" Margin="334,228,0,0" Padding="5" Width="100" Height="28" VerticalAlignment="Top" Click="RemoveItem_Click" />
+            <Button Background="Yellow" FontWeight="ExtraBlack" Foreground="Blue" x:Name="plus"  Content="+" HorizontalAlignment="Right" Click="Plus_Click" Margin="0,228,660,0" Padding="5" Width="20" Height="28" VerticalAlignment="Top" />
+            <Button Background="Yellow" FontWeight="ExtraBlack" Foreground="Blue"  Content="update amount" HorizontalAlignment="Left" Margin="200,228,0,0" Padding="5" Width="100" Height="28" VerticalAlignment="Top" Click="UpdateItem_Click" />
+            <Button Background="Yellow" FontWeight="ExtraBlack" Foreground="Blue" Content="remove" HorizontalAlignment="Left" Margin="334,228,0,0" Padding="5" Width="100" Height="28" VerticalAlignment="Top" Click="RemoveItem_Click" />
 
         </Grid>
     </Grid>

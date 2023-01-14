@@ -7,9 +7,9 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
-        <Button x:Name="Admin" Content="Admin" HorizontalAlignment="Left" Margin="187,181,0,0" VerticalAlignment="Top" Height="45" Width="82" Click="Admin_Click" />
-        <Button  x:Name="NewOrder" Content="New Order" HorizontalAlignment="Center" Margin="0,181,0,0" VerticalAlignment="Top" Height="45" Width="100" Click="NewOrder_Click" />
-        <Button x:Name="OrderTracking" Content="Order Tracking" HorizontalAlignment="Left" Margin="539,181,0,0" VerticalAlignment="Top" Height="45" Width="84" Click="OrderTracking_Click" />
+        <Button Background="Yellow" FontWeight="ExtraBlack" Foreground="Blue" x:Name="Admin" Content="Admin" HorizontalAlignment="Left" Margin="187,181,0,0" VerticalAlignment="Top" Height="45" Width="82" Click="Admin_Click" />
+        <Button Background="Yellow" FontWeight="ExtraBlack" Foreground="Blue" x:Name="NewOrder" Content="New Order" HorizontalAlignment="Center" Margin="0,181,0,0" VerticalAlignment="Top" Height="45" Width="100" Click="NewOrder_Click" />
+        <Button Background="Yellow" FontWeight="ExtraBlack" Foreground="Blue" x:Name="OrderTracking" Content="Order Tracking" HorizontalAlignment="Left" Margin="539,181,0,0" VerticalAlignment="Top" Height="45" Width="84" Click="OrderTracking_Click" />
 
     </Grid>
 </Window>
