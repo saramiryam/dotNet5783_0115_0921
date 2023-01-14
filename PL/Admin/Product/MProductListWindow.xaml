@@ -8,6 +8,7 @@
         Title="MProductForList" Height="640" Width="800"
         DataContext="{Binding RelativeSource={RelativeSource self}}">
     <Grid Name="MainGrid"      >
+       
         <Grid.RowDefinitions>
             <RowDefinition Height="40*"/>
             <RowDefinition Height="40*"/>
@@ -25,7 +26,7 @@
             <Label Content="category:" Grid.Column="0" HorizontalAlignment="Left" Margin="95,0,0,0" VerticalAlignment="Center" />
 
         </Grid>
-        <ListView x:Name="ProductListView"  MouseDoubleClick="ProductListView_MouseDoubleClick"  SelectedValue="{Binding productToUp}" Grid.Row="2" ItemsSource="{Binding productsForListList}"  >
+        <ListView x:Name="ProductListView"  MouseDoubleClick="ProductListView_MouseDoubleClick"  SelectedValue="{Binding productToUp}" Grid.Row="2"  >
             <ListView.View>
                 <GridView>
                     <GridViewColumn Width="Auto" Header="Id">
@@ -60,7 +61,7 @@
             </ListView.View>
         </ListView>
 
-        <Button x:Name="addOrUpdate" Content="Add new Product" Grid.Row="3" HorizontalAlignment="Left" Margin="565,2,0,0" Padding="5" Width="199" Click="Add_Click_" Height="28" VerticalAlignment="Top"/>
+        <Button Background="Yellow" FontWeight="ExtraBlack" Foreground="Blue" x:Name="addOrUpdate" Content="Add new Product" Grid.Row="3" HorizontalAlignment="Left" Margin="565,2,0,0" Padding="5" Width="199" Click="Add_Click_" Height="28" VerticalAlignment="Top"/>
 
     </Grid>
 
