@@ -114,7 +114,7 @@ namespace BlImplementation
                 }
                 catch
                 {
-                    throw new BO.NegativeIdException("negative id") { NegativeId = id.ToString() };
+                    throw new BO.ProductNotExistsException("negative id") { ProductNotExists = id.ToString() };
 
                 }
                 BO.Product p1 = new();

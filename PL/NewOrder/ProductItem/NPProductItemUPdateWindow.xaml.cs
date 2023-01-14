@@ -52,22 +52,20 @@ public partial class NPProductItemUPdateWindow : Window
         set { SetValue(AmountProperty, value); }
     }
 
-    public NPProductItemUPdateWindow(int id) {
-        Cart = new BO.Cart();
-        if (bl != null)
-            ProductToAdd = bl.Product.GetProductItemDetails(Cart,id);
-      
-        Amount=1;
-     //   Cart.ItemList = new List< BO.OrderItem?>();
-        InitializeComponent();
-    }
     public NPProductItemUPdateWindow(BO.Cart MyCart,int id)
     {
-        Cart = MyCart;
-        Amount = ProductToAdd.AmoutInYourCart == 0 ? 1 : ProductToAdd.AmoutInYourCart;
+        Cart = MyCart is not null?MyCart:new();
         if (MyCart.ItemList is null) MyCart.ItemList = new List<OrderItem?>();
         if (bl != null)
-            ProductToAdd = bl.Product.GetProductItemDetails(Cart,id);
+            try
+            {
+                ProductToAdd = bl.Product.GetProductItemDetails(Cart, id);
+            }
+            catch (ProductNotExistsException ex)
+            {
+                MessageBox.Show(ex.Message);    
+            }
+        Amount = ProductToAdd.AmoutInYourCart == 0 ? 1 : ProductToAdd.AmoutInYourCart;
         InitializeComponent();
     }
     private void Plus_Click(object sender, RoutedEventArgs e)
@@ -81,7 +79,7 @@ public partial class NPProductItemUPdateWindow : Window
     {
         Action = "-";
         if (Amount > 0)
-            Amount -= 1;
+            Amount = Amount > 0 ? Amount - 1 : 0;
 
     }
 
@@ -91,7 +89,14 @@ public partial class NPProductItemUPdateWindow : Window
         {
             for (int i = 0; i < Amount-ProductToAdd.AmoutInYourCart; i++)
             {
-                Cart = bl.Cart.AddItemToCart(Cart, ProductToAdd.ID);
+                try
+                {
+                    Cart = bl.Cart.AddItemToCart(Cart, ProductToAdd.ID);
+                }
+                catch (ProductNotExistsException ex)
+                {
+                    MessageBox.Show(ex.Message.ToString());
+                }
                 //ProductToAdd.AmoutInYourCart++;
             }
             new PProductItemList(Cart).Show();

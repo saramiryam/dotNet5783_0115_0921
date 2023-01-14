@@ -80,11 +80,11 @@ namespace BlImplementation
                     try
                     {
                         DO.Product DP;
-                        if (Dal != null)
+                        try
                         {
                             DP = Dal.Product.Get(e => e?.ID == itemId);
                         }
-                        else
+                        catch
                         {
                             throw new BO.GetDulNullException("product not exists") { GetDulNull = itemId.ToString() };
                         }
