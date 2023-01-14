@@ -21,11 +21,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="picture\" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Resource Include="aa.PNG" />
+    <Resource Include="picture\aa.PNG" />
   </ItemGroup>
 
 </Project>

@@ -10,7 +10,8 @@ namespace BlImplementation;
 
 public class Order : BlApi.IOrder
 {
-    private static IDal? Dal = Factory.Get();
+    IDal? Dal = Factory.Get();
+    //private static IDal? Dal = Factory.Get();
     #region method
 
 

@@ -11,7 +11,7 @@
     <Grid>
         <Label Content="id:" HorizontalAlignment="Left" Margin="250,150,0,0" VerticalAlignment="Top"/>
         <!--TextChanged="IdChange_TextChanged"-->
-        <TextBox HorizontalAlignment="Left" Margin="289,150,0,0" TextWrapping="Wrap"  Text="{Binding MyId,Mode=TwoWay}" VerticalAlignment="Top" Width="150"  IsReadOnly="False" />
+        <TextBox HorizontalAlignment="Left" Margin="289,150,0,0" TextWrapping="Wrap" Text="{Binding MyId,Mode=TwoWay}" VerticalAlignment="Top" Width="150" PreviewTextInput="NumberValidationTextBox" IsReadOnly="False" />
         <Button x:Name="get" HorizontalAlignment="Left" Content="get" Padding="10" Margin="500,130,0,0" VerticalAlignment="Top" Click="getButton_Click" />
         <Button x:Name="back"  Content="back" HorizontalAlignment="Left" Margin="700,300,0,0" Padding="10" VerticalAlignment="Top" Click="backButton_Click" />
 
