@@ -26,7 +26,7 @@
             <Label Content="category:" Grid.Column="0" HorizontalAlignment="Left" Margin="95,0,0,0" VerticalAlignment="Center" />
 
         </Grid>
-        <ListView x:Name="ProductListView"  MouseDoubleClick="ProductListView_MouseDoubleClick"  SelectedValue="{Binding productToUp}" Grid.Row="2"  >
+        <ListView x:Name="ProductListView"  MouseDoubleClick="ProductListView_MouseDoubleClick"  SelectedValue="{Binding productToUp}" ItemsSource="{Binding productsForListList}" Grid.Row="2"  >
             <ListView.View>
                 <GridView>
                     <GridViewColumn Width="Auto" Header="Id">
