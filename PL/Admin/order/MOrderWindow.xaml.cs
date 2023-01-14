@@ -98,12 +98,14 @@ namespace PL.Admin.Order
             
             if (MyContent == "Provide")
             {
-                
-                MessageBox.Show(bl.Order.UpdateDeliveryDate(OrderToUp.ID).Status.ToString());
+                OrderToUp = bl.Order.UpdateDeliveryDate(OrderToUp.ID);
+                MessageBox.Show(OrderToUp.Status.ToString());
             }
             else if (MyContent == "send")
             {
-                MessageBox.Show(bl.Order.UpdateShipDate(OrderToUp.ID).Status.ToString());
+                MyContent = "Provide";
+                OrderToUp = bl.Order.UpdateShipDate(OrderToUp.ID);
+                MessageBox.Show(OrderToUp.Status.ToString());
             }
         }
 

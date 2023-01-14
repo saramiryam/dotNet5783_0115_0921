@@ -23,35 +23,35 @@ public partial class NOItemsInCartWindow : Window
     BlApi.IBl? bl = BlApi.Factory.Get();
     public BO.OrderItem ProductToChange { get; set; } = new();
 
-    public static readonly DependencyProperty MyCartProperty = DependencyProperty.Register(nameof(MyCart),
+    public static readonly DependencyProperty CartProperty = DependencyProperty.Register(nameof(Cart),
                                                                                                typeof(BO.Cart),
                                                                                        typeof(NOItemsInCartWindow));
-    public BO.Cart MyCart
+    public BO.Cart Cart
     {
-        get { return (BO.Cart)GetValue(MyCartProperty); }
-        set { SetValue(MyCartProperty, value); }
+        get { return (BO.Cart)GetValue(CartProperty); }
+        set { SetValue(CartProperty, value); }
     }
     public NOItemsInCartWindow(BO.Cart MyCart)
     {
         ProductToChange = new();
-        this.MyCart = MyCart;
+        this.Cart = MyCart;
         InitializeComponent();
     }
     private void Back_Click(object sender, RoutedEventArgs e)
     {
-        new PProductItemList(MyCart).Show();
+        new PProductItemList(Cart).Show();
         Close();
     }
     private void Submit_Click(object sender, RoutedEventArgs e)
     {
      
-        new NOUserDetails(MyCart).Show();
+        new NOUserDetails(Cart).Show();
         Close();
     }
 
     private void ListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
     {
-        new NOItemToUpFromCart(MyCart,ProductToChange.ID).Show();
+        new NOItemToUpFromCart(Cart,ProductToChange.ID).Show();
         Close();
     }
 }

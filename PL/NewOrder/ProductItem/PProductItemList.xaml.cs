@@ -37,6 +37,7 @@ public partial class PProductItemList : Window
         get { return (ObservableCollection<BO.ProductItem?>)GetValue(productItemListProperty); }
         set { SetValue(productItemListProperty, value); }
     }
+
     public static readonly DependencyProperty CartProperty = DependencyProperty.Register(nameof(Cart),
                                                                                                    typeof(BO.Cart),
                                                                                            typeof(PProductItemList));
@@ -60,15 +61,11 @@ public partial class PProductItemList : Window
         ProductsItemList = new(bl.Product.GetProductItemList());
         InitializeComponent();
     }
-    public  string InStockCnvrt()
+    public static string InStockCnvrt()
     {
-       
-        
-            if (ProductToAdd.InStock > 0)
+            if (Amount > 0)
                 return "true";
             return "false";
-        
-        
     }
 
 
