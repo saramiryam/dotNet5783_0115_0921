@@ -37,30 +37,30 @@ namespace PL.Admin.Order
                                                                                                   typeof(MOrderWindow));
         public static string MyContent { get; set; } = "";
 
-        public static bool anable { get; set; }=true;
+        public static bool anable { get; set; } = true;
         public static bool CanChange { get; set; } = true;
-        public  int id { get; set; }
+        public int id { get; set; }
 
         #region order item
         public BO.OrderItem? orderItemToUp { get; set; } = new();
 
-      
-        #endregion
-
 
         #endregion
 
-        public MOrderWindow(int orderID,bool change)
+
+        #endregion
+
+        public MOrderWindow(int orderID, bool change)
         {
-            id=orderID;
-            CanChange=change;
+            id = orderID;
+            CanChange = change;
             if (bl != null)
             {
                 OrderToUp = bl.Order.GetOrderDetails(orderID);
             }
             if (OrderToUp.Status == BO.Enums.EStatus.Done)
-            { 
-                if(CanChange == true)
+            {
+                if (CanChange == true)
                 {
                     anable = false;
                 }
@@ -69,7 +69,7 @@ namespace PL.Admin.Order
                     anable = true;
                 }
                 MyContent = "send";
-             }
+            }
             else if (OrderToUp.Status == BO.Enums.EStatus.Sent)
             {
                 if (CanChange == true)
@@ -86,24 +86,26 @@ namespace PL.Admin.Order
             else
             {
                 MyContent = "alredy Provided";
-               anable =false;   
+                anable = false;
             }
             InitializeComponent();
         }
 
-        
+
 
         private void ChengeButton_Click(object sender, RoutedEventArgs e)
         {
-            
+
             if (MyContent == "Provide")
             {
-                
-                MessageBox.Show(bl.Order.UpdateDeliveryDate(OrderToUp.ID).Status.ToString());
+                OrderToUp = bl.Order.UpdateDeliveryDate(OrderToUp.ID);
+                MessageBox.Show(OrderToUp.Status.ToString());
             }
             else if (MyContent == "send")
             {
-                MessageBox.Show(bl.Order.UpdateShipDate(OrderToUp.ID).Status.ToString());
+                MyContent = "Provide";
+                OrderToUp = bl.Order.UpdateShipDate(OrderToUp.ID);
+                MessageBox.Show(OrderToUp.Status.ToString());
             }
         }
 
