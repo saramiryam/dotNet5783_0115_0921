@@ -115,7 +115,7 @@ internal class DalOrder : IOrder
     /// <exception cref="Exception">product not exists, can not update</exception>
     public void Update(Order _o)
     {
-        if (_o.CustomerName == null || _o.CustomerEmail == null || _o.CustomerAdress == null || _o.OrderDate == null || _o.ShipDate == null || _o.DeliveryDate == null)
+        if (_o.CustomerName == null && _o.CustomerEmail == null && _o.CustomerAdress == null && _o.OrderDate == null && _o.ShipDate == null && _o.DeliveryDate == null)
         {
             return;
 
