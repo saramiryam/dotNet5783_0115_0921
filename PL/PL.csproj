@@ -13,15 +13,15 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="aa.PNG" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\BL\BL.csproj" />
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="picture\aa.PNG" />
+    <Resource Include="aa.PNG" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="picture\" />
   </ItemGroup>
 
 </Project>

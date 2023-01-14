@@ -8,9 +8,9 @@
         Title="MWindow" Height="450" Width="800">
 
     <Grid HorizontalAlignment="Right" Width="800">
-        <Grid.Background>
-            <ImageBrush ImageSource="/aa.PNG"/>
-        </Grid.Background>
+        <!--<Grid.Background>
+            <ImageBrush ImageSource="aa.PNG"/>
+        </Grid.Background>-->
         <Button  Width="120" Height="70"  Name="backToMain"  Content="back" VerticalAlignment="Top" Click="backToMain_Click" FontStyle="Oblique" FontSize="25" FontWeight="ExtraBlack" Foreground="blue" Background="Yellow" RenderTransformOrigin="3.043,1.523" Margin="615,320,65,0"></Button>
 
         <Button  Width="120" Height="70"  Name="productList"  Content="products" VerticalAlignment="Top" Click="productList_Click" FontStyle="Oblique" FontSize="25" FontWeight="ExtraBlack" Foreground="blue" Background="Yellow" RenderTransformOrigin="3.043,1.523" Margin="615,50,65,0"></Button>
