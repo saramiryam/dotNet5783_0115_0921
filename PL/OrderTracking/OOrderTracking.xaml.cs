@@ -1,4 +1,5 @@
-﻿using PL.Admin.Order;
+﻿using BO;
+using PL.Admin.Order;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,10 +28,9 @@ namespace PL.OrderTracking
         public OOrderTracking(int id)
         {
             orderId = id;
-            if (bl != null)
-            {
-                orderTrackingToUp = bl.Order.GetOrderTracking(orderId);
-            }
+               
+                    orderTrackingToUp = bl.Order.GetOrderTracking(orderId);
+                
              InitializeComponent();
         }
 

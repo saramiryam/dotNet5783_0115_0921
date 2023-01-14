@@ -1,4 +1,5 @@
 ﻿using BO;
+using DO;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -25,10 +26,11 @@ public partial class PProductItemList : Window
     BlApi.IBl? bl = BlApi.Factory.Get();
     public static string Action { get; set; } = "";
     public static int Amount { get; set; } = 0;
-    public System.Array Categories { get; set; } = Enum.GetValues(typeof(Enums.ECategory));
+    public static bool ChkIfEnable { get; set; } = false;
+    public System.Array Categories { get; set; } = Enum.GetValues(typeof(BO.Enums.ECategory));
     public BO.ProductItem Product { get; set; } = new();
     public BO.ProductItem ProductToAdd { get; set; } = new();
-    public Enums.ECategory? selectedCategory { get; set; } = null;
+    public BO.Enums.ECategory? selectedCategory { get; set; } = null;
     public static readonly DependencyProperty productItemListProperty = DependencyProperty.Register(nameof(ProductsItemList),
                                                                                                        typeof(ObservableCollection<BO.ProductItem?>),
                                                                                                typeof(PProductItemList));
@@ -51,14 +53,28 @@ public partial class PProductItemList : Window
     {
         Amount = 0;
         Cart = new();
-        ProductsItemList = new(bl.Product.GetProductItemList());
+        try
+        {
+            ProductsItemList = new(bl.Product.GetProductItemList());
+        }
+        catch(RequestedItemNotFoundException ex)
+        {
+            MessageBox.Show(ex.Message.ToString());    
+        }
         InitializeComponent();
     }
     public PProductItemList(BO.Cart MyCart)
     {
         Amount = 0;
         Cart = MyCart;
-        ProductsItemList = new(bl.Product.GetProductItemList());
+        try
+        {
+            ProductsItemList = new(bl.Product.GetProductItemList());
+        }
+        catch (RequestedItemNotFoundException ex)
+        {
+            MessageBox.Show(ex.Message.ToString());
+        }
         InitializeComponent();
 
     }
@@ -82,7 +98,14 @@ public partial class PProductItemList : Window
     private void CategorySelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
         if (selectedCategory is not null)
-            ProductsItemList = new(bl.Product.GetProductItemList(e=> (bool)(e?.Category.Equals((DO.Enums.ECategory)selectedCategory))));
+            try
+            {
+                ProductsItemList = new(bl.Product.GetProductItemList(e => (bool)(e?.Category.Equals((DO.Enums.ECategory)selectedCategory))));
+            }
+            catch (RequestedItemNotFoundException ex)
+            {
+                MessageBox.Show(ex.Message.ToString());
+            }
     }
 
     private void ProductItemListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
@@ -95,15 +118,24 @@ public partial class PProductItemList : Window
 
  
     private void chkEnable_Click(object sender, RoutedEventArgs e)
-    {    
-        ProductsItemList = new(bl.Product.GetProductItemList());
+    {
+        try
+        {
+            ProductsItemList = new(bl.Product.GetProductItemList());
+        }
+        catch (RequestedItemNotFoundException ex)
+        {
+            MessageBox.Show(ex.Message.ToString());
+        }
+        if (chkEnable.IsChecked == true)
+        {
 
-        var GropupingProducts = (from p in ProductsItemList
-                                                    group p by p.Category into catGroup
-                                                    from pr in catGroup
-                                                    select pr).ToList();
-        ProductsItemList = new(GropupingProducts);
-
+            var GropupingProducts = (from p in ProductsItemList
+                                     group p by p.Category into catGroup
+                                     from pr in catGroup
+                                     select pr).ToList();
+            ProductsItemList = new(GropupingProducts);
+        }
     }
 
     private void Back_Click_(object sender, RoutedEventArgs e)

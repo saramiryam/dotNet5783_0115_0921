@@ -24,23 +24,6 @@ public class Order : BlApi.IOrder
         }
 
         IEnumerable<OrderTracking> orderTracking = new List<OrderTracking>();
-        //foreach (var item in orderList)
-        //{
-        //    if (item != null)
-        //    {
-        //        ordersForList.Add(new BO.OrderForList()
-        //        {
-        //            OrderID = item.Value.ID,
-        //            CustomerName = item.Value.CustomerName,
-        //            Status = CheckStatus(item.Value.OrderDate, item.Value.ShipDate, item.Value.DeliveryDate),
-        //            AmountOfItem = GetAmountItems(item.Value.ID),
-        //            TotalSum = CheckTotalSum(item.Value.ID)
-        //        });
-        //    }
-
-        //}
-
-
         var addOrder = orderList
                        .Where(item => item != null)
                        .Select(item => new BO.OrderForList()

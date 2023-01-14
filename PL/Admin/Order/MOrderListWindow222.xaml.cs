@@ -1,4 +1,5 @@
 ﻿using BO;
+using DO;
 using PL.NewOrder.ProductItem;
 using System;
 using System.Collections.Generic;
@@ -36,7 +37,14 @@ public partial class MOrderListWindow : Window
     }
     public MOrderListWindow()
     {
-        OrdersForListList = new (bl.Order.GetListOfOrders());
+        try
+        {
+            OrdersForListList = new(bl.Order.GetListOfOrders());
+        }
+        catch (RequestedItemNotFoundException ex)
+        {
+            MessageBox.Show(ex.Message.ToString());
+        }
         InitializeComponent();
     }
 
@@ -50,7 +58,14 @@ public partial class MOrderListWindow : Window
         if (OrderToUp is not null)
         {
             new MOrderWindow(OrderToUp.OrderID,false).ShowDialog();
-           OrdersForListList = new(bl.Order.GetListOfOrders());
+            try
+            {
+                OrdersForListList = new(bl.Order.GetListOfOrders());
+            }
+            catch (RequestedItemNotFoundException ex)
+            {
+                MessageBox.Show(ex.Message.ToString());
+            }
             Close();
         }
  

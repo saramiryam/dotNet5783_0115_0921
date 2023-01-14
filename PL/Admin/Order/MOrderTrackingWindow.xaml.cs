@@ -28,11 +28,17 @@ public partial class MOrderTrackingWindow : Window
 
     public MOrderTrackingWindow(int id)
     {
-        if(bl != null)
+        try
         {
-            orderTrackingToUp = bl.Order.GetOrderTracking(id);
+
+            orderTrackingToUp = bl.Order.GetOrderTracking(orderId);
+
         }
-        orderId=id; 
+        catch (OrderNotExistsException ex)
+        {
+            MessageBox.Show(ex.Message.ToString());
+        }
+        orderId =id; 
         InitializeComponent();
     }
 

@@ -54,7 +54,7 @@ public partial class NPProductItemUPdateWindow : Window
 
     public NPProductItemUPdateWindow(BO.Cart MyCart,int id)
     {
-        Cart = MyCart is not null?MyCart:new();
+        Cart = MyCart is not null ? MyCart : new();
         if (MyCart.ItemList is null) MyCart.ItemList = new List<OrderItem?>();
         if (bl != null)
             try
@@ -92,6 +92,7 @@ public partial class NPProductItemUPdateWindow : Window
                 try
                 {
                     Cart = bl.Cart.AddItemToCart(Cart, ProductToAdd.ID);
+                    
                 }
                 catch (ProductNotExistsException ex)
                 {
@@ -100,7 +101,7 @@ public partial class NPProductItemUPdateWindow : Window
                 //ProductToAdd.AmoutInYourCart++;
             }
             new PProductItemList(Cart).Show();
-        Close();
+            Close();
         }
         catch(ProductNotInStockException ex)
         {

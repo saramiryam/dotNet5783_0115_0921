@@ -51,8 +51,18 @@ namespace PL.NewOrder.Cart
 
         public NOItemToUpFromCart(BO.Cart MyCart,int id)
         {
-            if (bl != null)
-                ItemToChage=bl.Order.GetOrderItemDetails(MyCart, id);
+            try
+            {
+                ItemToChage = bl.Order.GetOrderItemDetails(MyCart, id);
+            }
+            catch(OrderNotExistsException ex)
+            {
+                MessageBox.Show(ex.Message.ToString());
+            }
+            catch (NegativeIdException ex)
+            {
+                MessageBox.Show(ex.Message.ToString());
+            }
             Cart = MyCart;
             Amount = ItemToChage.Amount;
             InitializeComponent();
@@ -62,8 +72,19 @@ namespace PL.NewOrder.Cart
         {
             try
             {
-                Cart = bl.Cart.UpdateAmount(Cart, ItemToChage.ID, Amount);
-                MessageBox.Show("UPDATE item");
+                try
+                {
+                    Cart = bl.Cart.UpdateAmount(Cart, ItemToChage.ID, Amount);
+                }
+                catch(NegativeAmountException ex)
+                {
+                    MessageBox.Show(ex.Message.ToString());
+                }
+                catch(ItemNotInCartException ex)
+                {
+                    MessageBox.Show(ex.Message.ToString());
+                }
+                MessageBox.Show("update item");
                 new NOItemsInCartWindow(Cart).Show();
                 Close();
             }
@@ -77,7 +98,18 @@ namespace PL.NewOrder.Cart
             Amount = 0;
             try
             {
-                Cart = bl.Cart.UpdateAmount(Cart, ItemToChage.ID, Amount);
+                try
+                {
+                    Cart = bl.Cart.UpdateAmount(Cart, ItemToChage.ID, Amount);
+                }
+                catch (NegativeAmountException ex)
+                {
+                    MessageBox.Show(ex.Message.ToString());
+                }
+                catch (ItemNotInCartException ex)
+                {
+                    MessageBox.Show(ex.Message.ToString());
+                }
                 MessageBox.Show("remove item");
                 new NOItemsInCartWindow(Cart).Show();
                 Close();

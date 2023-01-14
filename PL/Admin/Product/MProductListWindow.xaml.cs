@@ -19,6 +19,8 @@ using BlImplementation;
 using BlApi;
 using BO;
 using System.Collections.ObjectModel;
+using DO;
+using PL.NewOrder.ProductItem;
 
 namespace PL;
 
@@ -29,8 +31,8 @@ public partial class MProductListWindow : Window
 {
     #region prorerties
     BlApi.IBl? bl = BlApi.Factory.Get();
-    public System.Array Categories { get; set; } = Enum.GetValues(typeof(Enums.ECategory));
-    public Enums.ECategory? selectedCategory { get; set; } = null;
+    public System.Array Categories { get; set; } = Enum.GetValues(typeof(BO.Enums.ECategory));
+    public BO.Enums.ECategory? selectedCategory { get; set; } = null;
     public BO.ProductForList? productToUp { get; set; }=new();
     #region הפרופרטי של בחירת קטגוריה
     //public readonly DependencyProperty selectedCategoryProperty = DependencyProperty.Register(nameof(selectedCategory),
@@ -69,7 +71,14 @@ public partial class MProductListWindow : Window
 
     public MProductListWindow()
     {
-        productsForListList = new ObservableCollection<ProductForList?>(bl.Product.GetListOfProduct().Cast<ProductForList?>()); ;
+        try
+        {
+            productsForListList = new ObservableCollection<ProductForList?>(bl.Product.GetListOfProduct().Cast<ProductForList?>());
+        }
+        catch (RequestedItemNotFoundException ex)
+        {
+            MessageBox.Show(ex.Message.ToString());
+        }
         InitializeComponent();
         //  ProductListView.ItemsSource = (bl?.Product.GetListOfProduct());
         // CategorySelector.Items.Add("all products");
@@ -79,7 +88,14 @@ public partial class MProductListWindow : Window
     private void CategorySelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
         if (selectedCategory is not null)
-            productsForListList = new(bl.Product.GetProductForListByCategory((Enums.ECategory)selectedCategory!));
+            try
+            {
+                productsForListList = new(bl.Product.GetProductForListByCategory((BO.Enums.ECategory)selectedCategory!));
+            }
+            catch (RequestedItemNotFoundException ex)
+            {
+                MessageBox.Show(ex.Message.ToString());
+            }
     }
     public void addProduct(ProductForList product) => productsForListList.Insert(productsForListList.Count, product);
     public void updateProduct(ProductForList product)
@@ -89,10 +105,15 @@ public partial class MProductListWindow : Window
     }
     private void ProductListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
     {
-        if(productToUp is not null)
-       // BO.ProductForList p = (BO.ProductForList)ProductListView.SelectedValue;
         new PL.Product.MProductWindow(productToUp.ID).ShowDialog();
-        productsForListList=new(bl.Product.GetListOfProduct());
+        try
+        {
+            productsForListList = new(bl.Product.GetListOfProduct());
+        }
+        catch (RequestedItemNotFoundException ex)
+        {
+            MessageBox.Show(ex.Message.ToString());
+        }
     }
 
     private void Add_Click_(object sender, RoutedEventArgs e)
@@ -100,5 +121,10 @@ public partial class MProductListWindow : Window
         new Product.MProductWindow(addProduct).ShowDialog();
 //        productsForListList = Convert(bl.Product.GetListOfProduct());
 
+    }
+    private void Back_Click(object sender, RoutedEventArgs e)
+    {
+        new MWindow().Show();
+        Close();
     }
 }

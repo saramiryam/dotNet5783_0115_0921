@@ -13,12 +13,12 @@
             <RowDefinition Height="45"/>
 
             <RowDefinition Height="500*"/>
-            <!--<RowDefinition Height="500*"/>-->
+            <RowDefinition Height="50*"/>
 
         </Grid.RowDefinitions>
 
         <Grid DataContext="{Binding}"  Grid.Row="1">
-            <ListView   ItemsSource="{Binding MyCart.ItemList}" MouseDoubleClick="ListView_MouseDoubleClick" SelectedItem="{Binding ProductToChange}" SelectedValue="{Binding ProductToChange}" >
+            <ListView   ItemsSource="{Binding Cart.ItemList}" MouseDoubleClick="ListView_MouseDoubleClick" SelectedItem="{Binding ProductToChange}" SelectedValue="{Binding ProductToChange}" >
                 <ListView.View>
                     <GridView>
                         <GridViewColumn/>
@@ -29,6 +29,12 @@
         <Grid Grid.Row="0">
             <Button Content="back" HorizontalAlignment="Left" Margin="10,7,0,0"  Width="199" Height="28" VerticalAlignment="Top" Click="Back_Click" FontSize="22" FontFamily="Sitka Small"/>
             <Button Content="submit" HorizontalAlignment="Left" Margin="568,7,0,0"  Width="199" Height="28" VerticalAlignment="Top" Click="Submit_Click" FontSize="22" FontFamily="Sitka Small"/>
+
+        </Grid>
+        <Grid Grid.Row="2">
+            
+            <TextBlock Margin="591,0,10,0" Text="{Binding Cart.TotalSum}"  Width="199" Height="28" VerticalAlignment="Top"  FontSize="22" FontFamily="Sitka Small"/>
+            <Label Content="sum:" HorizontalAlignment="Left" Margin="522,0,0,0" VerticalAlignment="Center"  FontSize="22" FontFamily="Sitka Small"/>
 
         </Grid>
     </Grid>

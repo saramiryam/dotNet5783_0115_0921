@@ -275,8 +275,7 @@ namespace BlImplementation
                         return MyID;
 
                     }
-                    ////////////////////
-                    return MyID=0;
+                throw new BO.ProductNotExistsException("product not exists") { ProductNotExists = p.Name.ToString() };
 
 
                 }
@@ -292,7 +291,6 @@ namespace BlImplementation
 
             }
         }
-
 
         public void UpdateProduct(BO.Product item)
         {

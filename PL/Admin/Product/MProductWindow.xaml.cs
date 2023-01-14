@@ -48,10 +48,19 @@ namespace PL.Product
         }
         public MProductWindow(int idToUpdate)
         {
-            if (bl != null)
+            try
             {
                 ProductToUpOrAdd = bl.Product.GetProductDetails(idToUpdate);
             }
+            catch(ProductNotExistsException ex)
+            {
+                MessageBox.Show(ex.Message.ToString());
+            }
+            catch(NegativeIdException ex)
+            {
+                MessageBox.Show(ex.Message.ToString());
+            }
+            
 
             MyContent = "update";
             InitializeComponent();
@@ -59,15 +68,26 @@ namespace PL.Product
 
 
         }
-
+        private void Back_Click(object sender, RoutedEventArgs e)
+        {
+            new MProductListWindow().Show();
+            Close();
+        }
         private void addButton_Click(object sender, RoutedEventArgs e)
         {
             try
             {
-
+                int id = 0;
                 if (MyContent == "add")
                 {
-                   int id= bl.Product.AddProduct(ProductToUpOrAdd);
+                    try
+                    {
+                         id = bl.Product.AddProduct(ProductToUpOrAdd);
+                    }
+                    catch (ProductAlreadyExistsException ex)
+                    {
+                        MessageBox.Show(ex.Message.ToString());
+                    }
                     Action(bl.Product.GetProductForList(id));
                         MessageBox.Show("the product " + ProductToUpOrAdd.Name +" "+ MyContent);
                     this.Close();
@@ -75,7 +95,14 @@ namespace PL.Product
                 }
                 else
                 {
-                    bl?.Product.UpdateProduct(ProductToUpOrAdd);
+                    try
+                    {
+                        bl?.Product.UpdateProduct(ProductToUpOrAdd);
+                    }
+                    catch (ProductAlreadyExistsException ex)
+                    {
+                        MessageBox.Show(ex.Message.ToString());
+                    }
                     MessageBox.Show("the product " + ProductToUpOrAdd.Name + " " + MyContent);
                     this.Close();
                 }

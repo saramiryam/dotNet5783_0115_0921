@@ -12,6 +12,7 @@
 
 
     <Grid x:Name="MainGrid" DataContext="{Binding ProductToUpOrAdd}">
+        <Button  Content="back"  HorizontalAlignment="Left" Margin="10,3,0,0" Padding="5" Width="199" Height="28" VerticalAlignment="Top" Click="Back_Click"/>
         <Label x:Name="idLabel" Content="id"   HorizontalAlignment="Left" Margin="225,91,0,0" VerticalAlignment="Top"/>
         <TextBox x:Name="id" HorizontalAlignment="Left" Margin="289,91,0,0" TextWrapping="Wrap" Text="{Binding ID,Mode=TwoWay}" VerticalAlignment="Top" Width="120" IsReadOnly="False" TextChanged="id_TextChanged"/>
         <Label   Content="chooseCategoryToAdd" HorizontalAlignment="Left" Margin="140,188,0,0" VerticalAlignment="Top"/>
