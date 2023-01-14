@@ -63,8 +63,8 @@ public partial class NPProductItemUPdateWindow : Window
     }
     public NPProductItemUPdateWindow(BO.Cart MyCart,int id)
     {
-        Amount = 1;
         Cart = MyCart;
+        Amount = ProductToAdd.AmoutInYourCart == 0 ? 1 : ProductToAdd.AmoutInYourCart;
         if (MyCart.ItemList is null) MyCart.ItemList = new List<OrderItem?>();
         if (bl != null)
             ProductToAdd = bl.Product.GetProductItemDetails(Cart,id);

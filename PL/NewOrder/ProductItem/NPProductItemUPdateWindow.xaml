@@ -24,12 +24,8 @@
             <TextBlock  Text="{Binding Name}" HorizontalAlignment="Left" Margin="90,60,0,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
             <TextBlock  Text="{Binding Category}" HorizontalAlignment="Left" Margin="90,80,0,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
             <TextBlock  Text="{Binding AmoutInYourCart}" HorizontalAlignment="Left" Margin="90,100,0,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
-            <TextBlock  Text="{Binding InStock, ElementName=chkVisible, Converter={StaticResource myCnvrtr}}" HorizontalAlignment="Left" Margin="90,120,0,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
         </Grid>
         <Grid>
-
-
-
             <Button x:Name="minus"  Content="-" HorizontalAlignment="Left" Margin="43,228,0,0" Click="minus_Click" Padding="5" Width="20" Height="28" VerticalAlignment="Top" />
             <TextBlock  Text="{Binding Amount,Mode=TwoWay}" TextAlignment="Center" HorizontalAlignment="Left" Margin="65,231,0,0" Width="50" TextWrapping="Wrap" VerticalAlignment="Top" Height="22"/>
             <Button x:Name="plus"  Content="+" HorizontalAlignment="Right" Click="Plus_Click" Margin="0,228,660,0" Padding="5" Width="20" Height="28" VerticalAlignment="Top" />
