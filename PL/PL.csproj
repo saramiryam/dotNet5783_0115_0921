@@ -17,10 +17,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="aa.PNG" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Folder Include="picture\" />
   </ItemGroup>
 

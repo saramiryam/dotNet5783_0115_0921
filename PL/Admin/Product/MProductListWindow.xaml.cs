@@ -21,6 +21,7 @@ using BO;
 using System.Collections.ObjectModel;
 using DO;
 using PL.NewOrder.ProductItem;
+using PL.Product;
 
 namespace PL;
 
@@ -45,10 +46,10 @@ public partial class MProductListWindow : Window
     //}
     #endregion
     #region productsForListListProperty
-    public static readonly DependencyProperty productsForListListProperty = DependencyProperty.Register(nameof(productsForListList),
+    public static readonly DependencyProperty? productsForListListProperty = DependencyProperty.Register(nameof(productsForListList),
                                                                                                            typeof(ObservableCollection<ProductForList?>),
                                                                                                    typeof(MProductListWindow));
-    public ObservableCollection<ProductForList?> productsForListList
+    public ObservableCollection<ProductForList?>? productsForListList
     {
         get { return (ObservableCollection<ProductForList?>)GetValue(productsForListListProperty); }
         set { SetValue(productsForListListProperty, value); }
@@ -119,7 +120,9 @@ public partial class MProductListWindow : Window
     private void Add_Click_(object sender, RoutedEventArgs e)
     {
         new Product.MProductWindow(addProduct).ShowDialog();
-//        productsForListList = Convert(bl.Product.GetListOfProduct());
+        
+        //        productsForListList = Convert(bl.Product.GetListOfProduct());
+        Close();
 
     }
     private void Back_Click(object sender, RoutedEventArgs e)

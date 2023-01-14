@@ -87,6 +87,10 @@ namespace PL.Admin.Order
                 MyContent = "alredy Provided";
                 anable = false;
             }
+            if (fromOT == true)
+            {
+                anable = false;
+            }
             InitializeComponent();
         }
 
@@ -133,11 +137,7 @@ namespace PL.Admin.Order
                 new OOrderTracking(id).Show();
                 
             }
-            else
-            {
-                //new MOrderListWindow().Show();
-            }
-           Close();
+           this.Close();
         }
     }
 }

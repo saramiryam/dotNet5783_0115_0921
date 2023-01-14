@@ -102,24 +102,24 @@ public static class DataSource
 
         Random rnd = new Random();
         addNewOrder("Moshe Cohen", "david@gmail.com", "buksboim 12");
-        addNewOrder("Ayala rov", "Ayala@gmail.com", "חיים ויטאל");
         addNewOrder("Sara Miriam ", "SaraMiriam@gmail.com", "הפסגה 50");
         addNewOrder("Rut", "Rut@gmail.com", "aaa 12", DateTime.Now.AddDays(-(rnd.Next(30))), DateTime.Now.AddDays(-(rnd.Next(9))), null);
-        addNewOrder("David Levi", "david@gmail.com", "buksboim 12", DateTime.Now.AddDays(-(rnd.Next(9))), DateTime.Now, null);
+        addNewOrder("David Levi", "david@gmail.com", "buksboim 12", DateTime.Now.AddDays(-(rnd.Next(9))),null, null);
         addNewOrder("raviv", "david@gmail.com", "buksboim 12", DateTime.Now.AddDays(-(rnd.Next(20))), DateTime.Now, null);
+        addNewOrder("Moyshi", "david@gmail.com", "buksboim 12", DateTime.Now.AddDays(-(rnd.Next(5))), DateTime.Now.AddDays(-(rnd.Next(6))), DateTime.Now.AddDays(-(rnd.Next(4))));
         addNewOrder("Shani", "david@gmail.com", "buksboim 12", DateTime.Now.AddDays(-(rnd.Next(1))), DateTime.Now, null);
         addNewOrder("Dasi", "david@gmail.com", "buksboim 12", DateTime.Now.AddDays(-(rnd.Next(9))), DateTime.Now.AddDays(-(rnd.Next(1))), null);
         addNewOrder("Noa", "david@gmail.com", "buksboim 12", DateTime.Now.AddDays(-(rnd.Next(7))), null, null);
         addNewOrder("shira", "david@gmail.com", "buksboim 12", DateTime.Now.AddDays(-(rnd.Next(10))), DateTime.Now.AddDays(-(rnd.Next(5))), DateTime.Now.AddDays(-(rnd.Next(3))));
         addNewOrder("Yosi", "david@gmail.com", "buksboim 12", DateTime.Now.AddDays(-(rnd.Next(9))), DateTime.Now, null);
+        addNewOrder("Mashuda", "david@gmail.com", "buksboim 12", DateTime.Now.AddDays(-(rnd.Next(9))), null, null);
         addNewOrder("Gila", "david@gmail.com", "buksboim 12", DateTime.Now.AddDays(-(rnd.Next(11))), DateTime.Now, null);
-        addNewOrder("Chani", "david@gmail.com", "buksboim 12", DateTime.Now.AddDays(-(rnd.Next(13))), DateTime.Now.AddDays(-(rnd.Next(1))), DateTime.Now);
+        addNewOrder("Chani", "david@gmail.com", "buksboim 12", DateTime.Now.AddDays(-(rnd.Next(13))), null, DateTime.Now);
         addNewOrder("Nadav", "david@gmail.com", "buksboim 12", DateTime.Now.AddDays(-(rnd.Next(9))), DateTime.Now,null);
         addNewOrder("Pnina", "david@gmail.com", "buksboim 12", DateTime.Now.AddDays(-(rnd.Next(5))), DateTime.Now.AddDays(-(rnd.Next(13))),null);
         addNewOrder("Yona", "david@gmail.com", "buksboim 12", DateTime.Now, null,null);
-        addNewOrder("Mashuda", "david@gmail.com", "buksboim 12", DateTime.Now.AddDays(-(rnd.Next(9))), null,null);
-        addNewOrder("Moyshi", "david@gmail.com", "buksboim 12", DateTime.Now.AddDays(-(rnd.Next(5))), DateTime.Now.AddDays(-(rnd.Next(6))), DateTime.Now.AddDays(-(rnd.Next(4))));
-        addNewOrder("David Levi", "david@gmail.com", "buksboim 12", DateTime.Now.AddDays(-(rnd.Next(18))), DateTime.Now.AddDays(-(rnd.Next(3))), null);
+        addNewOrder("Ayala rov", "Ayala@gmail.com", "חיים ויטאל");
+        addNewOrder("David Levi", "david@gmail.com", "buksboim 12", DateTime.Now.AddDays(-(rnd.Next(18))), DateTime.Now.AddDays(-(rnd.Next(3))), DateTime.Now.AddDays(-(rnd.Next(5))));
 
         #endregion
 

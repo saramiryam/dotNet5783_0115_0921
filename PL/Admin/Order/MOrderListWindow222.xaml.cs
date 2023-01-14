@@ -66,7 +66,7 @@ public partial class MOrderListWindow : Window
             {
                 MessageBox.Show(ex.Message.ToString());
             }
-            Close();
+            //Close();
         }
  
        
@@ -74,7 +74,18 @@ public partial class MOrderListWindow : Window
     private void Back_Click(object sender, RoutedEventArgs e)
     {
         new MWindow().Show();
-        Close();
+        //Close();
+        //if (bl != null)
+        //    OrdersForListList = new(bl.Order.GetListOfOrders());
+        try
+        {
+            OrdersForListList = new(bl.Order.GetListOfOrders());
+        }
+        catch (RequestedItemNotFoundException ex)
+        {
+            MessageBox.Show(ex.Message.ToString());
+        }
+       this.Close();
     }
 }
 

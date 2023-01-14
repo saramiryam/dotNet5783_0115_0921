@@ -90,6 +90,7 @@ namespace PL.Product
                     }
                     Action(bl.Product.GetProductForList(id));
                         MessageBox.Show("the product " + ProductToUpOrAdd.Name +" "+ MyContent);
+                    new MProductListWindow().Show();
                     this.Close();
 
                 }
