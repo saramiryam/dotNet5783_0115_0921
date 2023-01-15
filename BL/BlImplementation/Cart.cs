@@ -124,8 +124,8 @@ namespace BlImplementation
             var f = cart.ItemList;
             var exist = cart.ItemList
                        .Where(e => e?.ID == itemId)
-                       .Select(e =>(BO.OrderItem?) e).FirstOrDefault();
-               // cart.ItemList.Exists(e => e?.ID == itemId);
+                       .Select(e => (BO.OrderItem?)e).FirstOrDefault();
+            // cart.ItemList.Exists(e => e?.ID == itemId);
             if (exist is null)
             {
                 throw new BO.ItemNotInCartException("item not in cart") { ItemNotInCart = itemId.ToString() };
@@ -178,11 +178,11 @@ namespace BlImplementation
 
             if (name is null)
             {
-                throw new BO.NameIsNullException("name is null") { NameIsNull = cart.ToString() };
+                throw new BO.NameIsNullException(" enter name ") { NameIsNull = cart.ToString() };
             }
             if (adress is null)
             {
-                throw new BO.AdressIsNullException("adress is null") { AdressIsNull = cart.ToString() };
+                throw new BO.AdressIsNullException("enter address ") { AdressIsNull = cart.ToString() };
             }
             checkEmail(email);
             if (cart.ItemList != null)
@@ -252,22 +252,6 @@ namespace BlImplementation
                 {
                     try
                     {
-                        //foreach (var item in cart.ItemList)
-                        //{
-                        //    if (item != null)
-                        //    {
-                        //        Dal.OrderItem.Add(new DO.OrderItem()
-                        //        {
-                        //            ID = 0,
-                        //            ProductID = item.ID,
-                        //            OrderID = orderID,
-                        //            Price = item.Price,
-                        //            Amount = item.Amount
-                        //        });
-                        //    }
-
-                        //}
-
                         var addOrderItem = cart.ItemList
                                           .Where(cAdd => cAdd != null)
                                           .Select(cAdd => Dal.OrderItem.Add(new DO.OrderItem()
@@ -277,7 +261,7 @@ namespace BlImplementation
                                               OrderID = orderID,
                                               Price = cAdd!.Price,
                                               Amount = cAdd!.Amount
-                                          }));
+                                          })).ToList();
                     }
                     catch (DO.ItemAlreadyExistsException)
                     {

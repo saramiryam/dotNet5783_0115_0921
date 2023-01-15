@@ -7,9 +7,6 @@
         mc:Ignorable="d"
         Title="NPProductItemUPdateWindow" Height="450" Width="800"
         DataContext="{Binding RelativeSource={RelativeSource self}}">
-    <Window.Resources>
-        <local:CnvrtIntToBool x:Key="myCnvrtr"/>
-    </Window.Resources>
     <Grid Name="MainGrid">
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>

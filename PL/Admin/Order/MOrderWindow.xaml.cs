@@ -36,6 +36,14 @@ namespace PL.Admin.Order
         public static readonly DependencyProperty OrderToUpProperty = DependencyProperty.Register(nameof(OrderToUp),
                                                                                                   typeof(BO.Order),
                                                                                                   typeof(MOrderWindow));
+        public bool Enable
+        {
+            get { return (bool)GetValue(EnableProperty); }
+            set { SetValue(EnableProperty, value); }
+        }
+        public static readonly DependencyProperty EnableProperty = DependencyProperty.Register(nameof(Enable),
+                                                                                                  typeof(bool),
+                                                                                                  typeof(MOrderWindow));
         public string MyContent
         {
             get { return (string)GetValue(MyContentProperty); }
@@ -44,9 +52,9 @@ namespace PL.Admin.Order
         public static readonly DependencyProperty MyContentProperty = DependencyProperty.Register(nameof(MyContent),
                                                                                                   typeof(string),
                                                                                                   typeof(MOrderWindow));
-       // public static string MyContent { get; set; } = "";
+        // public static string MyContent { get; set; } = "";
 
-        public static bool anable { get; set; } = true;
+        //public static bool Enable { get; set; } = true;
         public static bool fromOT { get; set; } = true;
         public int id { get; set; }
 
@@ -63,7 +71,8 @@ namespace PL.Admin.Order
         {
             fromOT = OTOrNot;
             id = orderID;
-            try { 
+            try
+            {
                 OrderToUp = bl.Order.GetOrderDetails(orderID);
             }
             catch (RequestedItemNotFoundException ex)
@@ -73,23 +82,23 @@ namespace PL.Admin.Order
             if (OrderToUp.Status == BO.Enums.EStatus.Done)
             {
 
-                anable = true;
+                Enable = true;
                 MyContent = "send";
             }
             else if (OrderToUp.Status == BO.Enums.EStatus.Sent)
             {
-                anable = true;
+                Enable = true;
                 MyContent = "Provide";
 
             }
             else
             {
                 MyContent = "alredy Provided";
-                anable = false;
+                Enable = false;
             }
             if (fromOT == true)
             {
-                anable = false;
+                Enable = false;
             }
             InitializeComponent();
         }
@@ -103,10 +112,9 @@ namespace PL.Admin.Order
             {
                 try
                 {
-                 OrderToUp = bl.Order.UpdateDeliveryDate(OrderToUp.ID);
-                 MessageBox.Show(OrderToUp.Status.ToString());
-                 MyContent = "alredy Provided";
-                 anable = false;
+                    OrderToUp = bl.Order.UpdateDeliveryDate(OrderToUp.ID);
+                    MyContent = "alredy Provided";
+                    Enable = false;
 
                 }
                 catch (RequestedItemNotFoundException ex)
@@ -120,8 +128,8 @@ namespace PL.Admin.Order
                 try
                 {
                     OrderToUp = bl.Order.UpdateShipDate(OrderToUp.ID);
-                    MessageBox.Show(OrderToUp.Status.ToString());
                     MyContent = "Provide";
+
                 }
                 catch (RequestedItemNotFoundException ex)
                 {
@@ -135,9 +143,9 @@ namespace PL.Admin.Order
             if (fromOT == true)
             {
                 new OOrderTracking(id).Show();
-                
+
             }
-           this.Close();
+            this.Close();
         }
     }
 }

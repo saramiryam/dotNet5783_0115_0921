@@ -57,12 +57,13 @@ public partial class PProductItemList : Window
         {
             ProductsItemList = new(bl.Product.GetProductItemList());
         }
-        catch(RequestedItemNotFoundException ex)
+        catch (RequestedItemNotFoundException ex)
         {
-            MessageBox.Show(ex.Message.ToString());    
+            MessageBox.Show(ex.Message.ToString());
         }
         InitializeComponent();
     }
+
     public PProductItemList(BO.Cart MyCart)
     {
         Amount = 0;
@@ -80,9 +81,9 @@ public partial class PProductItemList : Window
     }
     public static string InStockCnvrt()
     {
-            if (Amount > 0)
-                return "true";
-            return "false";
+        if (Amount > 0)
+            return "true";
+        return "false";
     }
 
 
@@ -90,7 +91,7 @@ public partial class PProductItemList : Window
     {
         new NOItemsInCartWindow(Cart).Show();
         Close();
-       // ProductToAdd.AddNewProduct += new Action<BO.ProductItem>(addNewProductToCart);
+        // ProductToAdd.AddNewProduct += new Action<BO.ProductItem>(addNewProductToCart);
 
     }
 
@@ -110,13 +111,13 @@ public partial class PProductItemList : Window
 
     private void ProductItemListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
     {
-     
-            new NPProductItemUPdateWindow(Cart, Product.ID).Show();
-            Close();
-        
+
+        new NPProductItemUPdateWindow(Cart, Product.ID, updateList).Show();
+
+
     }
 
- 
+
     private void chkEnable_Click(object sender, RoutedEventArgs e)
     {
         try
@@ -142,5 +143,19 @@ public partial class PProductItemList : Window
     {
         new MainWindow().Show();
         Close();
+    }
+
+    //זה הפונקציה שמעדכנת את הרשימה
+    // תשלחי אותה כפרמטר לחלון שבו את מעדכנת (הייתי עושה את זה בכיף אבל אין לי מושג מה הולך פה עם החלונות)
+    //בחלון ההוא תגדירי משתנה מסוג ACTION 
+    //בבנאי תשוי את המשתנה לפונקציה שקיבלת בפרטמר
+    //תזמני אותה בסוף המתודה של העדכון
+    //זה יקרא לפונקציה שפה ויעדכן את הרשימה פה....
+    //רוב הצלחה שפע וברכה!
+    private void updateList(BO.ProductItem p)
+    {
+        var item = ProductsItemList.FirstOrDefault(item => item.ID == p.ID);
+        //item.AmoutInYourCart = p.AmoutInYourCart;
+        ProductsItemList[ProductsItemList.IndexOf(item)] = p;
     }
 }

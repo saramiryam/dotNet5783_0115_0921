@@ -53,8 +53,15 @@
                     </GridViewColumn>
                     <GridViewColumn Width="100" Header="inStock">
                         <GridViewColumn.CellTemplate>
-                            <DataTemplate><!--Text="{x:Static local:PProductItemList.InStockCnvrt}"-->
-                                <TextBlock Margin="-5,-1" TextAlignment="Center" Text="true"   Padding="3" Width="100"/>
+                            <DataTemplate>
+                                <TextBlock Margin="-5,-1" TextAlignment="Center" Text="{Binding InStock}"   Padding="3" Width="100"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Width="100" Header="Amount">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Margin="-5,-1" TextAlignment="Center" Text="{Binding AmoutInYourCart}"   Padding="3" Width="100"/>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
@@ -63,7 +70,7 @@
             </ListView.View>
         </ListView>
 
-     
+
     </Grid>
 
 </Window>

@@ -34,7 +34,7 @@ public partial class MProductListWindow : Window
     BlApi.IBl? bl = BlApi.Factory.Get();
     public System.Array Categories { get; set; } = Enum.GetValues(typeof(BO.Enums.ECategory));
     public BO.Enums.ECategory? selectedCategory { get; set; } = null;
-    public BO.ProductForList? productToUp { get; set; }=new();
+    public BO.ProductForList? productToUp { get; set; } = new();
     #region הפרופרטי של בחירת קטגוריה
     //public readonly DependencyProperty selectedCategoryProperty = DependencyProperty.Register(nameof(selectedCategory),
     //                                                                                                typeof(Enums.ECategory?),
@@ -120,9 +120,6 @@ public partial class MProductListWindow : Window
     private void Add_Click_(object sender, RoutedEventArgs e)
     {
         new Product.MProductWindow(addProduct).ShowDialog();
-        
-        //        productsForListList = Convert(bl.Product.GetListOfProduct());
-        Close();
 
     }
     private void Back_Click(object sender, RoutedEventArgs e)

@@ -7,16 +7,21 @@
         mc:Ignorable="d"
         Title="NOUserDetails" Height="450" Width="800"
     DataContext="{Binding RelativeSource={RelativeSource self}}">
+    <Grid>
+        <Grid DataContext="{Binding Cart}">
+            <Label  Content="name:"   HorizontalAlignment="Left" Margin="225,100,0,0" VerticalAlignment="Top"/>
+            <TextBox Background="LightBlue" HorizontalAlignment="Left" Margin="289,100,0,0" TextWrapping="Wrap" Text="{Binding CustomerName,Mode=TwoWay}" VerticalAlignment="Top" Width="120"  />
+            <Label Content="address:" HorizontalAlignment="Left" Margin="203,140,0,0" VerticalAlignment="Top"/>
+            <TextBox Background="LightBlue" HorizontalAlignment="Left" Margin="289,140,0,0" TextWrapping="Wrap" Text="{Binding CustomerAdress,Mode=TwoWay}" VerticalAlignment="Top" Width="120"/>
+            <Label Content="mail:" HorizontalAlignment="Left" Margin="202,180,0,0" VerticalAlignment="Top"/>
+            <TextBox Background="LightBlue" HorizontalAlignment="Left" Margin="289,180,0,0" TextWrapping="Wrap" Text="{Binding CustomerEmail,Mode=TwoWay}" VerticalAlignment="Top" Width="120" />
+            <Button Background="Yellow" FontWeight="ExtraBlack" Foreground="Blue" Content="continue" HorizontalAlignment="Left" Margin="566,360,0,0"  Width="199" Height="28" VerticalAlignment="Top" Click="Submit_Click" FontSize="22" FontFamily="Sitka Small"/>
+            <Button Background="Yellow" FontWeight="ExtraBlack" Foreground="Blue" Content="back" HorizontalAlignment="Left" Margin="38,360,0,0"  Width="199" Height="28" VerticalAlignment="Top" Click="Back_Click" FontSize="22" FontFamily="Sitka Small"/>
 
-    <Grid DataContext="{Binding Cart}">
-        <Label  Content="name:"   HorizontalAlignment="Left" Margin="225,91,0,0" VerticalAlignment="Top"/>
-        <TextBox Background="LightBlue" PreviewTextInput="TextValidationTextBox" HorizontalAlignment="Left" Margin="289,91,0,0" TextWrapping="Wrap" Text="{Binding CustomerName,Mode=TwoWay}" VerticalAlignment="Top" Width="120"  />
-        <Label Content="address:" HorizontalAlignment="Left" Margin="203,139,0,0" VerticalAlignment="Top"/>
-        <TextBox Background="LightBlue" HorizontalAlignment="Left" Margin="289,139,0,0" TextWrapping="Wrap" Text="{Binding CustomerAdress,Mode=TwoWay}" VerticalAlignment="Top" Width="120"/>
-        <Label Content="mail:" HorizontalAlignment="Left" Margin="202,231,0,0" VerticalAlignment="Top"/>
-        <TextBox Background="LightBlue" HorizontalAlignment="Left" Margin="289,231,0,0"  TextWrapping="Wrap" Text="{Binding CustomerEmail,Mode=TwoWay}" VerticalAlignment="Top" Width="120" />
-        <Button Background="Yellow" FontWeight="ExtraBlack" Foreground="Blue" Content="continue" HorizontalAlignment="Left" Margin="566,360,0,0"  Width="199" Height="28" VerticalAlignment="Top" Click="Submit_Click" FontSize="22" FontFamily="Sitka Small"/>
-        <Button Background="Yellow" FontWeight="ExtraBlack" Foreground="Blue" Content="back" HorizontalAlignment="Left" Margin="38,360,0,0"  Width="199" Height="28" VerticalAlignment="Top" Click="Back_Click" FontSize="22" FontFamily="Sitka Small"/>
+        </Grid>
+        <Grid>
+            <Label Content="{Binding ExceText,Mode=TwoWay}" HorizontalAlignment="Left" Margin="{Binding MyMargin,Mode=TwoWay}" VerticalAlignment="Top"/>
 
+        </Grid>
     </Grid>
 </Window>

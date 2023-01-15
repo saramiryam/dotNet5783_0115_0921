@@ -1,6 +1,7 @@
 ﻿using BlApi;
 using BO;
 using PL.NewOrder.ProductItem;
+using PL.Product;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -33,6 +34,23 @@ namespace PL.NewOrder.Cart
             get { return (BO.Cart)GetValue(CartProperty); }
             set { SetValue(CartProperty, value); }
         }
+        public Thickness MyMargin
+        {
+            get { return (Thickness)GetValue(MyMarginProperty); }
+            set { SetValue(MyMarginProperty, value); }
+        }
+        public static readonly DependencyProperty MyMarginProperty = DependencyProperty.Register(nameof(MyMargin),
+                                                                                                               typeof(Thickness),
+                                                                                                       typeof(NOUserDetails));
+        public string ExceText
+        {
+            get { return (string)GetValue(ExceTextProperty); }
+            set { SetValue(ExceTextProperty, value); }
+        }
+        public static readonly DependencyProperty ExceTextProperty = DependencyProperty.Register(nameof(ExceText),
+                                                                                                               typeof(string),
+                                                                                                       typeof(NOUserDetails));
+
         public NOUserDetails(BO.Cart MyCart)
         {
             Cart = MyCart;
@@ -46,6 +64,21 @@ namespace PL.NewOrder.Cart
                 MessageBox.Show("ההזמנה בוצעה");
                 new MainWindow().Show();
                 Close();
+            }
+            catch (AdressIsNullException ex)
+            {
+                ExceText = ex.Message;
+                MyMargin = new Thickness(289, 150, 0, 0);
+            }
+            catch (NameIsNullException ex)
+            {
+                ExceText = ex.Message;
+                MyMargin = new Thickness(289, 110, 0, 0);
+            }
+            catch (UncorrectEmailException ex)
+            {
+                ExceText = ex.Message;
+                MyMargin = new Thickness(289, 190, 0, 0);
             }
             catch (ItemInCartNotExistsAsProductException ex)
             {
@@ -65,7 +98,7 @@ namespace PL.NewOrder.Cart
             e.Handled = regex.IsMatch(e.Text);
         }
 
- 
+
 
     }
 }

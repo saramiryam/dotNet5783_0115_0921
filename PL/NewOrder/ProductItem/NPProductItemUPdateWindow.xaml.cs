@@ -24,38 +24,32 @@ public partial class NPProductItemUPdateWindow : Window
     Action<BO.ProductItem> AddNewProduct;
     BlApi.IBl? bl = BlApi.Factory.Get();
     public static string Action { get; set; } = "";
- //   public  int Amount { get; set; } = 0;
+    //   public  int Amount { get; set; } = 0;
     public BO.ProductItem? ProductToAdd { get; set; } = new();
     public static readonly DependencyProperty CartProperty = DependencyProperty.Register(nameof(Cart),
                                                                                                typeof(BO.Cart),
                                                                                        typeof(NPProductItemUPdateWindow));
+    Action<BO.ProductItem> action;
+
     public BO.Cart Cart
     {
         get { return (BO.Cart)GetValue(CartProperty); }
         set { SetValue(CartProperty, value); }
     }
-    //public static readonly DependencyProperty CartItemListProperty = DependencyProperty.Register(nameof(CartItemList),
-    //                                                                                              typeof(ObservableCollection<BO.ProductItem?>),
-    //                                                                                      typeof(NPProductItemUPdateWindow));
-    //public ObservableCollection<BO.ProductItem?> CartItemList
-    //{
-    //    get { return (ObservableCollection<BO.ProductItem?>)GetValue(CartItemListProperty); }
-    //    set { SetValue(CartItemListProperty, value); }
-    //}
 
     public static readonly DependencyProperty AmountProperty = DependencyProperty.Register(nameof(Amount),
                                                                                                   typeof(int),
                                                                                           typeof(NPProductItemUPdateWindow));
-    public int  Amount
+    public int Amount
     {
         get { return (int)GetValue(AmountProperty); }
         set { SetValue(AmountProperty, value); }
     }
 
-    public NPProductItemUPdateWindow(BO.Cart MyCart,int id)
+    public NPProductItemUPdateWindow(BO.Cart MyCart, int id, Action<BO.ProductItem> a)
     {
         Cart = MyCart is not null ? MyCart : new();
-        if (MyCart.ItemList is null) MyCart.ItemList = new List<OrderItem?>();
+        MyCart.ItemList ??= new List<OrderItem?>();
         if (bl != null)
             try
             {
@@ -63,23 +57,22 @@ public partial class NPProductItemUPdateWindow : Window
             }
             catch (ProductNotExistsException ex)
             {
-                MessageBox.Show(ex.Message);    
+                MessageBox.Show(ex.Message);
             }
         Amount = ProductToAdd.AmoutInYourCart == 0 ? 1 : ProductToAdd.AmoutInYourCart;
         InitializeComponent();
+        action = a;
     }
     private void Plus_Click(object sender, RoutedEventArgs e)
     {
         Action = "+";
         Amount += 1;
 
-
     }
     private void minus_Click(object sender, RoutedEventArgs e)
     {
         Action = "-";
-        if (Amount > 0)
-            Amount = Amount > 0 ? Amount - 1 : 0;
+        Amount = Amount > 0 ? Amount - 1 : 0;
 
     }
 
@@ -87,29 +80,27 @@ public partial class NPProductItemUPdateWindow : Window
     {
         try
         {
-            for (int i = 0; i < Amount-ProductToAdd.AmoutInYourCart; i++)
+            for (int i = 0; i < Amount - ProductToAdd.AmoutInYourCart; i++)
             {
                 try
                 {
                     Cart = bl.Cart.AddItemToCart(Cart, ProductToAdd.ID);
-                    
+
                 }
                 catch (ProductNotExistsException ex)
                 {
                     MessageBox.Show(ex.Message.ToString());
                 }
-                //ProductToAdd.AmoutInYourCart++;
             }
-            new PProductItemList(Cart).Show();
+            ProductToAdd.AmoutInYourCart = Amount;
             Close();
         }
-        catch(ProductNotInStockException ex)
+        catch (ProductNotInStockException ex)
         {
             MessageBox.Show(ex.Message.ToString());
-            new PProductItemList(Cart).Show();  
+            Close();
         }
-        
-
+        action(ProductToAdd);
     }
     private void Back_Click(object sender, RoutedEventArgs e)
     {

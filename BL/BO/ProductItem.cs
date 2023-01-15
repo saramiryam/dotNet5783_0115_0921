@@ -11,7 +11,7 @@ public class ProductItem
     public string? Name { get; set; }
     public ECategory? Category { get; set; }
     public double Price { get; set; }
-    public int InStock { get; set; }
+    public bool InStock { get; set; }
     public int AmoutInYourCart { get; set; }
     private BO.ProductItem newProduct;
     public BO.ProductItem NewProduct

@@ -26,7 +26,7 @@ namespace PL.Product
 
         #region prorerties
         BlApi.IBl? bl = BlApi.Factory.Get();
-        public static string MyContent { get; set; }="add";
+        public static string MyContent { get; set; } = "add";
         public BO.Product ProductToUpOrAdd
         {
             get { return (BO.Product)GetValue(ProductToUpOrAddProperty); }
@@ -34,6 +34,24 @@ namespace PL.Product
         }
         public static readonly DependencyProperty ProductToUpOrAddProperty = DependencyProperty.Register(nameof(ProductToUpOrAdd),
                                                                                                                typeof(BO.Product),
+                                                                                                       typeof(MProductWindow));
+
+        public string ExceText
+        {
+            get { return (string)GetValue(ExceTextProperty); }
+            set { SetValue(ExceTextProperty, value); }
+        }
+        public static readonly DependencyProperty ExceTextProperty = DependencyProperty.Register(nameof(ExceText),
+                                                                                                               typeof(string),
+                                                                                                       typeof(MProductWindow));
+
+        public Thickness MyMargin
+        {
+            get { return (Thickness)GetValue(MyMarginProperty); }
+            set { SetValue(MyMarginProperty, value); }
+        }
+        public static readonly DependencyProperty MyMarginProperty = DependencyProperty.Register(nameof(MyMargin),
+                                                                                                               typeof(Thickness),
                                                                                                        typeof(MProductWindow));
         public static System.Array Categories { get; set; } = Enum.GetValues(typeof(Enums.ECategory));
         private Action<ProductForList> Action;
@@ -47,33 +65,36 @@ namespace PL.Product
             InitializeComponent();
             this.Action = Action;
         }
+
         public MProductWindow(int idToUpdate)
         {
             try
             {
                 ProductToUpOrAdd = bl.Product.GetProductDetails(idToUpdate);
             }
-            catch(ProductNotExistsException ex)
+            catch (ProductNotExistsException ex)
             {
                 MessageBox.Show(ex.Message.ToString());
             }
-            catch(NegativeIdException ex)
+            catch (NegativeIdException ex)
             {
                 MessageBox.Show(ex.Message.ToString());
             }
-            
+
 
             MyContent = "update";
             InitializeComponent();
-            
+
 
 
         }
+
         private void Back_Click(object sender, RoutedEventArgs e)
         {
             new MProductListWindow().Show();
             Close();
         }
+
         private void addButton_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -83,115 +104,55 @@ namespace PL.Product
                 {
                     try
                     {
-                         id = bl.Product.AddProduct(ProductToUpOrAdd);
+                        id = bl.Product.AddProduct(ProductToUpOrAdd);
                     }
                     catch (ProductAlreadyExistsException ex)
                     {
                         MessageBox.Show(ex.Message.ToString());
                     }
                     Action(bl.Product.GetProductForList(id));
-                        MessageBox.Show("the product " + ProductToUpOrAdd.Name +" "+ MyContent);
-                    new MProductListWindow().Show();
+                    MessageBox.Show("the product " + ProductToUpOrAdd.Name + " " + MyContent);
+                    //  new MProductListWindow().Show();
                     this.Close();
 
                 }
                 else
                 {
-                    try
-                    {
-                        bl?.Product.UpdateProduct(ProductToUpOrAdd);
-                    }
-                    catch (ProductAlreadyExistsException ex)
-                    {
-                        MessageBox.Show(ex.Message.ToString());
-                    }
+                    bl?.Product.UpdateProduct(ProductToUpOrAdd);
                     MessageBox.Show("the product " + ProductToUpOrAdd.Name + " " + MyContent);
                     this.Close();
                 }
             }
             catch (ProductAlreadyExistsException p)
             {
-                Label ProductAlreadyExistsLable = new()
-                {
-                    Name = "ProductAlreadyExistsLabel",
-                    Margin = new Thickness(290, 105, 0, 0),
-                    Content = p.Message,
-                    HorizontalAlignment = HorizontalAlignment.Left,
-                    VerticalAlignment = VerticalAlignment.Top,
-                    Foreground = new SolidColorBrush(Colors.Red),
-                };
-                Grid.SetRow(ProductAlreadyExistsLable, 1);
-                MainGrid.Children.Add(ProductAlreadyExistsLable);
+                ExceText = p.Message;
+                MyMargin = new Thickness(290, 105, 0, 0);
+
             }
             catch (NegativeIdException p)
             {
-                Label NegativeIdExceptionLable = new()
-                {
-                    Name = "NegativeIdExceptionLable",
-                    Margin = new Thickness(290, 105, 0, 0),
-                    Content = p.Message,
-                    HorizontalAlignment = HorizontalAlignment.Left,
-                    VerticalAlignment = VerticalAlignment.Top,
-                    Foreground = new SolidColorBrush(Colors.Red),
-                };
-                Grid.SetRow(NegativeIdExceptionLable, 1);
-                MainGrid.Children.Add(NegativeIdExceptionLable);
+                ExceText = p.Message;
+                MyMargin = new Thickness(290, 105, 0, 0);
             }
             catch (EmptyNameException p)
             {
-                Label EmptyNameExceptionLable = new()
-                {
-                    Name = "EmptyNameExceptionLable",
-                    Margin = new Thickness(288, 157, 0, 0),
-                    Content = p.Message,
-                    HorizontalAlignment = HorizontalAlignment.Left,
-                    VerticalAlignment = VerticalAlignment.Top,
-                    Foreground = new SolidColorBrush(Colors.Red),
-                };
-                Grid.SetRow(EmptyNameExceptionLable, 1);
-                MainGrid.Children.Add(EmptyNameExceptionLable);
+                ExceText = p.Message;
+                MyMargin = new Thickness(288, 157, 0, 0);
             }
             catch (GetEmptyCateporyException p)
             {
-                Label EmptyCateporyException = new()
-                {
-                    Name = "EmptyCateporyException",
-                    Margin = new Thickness(288, 214, 0, 0),
-                    Content = p.Message,
-                    HorizontalAlignment = HorizontalAlignment.Left,
-                    VerticalAlignment = VerticalAlignment.Top,
-                    Foreground = new SolidColorBrush(Colors.Red),
-                };
-                Grid.SetRow(EmptyCateporyException, 1);
-                MainGrid.Children.Add(EmptyCateporyException);
+                ExceText = p.Message;
+                MyMargin = new Thickness(288, 214, 0, 0);
             }
             catch (NegativePriceException p)
             {
-                Label NegativePriceExceptionLable = new()
-                {
-                    Name = "NegativePriceExceptionLabel",
-                    Margin = new Thickness(299, 246, 0, 0),
-                    Content = p.Message,
-                    HorizontalAlignment = HorizontalAlignment.Left,
-                    VerticalAlignment = VerticalAlignment.Top,
-                    Foreground = new SolidColorBrush(Colors.Red),
-                };
-                Grid.SetRow(NegativePriceExceptionLable, 1);
-                MainGrid.Children.Add(NegativePriceExceptionLable);
+                ExceText = p.Message;
+                MyMargin = new Thickness(299, 246, 0, 0);
             }
             catch (NegativeStockException p)
             {
-                Label NegativeStockExceptionLable = new()
-                {
-                    Name = "NegativeStockExceptionLable",
-                    Margin = new Thickness(299, 288, 0, 0),
-                    Content = p.Message,
-                    HorizontalAlignment = HorizontalAlignment.Left,
-                    VerticalAlignment = VerticalAlignment.Top,
-                    Foreground = new SolidColorBrush(Colors.Red),
-                };
-                Grid.SetRow(NegativeStockExceptionLable, 1);
-                MainGrid.Children.Add(NegativeStockExceptionLable);
+                ExceText = p.Message;
+                MyMargin = new Thickness(299, 288, 0, 0);
             }
 
 
@@ -211,43 +172,27 @@ namespace PL.Product
             Regex regex = new Regex("[^a-zA-Zא-ת]+");
             e.Handled = regex.IsMatch(e.Text);
         }
-
-        #region exceptions
+        #region text changed
 
         private void id_TextChanged(object sender, TextChangedEventArgs e)
         {
-            var child = MainGrid.Children.OfType<Control>().Where(x => x.Name == "NegativeIdExceptionLable" || x.Name == "ProductAlreadyExistsLabel").FirstOrDefault();
-            if (child != null)
-                MainGrid.Children.Remove(child);
+            ExceText = "";
         }
         private void name_TextChanged(object sender, TextChangedEventArgs e)
         {
-            var child = MainGrid.Children.OfType<Control>().Where(x => x.Name == "EmptyNameExceptionLable").FirstOrDefault();
-            if (child != null)
-                MainGrid.Children.Remove(child);
+            ExceText = "";
         }
-
         private void price_TextChanged(object sender, TextChangedEventArgs e)
         {
-            var child = MainGrid.Children.OfType<Control>().Where(x => x.Name == "NegativePriceExceptionLabel").FirstOrDefault();
-            if (child != null)
-                MainGrid.Children.Remove(child);
+            ExceText = "";
         }
-
-
         private void inStock_TextChanged(object sender, TextChangedEventArgs e)
         {
-            var child = MainGrid.Children.OfType<Control>().Where(x => x.Name == "NegativeStockExceptionLable").FirstOrDefault();
-            if (child != null)
-                MainGrid.Children.Remove(child);
-
+            ExceText = "";
         }
-
         private void chooseCategoryToAdd_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            var child = MainGrid.Children.OfType<Control>().Where(x => x.Name == "EmptyCateporyException").FirstOrDefault();
-            if (child != null)
-                MainGrid.Children.Remove(child);
+            ExceText = "";
         }
         #endregion
 

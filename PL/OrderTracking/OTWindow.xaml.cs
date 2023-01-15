@@ -14,6 +14,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Text.RegularExpressions;
+using PL.Product;
 
 namespace PL.OrderTracking
 {
@@ -24,6 +25,14 @@ namespace PL.OrderTracking
     {
         BlApi.IBl? bl = BlApi.Factory.Get();
 
+        public string ExceText
+        {
+            get { return (string)GetValue(ExceTextProperty); }
+            set { SetValue(ExceTextProperty, value); }
+        }
+        public static readonly DependencyProperty ExceTextProperty = DependencyProperty.Register(nameof(ExceText),
+                                                                                                               typeof(string),
+                                                                                                       typeof(OTWindow));
         public static readonly DependencyProperty MyIdProperty = DependencyProperty.Register(nameof(MyId),
                                                                                              typeof(int),
                                                                                      typeof(OTWindow));
@@ -37,14 +46,6 @@ namespace PL.OrderTracking
             InitializeComponent();
         }
 
-        //private void IdChange_TextChanged(object sender, TextChangedEventArgs e)
-        //{
-        //    if((MyId>199999) && (MyId < 1000000))
-        //    {
-        //        CanGet=true;
-        //    }
-        //}
-
         private void getButton_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -52,12 +53,15 @@ namespace PL.OrderTracking
                 new OOrderTracking(MyId).Show();
                 Close();
             }
-            catch(BO.OrderNotExistsException ex)
+            catch (BO.OrderNotExistsException ex)
             {
-                MessageBox.Show(ex.Message);    
-                MyId = 0;
+                ExceText = ex.Message;
             }
-            
+
+        }
+        private void id_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            ExceText = "";
         }
 
         private void backButton_Click(object sender, RoutedEventArgs e)

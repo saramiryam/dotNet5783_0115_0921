@@ -64,7 +64,7 @@ public class Order : BlApi.IOrder
         }
     }
 
-    public BO.OrderItem GetOrderItemDetails(BO.Cart MyCart,int ItemId)
+    public BO.OrderItem GetOrderItemDetails(BO.Cart MyCart, int ItemId)
     {
 
         if (ItemId <= 0)
@@ -80,20 +80,20 @@ public class Order : BlApi.IOrder
                 if (Dal != null)
                 {
                     IEnumerable<BO.OrderItem?> OrderItems = MyCart.ItemList;
-                     newItem = (OrderItems
-                         .Where(i => i is not null && i.ID == ItemId)
-                         .Select(i => new BO.OrderItem()
-                         {
-                             numInOrder=i.numInOrder,
-                             ID = i.ID,
-                             Name = (from product in Dal.Product.GetAll()
-                                     where product.Value.ID == i.ID
-                                     select new { product.Value.Name }).First().Name,
-                             Price = i.Price,
-                             Amount = i.Amount,
-                             sumItem=i.Amount*i.Price
-                         })).First();
-                         ;
+                    newItem = (OrderItems
+                        .Where(i => i is not null && i.ID == ItemId)
+                        .Select(i => new BO.OrderItem()
+                        {
+                            numInOrder = i.numInOrder + 1,
+                            ID = i.ID,
+                            Name = (from product in Dal.Product.GetAll()
+                                    where product.Value.ID == i.ID
+                                    select new { product.Value.Name }).First().Name,
+                            Price = i.Price,
+                            Amount = i.Amount,
+                            sumItem = i.Amount * i.Price
+                        })).First();
+                    ;
                 }
             }
             catch (DO.RequestedItemNotFoundException)
@@ -285,15 +285,15 @@ public class Order : BlApi.IOrder
         var flag = (ordersItem
                        .Where(e => e.ProductID == productId && e.OrderID == orderId)
                        .Select(e => (DO.OrderItem?)e).FirstOrDefault());
-            //ordersItem.Exists(e => e.ProductID == productId && e.OrderID == orderId);
+        //ordersItem.Exists(e => e.ProductID == productId && e.OrderID == orderId);
         if (flag is not null)
         {
             //find
             //DO.OrderItem OI = ordersItem.Find(e => e.ProductID == productId && e.OrderID == orderId);
-            DO.OrderItem OI=ordersItem
+            DO.OrderItem OI = ordersItem
                 .Where(e => e.ProductID == productId && e.OrderID == orderId)
-                .Select(e=>(DO.OrderItem)e!).First();
-                if (amount == 0)
+                .Select(e => (DO.OrderItem)e!).First();
+            if (amount == 0)
             {
                 if (Dal != null)
                 {
@@ -449,7 +449,7 @@ public class Order : BlApi.IOrder
         {
             orderItemList = (List<DO.OrderItem?>)Dal.OrderItem.GetAll(e => e?.OrderID == id);
         }
-        int count = 0;
+        int count = 1;
         //foreach (var item in orderItemList)
         //{
         //    BOorderItemList.Add(new BO.OrderItem()
@@ -465,8 +465,8 @@ public class Order : BlApi.IOrder
         //}
         //return BOorderItemList;
         var addOrderItem = orderItemList
-            .Where(item=>item is not null)
-                          .Select(item =>(BO.OrderItem?) new BO.OrderItem()
+            .Where(item => item is not null)
+                          .Select(item => (BO.OrderItem?)new BO.OrderItem()
                           {
                               numInOrder = count++,
                               ID = item!.Value.ID,
@@ -475,9 +475,9 @@ public class Order : BlApi.IOrder
                               Amount = item.Value.Amount,
                               sumItem = item.Value.Price * item.Value.Amount
 
-                          }).ToList();   
+                          }).ToList();
         return addOrderItem;
-    
+
     }
     public string? getOrderItemName(int productId)
     {

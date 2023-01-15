@@ -10,6 +10,7 @@
         <Button Background="Yellow" FontWeight="ExtraBlack" Foreground="Blue" x:Name="Admin" Content="Admin" HorizontalAlignment="Left" Margin="187,181,0,0" VerticalAlignment="Top" Height="45" Width="82" Click="Admin_Click" />
         <Button Background="Yellow" FontWeight="ExtraBlack" Foreground="Blue" x:Name="NewOrder" Content="New Order" HorizontalAlignment="Center" Margin="0,181,0,0" VerticalAlignment="Top" Height="45" Width="100" Click="NewOrder_Click" />
         <Button Background="Yellow" FontWeight="ExtraBlack" Foreground="Blue" x:Name="OrderTracking" Content="Order Tracking" HorizontalAlignment="Left" Margin="539,181,0,0" VerticalAlignment="Top" Height="45" Width="84" Click="OrderTracking_Click" />
+        <!--<Image HorizontalAlignment="Left" Height="100" Margin="137,226,0,0" VerticalAlignment="Top" Width="100" Source="/1.jpg"/>-->
 
     </Grid>
 </Window>
