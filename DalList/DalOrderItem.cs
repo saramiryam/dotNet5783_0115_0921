@@ -7,7 +7,8 @@ using System;
 using System.Collections;
 
 internal class DalOrderItem : IOrderItem
-{/// <summary>
+{
+/// <summary>
 /// add a new orderitem and throw exception if it does not exist
 /// </summary>
 /// <param name="_newOrderItem">new one to add</param>

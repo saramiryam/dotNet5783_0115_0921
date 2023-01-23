@@ -6,12 +6,18 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "stage0", "stage0\stage0.csproj", "{4FED8CE7-6998-4CB0-8BF4-6C2F1236BF28}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DalTest", "DalTest\DalTest.csproj", "{344C95E6-5618-4FFF-9A33-61F7AB404EE9}"
+	ProjectSection(ProjectDependencies) = postProject
+		{88D0658C-779E-45DB-BED7-1330D8F64AF8} = {88D0658C-779E-45DB-BED7-1330D8F64AF8}
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DalList", "DalList\DalList.csproj", "{867F2A68-3758-4C30-B995-FA8B63943795}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DalFacade", "DalFacade\DalFacade.csproj", "{F263197B-3D32-4DE6-9B78-5F3508D528C3}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BL", "BL\BL.csproj", "{7B641B4F-543F-4724-A8EC-09BE4E98A8D0}"
+	ProjectSection(ProjectDependencies) = postProject
+		{88D0658C-779E-45DB-BED7-1330D8F64AF8} = {88D0658C-779E-45DB-BED7-1330D8F64AF8}
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlTest", "BIText\BlTest.csproj", "{68652BC9-21FD-43B1-939A-83C7AC316576}"
 EndProject
@@ -19,10 +25,16 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PL", "PL\PL.csproj", "{371F
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "xml", "xml", "{9517F9C6-8E16-4965-A89B-E6E15EFA01E9}"
 	ProjectSection(SolutionItems) = preProject
+		xml\Config.xml = xml\Config.xml
 		xml\dal-config.xml = xml\dal-config.xml
+		xml\Order.xml = xml\Order.xml
+		xml\OrderItem.xml = xml\OrderItem.xml
+		xml\Product.xml = xml\Product.xml
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "pictures", "pictures", "{C463D568-CBE9-466A-8B16-2004FD28B9CD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DalXml", "DalXml\DalXml.csproj", "{88D0658C-779E-45DB-BED7-1330D8F64AF8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -58,6 +70,10 @@ Global
 		{371FE06D-1594-4DFD-B0E8-AA3ABC014B29}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{371FE06D-1594-4DFD-B0E8-AA3ABC014B29}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{371FE06D-1594-4DFD-B0E8-AA3ABC014B29}.Release|Any CPU.Build.0 = Release|Any CPU
+		{88D0658C-779E-45DB-BED7-1330D8F64AF8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{88D0658C-779E-45DB-BED7-1330D8F64AF8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{88D0658C-779E-45DB-BED7-1330D8F64AF8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{88D0658C-779E-45DB-BED7-1330D8F64AF8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
