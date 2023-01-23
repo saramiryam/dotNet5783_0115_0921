@@ -19,21 +19,26 @@ internal class XmlOrder:IOrder
     /// <param name="_p">an order</param>
     /// <returns>int of the id of the order</returns>
     /// <exception cref="Exception">order exists</exception>
-    public int Add(DO.Order? _o)
+    public int Add(DO.Order _o)
     {
         XElement OrdersRoot = XMLTools.LoadListFromXMLElement(OrderPath);
+        if (OrdersRoot == null)
+        {
+            throw new RequestedItemNotFoundException("order not exists,can not get") { RequestedItemNotFound = _o.ToString() };
+        }
+
         XElement ifExsistOrder = (from p in OrdersRoot.Elements()
-                         where int.Parse(p.Element("ID").Value) == _o?.ID
+                         where int.Parse(p.Element("ID").Value) == _o.ID
                                   select p).FirstOrDefault();
 
         if (ifExsistOrder != null)
 
             throw new DO.ItemAlreadyExistsException("order exists, can not add") { ItemAlreadyExists = _o.ToString() };
 
-        XElement OrderElement = new XElement("Order", new XElement("ID", _o?.ID.ToString()),
-                                new XElement("CustomerEmail", _o?.CustomerEmail),
-                                new XElement("CustomerName", _o?.CustomerName),
-                                new XElement("CustomerAdress", _o?.CustomerAdress),
+        XElement OrderElement = new XElement("Order", new XElement("ID", _o.ID.ToString()),
+                                new XElement("CustomerEmail", _o.CustomerEmail),
+                                new XElement("CustomerName", _o.CustomerName),
+                                new XElement("CustomerAdress", _o.CustomerAdress),
                                 new XElement("OrderDate", DateTime.Now.ToString()),
                                 new XElement("ShipDate", null),
                                 new XElement("DeliveryDate", null));
@@ -142,21 +147,25 @@ internal class XmlOrder:IOrder
     /// </summary>
     /// <param name="_num">id of order to delete</param>
     /// <exception cref="Exception">order not exists, can not delete</exception>
-    public void Delete(int _num)
+    public void Delete(int _id)
     {
-        if (DataSource._Orders == null) throw new RequestedItemNotFoundException("order not exists,can not delete") { RequestedItemNotFound = _num.ToString() };
-        //Order? _orderToDel = new Order();
-        //_orderToDel = DataSource._Orders.Find(e => e.HasValue && e!.Value.ID == _num);
-        try
+        XElement OrderRoot = XMLTools.LoadListFromXMLElement(OrderPath);
+
+        if(OrderRoot is null)
+            throw new RequestedItemNotFoundException("orders not exists,can not get") { RequestedItemNotFound = _id.ToString() };
+
+        XElement ord = (from ordr in OrderRoot.Elements()
+                        where int.Parse(ordr.Element("ID").Value) == _id
+                        select ordr).FirstOrDefault();
+
+        if (ord != null)
         {
-            DataSource._Orders.Remove(DataSource._Orders
-                  .Where(e => e is not null && e.Value.ID == _num)
-                  .Select(e => (Order)e!).FirstOrDefault());
+            ord.Remove(); //<==>   Remove per from personsRootElem
+
+            XMLTools.SaveListToXMLElement(OrderRoot, OrderPath);
         }
-        catch
-        {
-            throw new RequestedItemNotFoundException("order not exists,can not delete") { RequestedItemNotFound = _num.ToString() };
-        }
+        else
+            throw new RequestedItemNotFoundException("order not exists,can not delete") { RequestedItemNotFound = _id.ToString() };
     }
 
     /// <summary>
@@ -166,26 +175,26 @@ internal class XmlOrder:IOrder
     /// <exception cref="Exception">product not exists, can not update</exception>
     public void Update(Order _o)
     {
-        if (_o.CustomerName == null && _o.CustomerEmail == null && _o.CustomerAdress == null && _o.OrderDate == null && _o.ShipDate == null && _o.DeliveryDate == null)
-        {
-            return;
-
-        }
-        if (DataSource._Orders == null) throw new RequestedUpdateItemNotFoundException("order not exists,can not update") { RequestedUpdateItemNotFound = _o.ToString() };
-        //Order? _orderToUpdate = new Order();
-        //_orderToUpdate = DataSource._Orders.Find(e => e.HasValue && e!.Value.ID == _o.ID);
-
-        try
-        {
-            DataSource._Orders.Remove(DataSource._Orders
-                  .Where(e => e is not null && e.Value.ID == _o.ID)
-                  .Select(e => (Order?)e!).First());
-            DataSource._Orders.Add(_o);
-        }
-        catch
-        {
-
+        XElement OrdersRoot = XMLTools.LoadListFromXMLElement(OrderPath);
+        if(OrdersRoot is null)
             throw new RequestedUpdateItemNotFoundException("order not exists,can not update") { RequestedUpdateItemNotFound = _o.ToString() };
+        XElement ord = (from ordr in OrdersRoot.Elements()
+                        where int.Parse(ordr.Element("ID").Value) == _o.ID
+                        select ordr).FirstOrDefault();
+
+        if (ord != null)
+        {
+
+            ord.Element("ID").Value = _o.ID.ToString();
+            ord.Element("CustomerEmail").Value = _o.CustomerEmail;
+            ord.Element("CustomerName").Value = _o.CustomerName;
+            ord.Element("CustomerAdress").Value = _o.CustomerAdress;
+            ord.Element("OrderDate").Value = DateTime.Now.ToString();
+            ord.Element("ShipDate").Value = null;
+            ord.Element("DeliveryDate").Value = null;
+            ord.Element("ID").Value = _o.ID.ToString();
+
+            XMLTools.SaveListToXMLElement(OrdersRoot, OrderPath);
         }
     }
 

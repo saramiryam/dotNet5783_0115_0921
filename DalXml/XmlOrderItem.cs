@@ -45,12 +45,12 @@ namespace Dal
         {
 
             List<DO.OrderItem?> ListOrderItem = XMLTools.LoadListFromXMLSerializer<OrderItem?>(OrderItemPath);
-
-            DO.OrderItem? orderItem = ListOrderItem.Find(p => predict(p));
             if (predict == null)
             {
                 throw new GetPredictNullException("the predict is empty") { GetPredictNull = null };
             }
+            DO.OrderItem? orderItem = ListOrderItem.Find(p => predict(p));
+           
             if (orderItem != null)
                 return (DO.OrderItem)orderItem; //no need to Clone()
             else
@@ -64,29 +64,19 @@ namespace Dal
         /// <returns>order item arr</returns>
         public IEnumerable<OrderItem?> GetAll(Func<OrderItem?, bool>? predict = null)
         {
-            
-
-            List<OrderItem?> _OrderItems = new List<OrderItem?>();
-            if (DataSource._arrOrderItem == null)
-            {
-                throw new RequestedItemNotFoundException("order not exists,can not get") { RequestedItemNotFound = predict?.ToString() };
-            }
+            List<DO.OrderItem?> ListOrderItem = XMLTools.LoadListFromXMLSerializer<OrderItem?>(OrderItemPath);
             if (predict == null)
             {
-                _OrderItems = DataSource._arrOrderItem;
+                throw new GetPredictNullException("the predict is empty") { GetPredictNull = null };
             }
-            else
-            {
-                //_OrderItems = DataSource._arrOrderItem.FindAll(e => predict(e));
-                return DataSource._arrOrderItem
-             .Where(e => predict(e))
-             .Select(e => (DO.OrderItem?)e!).ToList();
-            }
+            IEnumerable<OrderItem?> orderItem = ListOrderItem.FindAll(p => predict(p));
 
-            if (_OrderItems.Count > 0)
-                return _OrderItems;
-            else
-                throw new RequestedItemNotFoundException("order not exists,can not get all orderItems") { RequestedItemNotFound = predict?.ToString() };
+            if (orderItem is null)
+                throw new RequestedItemNotFoundException("orderItem not exists,can not do get") { RequestedItemNotFound = predict.ToString() };
+
+            return orderItem;
+          
+
         }
         /// <summary>
         ///  delete order item and throw exception if it does not exist
@@ -96,19 +86,23 @@ namespace Dal
         /// <exception cref="Exception"></exception>
         public void Delete(int _orderItemID)
         {
-            if (DataSource._arrOrderItem == null) throw new RequestedItemNotFoundException("orderItem not exists,can not do get") { RequestedItemNotFound = _orderItemID.ToString() };
-            //OrderItem? _orderItemToDel = new OrderItem();
-            //_orderItemToDel = DataSource._arrOrderItem.Find(e => e.HasValue && e!.Value.ID == _orderItemID);
+            List<DO.OrderItem?> ListOrderItem = XMLTools.LoadListFromXMLSerializer<DO.OrderItem?>(OrderItemPath);
+
+            DO.OrderItem? ord = ListOrderItem.Find(p => p?.ID == _orderItemID);
             try
             {
-                DataSource._arrOrderItem.Remove(DataSource._arrOrderItem
-                      .Where(e => e is not null && e.Value.ID == _orderItemID)
-                      .Select(e => (OrderItem)e!).First());
+                if (ord != null)
+                {
+                    ListOrderItem.Remove(ord);
+                }
             }
             catch
             {
                 throw new RequestedItemNotFoundException("orderItem not exists,can not delete") { RequestedItemNotFound = _orderItemID.ToString() };
             }
+
+
+            XMLTools.SaveListToXMLSerializer(ListOrderItem, OrderItemPath);
         }
         /// <summary>
         ///  update date of product and throw exception if it does not exist
@@ -123,21 +117,25 @@ namespace Dal
 
             }
 
-            if (DataSource._arrOrderItem == null) throw new RequestedItemNotFoundException("orderItem not exists,can not do get") { RequestedItemNotFound = _newOrderItem.ToString() };
-            //OrderItem? _orderItemToUpdate = new OrderItem();
-            //_orderItemToUpdate = DataSource._arrOrderItem.Find(e => e.HasValue && e!.Value.ID == _newOrderItem.ID && e.Value.OrderID == _newOrderItem.OrderID && e.Value.ProductID == _newOrderItem.ProductID);
+            List<DO.OrderItem?> ListOrderItem = XMLTools.LoadListFromXMLSerializer<DO.OrderItem?>(OrderItemPath);
+            if (ListOrderItem is null)
+                throw new RequestedItemNotFoundException("orderItem not exists,can not do get") { RequestedItemNotFound = _newOrderItem.ToString() };
+            DO.OrderItem? ord = ListOrderItem.Find(p => p?.ID == _newOrderItem.ID);
             try
             {
-                DataSource._arrOrderItem.Remove(DataSource._arrOrderItem
-                   .Where(e => e is not null && e.Value.ID == _newOrderItem.ID)
-                   .Select(e => (OrderItem?)e!).First());
-                DataSource._arrOrderItem.Add(_newOrderItem);
+                if (ord != null)
+                {
+                    ListOrderItem.Remove(ord);
+                    ListOrderItem.Add(_newOrderItem); //no nee to Clone()
+                }
             }
             catch
             {
                 throw new RequestedItemNotFoundException("orderItem not exists,can not update") { RequestedItemNotFound = _newOrderItem.ToString() };
-
             }
+
+            XMLTools.SaveListToXMLSerializer(ListOrderItem, OrderItemPath);
+
         }
 
     }
