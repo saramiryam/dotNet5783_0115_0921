@@ -144,7 +144,7 @@ public static class Program
 
     private static int getOrderId()
     {
-        XElement config =XMLTools.LoadListFromXMLElement(@"Config.xml");
+        XElement config = XMLTools.LoadListFromXMLElement(@"Config.xml");
         int id = (int)config.Element("idOrder");
         id++;
         config.Element("idOrder")!.SetValue(id);
@@ -230,5 +230,6 @@ public static class Program
         OrderItem item = new OrderItem() { ID = Config.CalNumOfOrderItem, ProductID = newProductID, OrderID = newOrderID, Price = newPrice, Amount = newAmount };
         _arrOrderItem.Add(item);
     }
+}
 
     #endregion
