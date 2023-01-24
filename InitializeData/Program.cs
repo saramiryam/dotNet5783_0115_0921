@@ -36,19 +36,19 @@ public static class Program
     {
         string dir = @"../xml/";
 
-        if (!File.Exists(dir + @"OrdersXml.xml") && !File.Exists(dir + @"OrderItemsXml.xml") && !File.Exists(dir + @"ProductXml.xml"))
+        if (!File.Exists(dir + @"Orders.xml") && !File.Exists(dir + @"OrderItems.xml") && !File.Exists(dir + @"Product.xml"))
         {
             s_initialize();
-            XElement rootElemO = new XElement(@"OrdersXml.xml");
+            XElement rootElemO = new XElement(@"Orders.xml");
             rootElemO.Add(_Orders);
-            rootElemO.Save(dir + @"OrdersXml.xml");
+            rootElemO.Save(dir + @"Orders.xml");
 
 
-            FileStream file = new FileStream(dir + @"ProductXml.xml", FileMode.Create);
+            FileStream file = new FileStream(dir + @"Product.xml", FileMode.Create);
             XmlSerializer p = new XmlSerializer(_Products.GetType());
             p.Serialize(file, _Products);
             file.Close();
-            FileStream fileOI = new FileStream(dir + @"OrderItemsXml.xml", FileMode.Create);
+            FileStream fileOI = new FileStream(dir + @"OrderItems.xml", FileMode.Create);
             XmlSerializer OI = new XmlSerializer(_arrOrderItem.GetType());
             OI.Serialize(fileOI, _arrOrderItem);
             fileOI.Close();
