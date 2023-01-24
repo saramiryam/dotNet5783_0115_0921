@@ -39,8 +39,10 @@ public static class Program
         if (!File.Exists(dir + @"OrdersXml.xml") && !File.Exists(dir + @"OrderItemsXml.xml") && !File.Exists(dir + @"ProductXml.xml"))
         {
             s_initialize();
-            //XElement rootElemO = new XElement("Order");
-            //rootElemO.Save(dir + "Order");
+            XElement rootElemO = new XElement(@"OrdersXml.xml");
+            rootElemO.Add(_Orders);
+            rootElemO.Save(dir + @"OrdersXml.xml");
+
 
             FileStream file = new FileStream(dir + @"ProductXml.xml", FileMode.Create);
             XmlSerializer p = new XmlSerializer(_Products.GetType());
