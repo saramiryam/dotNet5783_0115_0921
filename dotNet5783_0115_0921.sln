@@ -27,16 +27,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "xml", "xml", "{9517F9C6-8E1
 	ProjectSection(SolutionItems) = preProject
 		xml\Config.xml = xml\Config.xml
 		xml\dal-config.xml = xml\dal-config.xml
-		xml\Order.xml = xml\Order.xml
-		xml\OrderItem.xml = xml\OrderItem.xml
-		xml\Product.xml = xml\Product.xml
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "pictures", "pictures", "{C463D568-CBE9-466A-8B16-2004FD28B9CD}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DalXml", "DalXml\DalXml.csproj", "{88D0658C-779E-45DB-BED7-1330D8F64AF8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InitializeData", "InitializeData\InitializeData.csproj", "{F63B6FC9-BB27-476E-BC8D-81925011387E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InitializeData", "InitializeData\InitializeData.csproj", "{F63B6FC9-BB27-476E-BC8D-81925011387E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

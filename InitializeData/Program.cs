@@ -11,10 +11,9 @@ using System.Runtime.Serialization.Json;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
-using static DO.Exceptions;
 using System.Text.RegularExpressions;
 using System.Collections.Generic;
-using System.Xml.Serialization;
+
 using System.Net;
 using DO;
 using System.Xml.Linq;
@@ -31,13 +30,32 @@ public static class Program
     static internal List<OrderItem?> _arrOrderItem = new();
 
     #endregion
-
     #region constructors
 
-    static Program()
+    public static void Main()
     {
-        s_initialize();
+        string dir = @"../xml/";
+
+        if (!File.Exists(dir + @"OrdersXml.xml") && !File.Exists(dir + @"OrderItemsXml.xml") && !File.Exists(dir + @"ProductXml.xml"))
+        {
+            s_initialize();
+            //XElement rootElemO = new XElement("Order");
+            //rootElemO.Save(dir + "Order");
+
+            FileStream file = new FileStream(dir + @"ProductXml.xml", FileMode.Create);
+            XmlSerializer p = new XmlSerializer(_Products.GetType());
+            p.Serialize(file, _Products);
+            file.Close();
+            FileStream fileOI = new FileStream(dir + @"OrderItemsXml.xml", FileMode.Create);
+            XmlSerializer OI = new XmlSerializer(_arrOrderItem.GetType());
+            OI.Serialize(fileOI, _arrOrderItem);
+            fileOI.Close();
+        }
+
+
+
     }
+
 
     #endregion
 
@@ -50,17 +68,17 @@ public static class Program
     {
         #region addNewProduct
         //להוסיף לפונקציה שתקבל סטרינג
-        addNewProduct("big_notebook", ECategory.Notebooks, 6.9, 50);     //10000 
-        addNewProduct("small notebook", ECategory.Notebooks, 4.9, 0);       ///10001
-        addNewProduct("Sudoku", ECategory.Games, 9.5, 41);                  //10010
-        addNewProduct("campuse notebook", ECategory.Notebooks, 5.9, 35);      //10002
-        addNewProduct("chanan notebook", ECategory.Notebooks, 4.9, 63);       //10003
-        addNewProduct("pilot", ECategory.Pens, 9.9, 12);                    //10004
-        addNewProduct("stabilo pen", ECategory.Pens, 5.6, 20);              //10005
-        addNewProduct("chanan pen", ECategory.Pens, 4, 10);                 //1006
-        addNewProduct("blue diary", ECategory.Diaries, 12.5, 38);           //10007         
-        addNewProduct("red diary", ECategory.Diaries, 17, 65);               //10008
-        addNewProduct("paintbrush", ECategory.ArtMaterials, 7, 25);          //10009
+        addNewProduct("big_notebook", DO.Enums.ECategory.Notebooks, 6.9, 50);     //10000 
+        addNewProduct("small notebook", DO.Enums.ECategory.Notebooks, 4.9, 0);       ///10001
+        addNewProduct("Sudoku", DO.Enums.ECategory.Games, 9.5, 41);                  //10010
+        addNewProduct("campuse notebook", DO.Enums.ECategory.Notebooks, 5.9, 35);      //10002
+        addNewProduct("chanan notebook", DO.Enums.ECategory.Notebooks, 4.9, 63);       //10003
+        addNewProduct("pilot", DO.Enums.ECategory.Pens, 9.9, 12);                    //10004
+        addNewProduct("stabilo pen", DO.Enums.ECategory.Pens, 5.6, 20);              //10005
+        addNewProduct("chanan pen", DO.Enums.ECategory.Pens, 4, 10);                 //1006
+        addNewProduct("blue diary", DO.Enums.ECategory.Diaries, 12.5, 38);           //10007         
+        addNewProduct("red diary", DO.Enums.ECategory.Diaries, 17, 65);               //10008
+        addNewProduct("paintbrush", DO.Enums.ECategory.ArtMaterials, 7, 25);          //10009
         #endregion
         #region addNewOrderItem
         //  addNewOrder()
@@ -142,16 +160,7 @@ public static class Program
 
     }
 
-    private static int getOrderId()
-    {
-        XElement config = XMLTools.LoadListFromXMLElement(@"Config.xml");
-        int id = (int)config.Element("idOrder");
-        id++;
-        config.Element("idOrder")!.SetValue(id);
-        config.Save(@"Config.xml");
-        return id;
 
-    }
 
     /// <summary>
     /// start program for enable enter new items
@@ -168,9 +177,9 @@ public static class Program
     /// <param name="newCategory">enum ECategory - name of category</param>
     /// <param name="newPrice">double - price of product</param>
     /// <param name="newInStock">int - amount of product in stock</param>
-    static private void addNewProduct(string newName, ECategory newCategory, double newPrice, int newInStock)
+    static private void addNewProduct(string newName, DO.Enums.ECategory newCategory, double newPrice, int newInStock)
     {
-        Product newProducts = new() { ID = Config.CalNumOfProduct, Name = newName, Price = newPrice, Category = newCategory, InStock = newInStock };
+        Product newProducts = new() { ID = XmlConfig.getProductId(), Name = newName, Price = newPrice, Category = newCategory, InStock = newInStock };
         _Products.Add(newProducts);
     }
 
@@ -187,7 +196,7 @@ public static class Program
     {
         Order newOrder = new()
         {
-            ID = Config.CalNumOfIDOrder,
+            ID = XmlConfig.getOrderId(),
             CustomerName = newCustomerName,
             CustomerEmail = newCustomerEmail,
             CustomerAdress = newCustomerAdress,
@@ -227,9 +236,11 @@ public static class Program
     /// <param name="newAmount">string - amount of items</param>
     static private void addNewOrderItem(int newProductID, int newOrderID, double newPrice, int newAmount)
     {
-        OrderItem item = new OrderItem() { ID = Config.CalNumOfOrderItem, ProductID = newProductID, OrderID = newOrderID, Price = newPrice, Amount = newAmount };
+        OrderItem item = new OrderItem() { ID = XmlConfig.getOrderItemId(), ProductID = newProductID, OrderID = newOrderID, Price = newPrice, Amount = newAmount };
         _arrOrderItem.Add(item);
     }
+
 }
 
-    #endregion
+#endregion
+    

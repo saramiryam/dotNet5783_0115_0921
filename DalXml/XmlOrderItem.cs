@@ -11,7 +11,7 @@ using System.Xml.Linq;
 namespace Dal
 {
 
-    internal class XmlOrderItem : IOrderItem
+    public class XmlOrderItem : IOrderItem
     {
         string OrderItemPath = @"OrderItemsXml.xml";
 
@@ -29,10 +29,10 @@ namespace Dal
                 throw new ItemAlreadyExistsException("order exists, can not add") { ItemAlreadyExists = _newOrderItem.ToString() };
 
             //לשנות ID
-
+            _newOrderItem.ID = XmlConfig.getOrderItemId();
             ListOrderItem.Add(_newOrderItem); //no need to Clone()
             XMLTools.SaveListToXMLSerializer(ListOrderItem, OrderItemPath);
-            return _newOrderItem.ProductID;
+            return _newOrderItem.ID;
         }
 
         /// <summary>
@@ -50,7 +50,7 @@ namespace Dal
                 throw new GetPredictNullException("the predict is empty") { GetPredictNull = null };
             }
             DO.OrderItem? orderItem = ListOrderItem.Find(p => predict(p));
-           
+
             if (orderItem != null)
                 return (DO.OrderItem)orderItem; //no need to Clone()
             else
@@ -75,7 +75,7 @@ namespace Dal
                 throw new RequestedItemNotFoundException("orderItem not exists,can not do get") { RequestedItemNotFound = predict.ToString() };
 
             return orderItem;
-          
+
 
         }
         /// <summary>

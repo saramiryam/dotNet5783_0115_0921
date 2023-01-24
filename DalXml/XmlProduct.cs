@@ -9,10 +9,9 @@ using System.Xml.Linq;
 
 namespace Dal;
 
-internal class XmlProduct : IProduct
+public class XmlProduct : IProduct
 {
-
-    string ProductPath = @"ProductXml.xml";
+    readonly string ProductPath = @"ProductXml.xml";
 
     #region methods
 
@@ -29,6 +28,7 @@ internal class XmlProduct : IProduct
         {
             throw new ItemAlreadyExistsException("product exists, can not add") { ItemAlreadyExists = _p.ToString() };
         }
+        _p.ID = XmlConfig.getProductId();
         ListProduct.Add(_p);
         XMLTools.SaveListToXMLSerializer(ListProduct, ProductPath);
         return _p.ID;

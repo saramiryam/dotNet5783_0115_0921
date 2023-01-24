@@ -1,4 +1,5 @@
 ﻿using DalApi;
+using Dal;
 using DO;
 using System;
 using System.Collections.Generic;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 using System.Xml.Linq;
 
 namespace Dal;
-internal class XmlOrder:IOrder
+public class XmlOrder : IOrder
 {
     string OrderPath = @"OrdersXml.xml";
 
@@ -28,24 +29,24 @@ internal class XmlOrder:IOrder
         }
 
         XElement ifExsistOrder = (from p in OrdersRoot.Elements()
-                         where int.Parse(p.Element("ID").Value) == _o.ID
+                                  where int.Parse(p.Element("ID").Value) == _o.ID
                                   select p).FirstOrDefault();
 
         if (ifExsistOrder != null)
 
             throw new DO.ItemAlreadyExistsException("order exists, can not add") { ItemAlreadyExists = _o.ToString() };
-
-        XElement OrderElement = new XElement("Order", new XElement("ID", _o.ID.ToString()),
+        int id = XmlConfig.getOrderId();
+        XElement OrderElement = new XElement("Order", new XElement("ID", id.ToString()),
                                 new XElement("CustomerEmail", _o.CustomerEmail),
                                 new XElement("CustomerName", _o.CustomerName),
                                 new XElement("CustomerAdress", _o.CustomerAdress),
                                 new XElement("OrderDate", DateTime.Now.ToString()),
                                 new XElement("ShipDate", null),
                                 new XElement("DeliveryDate", null));
-                
+
         OrdersRoot.Add(OrderElement);
-        XMLTools.SaveListToXMLElement(OrdersRoot,OrderPath);
-        return 1;
+        XMLTools.SaveListToXMLElement(OrdersRoot, OrderPath);
+        return id;
     }
     /// <summary>
     /// check if the order demanded exist and return it or an exception if not
@@ -57,7 +58,7 @@ internal class XmlOrder:IOrder
     {
         XElement OrdersRoot = XMLTools.LoadListFromXMLElement(OrderPath);
 
-        if (OrdersRoot== null)
+        if (OrdersRoot == null)
         {
             throw new RequestedItemNotFoundException("order not exists,can not get") { RequestedItemNotFound = predict?.ToString() };
         }
@@ -66,21 +67,22 @@ internal class XmlOrder:IOrder
             throw new GetPredictNullException("the predict is empty") { GetPredictNull = null };
         }
 
-        try { 
-        return (from order in OrdersRoot.Elements()
-                                     let o1 = new DO.Order()
-                                     {
-                                         ID = Int32.Parse(order.Element("ID").Value),
-                                         CustomerAdress = order.Element("CustomerAdress").Value,
-                                         CustomerEmail = order.Element("CustomerEmail").Value,
-                                         CustomerName = order.Element("CustomerName").Value,
-                                         ShipDate = DateTime.Parse(order.Element("ShipDate").Value),
-                                         DeliveryDate = DateTime.Parse(order.Element("DeliveryDate").Value),
-                                         OrderDate = DateTime.Parse(order.Element("OrderDate").Value)
+        try
+        {
+            return (from order in OrdersRoot.Elements()
+                    let o1 = new DO.Order()
+                    {
+                        ID = Int32.Parse(order.Element("ID").Value),
+                        CustomerAdress = order.Element("CustomerAdress").Value,
+                        CustomerEmail = order.Element("CustomerEmail").Value,
+                        CustomerName = order.Element("CustomerName").Value,
+                        ShipDate = DateTime.Parse(order.Element("ShipDate").Value),
+                        DeliveryDate = DateTime.Parse(order.Element("DeliveryDate").Value),
+                        OrderDate = DateTime.Parse(order.Element("OrderDate").Value)
 
-                                     }
-                                     where predict(o1)
-                                     select o1).FirstOrDefault();
+                    }
+                    where predict(o1)
+                    select o1).FirstOrDefault();
         }
         catch
         {
@@ -95,8 +97,8 @@ internal class XmlOrder:IOrder
     public IEnumerable<Order?> GetAll(Func<Order?, bool>? predict = null)
     {
         XElement OrdersRoot = XMLTools.LoadListFromXMLElement(OrderPath);
-        if (OrdersRoot==null)
-                    throw new RequestedItemNotFoundException("orders not exists,can not get") { RequestedItemNotFound = predict?.ToString() };
+        if (OrdersRoot == null)
+            throw new RequestedItemNotFoundException("orders not exists,can not get") { RequestedItemNotFound = predict?.ToString() };
         if (predict == null)
         {
             try
@@ -151,7 +153,7 @@ internal class XmlOrder:IOrder
     {
         XElement OrderRoot = XMLTools.LoadListFromXMLElement(OrderPath);
 
-        if(OrderRoot is null)
+        if (OrderRoot is null)
             throw new RequestedItemNotFoundException("orders not exists,can not get") { RequestedItemNotFound = _id.ToString() };
 
         XElement ord = (from ordr in OrderRoot.Elements()
@@ -176,7 +178,7 @@ internal class XmlOrder:IOrder
     public void Update(Order _o)
     {
         XElement OrdersRoot = XMLTools.LoadListFromXMLElement(OrderPath);
-        if(OrdersRoot is null)
+        if (OrdersRoot is null)
             throw new RequestedUpdateItemNotFoundException("order not exists,can not update") { RequestedUpdateItemNotFound = _o.ToString() };
         XElement ord = (from ordr in OrdersRoot.Elements()
                         where int.Parse(ordr.Element("ID").Value) == _o.ID
