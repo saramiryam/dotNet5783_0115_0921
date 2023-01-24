@@ -20,6 +20,7 @@ public class DalProduct:IProduct
     /// <exception cref="Exception">product exists</exception>
     public int Add(Product _p)
     {
+        //int id = XmlProduct.Add(_p);
         if ((DataSource._Products
                        .Where(e => e?.Name == _p.Name&& e?.Price == _p.Price && e?.Category == _p.Category && e?.InStock == _p.InStock )
                        .Select (e=>(DO.Product?)e).FirstOrDefault() is not null))

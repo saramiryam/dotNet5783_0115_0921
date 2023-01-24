@@ -16,6 +16,7 @@ internal class DalOrderItem : IOrderItem
 /// <exception cref="Exception"></exception>
     public int Add(OrderItem _newOrderItem)
     {
+        //return XmlOrderItem.Add(_newOrderItem);
         if ((DataSource._arrOrderItem
                      .Where(e => e?.OrderID == _newOrderItem.ID && e?.ProductID == _newOrderItem.ProductID)
                      .Select(e => (DO.OrderItem?)e).FirstOrDefault() is not null))
@@ -37,7 +38,7 @@ internal class DalOrderItem : IOrderItem
     /// <exception cref="Exception"></exception>
     public OrderItem Get(Func<OrderItem?, bool>? predict)
     {
-
+        
         if (DataSource._arrOrderItem == null)
         {
             throw new RequestedItemNotFoundException("orderItem not exists,can not do get") { RequestedItemNotFound = predict?.ToString() };

@@ -21,7 +21,7 @@ namespace Dal
         /// <param name="_newOrderItem">new one to add</param>
         /// <returns>new orderIdem id</returns>
         /// <exception cref="Exception"></exception>
-        public int Add(OrderItem _newOrderItem)
+        public static int Add(OrderItem _newOrderItem)
         {
             List<DO.OrderItem?> ListOrderItem = XMLTools.LoadListFromXMLSerializer<OrderItem?>(OrderItemPath);
 
