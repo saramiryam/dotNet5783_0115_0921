@@ -1,8 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Config>
-  <idOrder>200019</idOrder>
-  <idProduct>100012</idProduct>
-  <idOrderItem>300040</idOrderItem>
+  <idOrder>200057</idOrder>
+  <idProduct>100023</idProduct>
+  <idOrderItem>300080</idOrderItem>
   <idOrderOfIdOrderItem>1</idOrderOfIdOrderItem>
   <idProductOfIdOrderItem>1</idProductOfIdOrderItem>
 </Config>

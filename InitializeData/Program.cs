@@ -34,14 +34,15 @@ public static class Program
 
     public static void Main()
     {
+        XmlOrder ordr=new XmlOrder();
         string dir = @"../xml/";
 
         if (!File.Exists(dir + @"Orders.xml") && !File.Exists(dir + @"OrderItems.xml") && !File.Exists(dir + @"Product.xml"))
         {
             s_initialize();
             XElement rootElemO = new XElement(@"Orders.xml");
-            rootElemO.Add(_Orders);
-            rootElemO.Save(dir + @"Orders.xml");
+            foreach (var u in _Orders)
+                ordr.Add((DO.Order)u);
 
 
             FileStream file = new FileStream(dir + @"Product.xml", FileMode.Create);

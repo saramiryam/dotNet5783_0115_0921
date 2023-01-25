@@ -1,135 +1,174 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Orders.xml>
-    Order ID=200001: Moshe Cohen, 
-    Email - david@gmail.com
-    Adress: buksboim 12
-    Order Date: 28/08/2022 11:29:39
-    Ship Date: 02/09/2022 11:29:39
-    Delivery Date: 02/09/2022 11:29:39
-
-    Order ID=200002: Sara Miriam , 
-    Email - SaraMiriam@gmail.com
-    Adress: הפסגה 50
-    Order Date: 17/01/2023 11:29:39
-    Ship Date: 17/01/2023 11:29:39
-    Delivery Date: 20/01/2023 11:29:39
-
-    Order ID=200003: Rut, 
-    Email - Rut@gmail.com
-    Adress: aaa 12
-    Order Date: 25/01/2023 11:29:39
-    Ship Date: 22/01/2023 11:29:39
-    Delivery Date: 
-
-    Order ID=200004: David Levi, 
-    Email - david@gmail.com
-    Adress: buksboim 12
-    Order Date: 18/01/2023 11:29:39
-    Ship Date: 
-    Delivery Date: 
-
-    Order ID=200005: raviv, 
-    Email - david@gmail.com
-    Adress: buksboim 12
-    Order Date: 16/01/2023 11:29:39
-    Ship Date: 25/01/2023 11:29:39
-    Delivery Date: 
-
-    Order ID=200006: Moyshi, 
-    Email - david@gmail.com
-    Adress: buksboim 12
-    Order Date: 24/01/2023 11:29:39
-    Ship Date: 20/01/2023 11:29:39
-    Delivery Date: 23/01/2023 11:29:39
-
-    Order ID=200007: Shani, 
-    Email - david@gmail.com
-    Adress: buksboim 12
-    Order Date: 25/01/2023 11:29:39
-    Ship Date: 25/01/2023 11:29:39
-    Delivery Date: 
-
-    Order ID=200008: Dasi, 
-    Email - david@gmail.com
-    Adress: buksboim 12
-    Order Date: 25/01/2023 11:29:39
-    Ship Date: 25/01/2023 11:29:39
-    Delivery Date: 
-
-    Order ID=200009: Noa, 
-    Email - david@gmail.com
-    Adress: buksboim 12
-    Order Date: 20/01/2023 11:29:39
-    Ship Date: 
-    Delivery Date: 
-
-    Order ID=200010: shira, 
-    Email - david@gmail.com
-    Adress: buksboim 12
-    Order Date: 22/01/2023 11:29:39
-    Ship Date: 24/01/2023 11:29:39
-    Delivery Date: 24/01/2023 11:29:39
-
-    Order ID=200011: Yosi, 
-    Email - david@gmail.com
-    Adress: buksboim 12
-    Order Date: 19/01/2023 11:29:39
-    Ship Date: 25/01/2023 11:29:39
-    Delivery Date: 
-
-    Order ID=200012: Mashuda, 
-    Email - david@gmail.com
-    Adress: buksboim 12
-    Order Date: 18/01/2023 11:29:39
-    Ship Date: 
-    Delivery Date: 
-
-    Order ID=200013: Gila, 
-    Email - david@gmail.com
-    Adress: buksboim 12
-    Order Date: 16/01/2023 11:29:39
-    Ship Date: 25/01/2023 11:29:39
-    Delivery Date: 
-
-    Order ID=200014: Chani, 
-    Email - david@gmail.com
-    Adress: buksboim 12
-    Order Date: 23/01/2023 11:29:39
-    Ship Date: 
-    Delivery Date: 25/01/2023 11:29:39
-
-    Order ID=200015: Nadav, 
-    Email - david@gmail.com
-    Adress: buksboim 12
-    Order Date: 20/01/2023 11:29:39
-    Ship Date: 25/01/2023 11:29:39
-    Delivery Date: 
-
-    Order ID=200016: Pnina, 
-    Email - david@gmail.com
-    Adress: buksboim 12
-    Order Date: 22/01/2023 11:29:39
-    Ship Date: 14/01/2023 11:29:39
-    Delivery Date: 
-
-    Order ID=200017: Yona, 
-    Email - david@gmail.com
-    Adress: buksboim 12
-    Order Date: 25/01/2023 11:29:39
-    Ship Date: 
-    Delivery Date: 
-
-    Order ID=200018: Ayala rov, 
-    Email - Ayala@gmail.com
-    Adress: חיים ויטאל
-    Order Date: 13/04/2022 11:29:39
-    Ship Date: 16/04/2022 11:29:39
-    Delivery Date: 17/04/2022 11:29:39
-
-    Order ID=200019: David Levi, 
-    Email - david@gmail.com
-    Adress: buksboim 12
-    Order Date: 15/01/2023 11:29:39
-    Ship Date: 23/01/2023 11:29:39
-    Delivery Date: 23/01/2023 11:29:39
+  <Order>
+    <ID>200039</ID>
+    <CustomerEmail>david@gmail.com</CustomerEmail>
+    <CustomerName>Moshe Cohen</CustomerName>
+    <CustomerAdress>buksboim 12</CustomerAdress>
+    <OrderDate>25/01/2023 12:39:07</OrderDate>
+    <ShipDate />
+    <DeliveryDate />
+  </Order>
+  <Order>
+    <ID>200040</ID>
+    <CustomerEmail>SaraMiriam@gmail.com</CustomerEmail>
+    <CustomerName>Sara Miriam </CustomerName>
+    <CustomerAdress>הפסגה 50</CustomerAdress>
+    <OrderDate>25/01/2023 12:39:12</OrderDate>
+    <ShipDate />
+    <DeliveryDate />
+  </Order>
+  <Order>
+    <ID>200041</ID>
+    <CustomerEmail>Rut@gmail.com</CustomerEmail>
+    <CustomerName>Rut</CustomerName>
+    <CustomerAdress>aaa 12</CustomerAdress>
+    <OrderDate>25/01/2023 12:39:12</OrderDate>
+    <ShipDate />
+    <DeliveryDate />
+  </Order>
+  <Order>
+    <ID>200042</ID>
+    <CustomerEmail>david@gmail.com</CustomerEmail>
+    <CustomerName>David Levi</CustomerName>
+    <CustomerAdress>buksboim 12</CustomerAdress>
+    <OrderDate>25/01/2023 12:39:12</OrderDate>
+    <ShipDate />
+    <DeliveryDate />
+  </Order>
+  <Order>
+    <ID>200043</ID>
+    <CustomerEmail>david@gmail.com</CustomerEmail>
+    <CustomerName>raviv</CustomerName>
+    <CustomerAdress>buksboim 12</CustomerAdress>
+    <OrderDate>25/01/2023 12:39:12</OrderDate>
+    <ShipDate />
+    <DeliveryDate />
+  </Order>
+  <Order>
+    <ID>200044</ID>
+    <CustomerEmail>david@gmail.com</CustomerEmail>
+    <CustomerName>Moyshi</CustomerName>
+    <CustomerAdress>buksboim 12</CustomerAdress>
+    <OrderDate>25/01/2023 12:39:12</OrderDate>
+    <ShipDate />
+    <DeliveryDate />
+  </Order>
+  <Order>
+    <ID>200045</ID>
+    <CustomerEmail>david@gmail.com</CustomerEmail>
+    <CustomerName>Shani</CustomerName>
+    <CustomerAdress>buksboim 12</CustomerAdress>
+    <OrderDate>25/01/2023 12:39:12</OrderDate>
+    <ShipDate />
+    <DeliveryDate />
+  </Order>
+  <Order>
+    <ID>200046</ID>
+    <CustomerEmail>david@gmail.com</CustomerEmail>
+    <CustomerName>Dasi</CustomerName>
+    <CustomerAdress>buksboim 12</CustomerAdress>
+    <OrderDate>25/01/2023 12:39:12</OrderDate>
+    <ShipDate />
+    <DeliveryDate />
+  </Order>
+  <Order>
+    <ID>200047</ID>
+    <CustomerEmail>david@gmail.com</CustomerEmail>
+    <CustomerName>Noa</CustomerName>
+    <CustomerAdress>buksboim 12</CustomerAdress>
+    <OrderDate>25/01/2023 12:39:12</OrderDate>
+    <ShipDate />
+    <DeliveryDate />
+  </Order>
+  <Order>
+    <ID>200048</ID>
+    <CustomerEmail>david@gmail.com</CustomerEmail>
+    <CustomerName>shira</CustomerName>
+    <CustomerAdress>buksboim 12</CustomerAdress>
+    <OrderDate>25/01/2023 12:39:12</OrderDate>
+    <ShipDate />
+    <DeliveryDate />
+  </Order>
+  <Order>
+    <ID>200049</ID>
+    <CustomerEmail>david@gmail.com</CustomerEmail>
+    <CustomerName>Yosi</CustomerName>
+    <CustomerAdress>buksboim 12</CustomerAdress>
+    <OrderDate>25/01/2023 12:39:12</OrderDate>
+    <ShipDate />
+    <DeliveryDate />
+  </Order>
+  <Order>
+    <ID>200050</ID>
+    <CustomerEmail>david@gmail.com</CustomerEmail>
+    <CustomerName>Mashuda</CustomerName>
+    <CustomerAdress>buksboim 12</CustomerAdress>
+    <OrderDate>25/01/2023 12:39:12</OrderDate>
+    <ShipDate />
+    <DeliveryDate />
+  </Order>
+  <Order>
+    <ID>200051</ID>
+    <CustomerEmail>david@gmail.com</CustomerEmail>
+    <CustomerName>Gila</CustomerName>
+    <CustomerAdress>buksboim 12</CustomerAdress>
+    <OrderDate>25/01/2023 12:39:12</OrderDate>
+    <ShipDate />
+    <DeliveryDate />
+  </Order>
+  <Order>
+    <ID>200052</ID>
+    <CustomerEmail>david@gmail.com</CustomerEmail>
+    <CustomerName>Chani</CustomerName>
+    <CustomerAdress>buksboim 12</CustomerAdress>
+    <OrderDate>25/01/2023 12:39:12</OrderDate>
+    <ShipDate />
+    <DeliveryDate />
+  </Order>
+  <Order>
+    <ID>200053</ID>
+    <CustomerEmail>david@gmail.com</CustomerEmail>
+    <CustomerName>Nadav</CustomerName>
+    <CustomerAdress>buksboim 12</CustomerAdress>
+    <OrderDate>25/01/2023 12:39:12</OrderDate>
+    <ShipDate />
+    <DeliveryDate />
+  </Order>
+  <Order>
+    <ID>200054</ID>
+    <CustomerEmail>david@gmail.com</CustomerEmail>
+    <CustomerName>Pnina</CustomerName>
+    <CustomerAdress>buksboim 12</CustomerAdress>
+    <OrderDate>25/01/2023 12:39:12</OrderDate>
+    <ShipDate />
+    <DeliveryDate />
+  </Order>
+  <Order>
+    <ID>200055</ID>
+    <CustomerEmail>david@gmail.com</CustomerEmail>
+    <CustomerName>Yona</CustomerName>
+    <CustomerAdress>buksboim 12</CustomerAdress>
+    <OrderDate>25/01/2023 12:39:12</OrderDate>
+    <ShipDate />
+    <DeliveryDate />
+  </Order>
+  <Order>
+    <ID>200056</ID>
+    <CustomerEmail>Ayala@gmail.com</CustomerEmail>
+    <CustomerName>Ayala rov</CustomerName>
+    <CustomerAdress>חיים ויטאל</CustomerAdress>
+    <OrderDate>25/01/2023 12:39:12</OrderDate>
+    <ShipDate />
+    <DeliveryDate />
+  </Order>
+  <Order>
+    <ID>200057</ID>
+    <CustomerEmail>david@gmail.com</CustomerEmail>
+    <CustomerName>David Levi</CustomerName>
+    <CustomerAdress>buksboim 12</CustomerAdress>
+    <OrderDate>25/01/2023 12:39:12</OrderDate>
+    <ShipDate />
+    <DeliveryDate />
+  </Order>
 </Orders.xml>
