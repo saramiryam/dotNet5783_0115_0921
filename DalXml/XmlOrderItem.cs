@@ -13,7 +13,7 @@ namespace Dal
 
     public class XmlOrderItem : IOrderItem
     {
-        string OrderItemPath = @"OrderItemsXml.xml";
+        string OrderItemPath = @"OrderItems.xml";
 
         /// <summary>
         /// add a new orderitem and throw exception if it does not exist
@@ -21,7 +21,7 @@ namespace Dal
         /// <param name="_newOrderItem">new one to add</param>
         /// <returns>new orderIdem id</returns>
         /// <exception cref="Exception"></exception>
-        public static int Add(OrderItem _newOrderItem)
+        public  int Add(OrderItem _newOrderItem)
         {
             List<DO.OrderItem?> ListOrderItem = XMLTools.LoadListFromXMLSerializer<OrderItem?>(OrderItemPath);
 
@@ -67,7 +67,7 @@ namespace Dal
             List<DO.OrderItem?> ListOrderItem = XMLTools.LoadListFromXMLSerializer<OrderItem?>(OrderItemPath);
             if (predict == null)
             {
-                throw new GetPredictNullException("the predict is empty") { GetPredictNull = null };
+                return (IEnumerable<OrderItem?>) ListOrderItem;
             }
             IEnumerable<OrderItem?> orderItem = ListOrderItem.FindAll(p => predict(p));
 
@@ -94,6 +94,7 @@ namespace Dal
                 if (ord != null)
                 {
                     ListOrderItem.Remove(ord);
+                    XMLTools.SaveListToXMLSerializer(ListOrderItem, OrderItemPath);
                 }
             }
             catch
@@ -102,7 +103,6 @@ namespace Dal
             }
 
 
-            XMLTools.SaveListToXMLSerializer(ListOrderItem, OrderItemPath);
         }
         /// <summary>
         ///  update date of product and throw exception if it does not exist
@@ -127,6 +127,7 @@ namespace Dal
                 {
                     ListOrderItem.Remove(ord);
                     ListOrderItem.Add(_newOrderItem); //no nee to Clone()
+                    XMLTools.SaveListToXMLSerializer(ListOrderItem, OrderItemPath);
                 }
             }
             catch
@@ -134,7 +135,6 @@ namespace Dal
                 throw new RequestedItemNotFoundException("orderItem not exists,can not update") { RequestedItemNotFound = _newOrderItem.ToString() };
             }
 
-            XMLTools.SaveListToXMLSerializer(ListOrderItem, OrderItemPath);
 
         }
 

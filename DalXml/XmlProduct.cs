@@ -11,7 +11,7 @@ namespace Dal;
 
 public class XmlProduct : IProduct
 {
-    readonly string ProductPath = @"ProductXml.xml";
+    readonly string ProductPath = @"Product.xml";
 
     #region methods
 
@@ -70,7 +70,7 @@ public class XmlProduct : IProduct
     /// <returns>arrey with all the products</returns>
     public IEnumerable<Product?> GetAll(Func<Product?, bool>? predict = null)
     {
-        List<Product> ListProduct = XMLTools.LoadListFromXMLSerializer<Product>(ProductPath);
+        List<Product?> ListProduct = XMLTools.LoadListFromXMLSerializer<Product?>(ProductPath);
 
 
         if (ListProduct == null)
@@ -89,7 +89,7 @@ public class XmlProduct : IProduct
             //return _products;
             try
             {
-                IEnumerable<Product> product = ListProduct.FindAll(p => predict(p));
+                IEnumerable<Product?> product = ListProduct.FindAll(p => predict(p));
                 return (IEnumerable<Product?>)product;
             }
             catch
@@ -117,13 +117,14 @@ public class XmlProduct : IProduct
             if (pre != null)
             {
                 ListProduct.Remove(pre);
+                XMLTools.SaveListToXMLSerializer(ListProduct, ProductPath);
+
             }
         }
         catch
         {
             throw new RequestedItemNotFoundException("product not exists,can not do delete") { RequestedItemNotFound = _num.ToString() };
         }
-        XMLTools.SaveListToXMLSerializer(ListProduct, ProductPath);
 
 
     }
@@ -151,6 +152,8 @@ public class XmlProduct : IProduct
             {
                 ListProduct.Remove(pro);
                 ListProduct.Add(_p); //no nee to Clone()
+                XMLTools.SaveListToXMLSerializer(ListProduct, ProductPath);
+
             }
         }
         catch

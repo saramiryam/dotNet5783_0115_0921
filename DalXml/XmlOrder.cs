@@ -11,7 +11,7 @@ using System.Xml.Linq;
 namespace Dal;
 public class XmlOrder : IOrder
 {
-    string OrderPath = @"OrdersXml.xml";
+    string OrderPath = @"Orders.xml";
 
 
     /// <summary>
@@ -103,7 +103,7 @@ public class XmlOrder : IOrder
         {
             try
             {
-                return ((IEnumerable<Order?>)(from order in OrdersRoot.Elements()
+                var i= ((from order in OrdersRoot.Elements()
                                               select new DO.Order()
                                               {
                                                   ID = Int32.Parse(order.Element("ID").Value),
@@ -114,7 +114,8 @@ public class XmlOrder : IOrder
                                                   DeliveryDate = DateTime.Parse(order.Element("DeliveryDate").Value),
                                                   OrderDate = DateTime.Parse(order.Element("OrderDate").Value)
 
-                                              }));
+                                              }).ToList());
+                return (IEnumerable<Order?>)i;
             }
             catch
             {
