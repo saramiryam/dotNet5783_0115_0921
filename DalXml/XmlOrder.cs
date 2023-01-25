@@ -103,7 +103,7 @@ public class XmlOrder : IOrder
         {
             try
             {
-                var i= ((from order in OrdersRoot.Elements()
+                var i= ((from Order in OrdersRoot.Elements()
                                               select new DO.Order()
                                               {
                                                   ID = Int32.Parse(order.Element("ID").Value),
@@ -114,7 +114,7 @@ public class XmlOrder : IOrder
                                                   DeliveryDate = DateTime.Parse(order.Element("DeliveryDate").Value),
                                                   OrderDate = DateTime.Parse(order.Element("OrderDate").Value)
 
-                                              }).ToList());
+                                              }));
                 return (IEnumerable<Order?>)i;
             }
             catch
