@@ -103,7 +103,7 @@ public class XmlOrder : IOrder
         {
             try
             {
-                var i= ((from Order in OrdersRoot.Elements()
+                var i= ((from order in OrdersRoot.Elements()
                                               select new DO.Order()
                                               {
                                                   ID = Int32.Parse(order.Element("ID").Value),
