@@ -133,4 +133,4 @@
     Ship Date: 25/01/2023 01:10:53
     Delivery Date: 22/01/2023 01:10:53
 
-</Orders.xml>
+<Order><ID>200024</ID><CustomerEmail>sdf@gmail.com</CustomerEmail><CustomerName>dfg</CustomerName><CustomerAdress>sdfghj</CustomerAdress><OrderDate>25/01/2023 11:11:13</OrderDate><ShipDate /><DeliveryDate /></Order></Orders.xml>
