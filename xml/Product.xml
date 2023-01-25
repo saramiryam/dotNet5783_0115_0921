@@ -43,13 +43,6 @@
     <InStock>12</InStock>
   </Product>
   <Product>
-    <ID>100007</ID>
-    <Name>stabilo pen</Name>
-    <Category>Pens</Category>
-    <Price>5.6</Price>
-    <InStock>20</InStock>
-  </Product>
-  <Product>
     <ID>100008</ID>
     <Name>chanan pen</Name>
     <Category>Pens</Category>
@@ -64,6 +57,13 @@
     <InStock>38</InStock>
   </Product>
   <Product>
+    <ID>100010</ID>
+    <Name>red diary</Name>
+    <Category>Diaries</Category>
+    <Price>17</Price>
+    <InStock>65</InStock>
+  </Product>
+  <Product>
     <ID>100011</ID>
     <Name>paintbrush</Name>
     <Category>ArtMaterials</Category>
@@ -71,31 +71,17 @@
     <InStock>25</InStock>
   </Product>
   <Product>
-    <ID>100014</ID>
-    <Name>xdfghjjjjjjjjjlkjhgfdfghjkjhgf</Name>
-    <Category>Pens</Category>
-    <Price>12</Price>
+    <ID>100012</ID>
+    <Name>cvbn</Name>
+    <Category>Games</Category>
+    <Price>120</Price>
     <InStock>120</InStock>
   </Product>
   <Product>
-    <ID>100015</ID>
-    <Name>bfchgcgcgcffjf</Name>
-    <Category>Diaries</Category>
-    <Price>340</Price>
-    <InStock>340</InStock>
-  </Product>
-  <Product>
-    <ID>100016</ID>
-    <Name>fgh</Name>
-    <Category>Notebooks</Category>
-    <Price>4</Price>
-    <InStock>87</InStock>
-  </Product>
-  <Product>
-    <ID>100010</ID>
-    <Name>red diary</Name>
-    <Category>Diaries</Category>
-    <Price>171111111111111</Price>
-    <InStock>65</InStock>
+    <ID>100007</ID>
+    <Name>stabilo pen</Name>
+    <Category>Pens</Category>
+    <Price>5.6232323</Price>
+    <InStock>20</InStock>
   </Product>
 </ArrayOfProduct>
