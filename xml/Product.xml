@@ -1,77 +1,77 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ArrayOfProduct xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <Product>
-    <ID>100013</ID>
+    <ID>100001</ID>
     <Name>big_notebook</Name>
     <Category>Notebooks</Category>
     <Price>6.9</Price>
     <InStock>50</InStock>
   </Product>
   <Product>
-    <ID>100014</ID>
+    <ID>100002</ID>
     <Name>small notebook</Name>
     <Category>Notebooks</Category>
     <Price>4.9</Price>
     <InStock>0</InStock>
   </Product>
   <Product>
-    <ID>100015</ID>
+    <ID>100003</ID>
     <Name>Sudoku</Name>
     <Category>Games</Category>
     <Price>9.5</Price>
     <InStock>41</InStock>
   </Product>
   <Product>
-    <ID>100016</ID>
+    <ID>100004</ID>
     <Name>campuse notebook</Name>
     <Category>Notebooks</Category>
     <Price>5.9</Price>
     <InStock>35</InStock>
   </Product>
   <Product>
-    <ID>100017</ID>
+    <ID>100005</ID>
     <Name>chanan notebook</Name>
     <Category>Notebooks</Category>
     <Price>4.9</Price>
     <InStock>63</InStock>
   </Product>
   <Product>
-    <ID>100018</ID>
+    <ID>100006</ID>
     <Name>pilot</Name>
     <Category>Pens</Category>
     <Price>9.9</Price>
     <InStock>12</InStock>
   </Product>
   <Product>
-    <ID>100019</ID>
+    <ID>100007</ID>
     <Name>stabilo pen</Name>
     <Category>Pens</Category>
     <Price>5.6</Price>
     <InStock>20</InStock>
   </Product>
   <Product>
-    <ID>100020</ID>
+    <ID>100008</ID>
     <Name>chanan pen</Name>
     <Category>Pens</Category>
     <Price>4</Price>
     <InStock>10</InStock>
   </Product>
   <Product>
-    <ID>100021</ID>
+    <ID>100009</ID>
     <Name>blue diary</Name>
     <Category>Diaries</Category>
     <Price>12.5</Price>
     <InStock>38</InStock>
   </Product>
   <Product>
-    <ID>100022</ID>
+    <ID>100010</ID>
     <Name>red diary</Name>
     <Category>Diaries</Category>
     <Price>17</Price>
     <InStock>65</InStock>
   </Product>
   <Product>
-    <ID>100023</ID>
+    <ID>100011</ID>
     <Name>paintbrush</Name>
     <Category>ArtMaterials</Category>
     <Price>7</Price>

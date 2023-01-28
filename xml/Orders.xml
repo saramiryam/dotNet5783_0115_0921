@@ -1,174 +1,174 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Orders.xml>
+<?xml version="1.0" encoding="utf-8"?>
+<ArrayOfOrder xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <Order>
-    <ID>200039</ID>
-    <CustomerEmail>david@gmail.com</CustomerEmail>
+    <ID>200020</ID>
     <CustomerName>Moshe Cohen</CustomerName>
+    <CustomerEmail>david@gmail.com</CustomerEmail>
     <CustomerAdress>buksboim 12</CustomerAdress>
-    <OrderDate>25/01/2023 12:39:07</OrderDate>
-    <ShipDate />
-    <DeliveryDate />
+    <OrderDate>2022-12-09T22:02:30.8741568+02:00</OrderDate>
+    <ShipDate>2022-12-15T22:02:30.8741568+02:00</ShipDate>
+    <DeliveryDate>2022-12-20T22:02:30.8741568+02:00</DeliveryDate>
   </Order>
   <Order>
-    <ID>200040</ID>
-    <CustomerEmail>SaraMiriam@gmail.com</CustomerEmail>
+    <ID>200021</ID>
     <CustomerName>Sara Miriam </CustomerName>
+    <CustomerEmail>SaraMiriam@gmail.com</CustomerEmail>
     <CustomerAdress>הפסגה 50</CustomerAdress>
-    <OrderDate>25/01/2023 12:39:12</OrderDate>
-    <ShipDate />
-    <DeliveryDate />
+    <OrderDate>2022-10-22T22:02:30.8809448+03:00</OrderDate>
+    <ShipDate>2022-10-25T22:02:30.8809448+03:00</ShipDate>
+    <DeliveryDate>2022-10-26T22:02:30.8809448+03:00</DeliveryDate>
   </Order>
   <Order>
-    <ID>200041</ID>
-    <CustomerEmail>Rut@gmail.com</CustomerEmail>
+    <ID>200022</ID>
     <CustomerName>Rut</CustomerName>
+    <CustomerEmail>Rut@gmail.com</CustomerEmail>
     <CustomerAdress>aaa 12</CustomerAdress>
-    <OrderDate>25/01/2023 12:39:12</OrderDate>
-    <ShipDate />
-    <DeliveryDate />
+    <OrderDate>2023-01-03T22:02:30.8816913+02:00</OrderDate>
+    <ShipDate>2023-01-21T22:02:30.8816941+02:00</ShipDate>
+    <DeliveryDate xsi:nil="true" />
   </Order>
   <Order>
-    <ID>200042</ID>
-    <CustomerEmail>david@gmail.com</CustomerEmail>
-    <CustomerName>David Levi</CustomerName>
-    <CustomerAdress>buksboim 12</CustomerAdress>
-    <OrderDate>25/01/2023 12:39:12</OrderDate>
-    <ShipDate />
-    <DeliveryDate />
-  </Order>
-  <Order>
-    <ID>200043</ID>
-    <CustomerEmail>david@gmail.com</CustomerEmail>
-    <CustomerName>raviv</CustomerName>
-    <CustomerAdress>buksboim 12</CustomerAdress>
-    <OrderDate>25/01/2023 12:39:12</OrderDate>
-    <ShipDate />
-    <DeliveryDate />
-  </Order>
-  <Order>
-    <ID>200044</ID>
-    <CustomerEmail>david@gmail.com</CustomerEmail>
+    <ID>200025</ID>
     <CustomerName>Moyshi</CustomerName>
+    <CustomerEmail>david@gmail.com</CustomerEmail>
     <CustomerAdress>buksboim 12</CustomerAdress>
-    <OrderDate>25/01/2023 12:39:12</OrderDate>
-    <ShipDate />
-    <DeliveryDate />
+    <OrderDate>2023-01-25T22:02:30.88379+02:00</OrderDate>
+    <ShipDate>2023-01-24T22:02:30.8837916+02:00</ShipDate>
+    <DeliveryDate>2023-01-26T22:02:30.8837919+02:00</DeliveryDate>
   </Order>
   <Order>
-    <ID>200045</ID>
-    <CustomerEmail>david@gmail.com</CustomerEmail>
+    <ID>200026</ID>
     <CustomerName>Shani</CustomerName>
+    <CustomerEmail>david@gmail.com</CustomerEmail>
     <CustomerAdress>buksboim 12</CustomerAdress>
-    <OrderDate>25/01/2023 12:39:12</OrderDate>
-    <ShipDate />
-    <DeliveryDate />
+    <OrderDate>2023-01-28T22:02:30.884429+02:00</OrderDate>
+    <ShipDate>2023-01-28T22:02:30.8844305+02:00</ShipDate>
+    <DeliveryDate xsi:nil="true" />
   </Order>
   <Order>
-    <ID>200046</ID>
-    <CustomerEmail>david@gmail.com</CustomerEmail>
+    <ID>200027</ID>
     <CustomerName>Dasi</CustomerName>
+    <CustomerEmail>david@gmail.com</CustomerEmail>
     <CustomerAdress>buksboim 12</CustomerAdress>
-    <OrderDate>25/01/2023 12:39:12</OrderDate>
-    <ShipDate />
-    <DeliveryDate />
+    <OrderDate>2023-01-25T22:02:30.8851705+02:00</OrderDate>
+    <ShipDate>2023-01-28T22:02:30.8851761+02:00</ShipDate>
+    <DeliveryDate xsi:nil="true" />
   </Order>
   <Order>
-    <ID>200047</ID>
-    <CustomerEmail>david@gmail.com</CustomerEmail>
-    <CustomerName>Noa</CustomerName>
-    <CustomerAdress>buksboim 12</CustomerAdress>
-    <OrderDate>25/01/2023 12:39:12</OrderDate>
-    <ShipDate />
-    <DeliveryDate />
-  </Order>
-  <Order>
-    <ID>200048</ID>
-    <CustomerEmail>david@gmail.com</CustomerEmail>
+    <ID>200029</ID>
     <CustomerName>shira</CustomerName>
+    <CustomerEmail>david@gmail.com</CustomerEmail>
     <CustomerAdress>buksboim 12</CustomerAdress>
-    <OrderDate>25/01/2023 12:39:12</OrderDate>
-    <ShipDate />
-    <DeliveryDate />
+    <OrderDate>2023-01-23T22:02:30.8871677+02:00</OrderDate>
+    <ShipDate>2023-01-28T22:02:30.8871695+02:00</ShipDate>
+    <DeliveryDate>2023-01-27T22:02:30.8871697+02:00</DeliveryDate>
   </Order>
   <Order>
-    <ID>200049</ID>
-    <CustomerEmail>david@gmail.com</CustomerEmail>
+    <ID>200030</ID>
     <CustomerName>Yosi</CustomerName>
+    <CustomerEmail>david@gmail.com</CustomerEmail>
     <CustomerAdress>buksboim 12</CustomerAdress>
-    <OrderDate>25/01/2023 12:39:12</OrderDate>
-    <ShipDate />
-    <DeliveryDate />
+    <OrderDate>2023-01-27T22:02:30.8878704+02:00</OrderDate>
+    <ShipDate>2023-01-28T22:02:30.8878722+02:00</ShipDate>
+    <DeliveryDate xsi:nil="true" />
   </Order>
   <Order>
-    <ID>200050</ID>
-    <CustomerEmail>david@gmail.com</CustomerEmail>
+    <ID>200031</ID>
     <CustomerName>Mashuda</CustomerName>
+    <CustomerEmail>david@gmail.com</CustomerEmail>
     <CustomerAdress>buksboim 12</CustomerAdress>
-    <OrderDate>25/01/2023 12:39:12</OrderDate>
-    <ShipDate />
-    <DeliveryDate />
+    <OrderDate>2023-01-28T22:02:30.8885397+02:00</OrderDate>
+    <ShipDate xsi:nil="true" />
+    <DeliveryDate xsi:nil="true" />
   </Order>
   <Order>
-    <ID>200051</ID>
-    <CustomerEmail>david@gmail.com</CustomerEmail>
+    <ID>200032</ID>
     <CustomerName>Gila</CustomerName>
+    <CustomerEmail>david@gmail.com</CustomerEmail>
     <CustomerAdress>buksboim 12</CustomerAdress>
-    <OrderDate>25/01/2023 12:39:12</OrderDate>
-    <ShipDate />
-    <DeliveryDate />
+    <OrderDate>2023-01-18T22:02:30.8893208+02:00</OrderDate>
+    <ShipDate>2023-01-28T22:02:30.8893224+02:00</ShipDate>
+    <DeliveryDate xsi:nil="true" />
   </Order>
   <Order>
-    <ID>200052</ID>
-    <CustomerEmail>david@gmail.com</CustomerEmail>
+    <ID>200033</ID>
     <CustomerName>Chani</CustomerName>
+    <CustomerEmail>david@gmail.com</CustomerEmail>
     <CustomerAdress>buksboim 12</CustomerAdress>
-    <OrderDate>25/01/2023 12:39:12</OrderDate>
-    <ShipDate />
-    <DeliveryDate />
+    <OrderDate>2023-01-28T22:02:30.8899395+02:00</OrderDate>
+    <ShipDate xsi:nil="true" />
+    <DeliveryDate>2023-01-28T22:02:30.889941+02:00</DeliveryDate>
   </Order>
   <Order>
-    <ID>200053</ID>
-    <CustomerEmail>david@gmail.com</CustomerEmail>
+    <ID>200034</ID>
     <CustomerName>Nadav</CustomerName>
+    <CustomerEmail>david@gmail.com</CustomerEmail>
     <CustomerAdress>buksboim 12</CustomerAdress>
-    <OrderDate>25/01/2023 12:39:12</OrderDate>
-    <ShipDate />
-    <DeliveryDate />
+    <OrderDate>2023-01-26T22:02:30.8905744+02:00</OrderDate>
+    <ShipDate>2023-01-28T22:02:30.8905766+02:00</ShipDate>
+    <DeliveryDate xsi:nil="true" />
   </Order>
   <Order>
-    <ID>200054</ID>
-    <CustomerEmail>david@gmail.com</CustomerEmail>
+    <ID>200035</ID>
     <CustomerName>Pnina</CustomerName>
+    <CustomerEmail>david@gmail.com</CustomerEmail>
     <CustomerAdress>buksboim 12</CustomerAdress>
-    <OrderDate>25/01/2023 12:39:12</OrderDate>
-    <ShipDate />
-    <DeliveryDate />
+    <OrderDate>2023-01-24T22:02:30.8914612+02:00</OrderDate>
+    <ShipDate>2023-01-16T22:02:30.8914631+02:00</ShipDate>
+    <DeliveryDate xsi:nil="true" />
   </Order>
   <Order>
-    <ID>200055</ID>
-    <CustomerEmail>david@gmail.com</CustomerEmail>
+    <ID>200036</ID>
     <CustomerName>Yona</CustomerName>
-    <CustomerAdress>buksboim 12</CustomerAdress>
-    <OrderDate>25/01/2023 12:39:12</OrderDate>
-    <ShipDate />
-    <DeliveryDate />
-  </Order>
-  <Order>
-    <ID>200056</ID>
-    <CustomerEmail>Ayala@gmail.com</CustomerEmail>
-    <CustomerName>Ayala rov</CustomerName>
-    <CustomerAdress>חיים ויטאל</CustomerAdress>
-    <OrderDate>25/01/2023 12:39:12</OrderDate>
-    <ShipDate />
-    <DeliveryDate />
-  </Order>
-  <Order>
-    <ID>200057</ID>
     <CustomerEmail>david@gmail.com</CustomerEmail>
-    <CustomerName>David Levi</CustomerName>
     <CustomerAdress>buksboim 12</CustomerAdress>
-    <OrderDate>25/01/2023 12:39:12</OrderDate>
-    <ShipDate />
-    <DeliveryDate />
+    <OrderDate>2023-01-28T22:02:30.8922641+02:00</OrderDate>
+    <ShipDate xsi:nil="true" />
+    <DeliveryDate xsi:nil="true" />
   </Order>
-</Orders.xml>
+  <Order>
+    <ID>200037</ID>
+    <CustomerName>Ayala rov</CustomerName>
+    <CustomerEmail>Ayala@gmail.com</CustomerEmail>
+    <CustomerAdress>חיים ויטאל</CustomerAdress>
+    <OrderDate>2022-04-28T22:02:30.8930034+03:00</OrderDate>
+    <ShipDate>2022-05-07T22:02:30.8930034+03:00</ShipDate>
+    <DeliveryDate>2022-05-10T22:02:30.8930034+03:00</DeliveryDate>
+  </Order>
+  <Order>
+    <ID>200038</ID>
+    <CustomerName>David Levi</CustomerName>
+    <CustomerEmail>david@gmail.com</CustomerEmail>
+    <CustomerAdress>buksboim 12</CustomerAdress>
+    <OrderDate>2023-01-23T22:02:30.8937469+02:00</OrderDate>
+    <ShipDate>2023-01-27T22:02:30.8937484+02:00</ShipDate>
+    <DeliveryDate>2023-01-24T22:02:30.8937486+02:00</DeliveryDate>
+  </Order>
+  <Order>
+    <ID>200023</ID>
+    <CustomerName>David Levi</CustomerName>
+    <CustomerEmail>david@gmail.com</CustomerEmail>
+    <CustomerAdress>buksboim 12</CustomerAdress>
+    <OrderDate>2023-01-21T22:02:30.8823706+02:00</OrderDate>
+    <ShipDate>2023-01-28T22:22:01.9309519+02:00</ShipDate>
+    <DeliveryDate>2023-01-28T22:22:02.9401151+02:00</DeliveryDate>
+  </Order>
+  <Order>
+    <ID>200024</ID>
+    <CustomerName>raviv</CustomerName>
+    <CustomerEmail>david@gmail.com</CustomerEmail>
+    <CustomerAdress>buksboim 12</CustomerAdress>
+    <OrderDate>2023-01-17T22:02:30.883141+02:00</OrderDate>
+    <ShipDate>2023-01-28T22:02:30.8831431+02:00</ShipDate>
+    <DeliveryDate>2023-01-28T22:22:13.0550967+02:00</DeliveryDate>
+  </Order>
+  <Order>
+    <ID>200028</ID>
+    <CustomerName>Noa</CustomerName>
+    <CustomerEmail>david@gmail.com</CustomerEmail>
+    <CustomerAdress>buksboim 12</CustomerAdress>
+    <OrderDate>2023-01-22T22:02:30.8863217+02:00</OrderDate>
+    <ShipDate>2023-01-28T22:22:22.8699002+02:00</ShipDate>
+    <DeliveryDate xsi:nil="true" />
+  </Order>
+</ArrayOfOrder>

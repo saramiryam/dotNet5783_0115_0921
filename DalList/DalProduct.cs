@@ -44,25 +44,21 @@ public class DalProduct:IProduct
     /// <exception cref="Exception">product not exists</exception>
     public Product Get(Func<Product?, bool>? predict)
     {
+        if (DataSource._Products is null)
+        {
+            throw new RequestedItemNotFoundException("order not exists,can not get") { RequestedItemNotFound = null };
+        }
+        if (predict == null)
+        {
+            throw new GetPredictNullException("the predict is empty") { GetPredictNull = null };
+        }
+        //Product? _newProduct = DataSource._Products.Find(e=> predict(e));
         try
         {
-            return productToXml.Get(predict);
+            return DataSource._Products
+                      .Where(p => predict(p))
+                      .Select(p => (Product)p!).First();
         }
-        //if (DataSource._Products is null)
-        //{
-        //    throw new RequestedItemNotFoundException("order not exists,can not get") { RequestedItemNotFound =null };
-        //}   
-        //    if (predict == null)
-        //{
-        //    throw new GetPredictNullException("the predict is empty") { GetPredictNull = null };
-        //}
-        ////Product? _newProduct = DataSource._Products.Find(e=> predict(e));
-        //try
-        //{
-        //    return DataSource._Products
-        //              .Where(p => predict(p))
-        //              .Select(p => (Product)p!).First();
-        //}
         catch
         {
             throw new RequestedItemNotFoundException("product not exists,can not do get") { RequestedItemNotFound = predict.ToString() };
@@ -82,8 +78,7 @@ public class DalProduct:IProduct
         }
         if(predict == null)
         {
-         //   return DataSource._Products;
-         return productToXml.GetAll();
+            return DataSource._Products;
         }
         else
         {
@@ -92,8 +87,8 @@ public class DalProduct:IProduct
             //return _products;
             try
             {
-                //return DataSource._Products.Where(p => predict(p))
-                //.Select(e => (DO.Product?)e!).ToList();
+                return DataSource._Products.Where(p => predict(p))
+                .Select(e => (DO.Product?)e!).ToList();
                 return productToXml.GetAll(predict);
             }
             catch
@@ -111,14 +106,14 @@ public class DalProduct:IProduct
     public void Delete(int _num)
     {
 
-       // if (DataSource._Products == null) throw new RequestedItemNotFoundException("order not exists,can not get") { RequestedItemNotFound = _num.ToString() };
+        //if (DataSource._Products == null) throw new RequestedItemNotFoundException("order not exists,can not get") { RequestedItemNotFound = _num.ToString() };
         //Product? _productToDel = new Product();
         //_productToDel = DataSource._Products.Find(e => e.HasValue && e!.Value.ID == _num);
         try
         {
-            //DataSource._Products.Remove(DataSource._Products
-            //          .Where(e => e.HasValue && e!.Value.ID == _num)
-            //          .Select(e => (Product)e!).First());
+            DataSource._Products.Remove(DataSource._Products
+                      .Where(e => e.HasValue && e!.Value.ID == _num)
+                      .Select(e => (Product)e!).First());
             productToXml.Delete(_num);
         }
         catch {
@@ -134,26 +129,23 @@ public class DalProduct:IProduct
     /// <exception cref="Exception">product not exists, can not update</exception>
     public void Update(Product _p)
     {
-        //if (  _p.Name == null || _p.Category == null )
-        //{
-        //    return;
+        if (_p.Name == null || _p.Category == null)
+        {
+            return;
 
-        //}
+        }
 
         //if (DataSource._Products == null) throw new RequestedItemNotFoundException("order not exists,can not get") { RequestedItemNotFound = _p.ToString() };
         ////Product? _productToUpdate = new Product();
         ////_productToUpdate = DataSource._Products.Find(e => e.HasValue && e!.Value.ID == _p.ID);
-        //try
-        //{
-        //    DataSource._Products.Remove(DataSource._Products
-        //       .Where(e => e is not null && e.Value.ID == _p.ID)
-        //       .Select(e => (Product?)e!).First());
-        //    DataSource._Products.Add(_p);
-        //}
         try
         {
-            productToXml.Update(_p);
+            DataSource._Products.Remove(DataSource._Products
+               .Where(e => e is not null && e.Value.ID == _p.ID)
+               .Select(e => (Product?)e!).First());
+            DataSource._Products.Add(_p);
         }
+
         catch
         {
             throw new RequestedItemNotFoundException("product not exists,can not do update") { RequestedItemNotFound = _p.ToString() };
