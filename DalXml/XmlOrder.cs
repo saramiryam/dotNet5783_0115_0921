@@ -119,9 +119,32 @@ public class XmlOrder : IOrder
     /// <returns>arrey with all the orders</returns>
     public IEnumerable<Order?> GetAll(Func<Order?, bool>? predict = null)
     {
-        //XElement OrdersRoot = XMLTools.LoadListFromXMLElement(OrderPath);
-        //if (OrdersRoot == null)
-        //    throw new RequestedItemNotFoundException("orders not exists,can not get") { RequestedItemNotFound = predict?.ToString() };
+
+
+        XElement OrdersRoot = XMLTools.LoadListFromXMLElement(OrderPath);
+        if (OrdersRoot == null)
+            throw new RequestedItemNotFoundException("orders not exists,can not get") { RequestedItemNotFound = predict?.ToString() };
+        try
+        {
+            IEnumerable<DO.Order?>? ord = OrdersRoot.Elements().Select(x =>
+            {
+                DO.Order o = new();
+                o.ID = Int32.Parse(x.Element("ID").Value.ToString());
+                o.CustomerAdress = x.Element("CustomerAdress").Value.ToString();
+                o.CustomerEmail = x.Element("CustomerEmail").Value.ToString();
+                o.CustomerName = x.Element("CustomerName").Value.ToString();
+                o.ShipDate = DateTime.Parse(x.Element("ShipDate").Value);
+                //o.DeliveryDate = DateTime.Parse(x.Element("DeliveryDate").Value.ToString());
+                //o.OrderDate = DateTime.Parse(x.Element("OrderDate").Value.ToString());
+                return (DO.Order?)o;
+            }).Where(x => predict == null || predict(x));
+            return ord;
+        }
+        catch
+        {
+            throw new RequestedItemNotFoundException("order not exists,can not get") { RequestedItemNotFound = predict?.ToString() };
+        }
+
         //if (predict == null)
         //{
         //    try
@@ -166,25 +189,25 @@ public class XmlOrder : IOrder
         //{
         //    throw new RequestedItemNotFoundException("order not exists,can not get") { RequestedItemNotFound = predict?.ToString() };
         //}
-        List<DO.Order?> ListOrders = XMLTools.LoadListFromXMLSerializer<Order?>(OrderPath);
-        if (predict == null)
-        {
-            return (IEnumerable<Order?>)ListOrders;
-        }
-        IEnumerable<Order?> order = ListOrders.FindAll(p => predict(p));
+        //List<DO.Order?> ListOrders = XMLTools.LoadListFromXMLSerializer<Order?>(OrderPath);
+        //if (predict == null)
+        //{
+        //    return (IEnumerable<Order?>)ListOrders;
+        //}
+        //IEnumerable<Order?> order = ListOrders.FindAll(p => predict(p));
 
-        if (order is null)
-            throw new RequestedItemNotFoundException("order not exists,can not do get") { RequestedItemNotFound = predict.ToString() };
+        //if (order is null)
+        //    throw new RequestedItemNotFoundException("order not exists,can not do get") { RequestedItemNotFound = predict.ToString() };
 
-        return order;
+        //return order;
     }
 
-    /// <summary>
-    /// check if the order demanded exist and delete it or throw an exception if not
-    /// </summary>
-    /// <param name="_num">id of order to delete</param>
-    /// <exception cref="Exception">order not exists, can not delete</exception>
-    public void Delete(int _id)
+        /// <summary>
+        /// check if the order demanded exist and delete it or throw an exception if not
+        /// </summary>
+        /// <param name="_num">id of order to delete</param>
+        /// <exception cref="Exception">order not exists, can not delete</exception>
+        public void Delete(int _id)
     {
         List<DO.Order?> ListOrders = XMLTools.LoadListFromXMLSerializer<DO.Order?>(OrderPath);
 
