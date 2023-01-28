@@ -133,9 +133,18 @@ public class XmlOrder : IOrder
                 o.CustomerAdress = x.Element("CustomerAdress").Value.ToString();
                 o.CustomerEmail = x.Element("CustomerEmail").Value.ToString();
                 o.CustomerName = x.Element("CustomerName").Value.ToString();
-                o.ShipDate = DateTime.Parse(x.Element("ShipDate").Value);
-                //o.DeliveryDate = DateTime.Parse(x.Element("DeliveryDate").Value.ToString());
-                //o.OrderDate = DateTime.Parse(x.Element("OrderDate").Value.ToString());
+                try
+                {
+                    o.ShipDate = DateTime.Parse(x.Element("ShipDate").Value);
+                    o.DeliveryDate = DateTime.Parse(x.Element("DeliveryDate").Value);
+                    o.OrderDate = DateTime.Parse(x.Element("OrderDate").Value);
+                }
+                catch
+                {
+                    o.ShipDate = null;
+                    o.DeliveryDate = null;
+                    o.OrderDate = null;
+                }
                 return (DO.Order?)o;
             }).Where(x => predict == null || predict(x));
             return ord;
