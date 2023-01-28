@@ -169,9 +169,9 @@ public class XmlOrder : IOrder
                 o.CustomerName = x.Element("CustomerName").Value.ToString();
                 try
                 {
-                    o.ShipDate = DateTime.Parse(x.Element("ShipDate").Value);
-                    o.DeliveryDate = DateTime.Parse(x.Element("DeliveryDate").Value);
-                    o.OrderDate = DateTime.Parse(x.Element("OrderDate").Value);
+                    o.ShipDate = DateTime.Parse(x.Element("ShipDate").Value.ToString());
+                    o.DeliveryDate = DateTime.Parse(x.Element("DeliveryDate").Value.ToString());
+                    o.OrderDate = DateTime.Parse(x.Element("OrderDate").Value.ToString());
                 }
                 catch
                 {
