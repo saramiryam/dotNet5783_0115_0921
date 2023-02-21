@@ -31,7 +31,7 @@ namespace BlImplementation
                 productsList = Dal.Product.GetAll();
             }
 
-            var addOrderItem = productsList
+            var addOrderItem = (productsList
                                .Where(item => (item is not null) && (item.Value.Category is not null))
                                .OrderBy(item => item.Value.Name)
                                .Select(item => new BO.ProductForList()
@@ -40,7 +40,7 @@ namespace BlImplementation
                                    Name = item.Value.Name,
                                    Price = item.Value.Price,
                                    Category = (BO.Enums.ECategory)item.Value.Category
-                               });
+                               })).ToList();
             return addOrderItem;
         }
 

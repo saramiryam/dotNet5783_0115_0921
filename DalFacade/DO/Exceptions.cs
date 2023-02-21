@@ -38,6 +38,14 @@ public class GetPredictNullException : Exception
     {
     }
 }
+public class CategoryNotExsistException : Exception
+{
+    public string? CategoryNotExsist { get; set; }
+
+    public CategoryNotExsistException(string msg) : base(msg)
+    {
+    }
+}
 
 public class DalConfigException : Exception
 {

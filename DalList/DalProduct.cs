@@ -24,19 +24,19 @@ public class DalProduct:IProduct
     [MethodImpl(MethodImplOptions.Synchronized)]
     public int Add(Product _p)
     {
-       return productToXml.Add(_p);
-        //if ((DataSource._Products
-        //               .Where(e => e?.Name == _p.Name&& e?.Price == _p.Price && e?.Category == _p.Category && e?.InStock == _p.InStock )
-        //               .Select (e=>(DO.Product?)e).FirstOrDefault() is not null))
-        //        /*DataSource._Products.Exists(e => e?.ID == _p.ID))*/
-        //    throw new ItemAlreadyExistsException("product exists, can not add") { ItemAlreadyExists = _p.ToString() };
 
-        //else
-        //{
-        //    _p.ID=DataSource.Config.CalNumOfProduct;
-        //    DataSource._Products.Add(_p);
-        //    return _p.ID;
-        //}
+        if ((DataSource._Products
+                       .Where(e => e?.Name == _p.Name && e?.Price == _p.Price && e?.Category == _p.Category && e?.InStock == _p.InStock)
+                       .Select(e => (DO.Product?)e).FirstOrDefault() is not null))
+            /*DataSource._Products.Exists(e => e?.ID == _p.ID))*/
+            throw new ItemAlreadyExistsException("product exists, can not add") { ItemAlreadyExists = _p.ToString() };
+
+        else
+        {
+            _p.ID = DataSource.Config.CalNumOfProduct;
+            DataSource._Products.Add(_p);
+            return _p.ID;
+        }
     }
 
     /// <summary>
@@ -94,7 +94,7 @@ public class DalProduct:IProduct
             {
                 return DataSource._Products.Where(p => predict(p))
                 .Select(e => (DO.Product?)e!).ToList();
-                return productToXml.GetAll(predict);
+              //  return productToXml.GetAll(predict);
             }
             catch
             {

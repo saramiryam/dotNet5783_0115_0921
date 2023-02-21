@@ -12,334 +12,192 @@ namespace Dal;
 public class XmlOrder : IOrder
 {
     string OrderPath = @"Orders.xml";
-
+    #region methods
 
     /// <summary>
-    /// add a new order to the list of orders
+    /// add a new product to the list of products
     /// </summary>
-    /// <param name="_p">an order</param>
-    /// <returns>int of the id of the order</returns>
-    /// <exception cref="Exception">order exists</exception>
-    public int Add(DO.Order _o)
+    /// <param name="_p">a product</param>
+    /// <returns>int of the id of the product</returns>
+    /// <exception cref="Exception">product exists</exception>
+    public int Add(Order _p)
     {
-        XElement OrdersRoot = XMLTools.LoadListFromXMLElement(OrderPath);
-        if (OrdersRoot == null)
+        List<Order?> ListOrder = XMLTools.LoadListFromXMLSerializer<Order?>(OrderPath);
+        if (ListOrder.FirstOrDefault(e => e?.CustomerEmail == _p.CustomerEmail && e?.CustomerName == _p.CustomerName && e?.OrderDate == _p.OrderDate ) is not null)
         {
-            throw new RequestedItemNotFoundException("order not exists,can not get") { RequestedItemNotFound = _o.ToString() };
+            throw new ItemAlreadyExistsException("Order exists, can not add") { ItemAlreadyExists = _p.ToString() };
         }
-
-        XElement ifExsistOrder = (from p in OrdersRoot.Elements()
-                                  where int.Parse(p.Element("ID").Value) == _o.ID
-                                  select p).FirstOrDefault();
-
-        if (ifExsistOrder != null)
-
-            throw new DO.ItemAlreadyExistsException("order exists, can not add") { ItemAlreadyExists = _o.ToString() };
-        int id = XmlConfig.getOrderId();
-        XElement OrderElement = new XElement("Order", new XElement("ID", id.ToString()),
-                                new XElement("CustomerEmail", _o.CustomerEmail),
-                                new XElement("CustomerName", _o.CustomerName),
-                                new XElement("CustomerAdress", _o.CustomerAdress),
-                                new XElement("OrderDate", DateTime.Now.ToString()),
-                                new XElement("ShipDate", _o.ShipDate == null ? null : _o.ShipDate.ToString()),
-                                new XElement("DeliveryDate", _o.DeliveryDate == null ? null : _o.DeliveryDate.ToString()));
-
-        OrdersRoot.Add(OrderElement);
-        XMLTools.SaveListToXMLElement(OrdersRoot, OrderPath);
-        return id;
-        #region temp
-
-        //    List<DO.Order?> ListOrders = XMLTools.LoadListFromXMLSerializer<Order?>(OrderPath);
-
-        //    if (ListOrders.FirstOrDefault(e => e?.ID == _o.ID ) != null)
-        //        throw new ItemAlreadyExistsException("order exists, can not add") { ItemAlreadyExists = _o.ToString() };
-
-        //    //לשנות ID
-        //    _o.ID = XmlConfig.getOrderId();
-        //    ListOrders.Add(_o); //no need to Clone()
-        //    XMLTools.SaveListToXMLSerializer(ListOrders, OrderPath);
-        //  return _o.ID;
-       
-        #endregion
-
+        _p.ID = XmlConfig.getOrderId();
+        ListOrder.Add(_p);
+        XMLTools.SaveListToXMLSerializer(ListOrder, OrderPath);
+        return _p.ID;
     }
+
+
     /// <summary>
-    /// check if the order demanded exist and return it or an exception if not
+    /// check if the product demanded exist and return it or an exception if not
     /// </summary>
-    /// <param name="_num">the id of the order demanded</param>
-    /// <returns>details of the order demanded</returns>
-    /// <exception cref="Exception">order not exists</exception>
+    /// <param name="_num">the id of the product demanded</param>
+    /// <returns>details of the product demanded</returns>
+    /// <exception cref="Exception">product not exists</exception>
     public Order Get(Func<Order?, bool>? predict)
     {
+        List<Order?> ListOrder = XMLTools.LoadListFromXMLSerializer<Order?>(OrderPath);
 
-
-
-        XElement OrdersRoot = XMLTools.LoadListFromXMLElement(OrderPath);
-
-        if (OrdersRoot == null)
+        if (ListOrder == null)
         {
-            throw new RequestedItemNotFoundException("order not exists,can not get") { RequestedItemNotFound = predict?.ToString() };
+            throw new RequestedItemNotFoundException("order not exists,can not get") { RequestedItemNotFound = null };
         }
         if (predict == null)
         {
             throw new GetPredictNullException("the predict is empty") { GetPredictNull = null };
         }
-
         try
         {
-            IEnumerable<DO.Order?>? ord = OrdersRoot.Elements().Select(x =>
-            {
-                DO.Order o = new();
-                o.ID = Int32.Parse(x.Element("ID").Value);
-                o.CustomerAdress = x.Element("CustomerAdress").Value;
-                o.CustomerEmail = x.Element("CustomerEmail").Value;
-                o.CustomerName = x.Element("CustomerName").Value;
-                o.ShipDate = DateTime.Parse(x.Element("ShipDate").Value);
-                o.DeliveryDate = DateTime.Parse(x.Element("DeliveryDate").Value);
-                o.OrderDate = DateTime.Parse(x.Element("OrderDate").Value);
-                return (DO.Order?)o;
-            }).Where(x => predict(x));
-            return (Order)ord.FirstOrDefault();
+            DO.Order? order = ListOrder.Find(p => predict(p));
+            return (Order)order;
         }
         catch
         {
-            throw new RequestedItemNotFoundException("order not exists,can not get") { RequestedItemNotFound = predict?.ToString() };
+            throw new RequestedItemNotFoundException("product not exists,can not do get") { RequestedItemNotFound = predict.ToString() };
         }
-
-        #region temp
-        //List<DO.Order?> ListOrders = XMLTools.LoadListFromXMLSerializer<Order?>(OrderPath);
-        //if (predict == null)
-        //{
-        //    throw new GetPredictNullException("the predict is empty") { GetPredictNull = null };
-        //}
-        //DO.Order? order = ListOrders.Find(p => predict(p));
-
-        //if (order != null)
-        //    return (DO.Order)order; //no need to Clone()
-        //else
-
-        //    throw new RequestedItemNotFoundException("orderItem not exists,can not do get") { RequestedItemNotFound = predict.ToString() };
-
-
-        //if (predict == null)
-        //{
-        //    throw new GetPredictNullException("the predict is empty") { GetPredictNull = null };
-        //}
-
-        //try
-        //{
-        //    return (from order in OrdersRoot.Elements()
-        //            let o1 = new DO.Order()
-        //            {
-        //                ID = Int32.Parse(order.Element("ID").Value),
-        //                CustomerAdress = order.Element("CustomerAdress").Value,
-        //                CustomerEmail = order.Element("CustomerEmail").Value,
-        //                CustomerName = order.Element("CustomerName").Value,
-        //                ShipDate = DateTime.Parse(order.Element("ShipDate").Value),
-        //                DeliveryDate = DateTime.Parse(order.Element("DeliveryDate").Value),
-        //                OrderDate = DateTime.Parse(order.Element("OrderDate").Value)
-
-        //            }
-        //            where predict(o1)
-        //            select o1).FirstOrDefault();
-        //}
-        #endregion
-
     }
 
+
     /// <summary>
-    /// cope the orders to a new arrey and return it
+    /// cope the products to a new arrey and return it
     /// </summary>
-    /// <returns>arrey with all the orders</returns>
+    /// <returns>arrey with all the products</returns>
     public IEnumerable<Order?> GetAll(Func<Order?, bool>? predict = null)
     {
+        List<Order?> ListOrder = XMLTools.LoadListFromXMLSerializer<Order?>(OrderPath);
 
 
-        XElement OrdersRoot = XMLTools.LoadListFromXMLElement(OrderPath);
-        if (OrdersRoot == null)
-            throw new RequestedItemNotFoundException("orders not exists,can not get") { RequestedItemNotFound = predict?.ToString() };
-        try
+        if (ListOrder == null)
         {
-            IEnumerable<DO.Order?>? ord = OrdersRoot.Elements().Select(x =>
+            throw new RequestedItemNotFoundException("order not exists,can not get") { RequestedItemNotFound = "jjj".ToString() };
+        }
+        if (predict == null)
+        {
+            return (IEnumerable<Order?>)ListOrder;
+
+        }
+        else
+        {
+            //List<Product?> _products = new List<Product?>();
+            //_products=DataSource._Products.FindAll(e=> predict(e)); 
+            //return _products;
+            try
             {
-                DO.Order o = new();
-                o.ID = Int32.Parse(x.Element("ID").Value.ToString());
-                o.CustomerAdress = x.Element("CustomerAdress").Value.ToString();
-                o.CustomerEmail = x.Element("CustomerEmail").Value.ToString();
-                o.CustomerName = x.Element("CustomerName").Value.ToString();
-                try
-                {
-                    o.ShipDate = DateTime.Parse(x.Element("ShipDate").Value);
-                    o.DeliveryDate = DateTime.Parse(x.Element("DeliveryDate").Value);
-                    o.OrderDate = DateTime.Parse(x.Element("OrderDate").Value);
-                }
-                catch
-                {
-                    o.ShipDate = null;
-                    o.DeliveryDate = null;
-                    o.OrderDate = null;
-                }
-                return (DO.Order?)o;
-            }).Where(x => predict == null || predict(x));
-            return ord;
+                IEnumerable<Order?> order = ListOrder.FindAll(p => predict(p));
+                return (IEnumerable<Order?>)order;
+            }
+            catch
+            {
+                throw new RequestedItemNotFoundException("order not exists,can not get") { RequestedItemNotFound = "jjj".ToString() };
+            }
         }
-        catch
-        {
-            throw new RequestedItemNotFoundException("order not exists,can not get") { RequestedItemNotFound = predict?.ToString() };
-        }
-        #region temp
-
-        //if (predict == null)
-        //{
-        //    try
-        //    {
-        //        var i= ((from order in OrdersRoot.Element()
-        //                                      select new DO.Order()
-        //                                      {
-        //                                          ID = Int32.Parse(order.Element("ID").Value.ToString()),
-        //                                          CustomerAdress = order.Element("CustomerAdress").Value.ToString(),
-        //                                          CustomerEmail = order.Element("CustomerEmail").Value.ToString(),
-        //                                          CustomerName = order.Element("CustomerName").Value.ToString(),
-        //                                          ShipDate = DateTime.Parse(order.Element("ShipDate").Value.ToString()),
-        //                                          DeliveryDate = DateTime.Parse(order.Element("DeliveryDate").Value.ToString()),
-        //                                          OrderDate = DateTime.Parse(order.Element("OrderDate").Value.ToString())
-
-        //                                      }));
-        //        return (IEnumerable<Order?>)i;
-        //    }
-        //    catch
-        //    {
-        //        throw new RequestedItemNotFoundException("order not exists,can not get") { RequestedItemNotFound = predict?.ToString() };
-        //    }
-        //}
-        //try
-        //{
-        //    return ((IEnumerable<Order?>)from order in OrdersRoot.Elements()
-        //                                 let o1 = new DO.Order()
-        //                                 {
-        //                                     ID = Int32.Parse(order.Element("ID").Value),
-        //                                     CustomerAdress = order.Element("CustomerAdress").Value,
-        //                                     CustomerEmail = order.Element("CustomerEmail").Value,
-        //                                     CustomerName = order.Element("CustomerName").Value,
-        //                                     ShipDate = DateTime.Parse(order.Element("ShipDate").Value),
-        //                                     DeliveryDate = DateTime.Parse(order.Element("DeliveryDate").Value),
-        //                                     OrderDate = DateTime.Parse(order.Element("OrderDate").Value)
-
-        //                                 }
-        //                                 where predict(o1)
-        //                                 select o1);
-        //}
-        //catch
-        //{
-        //    throw new RequestedItemNotFoundException("order not exists,can not get") { RequestedItemNotFound = predict?.ToString() };
-        //}
-        //List<DO.Order?> ListOrders = XMLTools.LoadListFromXMLSerializer<Order?>(OrderPath);
-        //if (predict == null)
-        //{
-        //    return (IEnumerable<Order?>)ListOrders;
-        //}
-        //IEnumerable<Order?> order = ListOrders.FindAll(p => predict(p));
-
-        //if (order is null)
-        //    throw new RequestedItemNotFoundException("order not exists,can not do get") { RequestedItemNotFound = predict.ToString() };
-
-        //return order;
-
-        #endregion
     }
 
     /// <summary>
-    /// check if the order demanded exist and delete it or throw an exception if not
+    /// check if the product demanded exist and delete it or throw an exception if not
     /// </summary>
-    /// <param name="_num">id of order to delete</param>
-    /// <exception cref="Exception">order not exists, can not delete</exception>
-    public void Delete(int _id)
+    /// <param name="_num">id of product to delete</param>
+    /// <exception cref="Exception">product not exists, can not delete</exception>
+    public void Delete(int _num)
     {
+        List<Order?> ListOrder = XMLTools.LoadListFromXMLSerializer<Order?>(OrderPath);
 
-        //XElement OrderRoot = XMLTools.LoadListFromXMLElement(OrderPath);
-
-        //if (OrderRoot is null)
-        //    throw new RequestedItemNotFoundException("orders not exists,can not get") { RequestedItemNotFound = _id.ToString() };
-
-        //XElement ord = (from ordr in OrderRoot.Elements()
-        //                where int.Parse(ordr.Element("ID").Value) == _id
-        //                select ordr).FirstOrDefault();
-
-        //if (ord != null)
-        //{
-        //    ord.Remove(); //<==>   Remove per from personsRootElem
-
-        //    XMLTools.SaveListToXMLElement(OrderRoot, OrderPath);
-        //}
-        //else
-        //    throw new RequestedItemNotFoundException("order not exists,can not delete") { RequestedItemNotFound = _id.ToString() };
-        #region temp
-
-        List<DO.Order?> ListOrders = XMLTools.LoadListFromXMLSerializer<DO.Order?>(OrderPath);
-
-        DO.Order? ord = ListOrders.Find(p => p?.ID == _id);
+        if (ListOrder == null)
+        {
+            throw new RequestedItemNotFoundException("Order not exists,can not get") { RequestedItemNotFound = _num.ToString() };
+        }
+        DO.Order? pre = ListOrder.Find(p => p?.ID == _num);
         try
         {
-            if (ord != null)
+            if (pre != null)
             {
-                ListOrders.Remove(ord);
-                XMLTools.SaveListToXMLSerializer(ListOrders, OrderPath);
+                ListOrder.Remove(pre);
+                XMLTools.SaveListToXMLSerializer(ListOrder, OrderPath);
+
             }
         }
         catch
         {
-            throw new RequestedItemNotFoundException("order not exists,can not delete") { RequestedItemNotFound = _id.ToString() };
+            throw new RequestedItemNotFoundException("Order not exists,can not do delete") { RequestedItemNotFound = _num.ToString() };
         }
-        #endregion
+
+
     }
 
     /// <summary>
-    /// update date of order and throw exception if it does not exist
+    /// update data of product and throw exception if it does not exist
     /// </summary>
-    /// <param name="_p"> id of order demanded to change</param>
+    /// <param name="_p"> id of product demanded to change</param>
     /// <exception cref="Exception">product not exists, can not update</exception>
     public void Update(Order _o)
     {
-
-        //XElement OrdersRoot = XMLTools.LoadListFromXMLElement(OrderPath);
-        //if (OrdersRoot is null)
-        //    throw new RequestedUpdateItemNotFoundException("order not exists,can not update") { RequestedUpdateItemNotFound = _o.ToString() };
-        //XElement ord = (from ordr in OrdersRoot.Elements()
-        //                where int.Parse(ordr.Element("ID").Value) == _o.ID
-        //                select ordr).FirstOrDefault();
-
-        //if (ord != null)
-        //{
-
-        //    ord.Element("ID").Value = _o.ID.ToString();
-        //    ord.Element("CustomerEmail").Value = _o.CustomerEmail;
-        //    ord.Element("CustomerName").Value = _o.CustomerName;
-        //    ord.Element("CustomerAdress").Value = _o.CustomerAdress;
-        //    ord.Element("OrderDate").Value = DateTime.Now.ToString();
-        //    ord.Element("ShipDate").Value = null;
-        //    ord.Element("DeliveryDate").Value = null;
-        //    ord.Element("ID").Value = _o.ID.ToString();
-
-        //    XMLTools.SaveListToXMLElement(OrdersRoot, OrderPath);
-        //}
-        #region temp
-        List<DO.Order?> ListOrders = XMLTools.LoadListFromXMLSerializer<DO.Order?>(OrderPath);
-        if (ListOrders is null)
-            throw new RequestedItemNotFoundException("orderItem not exists,can not do get") { RequestedItemNotFound = _o.ToString() };
-        DO.Order? ord = ListOrders.Find(p => p?.ID == _o.ID);
+        List<Order?> ListOrder = XMLTools.LoadListFromXMLSerializer<Order?>(OrderPath);
+        if (ListOrder is null)
+            throw new RequestedItemNotFoundException("Order not exists,can not get") { RequestedItemNotFound = _o.ToString() };
+        DO.Order? order = ListOrder.Find(p => p?.ID == _o.ID);
         try
         {
-            if (ord != null)
+            if (order != null)
             {
-                ListOrders.Remove(ord);
-                ListOrders.Add(_o); //no nee to Clone()
-                XMLTools.SaveListToXMLSerializer(ListOrders, OrderPath);
+                ListOrder.Remove(order);
+                ListOrder.Add(_o); //no nee to Clone()
+                XMLTools.SaveListToXMLSerializer(ListOrder, OrderPath);
+
             }
         }
         catch
         {
-            throw new RequestedItemNotFoundException("orderItem not exists,can not update") { RequestedItemNotFound = _o.ToString() };
+            throw new RequestedItemNotFoundException("Order not exists,can not do update") { RequestedItemNotFound = _o.ToString() };
         }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   
         #endregion
 
     }

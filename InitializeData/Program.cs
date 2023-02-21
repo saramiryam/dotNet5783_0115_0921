@@ -34,21 +34,24 @@ public static class Program
 
     public static void Main()
     {
-        XmlOrder ordr=new XmlOrder();
+        XmlProduct products = new XmlProduct();
         string dir = @"../xml/";
 
         if (!File.Exists(dir + @"Orders.xml") && !File.Exists(dir + @"OrderItems.xml") && !File.Exists(dir + @"Product.xml"))
         {
             s_initialize();
-            XElement rootElemO = new XElement(@"Orders.xml");
-            foreach (var u in _Orders)
-                ordr.Add((DO.Order)u);
-
-
-            FileStream file = new FileStream(dir + @"Product.xml", FileMode.Create);
-            XmlSerializer p = new XmlSerializer(_Products.GetType());
-            p.Serialize(file, _Products);
-            file.Close();
+         
+            FileStream file2 = new FileStream(dir + @"Orders.xml", FileMode.Create);
+            XmlSerializer p2 = new XmlSerializer(_Orders.GetType());
+            p2.Serialize(file2, _Orders);
+            file2.Close();
+            XElement rootElemO = new XElement(@"Product.xml");
+            foreach (var u in _Products)
+                products.Add((DO.Product)u);
+            //FileStream file = new FileStream(dir + @"Product.xml", FileMode.Create);
+            //XmlSerializer p = new XmlSerializer(_Products.GetType());
+            //p.Serialize(file, _Products);
+            //file.Close();
             FileStream fileOI = new FileStream(dir + @"OrderItems.xml", FileMode.Create);
             XmlSerializer OI = new XmlSerializer(_arrOrderItem.GetType());
             OI.Serialize(fileOI, _arrOrderItem);
