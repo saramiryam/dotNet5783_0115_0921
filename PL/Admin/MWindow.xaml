@@ -6,10 +6,15 @@
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
         Title="MWindow" Height="450" Width="800">
-    <Grid HorizontalAlignment="Right" Width="800">
+    <Grid HorizontalAlignment="Right" Width="800" TextBlock.FontSize="25" TextBlock.FontStyle="Italic">
 
-        <Button  Width="120" Height="70"  Name="backToMain"  Content="back" VerticalAlignment="Top" Click="backToMain_Click" FontStyle="Oblique" FontSize="25" FontWeight="ExtraBlack" Foreground="blue" Background="Yellow" RenderTransformOrigin="3.043,1.523" Margin="615,320,65,0"></Button>
-        <Button  Width="120" Height="70"  Name="productList"  Content="products" VerticalAlignment="Top" Click="productList_Click" FontStyle="Oblique" FontSize="25" FontWeight="ExtraBlack" Foreground="blue" Background="Yellow" RenderTransformOrigin="3.043,1.523" Margin="615,50,65,0"></Button>
-        <Button  Width="120" Height="70"  Name="orderList"  Content="orders" VerticalAlignment="Top" Click="orderList_Click" FontStyle="Oblique" FontSize="25" FontWeight="ExtraBlack" Foreground="blue" Background="Yellow" RenderTransformOrigin="3.043,1.523" Margin="615,150,65,0"></Button>
+        <Grid.Background>
+            <ImageBrush Stretch="Uniform" ImageSource="/imege/1.jpg"></ImageBrush>
+        </Grid.Background>
+        <!--<ImageBrush Stretch="Uniform" Source="/imege/1.jpg"></ImageBrush>-->
+        <Button  Width="120" Height="70"  Name="backToMain" BorderThickness="5"  Content="back" VerticalAlignment="Top" Click="backToMain_Click" BorderBrush="LightBlue" FontStyle="Oblique"  FontWeight="ExtraBlack" Foreground="blue" Background="White" RenderTransformOrigin="3.043,1.523" Margin="615,320,65,0"></Button>
+        <Button  Width="120" Height="70"  Name="productList"  Content="products" BorderThickness="5" VerticalAlignment="Top" FontWeight="ExtraBlack"  BorderBrush="LightBlue" Click="productList_Click" FontStyle="Oblique"  Foreground="blue" Background="White" RenderTransformOrigin="3.043,1.523" Margin="555,38,125,0"></Button>
+        <Button  Width="120" Height="70"  Name="orderList"  Content="orders" BorderThickness="5" VerticalAlignment="Top" Click="orderList_Click" BorderBrush="LightBlue" FontStyle="Oblique"  FontWeight="ExtraBlack" Foreground="blue" Background="White" RenderTransformOrigin="3.043,1.523" Margin="615,150,65,0"></Button>
+        <!--<Image Margin="195,0,-355,-202" Source="/imege/1.jpg" Stretch="Fill"/>-->
     </Grid>
 </Window>
