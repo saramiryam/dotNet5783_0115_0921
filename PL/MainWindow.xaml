@@ -7,11 +7,14 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid >
-        <Button Background="Yellow" FontWeight="ExtraBlack" Foreground="Blue" x:Name="Admin" Content="Admin" HorizontalAlignment="Left" Margin="187,181,0,0" VerticalAlignment="Top" Height="45" Width="82" Click="Admin_Click" />
-        <Button Background="Yellow" FontWeight="ExtraBlack" Foreground="Blue" x:Name="NewOrder" Content="New Order" HorizontalAlignment="Center" Margin="0,181,0,0" VerticalAlignment="Top" Height="45" Width="100" Click="NewOrder_Click" />
-        <Button Background="Yellow" FontWeight="ExtraBlack" Foreground="Blue" x:Name="OrderTracking" Content="Order Tracking" HorizontalAlignment="Left" Margin="539,181,0,0" VerticalAlignment="Top" Height="45" Width="84" Click="OrderTracking_Click" />
-        <Button Content="simulator" HorizontalAlignment="Center" Margin="0,74,0,0" VerticalAlignment="Top" Height="34" Width="100" Click="Button_Click"/>
-       
+        <!--<Grid.Background>
+            <ImageBrush Stretch="Uniform" ImageSource="/imege/4.JPG"></ImageBrush>
+        </Grid.Background>-->
+        <Button Foreground="#FFEB6145" x:Name="Admin" Content="Admin" HorizontalAlignment="Left" Margin="475,138,0,0" VerticalAlignment="Top" Height="54" Width="186" Click="Admin_Click" FontSize="20" FontFamily="Lucida Calligraphy" FontStyle="Italic" RenderTransformOrigin="0.5,0.5" FontWeight="Bold" BorderThickness="0,0,0,0" Background="White" />
+        <Button  Foreground="#FFEB6145" x:Name="NewOrder" Content="New Order" HorizontalAlignment="Left" Margin="475,217,0,0" VerticalAlignment="Top" Height="54" Width="186" Click="NewOrder_Click" FontSize="20" FontStyle="Italic" FontFamily="Lucida Calligraphy" FontWeight="Bold" RenderTransformOrigin="0.557,-3.518"  BorderThickness="0,0,0,0" Background="White" />
+        <Button  FontWeight="Bold" Foreground="#FFEB6145" x:Name="OrderTracking" Content="Order Tracking" HorizontalAlignment="Left" Margin="475,295,0,0" VerticalAlignment="Top" Height="54" Width="186" Click="OrderTracking_Click" FontFamily="Lucida Calligraphy" FontSize="20"  BorderThickness="0,0,0,0" Background="White" />
+        <Button Content="simulator" HorizontalAlignment="Left" Margin="507,38,0,0" VerticalAlignment="Top" Height="54" Width="122" Click="Button_Click" FontFamily="Lucida Calligraphy" FontSize="20" Foreground="#FFEB6145" FontWeight="Bold" BorderThickness="0,0,0,0" Background="White"/>
+
 
     </Grid>
 </Window>

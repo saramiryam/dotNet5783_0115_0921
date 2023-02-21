@@ -91,7 +91,7 @@ namespace PL.Product
 
         private void Back_Click(object sender, RoutedEventArgs e)
         {
-            new MProductListWindow().Show();
+            //new MProductListWindow().Show();
             Close();
         }
 

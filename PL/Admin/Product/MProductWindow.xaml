@@ -12,18 +12,28 @@
     <Grid>
 
         <Grid x:Name="MainGrid" DataContext="{Binding ProductToUpOrAdd}">
-            <Button Background="Yellow" FontWeight="ExtraBlack" Foreground="Blue" Content="back"  HorizontalAlignment="Left" Margin="10,3,0,0" Padding="5" Width="199" Height="28" VerticalAlignment="Top" Click="Back_Click"/>
-            <Label x:Name="idLabel" Content="id"   HorizontalAlignment="Left" Margin="225,91,0,0" VerticalAlignment="Top"/>
-            <TextBox Background="LightBlue" PreviewTextInput="NumberValidationTextBox" x:Name="id" HorizontalAlignment="Left" Margin="289,91,0,0" TextWrapping="Wrap" Text="{Binding ID,Mode=TwoWay}" VerticalAlignment="Top" Width="120" IsReadOnly="False" TextChanged="id_TextChanged"/>
-            <Label   Content="chooseCategoryToAdd" HorizontalAlignment="Left" Margin="140,188,0,0" VerticalAlignment="Top"/>
-            <ComboBox x:Name="chooseCategoryToAdd" SelectedItem="{Binding Category,Mode=TwoWay}"  HorizontalAlignment="Left" Margin="289,190,0,0" ItemsSource="{Binding Source={x:Static local:MProductWindow.Categories}}" VerticalAlignment="Top" Width="120" SelectionChanged="chooseCategoryToAdd_SelectionChanged"/>
-            <Label Content="name" HorizontalAlignment="Left" Margin="203,139,0,0" VerticalAlignment="Top"/>
-            <TextBox Background="LightBlue" x:Name="name" PreviewTextInput="TextValidationTextBox" HorizontalAlignment="Left" Margin="289,139,0,0" TextWrapping="Wrap" Text="{Binding Name,Mode=TwoWay}" VerticalAlignment="Top" Width="120" TextChanged="name_TextChanged"/>
-            <Label Content="price" HorizontalAlignment="Left" Margin="202,231,0,0" VerticalAlignment="Top"/>
-            <TextBox Background="LightBlue" x:Name="price" PreviewTextInput="NumberValidationTextBox" HorizontalAlignment="Left" Margin="289,231,0,0" TextWrapping="Wrap" Text="{Binding Price,Mode=TwoWay}" VerticalAlignment="Top" Width="120" TextChanged="price_TextChanged"/>
-            <Label Content="inStock" HorizontalAlignment="Left" Margin="196,267,0,0" VerticalAlignment="Top"/>
-            <TextBox Background="LightBlue" x:Name="inStock" PreviewTextInput="NumberValidationTextBox" HorizontalAlignment="Left" Margin="289,271,0,0" TextWrapping="Wrap" Text="{Binding InStock,Mode=TwoWay}" VerticalAlignment="Top" Width="120" TextChanged="inStock_TextChanged"/>
-            <Button  Background="Yellow" FontWeight="ExtraBlack" Foreground="Blue" x:Name="addOrUpdateButton" Content="{Binding Source={x:Static local:MProductWindow.MyContent}}" HorizontalAlignment="Left" Margin="479,349,0,0" VerticalAlignment="Top" Click="addButton_Click" />
+            <!--<Grid.Background>
+                <ImageBrush Stretch="Uniform" ImageSource="/imege/5.JPG"></ImageBrush>
+            </Grid.Background>-->
+            <Button Background="White" FontWeight="ExtraBlack" Foreground="Black" Content="back"  HorizontalAlignment="Left" Margin="106,362,0,0" Padding="5" Width="89" Height="39" VerticalAlignment="Top" Click="Back_Click" FontSize="22" BorderThickness="0,0,0,0"/>
+            <Label x:Name="idLabel" Content="id"   HorizontalAlignment="Left" Margin="247,65,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.775,-0.353" FontSize="16" FontWeight="Bold"/>
+            <TextBox Background="White" PreviewTextInput="NumberValidationTextBox" x:Name="id" HorizontalAlignment="Left" Margin="289,69,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" IsReadOnly="False" TextChanged="id_TextChanged" BorderThickness="0,0,0,0"/>
+            <Label   Content="category" HorizontalAlignment="Left" Margin="198,149,0,0" VerticalAlignment="Top" FontSize="16" FontWeight="Bold"/>
+            <ComboBox x:Name="chooseCategoryToAdd" SelectedItem="{Binding Category,Mode=TwoWay}"  HorizontalAlignment="Left" Margin="289,154,0,0" ItemsSource="{Binding Source={x:Static local:MProductWindow.Categories}}" VerticalAlignment="Top" Width="120" SelectionChanged="chooseCategoryToAdd_SelectionChanged" BorderThickness="0,0,0,0">
+                <ComboBox.Background>
+                    <LinearGradientBrush EndPoint="0,1">
+                        <GradientStop Color="#FFF0F0F0"/>
+                        <GradientStop Color="White" Offset="1"/>
+                    </LinearGradientBrush>
+                </ComboBox.Background>
+            </ComboBox>
+            <Label Content="name" HorizontalAlignment="Left" Margin="221,106,0,0" VerticalAlignment="Top" FontSize="16" FontWeight="Bold"/>
+            <TextBox Background="White" x:Name="name" PreviewTextInput="TextValidationTextBox" HorizontalAlignment="Left" Margin="289,110,0,0" TextWrapping="Wrap" Text="{Binding Name,Mode=TwoWay}" VerticalAlignment="Top" Width="120" TextChanged="name_TextChanged" BorderThickness="0,0,0,0"/>
+            <Label Content="price" HorizontalAlignment="Left" Margin="229,195,0,0" VerticalAlignment="Top" FontSize="16" FontWeight="Bold"/>
+            <TextBox Background="White" x:Name="price" PreviewTextInput="NumberValidationTextBox" HorizontalAlignment="Left" Margin="289,199,0,0" TextWrapping="Wrap" Text="{Binding Price,Mode=TwoWay}" VerticalAlignment="Top" Width="120" TextChanged="price_TextChanged" BorderThickness="0,0,0,0"/>
+            <Label Content="inStock" HorizontalAlignment="Left" Margin="209,238,0,0" VerticalAlignment="Top" FontSize="16" RenderTransformOrigin="-0.342,0.518" FontWeight="Bold"/>
+            <TextBox Background="White" x:Name="inStock" PreviewTextInput="NumberValidationTextBox" HorizontalAlignment="Left" Margin="289,242,0,0" TextWrapping="Wrap" Text="{Binding InStock,Mode=TwoWay}" VerticalAlignment="Top" Width="120" TextChanged="inStock_TextChanged" BorderThickness="0,0,1,0"/>
+            <Button  Background="White" Foreground="Black" x:Name="addOrUpdateButton" Content="{Binding Source={x:Static local:MProductWindow.MyContent}}" HorizontalAlignment="Left" Margin="602,362,0,0" VerticalAlignment="Top" Click="addButton_Click" RenderTransformOrigin="1.812,1.197" Height="39" Width="89" FontSize="22" BorderThickness="0,0,0,0" FontWeight="Bold" />
 
         </Grid>
         <Grid>
