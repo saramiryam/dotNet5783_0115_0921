@@ -6,6 +6,8 @@ using static DO.Enums;
 namespace Dal;
 using DalXml;
 using DalApi;
+using System.Runtime.CompilerServices;
+
 public class DalProduct:IProduct
 {
     XmlProduct productToXml = new XmlProduct();
@@ -19,6 +21,7 @@ public class DalProduct:IProduct
     /// <param name="_p">a product</param>
     /// <returns>int of the id of the product</returns>
     /// <exception cref="Exception">product exists</exception>
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public int Add(Product _p)
     {
        return productToXml.Add(_p);
@@ -42,6 +45,7 @@ public class DalProduct:IProduct
     /// <param name="_num">the id of the product demanded</param>
     /// <returns>details of the product demanded</returns>
     /// <exception cref="Exception">product not exists</exception>
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public Product Get(Func<Product?, bool>? predict)
     {
         if (DataSource._Products is null)
@@ -70,6 +74,7 @@ public class DalProduct:IProduct
     /// cope the products to a new arrey and return it
     /// </summary>
     /// <returns>arrey with all the products</returns>
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public IEnumerable<Product?> GetAll(Func<Product?, bool>? predict=null)
     {
         if (DataSource._Products == null)
@@ -103,6 +108,7 @@ public class DalProduct:IProduct
     /// </summary>
     /// <param name="_num">id of product to delete</param>
     /// <exception cref="Exception">product not exists, can not delete</exception>
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public void Delete(int _num)
     {
 
@@ -127,6 +133,7 @@ public class DalProduct:IProduct
     /// </summary>
     /// <param name="_p"> id of product demanded to change</param>
     /// <exception cref="Exception">product not exists, can not update</exception>
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public void Update(Product _p)
     {
         if (_p.Name == null || _p.Category == null)

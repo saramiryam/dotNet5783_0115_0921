@@ -5,6 +5,7 @@ using DO;
 using System;
 using System.Collections.Immutable;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Security.Cryptography;
 using System.Text.RegularExpressions;
 using Factory = DalApi.Factory;
@@ -20,6 +21,7 @@ namespace BlImplementation
 
         #region Methodes
 
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<BO.ProductForList> GetListOfProduct()
         {
             IEnumerable<DO.Product?> productsList = new List<DO.Product?>();
@@ -41,6 +43,9 @@ namespace BlImplementation
                                });
             return addOrderItem;
         }
+
+
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public BO.ProductForList? GetProductForList(int id)
         {
             IEnumerable<DO.Product?> productsList = new List<DO.Product?>();
@@ -59,6 +64,9 @@ namespace BlImplementation
              }).FirstOrDefault();
 
         }
+
+
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<BO.ProductForList> GetProductForListByCategory(BO.Enums.ECategory category)
         {
             IEnumerable<DO.Product?> productsList = new List<DO.Product?>();
@@ -96,6 +104,9 @@ namespace BlImplementation
                        });
             return listByCategory;
         }
+
+
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public BO.Product GetProductDetails(int id)
         {
             if (id <= 0)
@@ -124,6 +135,8 @@ namespace BlImplementation
 
             }
         }
+
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public BO.ProductItem? GetProductItemDetails(BO.Cart MyCart, int id)
         {
             if (id <= 0)
@@ -157,6 +170,9 @@ namespace BlImplementation
 
             return p;
         }
+
+
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<BO.ProductItem?> GetProductItemList(Func<DO.Product?, bool>? predict = null)
         {
             IEnumerable<DO.Product?> productsList = new List<DO.Product?>();
@@ -202,6 +218,9 @@ namespace BlImplementation
 
                }).ToList();
         }
+
+
+        [MethodImpl(MethodImplOptions.Synchronized)]
 
         public BO.ProductItem GetProductItemForCatalog(int id, BO.Cart CostumerCart)
         {
@@ -250,6 +269,8 @@ namespace BlImplementation
             }
         }
 
+
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public int AddProduct(BO.Product p)
         {
             //לדאוג שהפונקציה מתחת תבדוק גם את תקינות הקטגוריה
@@ -292,6 +313,8 @@ namespace BlImplementation
             }
         }
 
+
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void UpdateProduct(BO.Product item)
         {
 
@@ -316,6 +339,9 @@ namespace BlImplementation
 
         }
 
+
+
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void DeleteProduct(int id)
         {
             IEnumerable<DO.OrderItem?> orderList = new List<DO.OrderItem?>();
@@ -360,6 +386,7 @@ namespace BlImplementation
         #region help methodes
 
         #region DO to BO
+        [MethodImpl(MethodImplOptions.Synchronized)]
         private static BO.Product DOToBO(DO.Product p)
         {
             if (p.Category != null)
@@ -383,6 +410,7 @@ namespace BlImplementation
         #endregion
 
         #region check corect data
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public static void CheckCorectData(int id, string? name, BO.Enums.ECategory? category, double price, int inStock)
         {
             if (id < 100000)
@@ -411,7 +439,7 @@ namespace BlImplementation
         #endregion
 
         #region new product with data
-
+        [MethodImpl(MethodImplOptions.Synchronized)]
         private static DO.Product NewProductWithData(int id, string name, BO.Enums.ECategory category, double price, int inStock)
         {
             DO.Product p = new()

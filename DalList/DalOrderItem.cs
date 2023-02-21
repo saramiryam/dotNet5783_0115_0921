@@ -5,16 +5,18 @@ namespace Dal;
 using DalApi;
 using System;
 using System.Collections;
+using System.Runtime.CompilerServices;
 
 internal class DalOrderItem : IOrderItem
 {
     XmlOrderItem XmlOrderItem=new();
-/// <summary>
-/// add a new orderitem and throw exception if it does not exist
-/// </summary>
-/// <param name="_newOrderItem">new one to add</param>
-/// <returns>new orderIdem id</returns>
-/// <exception cref="Exception"></exception>
+    /// <summary>
+    /// add a new orderitem and throw exception if it does not exist
+    /// </summary>
+    /// <param name="_newOrderItem">new one to add</param>
+    /// <returns>new orderIdem id</returns>
+    /// <exception cref="Exception"></exception>
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public int Add(OrderItem _newOrderItem)
     {
         if ((DataSource._arrOrderItem
@@ -36,6 +38,7 @@ internal class DalOrderItem : IOrderItem
     /// <param name="orderItemID"></param>
     /// <returns>order item</returns>
     /// <exception cref="Exception"></exception>
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public OrderItem Get(Func<OrderItem?, bool>? predict)
     {
         if (DataSource._arrOrderItem == null)
@@ -64,6 +67,7 @@ internal class DalOrderItem : IOrderItem
     /// return all order items and throw exception if it does not exist
     /// </summary>
     /// <returns>order item arr</returns>
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public IEnumerable<OrderItem?> GetAll(Func<OrderItem?, bool>? predict = null)
     {
         List<OrderItem?> _OrderItems = new List<OrderItem?>();
@@ -97,6 +101,7 @@ internal class DalOrderItem : IOrderItem
     /// </summary>
     /// <param name="_orderItemID">order item to delete</param>
     /// <exception cref="Exception"></exception>
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public void Delete(int _orderItemID)
     {
         if (DataSource._arrOrderItem == null) throw new RequestedItemNotFoundException("orderItem not exists,can not do get") { RequestedItemNotFound = _orderItemID.ToString() };
@@ -119,6 +124,7 @@ internal class DalOrderItem : IOrderItem
     /// </summary>
     /// <param name="_newOrderItem">order item to update</param>
     /// <exception cref="Exception"></exception>
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public void Update(OrderItem _newOrderItem)
     {
         if (_newOrderItem.ProductID == 0 || _newOrderItem.OrderID == 0 || _newOrderItem.ID == 0 || _newOrderItem.Price == 0 || _newOrderItem.Amount == 0)

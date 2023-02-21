@@ -10,6 +10,7 @@ using DalList;
 using Factory = DalApi.Factory;
 using System.Resources;
 using Dal;
+using System.Runtime.CompilerServices;
 
 namespace BlImplementation
 {
@@ -28,6 +29,7 @@ namespace BlImplementation
         /// <exception cref="BO.NotEnoughInStockException">add item thet has not enough in stock</exception>
         /// <exception cref="BO.ProductNotInStockException">product not in stock</exception>
         /// <exception cref="BO.ProductNotExistsException">product not exists with this id</exception>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public BO.Cart AddItemToCart(BO.Cart cart, int itemId)
         {
             if (cart == null)
@@ -118,6 +120,8 @@ namespace BlImplementation
             }
         }
 
+
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public BO.Cart UpdateAmount(BO.Cart cart, int itemId, int amount)
         {
             if (cart.ItemList == null) throw new ItemNotInCartException("item list not exsist") { ItemNotInCart = cart.ToString() };
@@ -172,6 +176,8 @@ namespace BlImplementation
 
         }
 
+
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void SubmitOrder(BO.Cart cart, string name, string email, string adress)
         {
             #region check correct data
@@ -295,6 +301,8 @@ namespace BlImplementation
 
         #endregion
         #region help methodes
+
+        [MethodImpl(MethodImplOptions.Synchronized)]
         private void checkEmail(string email)
         {
             try

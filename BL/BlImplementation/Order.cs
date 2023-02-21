@@ -3,6 +3,7 @@ using BO;
 using Dal;
 using DalApi;
 using DO;
+using System.Runtime.CompilerServices;
 using static BO.Enums;
 using Factory = DalApi.Factory;
 
@@ -14,7 +15,7 @@ public class Order : BlApi.IOrder
     //private static IDal? Dal = Factory.Get();
     #region method
 
-
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public IEnumerable<BO.OrderForList?> GetListOfOrders()
     {
         IEnumerable<DO.Order?> orderList = new List<DO.Order?>();
@@ -37,6 +38,7 @@ public class Order : BlApi.IOrder
         return addOrder.ToList();
     }
 
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public BO.Order GetOrderDetails(int id)
     {
         if (id <= 0)
@@ -64,6 +66,7 @@ public class Order : BlApi.IOrder
         }
     }
 
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public BO.OrderItem GetOrderItemDetails(BO.Cart MyCart, int ItemId)
     {
 
@@ -107,6 +110,7 @@ public class Order : BlApi.IOrder
         }
     }
 
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public BO.Order UpdateShipDate(int id)
     {
 
@@ -155,6 +159,7 @@ public class Order : BlApi.IOrder
 
     }
 
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public BO.Order UpdateDeliveryDate(int id)
     {
 
@@ -203,6 +208,7 @@ public class Order : BlApi.IOrder
 
     }
 
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public BO.OrderTracking GetOrderTracking(int orderId)
     {
         DO.Order o = new DO.Order();
@@ -356,6 +362,8 @@ public class Order : BlApi.IOrder
 
 
     #region ezer
+
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public BO.Order DOorderToBOorder(DO.Order o)
     {
         BO.Order newOrder = new BO.Order()
@@ -375,6 +383,8 @@ public class Order : BlApi.IOrder
         };
         return newOrder;
     }
+
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public BO.Enums.EStatus CheckStatus(DateTime? OrderDate, DateTime? ShipDate, DateTime? DeliveryDate)
     {
         DateTime today = DateTime.Now;
@@ -385,6 +395,8 @@ public class Order : BlApi.IOrder
         else
             return EStatus.Done;
     }
+
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public int GetAmountItems(int id)
     {
         IEnumerable<DO.OrderItem?> orderItemList = new List<DO.OrderItem?>();
@@ -414,6 +426,8 @@ public class Order : BlApi.IOrder
 
 
     }
+
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public double CheckTotalSum(int id)
     {
         IEnumerable<DO.OrderItem?> orderItemList = new List<DO.OrderItem?>();
@@ -441,6 +455,8 @@ public class Order : BlApi.IOrder
         }
 
     }
+
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public List<BO.OrderItem?> GetAllItemsToOrder(int id)
     {
         List<DO.OrderItem?> orderItemList = new List<DO.OrderItem?>();
@@ -479,6 +495,8 @@ public class Order : BlApi.IOrder
         return addOrderItem;
 
     }
+
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public string? getOrderItemName(int productId)
     {
         DO.Product product = new DO.Product();

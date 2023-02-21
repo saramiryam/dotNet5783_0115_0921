@@ -3,6 +3,7 @@ using Dal;
 using DO;
 using DalApi;
 using System;
+using System.Runtime.CompilerServices;
 
 namespace Dal;
 internal class DalOrder : IOrder
@@ -16,6 +17,7 @@ internal class DalOrder : IOrder
     /// <param name="_p">an order</param>
     /// <returns>int of the id of the order</returns>
     /// <exception cref="Exception">order exists</exception>
+     [MethodImpl(MethodImplOptions.Synchronized)]
     public int Add(Order _o)
     {
 
@@ -41,6 +43,7 @@ internal class DalOrder : IOrder
     /// <param name="_num">the id of the order demanded</param>
     /// <returns>details of the order demanded</returns>
     /// <exception cref="Exception">order not exists</exception>
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public Order Get(Func<Order?, bool>? predict)
     {
         if (DataSource._Orders == null)
@@ -69,6 +72,7 @@ internal class DalOrder : IOrder
     /// cope the orders to a new arrey and return it
     /// </summary>
     /// <returns>arrey with all the orders</returns>
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public IEnumerable<Order?> GetAll(Func<Order?, bool>? predict = null)
     {
         if (DataSource._Orders == null)
@@ -100,6 +104,7 @@ internal class DalOrder : IOrder
     /// </summary>
     /// <param name="_num">id of order to delete</param>
     /// <exception cref="Exception">order not exists, can not delete</exception>
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public void Delete(int _num)
     {
         if (DataSource._Orders == null) throw new RequestedItemNotFoundException("order not exists,can not delete") { RequestedItemNotFound = _num.ToString() };
@@ -123,6 +128,7 @@ internal class DalOrder : IOrder
     /// </summary>
     /// <param name="_p"> id of order demanded to change</param>
     /// <exception cref="Exception">product not exists, can not update</exception>
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public void Update(Order _o)
     {
         if (_o.CustomerName == null && _o.CustomerEmail == null && _o.CustomerAdress == null && _o.OrderDate == null && _o.ShipDate == null && _o.DeliveryDate == null)
