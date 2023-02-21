@@ -73,6 +73,7 @@ public partial class MOrderListWindow : Window
     }
     private void Back_Click(object sender, RoutedEventArgs e)
     {
+        bl.Order.getOrderToPromote();
         new MWindow().Show();
         //Close();
         //if (bl != null)

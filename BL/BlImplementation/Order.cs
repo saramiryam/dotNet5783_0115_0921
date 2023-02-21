@@ -3,6 +3,8 @@ using BO;
 using Dal;
 using DalApi;
 using DO;
+using System.Resources;
+using System;
 using System.Runtime.CompilerServices;
 using static BO.Enums;
 using Factory = DalApi.Factory;
@@ -278,8 +280,27 @@ public class Order : BlApi.IOrder
 
     }
 
+    [MethodImpl(MethodImplOptions.Synchronized)]
+    public int? getOrderToPromote()
+    {
+        IEnumerable<DO.Order?> orderList = new List<DO.Order?>();
+        if (Dal != null)
+        {
+            orderList = Dal.Order.GetAll();
+        }
+        var minShipDate = (from o in orderList
+                           where o.Value.ShipDate is not null
+                           orderby o.Value.ShipDate
+                           select o.Value.ID).FirstOrDefault();
+        var minOrderDate = (from o in orderList
+                           where o.Value.ShipDate is null && o.Value.DeliveryDate is null
+                            orderby o.Value.OrderDate
+                           select o.Value.ID).FirstOrDefault();
+        return (minShipDate>minOrderDate)?minOrderDate:minShipDate;
+
+    }
     #endregion
-    #region bonus
+   #region bonus
     public void ManagerActions(int orderId, int productId, int amount)
     {
         List<DO.OrderItem> ordersItem = new List<DO.OrderItem>();

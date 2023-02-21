@@ -31,6 +31,7 @@ namespace PL.Simulator
             ableToClose = true;
             this.Close();
             ableToClose = false;
+
         }
 
         protected override void OnClosing(CancelEventArgs e)

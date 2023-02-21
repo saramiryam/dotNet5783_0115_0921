@@ -19,4 +19,6 @@ public interface IOrder
     public BO.Order UpdateDeliveryDate(int orderId);
 
     public BO.OrderTracking GetOrderTracking(int orderId);
+
+    public int? getOrderToPromote();
 }

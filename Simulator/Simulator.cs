@@ -10,5 +10,7 @@ namespace Simulator
     {
 
        static public void beginSimuletion() { }
+
+        static public void run() { }  
     }
 }
