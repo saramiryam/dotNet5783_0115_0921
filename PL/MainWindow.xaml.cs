@@ -2,6 +2,7 @@
 using PL.NewOrder.Cart;
 using PL.NewOrder.ProductItem;
 using PL.OrderTracking;
+using PL.Simulator;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -44,6 +45,12 @@ namespace PL
         {
             new OTWindow().Show();
             this.Close();
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            new SimulatorWindow().Show();   
+
         }
     }
 }
