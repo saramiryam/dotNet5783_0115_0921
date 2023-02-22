@@ -8,71 +8,75 @@
         Title="MOrderWindow" Height="450" Width="800"
         DataContext="{Binding RelativeSource={RelativeSource self}}">
     <Grid>
+
+        <!--<Grid.Background>
+            <ImageBrush Stretch="Uniform" ImageSource="/imege/2.JPG"></ImageBrush>
+        </Grid.Background>-->
         <Grid x:Name="MainGrid"  DataContext="{Binding OrderToUp}">
-            <Label  Content="id"   HorizontalAlignment="Left" Margin="224,20,0,0" VerticalAlignment="Top"/>
-            <TextBox Background="LightBlue"  HorizontalAlignment="Left" Margin="289,20,0,0" TextWrapping="Wrap" Text="{Binding ID,Mode=TwoWay}" VerticalAlignment="Top" Width="150" IsReadOnly="True" />
-            <Label Content="customer name" HorizontalAlignment="Left" Margin="156,45,0,0" VerticalAlignment="Top"/>
-            <TextBox Background="LightBlue" HorizontalAlignment="Left" Margin="289,45,0,0" TextWrapping="Wrap" Text="{Binding CustomerName,Mode=TwoWay}" VerticalAlignment="Top" Width="150" IsReadOnly="True"  />
-            <Label Content="customer email" HorizontalAlignment="Left" Margin="188,70,0,0" VerticalAlignment="Top"/>
-            <TextBox Background="LightBlue" HorizontalAlignment="Left" Margin="289,70,0,0" TextWrapping="Wrap" Text="{Binding CustomerEmail,Mode=TwoWay}" VerticalAlignment="Top" Width="150"  IsReadOnly="True" />
-            <Label Content="customer adress" HorizontalAlignment="Left" Margin="188,95,0,0" VerticalAlignment="Top"/>
-            <TextBox Background="LightBlue" HorizontalAlignment="Left" Margin="289,95,0,0" TextWrapping="Wrap" Text="{Binding CustomerAdress,Mode=TwoWay}" VerticalAlignment="Top" Width="150"  IsReadOnly="True" />
-            <Label Content="status" HorizontalAlignment="Left" Margin="207,120,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.606,1.385"/>
-            <TextBox Background="LightBlue" HorizontalAlignment="Left" Margin="289,120,0,0" TextWrapping="Wrap" Text="{Binding Status,Mode=TwoWay}" VerticalAlignment="Top" Width="150" IsReadOnly="True" />
-            <Label Content="order date" HorizontalAlignment="Left" Margin="195,145,0,0" VerticalAlignment="Top"/>
-            <TextBox Background="LightBlue" HorizontalAlignment="Left" Margin="289,145,0,0" TextWrapping="Wrap" Text="{Binding OrderDate,Mode=TwoWay}" VerticalAlignment="Top" Width="150" IsReadOnly="True" />
-            <Label Content="ship date" HorizontalAlignment="Left" Margin="188,170,0,0" VerticalAlignment="Top"/>
-            <TextBox Background="LightBlue" HorizontalAlignment="Left" Margin="289,170,0,0" TextWrapping="Wrap" Text="{Binding ShipDate,Mode=TwoWay}" VerticalAlignment="Top" Width="150"  IsReadOnly="True" />
-            <Label Content="delivery date" HorizontalAlignment="Left" Margin="188,195,0,0" VerticalAlignment="Top"/>
-            <TextBox Background="LightBlue" HorizontalAlignment="Left" Margin="289,195,0,0" TextWrapping="Wrap" Text="{Binding DeliveryDate,Mode=TwoWay}" VerticalAlignment="Top" Width="150"  IsReadOnly="True" />
-            <Label Content="total sum" HorizontalAlignment="Left" Margin="188,220,0,0" VerticalAlignment="Top"/>
-            <TextBox Background="LightBlue" HorizontalAlignment="Left" Margin="289,220,0,0" TextWrapping="Wrap" Text="{Binding TotalSum,Mode=TwoWay}" VerticalAlignment="Top" Width="150"  IsReadOnly="True" />
+            <Label  Content="id"   HorizontalAlignment="Left" Margin="259,20,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
+            <TextBox Background="LightBlue"  HorizontalAlignment="Left" Margin="289,20,0,0" TextWrapping="Wrap" Text="{Binding ID,Mode=TwoWay}" VerticalAlignment="Top" Width="150" IsReadOnly="True" BorderBrush="White" BorderThickness="2,2,2,2" />
+            <Label Content="customer name" HorizontalAlignment="Left" Margin="188,45,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
+            <TextBox Background="LightBlue" HorizontalAlignment="Left" Margin="289,45,0,0" TextWrapping="Wrap" Text="{Binding CustomerName,Mode=TwoWay}" VerticalAlignment="Top" Width="150" IsReadOnly="True" BorderBrush="White" BorderThickness="2,2,2,2" />
+            <Label Content="customer email" HorizontalAlignment="Left" Margin="188,70,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
+            <TextBox Background="LightBlue" HorizontalAlignment="Left" Margin="289,70,0,0" TextWrapping="Wrap" Text="{Binding CustomerEmail,Mode=TwoWay}" VerticalAlignment="Top" Width="150"  IsReadOnly="True" BorderBrush="White" BorderThickness="2,2,2,2" />
+            <Label Content="customer adress" HorizontalAlignment="Left" Margin="183,95,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
+            <TextBox Background="LightBlue" HorizontalAlignment="Left" Margin="289,95,0,0" TextWrapping="Wrap" Text="{Binding CustomerAdress,Mode=TwoWay}" VerticalAlignment="Top" Width="150"  IsReadOnly="True" BorderBrush="White" BorderThickness="2,2,2,2"/>
+            <Label Content="status" HorizontalAlignment="Left" Margin="236,116,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.606,1.385" FontWeight="Bold"/>
+            <TextBox Background="LightBlue" HorizontalAlignment="Left" Margin="289,120,0,0" TextWrapping="Wrap" Text="{Binding Status,Mode=TwoWay}" VerticalAlignment="Top" Width="150" IsReadOnly="True" BorderBrush="White" BorderThickness="2,2,2,2"/>
+            <Label Content="order date" HorizontalAlignment="Left" Margin="214,141,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
+            <TextBox Background="LightBlue" HorizontalAlignment="Left" Margin="289,145,0,0" TextWrapping="Wrap" Text="{Binding OrderDate,Mode=TwoWay}" VerticalAlignment="Top" Width="150" IsReadOnly="True" BorderBrush="White" BorderThickness="2,2,2,2"/>
+            <Label Content="ship date" HorizontalAlignment="Left" Margin="220,169,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
+            <TextBox Background="LightBlue" HorizontalAlignment="Left" Margin="289,170,0,0" TextWrapping="Wrap" Text="{Binding ShipDate,Mode=TwoWay}" VerticalAlignment="Top" Width="150"  IsReadOnly="True" BorderBrush="White" BorderThickness="2,2,2,2"/>
+            <Label Content="delivery date" HorizontalAlignment="Left" Margin="202,195,0,0" VerticalAlignment="Top" RenderTransformOrigin="1.004,0.332" FontWeight="Bold"/>
+            <TextBox Background="LightBlue" HorizontalAlignment="Left" Margin="289,195,0,0" TextWrapping="Wrap" Text="{Binding DeliveryDate,Mode=TwoWay}" VerticalAlignment="Top" Width="150"  IsReadOnly="True" BorderBrush="White" BorderThickness="2,2,2,2"/>
+            <Label Content="total sum" HorizontalAlignment="Left" Margin="220,217,0,0" VerticalAlignment="Top" RenderTransformOrigin="1.156,0.602" FontWeight="Bold"/>
+            <TextBox Background="LightBlue" HorizontalAlignment="Left" Margin="289,220,0,0" TextWrapping="Wrap" Text="{Binding TotalSum,Mode=TwoWay}" VerticalAlignment="Top" Width="150"  IsReadOnly="True" BorderBrush="White" BorderThickness="2,2,2,2" />
 
 
         </Grid>
-        <Button x:Name="change" Background="Yellow" FontWeight="ExtraBlack" Foreground="blue" IsEnabled="{Binding Enable,Mode=TwoWay}" Content="{Binding MyContent,Mode=TwoWay}" HorizontalAlignment="Left" Margin="600,250,0,0" VerticalAlignment="Top" Click="ChengeButton_Click" />
-        <Button x:Name="back"  Background="Yellow" FontWeight="ExtraBlack" Foreground="blue" Content="back" HorizontalAlignment="Left" Margin="600,150,0,0" VerticalAlignment="Top" Click="backButton_Click" />
+        <Button x:Name="change" Background="LightBlue" FontWeight="ExtraBlack" Foreground="White" IsEnabled="{Binding Enable,Mode=TwoWay}" Content="{Binding MyContent,Mode=TwoWay}" HorizontalAlignment="Left" Margin="614,241,0,0" VerticalAlignment="Top" Click="ChengeButton_Click" BorderBrush="White" BorderThickness="2,2,2,2" FontSize="18" />
+        <Button x:Name="back"  Background="LightBlue" FontWeight="ExtraBlack" Foreground="White" Content="back" HorizontalAlignment="Left" Margin="614,177,0,0" VerticalAlignment="Top" Click="backButton_Click" Height="40" Width="86" FontSize="18" BorderThickness="2,2,2,2" BorderBrush="White" RenderTransformOrigin="0.38,0.368" />
         <Grid Margin="150,280,150,10">
             <!--ItemsSource="{Binding MyCart.ItemList}" MouseDoubleClick="ListView_MouseDoubleClick" SelectedItem="{Binding ProductToChange}" SelectedValue="{Binding ProductToChange}"-->
-            <ListView x:Name="OrderItemListView" Grid.Row="1" ItemsSource="{Binding OrderToUp.ItemList}" >
+            <ListView x:Name="OrderItemListView" ItemsSource="{Binding OrderToUp.ItemList}" Background="LightBlue" Foreground="Black" BorderBrush="White" BorderThickness="2,2,2,2" FontWeight="Bold" SelectionChanged="OrderItemListView_SelectionChanged" FontSize="17" >
                 <ListView.View>
                     <GridView>
-                        <GridViewColumn Width="Auto" Header="NumInOrder">
+                        <GridViewColumn Width="131" Header="NumInOrder">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate >
                                     <TextBlock Margin="-5,-1" Text="{Binding numInOrder}" TextAlignment="Right" Padding="3" />
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
-                        <GridViewColumn Width="Auto" Header="ID">
+                        <GridViewColumn Width="60" Header="ID">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
                                     <TextBlock Margin="-5,-1" Text="{Binding ID}" Padding="3"/>
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
-                        <GridViewColumn Width="Auto" Header="Name">
+                        <GridViewColumn Width="70" Header="Name">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
                                     <TextBox Margin="-5,-1" Text="{Binding Name}" IsReadOnly="True"  Padding="3" Width="100"/>
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
-                        <GridViewColumn Width="Auto" Header="Price">
+                        <GridViewColumn Width="70" Header="Price">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
                                     <TextBox Margin="-5,-1" Text="{Binding Price}" IsReadOnly="True" Padding="3" Width="40"/>
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
-                        <GridViewColumn Width="Auto" Header="Amount">
+                        <GridViewColumn Width="75" Header="Amount">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
                                     <TextBox Margin="-5,-1" Text="{Binding Amount}" IsReadOnly="True"  Padding="3" Width="100"/>
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
-                        <GridViewColumn Width="Auto" Header="SumItem">
+                        <GridViewColumn Width="85" Header="SumItem">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
                                     <TextBox Margin="-5,-1" Text="{Binding sumItem}" IsReadOnly="True" Padding="3" Width="100"/>
