@@ -147,10 +147,5 @@ namespace PL.Admin.Order
             }
             this.Close();
         }
-
-        private void OrderItemListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-
-        }
     }
 }
