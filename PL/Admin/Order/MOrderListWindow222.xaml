@@ -8,54 +8,54 @@
         Title="MOrderListWindow" Height="450" Width="800"
         DataContext="{Binding RelativeSource={RelativeSource self}}">
     <Grid>
-        <Button  Content="back" Grid.Row="0" Background="Yellow" FontWeight="ExtraBlack" Foreground="blue" HorizontalAlignment="Left" Margin="20,8,6,0" Padding="3" Width="150" Height="23" VerticalAlignment="Top" Click="Back_Click"/>
+        <Button  Content="back" Grid.Row="0" FontWeight="ExtraBlack" Foreground="Black" HorizontalAlignment="Left" Margin="20,8,0,0" Padding="3" Width="127" Height="40" VerticalAlignment="Top" Click="Back_Click" FontSize="16" BorderBrush="White" Background="#FFF18888"/>
         <Grid Name="MainGrid" >
-        <Grid.RowDefinitions>
-            <RowDefinition Height="500*"/>
-            <RowDefinition Height="Auto"/>
-        </Grid.RowDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="500*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
 
-            <ListView Margin="0,40,0,0" x:Name="ordersListView" MouseDoubleClick="ordersListView_MouseDoubleClick" SelectedValue="{Binding OrderToUp}"  ItemsSource="{Binding OrdersForListList}" SelectionChanged="ordersListView_SelectionChanged"  >
-            <ListView.View>
-                <GridView>
-                    <GridViewColumn Width="Auto" Header="Id">
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate >
-                                <TextBlock Margin="-5,-1" Text="{Binding OrderID}" TextAlignment="Center" Padding="3" />
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
-                    <GridViewColumn Width="Auto" Header="Customer name">
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
-                                <TextBlock Margin="-5,-1" Text="{Binding CustomerName}" TextAlignment="Center" Padding="3"/>
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
-                    <GridViewColumn Width="Auto" Header="Status">
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
-                                <TextBlock Margin="-5,-1" Text="{Binding Status}" TextAlignment="Center" Padding="3" Width="100"/>
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
-                    <GridViewColumn Width="Auto" Header="Amount Of Item">
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
-                                <TextBlock Margin="-5,-1" Text="{Binding AmountOfItem}"  TextAlignment="Center" Padding="3" Width="50"/>
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
-                    <GridViewColumn Width="Auto" Header="TotalSum">
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
-                                <TextBlock Margin="-5,-1" Text="{Binding TotalSum}"  TextAlignment="Center" Padding="3" Width="40"/>
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
-                </GridView>
-            </ListView.View>
-        </ListView>
+            <ListView Margin="0,57,0,0" x:Name="ordersListView" MouseDoubleClick="ordersListView_MouseDoubleClick" SelectedValue="{Binding OrderToUp}"  ItemsSource="{Binding OrdersForListList}" SelectionChanged="ordersListView_SelectionChanged" FontSize="18" FontWeight="Bold" Foreground="Black"  >
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Width="60" Header="Id">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate >
+                                    <TextBlock Margin="-5,-1" Text="{Binding OrderID}" TextAlignment="Center" Padding="3" />
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn Width="170" Header="Customer name">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Margin="-5,-1" Text="{Binding CustomerName}" TextAlignment="Center" Padding="3"/>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn Width="90" Header="Status">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Margin="-5,-1" Text="{Binding Status}" TextAlignment="Center" Padding="3" Width="100"/>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn Width="170" Header="Amount Of Item">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Margin="-5,-1" Text="{Binding AmountOfItem}"  TextAlignment="Center" Padding="3" Width="50"/>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn Width="110" Header="TotalSum">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Margin="-5,-1" Text="{Binding TotalSum}"  TextAlignment="Center" Padding="3" Width="40"/>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                    </GridView>
+                </ListView.View>
+            </ListView>
         </Grid>
 
     </Grid>
