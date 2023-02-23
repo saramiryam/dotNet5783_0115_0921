@@ -88,12 +88,12 @@ public static class Program
         #endregion
         #region addNewOrderItem
         //  addNewOrder()
-        addNewOrderItem(100000, 200000, 6.9, 3);
+        addNewOrderItem(100010, 200000, 6.9, 3);
         addNewOrderItem(100002, 200001, 5.9, 1);
         addNewOrderItem(100009, 200001, 7, 7);
-        addNewOrderItem(100010, 200001, 9.5, 2);
+        addNewOrderItem(100008, 200001, 9.5, 2);
 
-        addNewOrderItem(100000, 200002, 6.9, 3);
+        addNewOrderItem(100010, 200002, 6.9, 3);
         addNewOrderItem(100002, 200002, 5.9, 1);
         addNewOrderItem(100003, 200002, 4.9, 1);
         addNewOrderItem(100004, 200002, 9.9, 2);
@@ -103,12 +103,12 @@ public static class Program
         addNewOrderItem(100005, 200003, 5.6, 3);
         addNewOrderItem(100008, 200003, 17, 2);
 
-        addNewOrderItem(100000, 200004, 6.9, 3);
+        addNewOrderItem(100010, 200004, 6.9, 3);
         addNewOrderItem(100002, 200000, 5.9, 1);
         addNewOrderItem(100009, 200004, 7, 7);
-        addNewOrderItem(100010, 200004, 9.5, 2);
+        addNewOrderItem(100008, 200004, 9.5, 2);
 
-        addNewOrderItem(100000, 200005, 6.9, 3);
+        addNewOrderItem(100010, 200005, 6.9, 3);
         addNewOrderItem(100002, 200005, 5.9, 1);
         addNewOrderItem(100003, 200005, 4.9, 1);
         addNewOrderItem(100004, 200005, 9.9, 2);
@@ -118,12 +118,12 @@ public static class Program
         addNewOrderItem(100005, 200006, 5.6, 3);
         addNewOrderItem(100008, 200006, 17, 2);
 
-        addNewOrderItem(100000, 200007, 6.9, 3);
+        addNewOrderItem(100010, 200007, 6.9, 3);
         addNewOrderItem(100002, 200007, 5.9, 1);
         addNewOrderItem(100009, 200007, 7, 7);
-        addNewOrderItem(100010, 200011, 9.5, 2);
+        addNewOrderItem(100008, 200011, 9.5, 2);
 
-        addNewOrderItem(100000, 200008, 6.9, 3);
+        addNewOrderItem(100010, 200008, 6.9, 3);
         addNewOrderItem(100002, 200012, 5.9, 1);
         addNewOrderItem(100003, 200013, 4.9, 1);
         addNewOrderItem(100004, 200014, 9.9, 2);
@@ -133,10 +133,10 @@ public static class Program
         addNewOrderItem(100005, 200016, 5.6, 3);
         addNewOrderItem(100008, 200017, 17, 2);
 
-        addNewOrderItem(100000, 200010, 6.9, 3);
+        addNewOrderItem(100010, 200010, 6.9, 3);
         addNewOrderItem(100002, 200018, 5.9, 1);
         addNewOrderItem(100009, 200019, 7, 7);
-        addNewOrderItem(100010, 200020, 9.5, 2);
+        addNewOrderItem(100008, 200020, 9.5, 2);
 
         #endregion
         #region addNewOrder
@@ -155,7 +155,7 @@ public static class Program
         addNewOrder("Yosi", "david@gmail.com", "buksboim 12", DateTime.Now.AddDays(-(rnd.Next(9))), DateTime.Now, null);
         addNewOrder("Mashuda", "david@gmail.com", "buksboim 12", DateTime.Now.AddDays(-(rnd.Next(9))), null, null);
         addNewOrder("Gila", "david@gmail.com", "buksboim 12", DateTime.Now.AddDays(-(rnd.Next(11))), DateTime.Now, null);
-        addNewOrder("Chani", "david@gmail.com", "buksboim 12", DateTime.Now.AddDays(-(rnd.Next(13))), null, DateTime.Now);
+        addNewOrder("Chani", "david@gmail.com", "buksboim 12", DateTime.Now.AddDays(-(rnd.Next(13))), null,null);
         addNewOrder("Nadav", "david@gmail.com", "buksboim 12", DateTime.Now.AddDays(-(rnd.Next(9))), DateTime.Now, null);
         addNewOrder("Pnina", "david@gmail.com", "buksboim 12", DateTime.Now.AddDays(-(rnd.Next(5))), DateTime.Now.AddDays(-(rnd.Next(13))), null);
         addNewOrder("Yona", "david@gmail.com", "buksboim 12", DateTime.Now, null, null);

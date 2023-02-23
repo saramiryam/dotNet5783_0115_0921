@@ -2,7 +2,7 @@
 <ArrayOfOrderItem xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <OrderItem>
     <ID>300001</ID>
-    <ProductID>100000</ProductID>
+    <ProductID>100010</ProductID>
     <OrderID>200000</OrderID>
     <Price>6.9</Price>
     <Amount>3</Amount>
@@ -23,14 +23,14 @@
   </OrderItem>
   <OrderItem>
     <ID>300004</ID>
-    <ProductID>100010</ProductID>
+    <ProductID>100008</ProductID>
     <OrderID>200001</OrderID>
     <Price>9.5</Price>
     <Amount>2</Amount>
   </OrderItem>
   <OrderItem>
     <ID>300005</ID>
-    <ProductID>100000</ProductID>
+    <ProductID>100010</ProductID>
     <OrderID>200002</OrderID>
     <Price>6.9</Price>
     <Amount>3</Amount>
@@ -86,7 +86,7 @@
   </OrderItem>
   <OrderItem>
     <ID>300013</ID>
-    <ProductID>100000</ProductID>
+    <ProductID>100010</ProductID>
     <OrderID>200004</OrderID>
     <Price>6.9</Price>
     <Amount>3</Amount>
@@ -107,14 +107,14 @@
   </OrderItem>
   <OrderItem>
     <ID>300016</ID>
-    <ProductID>100010</ProductID>
+    <ProductID>100008</ProductID>
     <OrderID>200004</OrderID>
     <Price>9.5</Price>
     <Amount>2</Amount>
   </OrderItem>
   <OrderItem>
     <ID>300017</ID>
-    <ProductID>100000</ProductID>
+    <ProductID>100010</ProductID>
     <OrderID>200005</OrderID>
     <Price>6.9</Price>
     <Amount>3</Amount>
@@ -170,7 +170,7 @@
   </OrderItem>
   <OrderItem>
     <ID>300025</ID>
-    <ProductID>100000</ProductID>
+    <ProductID>100010</ProductID>
     <OrderID>200007</OrderID>
     <Price>6.9</Price>
     <Amount>3</Amount>
@@ -191,14 +191,14 @@
   </OrderItem>
   <OrderItem>
     <ID>300028</ID>
-    <ProductID>100010</ProductID>
+    <ProductID>100008</ProductID>
     <OrderID>200011</OrderID>
     <Price>9.5</Price>
     <Amount>2</Amount>
   </OrderItem>
   <OrderItem>
     <ID>300029</ID>
-    <ProductID>100000</ProductID>
+    <ProductID>100010</ProductID>
     <OrderID>200008</OrderID>
     <Price>6.9</Price>
     <Amount>3</Amount>
@@ -254,7 +254,7 @@
   </OrderItem>
   <OrderItem>
     <ID>300037</ID>
-    <ProductID>100000</ProductID>
+    <ProductID>100010</ProductID>
     <OrderID>200010</OrderID>
     <Price>6.9</Price>
     <Amount>3</Amount>
@@ -275,7 +275,7 @@
   </OrderItem>
   <OrderItem>
     <ID>300040</ID>
-    <ProductID>100010</ProductID>
+    <ProductID>100008</ProductID>
     <OrderID>200020</OrderID>
     <Price>9.5</Price>
     <Amount>2</Amount>
