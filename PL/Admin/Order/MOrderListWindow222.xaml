@@ -27,7 +27,7 @@
                     </ListView.Background>
                     <ListView.View>
                         <GridView>
-                            <GridViewColumn Width="60" Header="Id">
+                            <GridViewColumn Width="80" Header="Id">
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate >
                                         <TextBlock Margin="-5,-1" Text="{Binding OrderID}" TextAlignment="Center" Padding="3" />

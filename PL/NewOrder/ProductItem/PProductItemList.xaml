@@ -22,7 +22,7 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions >
-            <ComboBox Name="CategorySelector" Grid.Column="1"  VerticalAlignment="Stretch" HorizontalAlignment="Stretch" SelectionChanged="CategorySelector_SelectionChanged" SelectedItem="{Binding selectedCategory }" ItemsSource="{Binding Categories}" Foreground="#FFDE92B0"/>
+            <ComboBox Name="CategorySelector" Grid.Column="1"  VerticalAlignment="Stretch" HorizontalAlignment="Stretch" SelectionChanged="CategorySelector_SelectionChanged" SelectedItem="{Binding selectedCategory }" ItemsSource="{Binding Categories}" Foreground="#FFC02B67" FontWeight="Bold"/>
             <CheckBox Name="chkEnable" Checked="chkEnable_Click" Margin="95,8,0,0" Content="מיון לפי קטגוריות" Foreground="#FFC02B67" FontSize="16" FontWeight="Bold"/>
 
         </Grid>
