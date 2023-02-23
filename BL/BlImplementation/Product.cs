@@ -221,7 +221,6 @@ namespace BlImplementation
 
 
         [MethodImpl(MethodImplOptions.Synchronized)]
-
         public BO.ProductItem GetProductItemForCatalog(int id, BO.Cart CostumerCart)
         {
             if (id <= 0)
@@ -338,7 +337,6 @@ namespace BlImplementation
             }
 
         }
-
 
 
         [MethodImpl(MethodImplOptions.Synchronized)]
