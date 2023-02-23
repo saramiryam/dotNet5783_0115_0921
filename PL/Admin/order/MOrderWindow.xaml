@@ -38,8 +38,9 @@
         <Button x:Name="back"  Background="LightBlue" FontWeight="ExtraBlack" Foreground="White" Content="back" HorizontalAlignment="Left" Margin="614,177,0,0" VerticalAlignment="Top" Click="backButton_Click" Height="40" Width="86" FontSize="18" BorderThickness="2,2,2,2" BorderBrush="White" RenderTransformOrigin="0.38,0.368" />
         <Grid Margin="150,280,150,10">
             <!--ItemsSource="{Binding MyCart.ItemList}" MouseDoubleClick="ListView_MouseDoubleClick" SelectedItem="{Binding ProductToChange}" SelectedValue="{Binding ProductToChange}"-->
-            <ListView x:Name="OrderItemListView" ItemsSource="{Binding OrderToUp.ItemList}" Background="LightBlue" Foreground="Black" BorderBrush="White" BorderThickness="2,2,2,2" FontWeight="Bold" SelectionChanged="OrderItemListView_SelectionChanged" FontSize="17" >
-                <ListView.View>
+         <ListView x:Name="OrderItemListView" Grid.Row="1" ItemsSource="{Binding OrderToUp.ItemList}" Background="LightBlue" Foreground="Black" BorderBrush="White" BorderThickness="2,2,2,2" FontWeight="Bold" FontSize="17">
+
+                    <ListView.View>
                     <GridView>
                         <GridViewColumn Width="131" Header="NumInOrder">
                             <GridViewColumn.CellTemplate>
