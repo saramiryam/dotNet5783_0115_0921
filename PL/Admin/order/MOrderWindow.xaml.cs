@@ -74,9 +74,12 @@ namespace PL.Admin.Order
             try
             {
                 OrderToUp = bl.Order.GetOrderDetails(orderID);
-                 InitializeComponent();
-
-                if (OrderToUp.Status == BO.Enums.EStatus.Done)
+            }
+            catch (RequestedItemNotFoundException ex)
+            {
+                MessageBox.Show(ex.Message.ToString());
+            }
+            if (OrderToUp.Status == BO.Enums.EStatus.Done)
             {
 
                 Enable = true;
@@ -97,11 +100,7 @@ namespace PL.Admin.Order
             {
                 Enable = false;
             }
-            }
-            catch (RequestedItemNotFoundException ex)
-            {
-                MessageBox.Show(ex.Message.ToString());
-            }
+            InitializeComponent();
         }
 
 
