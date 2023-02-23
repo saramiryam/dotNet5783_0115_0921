@@ -8,13 +8,16 @@
         Title="NPProductItemUPdateWindow" Height="450" Width="800"
         DataContext="{Binding RelativeSource={RelativeSource self}}">
     <Grid Name="MainGrid">
+        <Grid.Background>
+            <ImageBrush Stretch="Uniform" ImageSource="C:\Users\2141s\source\repos\saramiryam\dotNet5783_0115_0921\PL\imege\3.JPG"></ImageBrush>
+        </Grid.Background>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="40*"/>
             <RowDefinition Height="500*"/>
         </Grid.RowDefinitions>
-        <Button Background="Yellow" FontWeight="ExtraBlack" Foreground="Blue" x:Name="goCart" Content="My Cart" Grid.Row="0" HorizontalAlignment="Left" Margin="565,2,0,0" Padding="5" Width="199" Height="28" VerticalAlignment="Top" Click="goCart_Click"/>
-        <Button Background="Yellow" FontWeight="ExtraBlack" Foreground="Blue" Content="back" Grid.Row="0" HorizontalAlignment="Left" Margin="10,3,0,0" Padding="5" Width="199" Height="28" VerticalAlignment="Top" Click="Back_Click"/>
+        <Button Background="#FFFE8F1E" FontWeight="ExtraBlack" Foreground="White" x:Name="goCart" Content="My Cart" Grid.Row="0" HorizontalAlignment="Left" Margin="500,15,0,0" Padding="5" Width="170" Height="40" VerticalAlignment="Top" Click="goCart_Click" BorderBrush="{x:Null}" FontSize="18"/>
+        <Button Background="#FFFE8F1E" FontWeight="ExtraBlack" Foreground="White" Content="back" Grid.Row="0" HorizontalAlignment="Left" Margin="110,15,0,0" Padding="5" Width="170" Height="40" VerticalAlignment="Top" Click="Back_Click" BorderBrush="{x:Null}" FontSize="18"/>
 
         <Grid DataContext="{Binding ProductToAdd}">
             <TextBlock  Text="{Binding ID}" HorizontalAlignment="Left" Margin="90,40,0,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
@@ -23,10 +26,10 @@
             <TextBlock  Text="{Binding AmoutInYourCart}" HorizontalAlignment="Left" Margin="90,100,0,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
         </Grid>
         <Grid>
-            <Button Background="Yellow" FontWeight="ExtraBlack" Foreground="Blue" x:Name="minus"  Content="-" HorizontalAlignment="Left" Margin="43,228,0,0" Click="minus_Click" Padding="5" Width="20" Height="28" VerticalAlignment="Top" />
-            <TextBlock  Text="{Binding Amount,Mode=TwoWay}" TextAlignment="Center" HorizontalAlignment="Left" Margin="65,231,0,0" Width="50" TextWrapping="Wrap" VerticalAlignment="Top" Height="22"/>
-            <Button Background="Yellow" FontWeight="ExtraBlack" Foreground="Blue" x:Name="plus"  Content="+" HorizontalAlignment="Right" Click="Plus_Click" Margin="0,228,660,0" Padding="5" Width="20" Height="28" VerticalAlignment="Top" />
-            <Button Background="Yellow" FontWeight="ExtraBlack" Foreground="Blue" x:Name="addToCart"  Content="add to my cart" HorizontalAlignment="Left" Margin="200,228,0,0" Padding="5" Width="100" Height="28" VerticalAlignment="Top" Click="addToCart_Click" />
+            <Button Background="#FFFE8F1E" FontWeight="ExtraBlack" Foreground="White" x:Name="minus"  Content="-" HorizontalAlignment="Left" Margin="147,235,0,0" Click="minus_Click" Padding="5" Width="20" Height="28" VerticalAlignment="Top" FontSize="14" BorderBrush="{x:Null}" />
+            <TextBlock  Text="{Binding Amount,Mode=TwoWay}" TextAlignment="Center" HorizontalAlignment="Left" Margin="172,234,0,0" Width="50" TextWrapping="Wrap" VerticalAlignment="Top" Height="28" Foreground="White"/>
+            <Button Background="#FFFE8F1E" FontWeight="ExtraBlack" Foreground="White" x:Name="plus"  Content="+" HorizontalAlignment="Right" Click="Plus_Click" Margin="0,234,553,0" Padding="5" Width="20" Height="28" VerticalAlignment="Top" FontSize="14" BorderBrush="{x:Null}" />
+            <Button Background="#FFFE8F1E" FontWeight="ExtraBlack" Foreground="White" x:Name="addToCart"  Content="add to my cart" HorizontalAlignment="Left" Margin="288,222,0,0" Padding="5" Width="158" Height="53" VerticalAlignment="Top" Click="addToCart_Click" FontSize="18" BorderBrush="{x:Null}" />
 
         </Grid>
     </Grid>

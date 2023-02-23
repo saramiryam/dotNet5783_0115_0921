@@ -8,49 +8,56 @@
         Title="MProductForList" Height="640" Width="800"
         DataContext="{Binding RelativeSource={RelativeSource self}}">
     <Grid Name="MainGrid"      >
-       
+
         <Grid.RowDefinitions>
-            <RowDefinition Height="40*"/>
             <RowDefinition Height="40*"/>
             <RowDefinition Height="500*"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        <Button  Content="back" Background="Yellow" FontWeight="ExtraBlack" Foreground="Blue" Grid.Row="0" HorizontalAlignment="Left" Margin="10,3,0,0" Padding="5" Width="199" Height="28" VerticalAlignment="Top" Click="Back_Click"/>
-        <Grid Name="UpGrid" HorizontalAlignment="Stretch" Height="auto" Grid.Row="1"
-            VerticalAlignment="Stretch" Width="auto">
+        <Button  Content="back" FontWeight="ExtraBlack" Foreground="#FF2683B0" HorizontalAlignment="Left" Padding="5" Width="199" Click="Back_Click" Height="41" VerticalAlignment="Center" FontSize="20" RenderTransformOrigin="0.623,0.855" Margin="42,0,0,0" Grid.RowSpan="2" FontFamily="Lucida Calligraphy" BorderBrush="White">
+            <Button.Background>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="Black"/>
+                    <GradientStop Color="#FF2994C8" Offset="1"/>
+                    <GradientStop Color="White" Offset="0"/>
+                    <GradientStop Color="#FF4DA6D1" Offset="0.83"/>
+                </LinearGradientBrush>
+            </Button.Background>
+        </Button>
+        <Grid Name="UpGrid" Height="auto" Grid.Row="1" Width="auto" Margin="10,104,10,484" Grid.RowSpan="2">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions >
-            <ComboBox Name="CategorySelector" Grid.Column="1"  VerticalAlignment="Stretch" HorizontalAlignment="Stretch" SelectionChanged="CategorySelector_SelectionChanged" SelectedItem="{Binding selectedCategory }" ItemsSource="{Binding Categories}"/>
-            <Label Content="category:" Grid.Column="0" HorizontalAlignment="Left" Margin="95,0,0,0" VerticalAlignment="Center" />
+            <ComboBox Name="CategorySelector" SelectionChanged="CategorySelector_SelectionChanged" SelectedItem="{Binding selectedCategory }" ItemsSource="{Binding Categories}" Foreground="#FF2683B0" Background="{x:Null}" Height="50" Margin="371,-36,29,14" Grid.ColumnSpan="2"/>
+            <Label Content="category:" Grid.Column="0" HorizontalAlignment="Left" FontSize="16" FontWeight="Bold" Height="36" VerticalAlignment="Top" RenderTransformOrigin="0.758,-0.033" Margin="241,-33,0,0" Width="94" />
 
         </Grid>
-        <ListView x:Name="ProductListView"  MouseDoubleClick="ProductListView_MouseDoubleClick"  SelectedValue="{Binding productToUp}" ItemsSource="{Binding productsForListList}" Grid.Row="2"  >
+        <ListView x:Name="ProductListView"  MouseDoubleClick="ProductListView_MouseDoubleClick"  SelectedValue="{Binding productToUp}" ItemsSource="{Binding productsForListList}" Grid.Row="2" Height="479" VerticalAlignment="Top" Margin="0,33,0,0" Foreground="White" FontSize="16" Background="#FF1C668B"  >
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Width="Auto" Header="Id">
+                    <GridViewColumn Width="80" Header="Id">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate >
                                 <TextBlock Margin="-5,-1" Text="{Binding ID}" TextAlignment="Right" Padding="3" />
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
-                    <GridViewColumn Width="Auto" Header="Name">
+                    <GridViewColumn Width="150" Header="Name">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <TextBlock Margin="-5,-1" Text="{Binding Name}" Padding="3"/>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
-                    <GridViewColumn Width="Auto" Header="Category">
+                    <GridViewColumn Width="100" Header="Category">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <TextBlock Margin="-5,-1" Text="{Binding Category}" Padding="3" Width="100"/>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
-                    <GridViewColumn Width="Auto" Header="Price">
+                    <GridViewColumn Width="80" Header="Price">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <TextBlock Margin="-5,-1" Text="{Binding Price}" Padding="3" Width="40"/>
@@ -61,7 +68,16 @@
             </ListView.View>
         </ListView>
 
-        <Button Background="Yellow" FontWeight="ExtraBlack" Foreground="Blue" x:Name="addOrUpdate" Content="Add new Product" Grid.Row="3" HorizontalAlignment="Left" Margin="565,2,0,0" Padding="5" Width="199" Click="Add_Click_" Height="28" VerticalAlignment="Top"/>
+        <Button FontWeight="ExtraBlack" Foreground="#FF2683B0" x:Name="addOrUpdate" Content="Add new Product" Grid.Row="2" HorizontalAlignment="Left" Margin="549,401,0,0" Padding="5" Width="199" Click="Add_Click_" Height="71" VerticalAlignment="Top" FontSize="20" FontFamily="Lucida Calligraphy" BorderBrush="White" BorderThickness="0,0,0,0">
+            <Button.Background>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="Black"/>
+                    <GradientStop Color="#FF2994C8" Offset="1"/>
+                    <GradientStop Color="White" Offset="0"/>
+                    <GradientStop Color="#FF4DA6D1" Offset="0.83"/>
+                </LinearGradientBrush>
+            </Button.Background>
+        </Button>
 
     </Grid>
 

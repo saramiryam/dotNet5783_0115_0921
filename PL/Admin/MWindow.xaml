@@ -8,11 +8,11 @@
         Title="MWindow" Height="450" Width="800">
     <Grid HorizontalAlignment="Right" Width="800" TextBlock.FontSize="25" TextBlock.FontStyle="Italic">
 
-        <!--<Grid.Background>
-            <ImageBrush Stretch="Uniform" ImageSource="/imege/10.JPG"></ImageBrush>
-        </Grid.Background>-->
-               <Button  Width="120" Height="70"  Name="backToMain"  BorderThickness="5"  Content="back" VerticalAlignment="Top" Click="backToMain_Click" BorderBrush="White" FontStyle="Oblique"  FontWeight="ExtraBlack" Foreground="White" Background="#FF00CEED" RenderTransformOrigin="3.043,1.523" Margin="582,47,98,0" FontFamily="Lucida Calligraphy"></Button>
-        <Button Height="82"  Name="productList"  Content="products" BorderThickness="5" VerticalAlignment="Top" FontWeight="ExtraBlack"  BorderBrush="White" Click="productList_Click" FontStyle="Normal"  Foreground="White" Background="#FF00C7E8" RenderTransformOrigin="3.043,1.523" Margin="566,217,82,0" FontFamily="Lucida Calligraphy"/>
-        <Button Height="82"  Name="orderList"  Content="orders" BorderThickness="5" VerticalAlignment="Top" Click="orderList_Click" BorderBrush="White" FontStyle="Oblique"  FontWeight="ExtraBlack" Foreground="White" Background="#FF00C7E8" RenderTransformOrigin="3.043,1.523" Margin="566,325,82,0" FontFamily="Lucida Calligraphy"/>
+        <Grid.Background>
+            <ImageBrush Stretch="Uniform" ImageSource="C:\Users\2141s\source\repos\saramiryam\dotNet5783_0115_0921\PL\imege\10.JPG"></ImageBrush>
+        </Grid.Background>
+               <Button  Width="120" Height="70"  Name="backToMain"  BorderThickness="5"  Content="back" VerticalAlignment="Top" Click="backToMain_Click" BorderBrush="White" FontStyle="Oblique"  FontWeight="ExtraBlack" Foreground="White" Background="#FF00CEED" RenderTransformOrigin="3.043,1.523" Margin="566,47,114,0" FontFamily="Lucida Calligraphy"></Button>
+        <Button Height="82"  Name="productList"  Content="products" BorderThickness="5" VerticalAlignment="Top" FontWeight="ExtraBlack"  BorderBrush="White" Click="productList_Click" FontStyle="Normal"  Foreground="White" Background="#FF00C7E8" RenderTransformOrigin="3.043,1.523" Margin="550,217,98,0" FontFamily="Lucida Calligraphy"/>
+        <Button Height="82"  Name="orderList"  Content="orders" BorderThickness="5" VerticalAlignment="Top" Click="orderList_Click" BorderBrush="White" FontStyle="Oblique"  FontWeight="ExtraBlack" Foreground="White" Background="#FF00C7E8" RenderTransformOrigin="3.043,1.523" Margin="550,325,98,0" FontFamily="Lucida Calligraphy"/>
            </Grid>
 </Window>

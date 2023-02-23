@@ -1,4 +1,4 @@
-﻿        <Window x:Class="PL.NewOrder.ProductItem.NOItemsInCartWindow"
+﻿<Window x:Class="PL.NewOrder.ProductItem.NOItemsInCartWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -8,35 +8,69 @@
         mc:Ignorable="d"
         Title="NPCart" Height="450" Width="800"
         DataContext="{Binding RelativeSource={RelativeSource self}}">
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="45"/>
-                    <RowDefinition Height="500*"/>
-                    <RowDefinition Height="50*"/>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="45"/>
+            <RowDefinition Height="500*"/>
+            <RowDefinition Height="50*"/>
 
-                </Grid.RowDefinitions>
+        </Grid.RowDefinitions>
 
-                <Grid DataContext="{Binding}"  Grid.Row="1">
-                    <ListView   ItemsSource="{Binding Cart.ItemList}" MouseDoubleClick="ListView_MouseDoubleClick" SelectedItem="{Binding ProductToChange}" SelectedValue="{Binding ProductToChange}" >
-                        <ListView.View>
-                            <GridView>
-                                <GridViewColumn/>
-                            </GridView>
-                        </ListView.View>
-                    </ListView>
-                </Grid>
-                <Grid Grid.Row="0">
-                    <Button Content="back" Background="Yellow" FontWeight="ExtraBlack" Foreground="Blue" HorizontalAlignment="Left" Margin="10,7,0,0"  Width="199" Height="28" VerticalAlignment="Top" Click="Back_Click" FontSize="22" FontFamily="Sitka Small"/>
-                    <Button Content="submit" Background="Yellow" FontWeight="ExtraBlack" Foreground="Blue" HorizontalAlignment="Left" Margin="568,7,0,0"  Width="199" Height="28" VerticalAlignment="Top" Click="Submit_Click" FontSize="22" FontFamily="Sitka Small"/>
+        <Grid DataContext="{Binding}"  Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="37*"/>
+                <ColumnDefinition Width="123*"/>
+            </Grid.ColumnDefinitions>
 
-                </Grid>
-                <Grid Grid.Row="2">
+            <ListView   ItemsSource="{Binding Cart.ItemList}" MouseDoubleClick="ListView_MouseDoubleClick" SelectedItem="{Binding ProductToChange}" SelectedValue="{Binding ProductToChange}" Grid.ColumnSpan="2" FontSize="20" Foreground="Black" BorderBrush="Black" >
+                <ListView.Background>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <GradientStop Color="White" Offset="1"/>
+                        <GradientStop Color="#FFE067E3"/>
+                    </LinearGradientBrush>
+                </ListView.Background>
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn/>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+        </Grid>
+        <Grid Grid.Row="0">
+            <Button Content="back" FontWeight="ExtraBlack" Foreground="Black" HorizontalAlignment="Left" Margin="10,7,0,0"  Width="199" Height="28" VerticalAlignment="Top" Click="Back_Click" FontSize="22" FontFamily="Sitka Small" BorderBrush="White">
+                <Button.Background>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <GradientStop Color="#FFFFFBFF"/>
+                        <GradientStop Color="#FFE067E3" Offset="1"/>
+                    </LinearGradientBrush>
+                </Button.Background>
+            </Button>
+            <Button Content="submit" FontWeight="ExtraBlack" Foreground="Black" HorizontalAlignment="Left" Margin="568,7,0,0"  Width="199" Height="28" VerticalAlignment="Top" Click="Submit_Click" FontSize="22" FontFamily="Sitka Small" BorderBrush="White">
+                <Button.Background>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <GradientStop Color="White"/>
+                        <GradientStop Color="#FFE067E3" Offset="1"/>
+                    </LinearGradientBrush>
+                </Button.Background>
+            </Button>
 
-                    <TextBlock Margin="591,0,0,0" Text="{Binding Cart.TotalSum}"  Width="199" Height="28" VerticalAlignment="Top"  FontSize="22" FontFamily="Sitka Small"/>
-                    <Label Content="sum:" HorizontalAlignment="Left" Margin="522,0,0,0" VerticalAlignment="Center"  FontSize="22" FontFamily="Sitka Small"/>
+        </Grid>
+        <Grid Grid.Row="2">
 
-                </Grid>
-            </Grid>
-        </Window>
+            <TextBlock Margin="591,0,0,0" Text="{Binding Cart.TotalSum}"  Width="199" Height="28" VerticalAlignment="Top"  FontSize="22" FontFamily="Sitka Small">
+                <TextBlock.Background>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <GradientStop Color="White"/>
+                        <GradientStop Color="#FFE067E3" Offset="1"/>
+                        <GradientStop Color="#FFE4CEE5" Offset="0.395"/>
+                        <GradientStop Color="#FFDCABDD" Offset="0.801"/>
+                    </LinearGradientBrush>
+                </TextBlock.Background>
+            </TextBlock>
+            <Label Content="sum:" HorizontalAlignment="Left" Margin="522,0,0,0" VerticalAlignment="Center"  FontSize="22" FontFamily="Sitka Small"/>
+
+        </Grid>
+    </Grid>
+</Window>
 
     

@@ -7,7 +7,10 @@
         mc:Ignorable="d"
         Title="SimulatorWindow" Height="450" Width="800">
     <Grid>
-        <Button Content="stop" HorizontalAlignment="Left" Margin="98,63,0,0" VerticalAlignment="Top" Width="193" Height="78" Click="Button_Click"/>
+        <Grid.Background>
+            <ImageBrush Stretch="Uniform" ImageSource="C:\Users\2141s\source\repos\saramiryam\dotNet5783_0115_0921\PL\imege\1.JPG"></ImageBrush>
+        </Grid.Background>
+        <Button Content="stop" HorizontalAlignment="Center" Margin="0,175,0,0" VerticalAlignment="Top" Width="126" Height="65" Click="Button_Click" Background="White" FontSize="22" FontWeight="Bold" FontFamily="Lucida Calligraphy" BorderBrush="White"/>
 
     </Grid>
 </Window>
