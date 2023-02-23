@@ -7,9 +7,9 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid >
-        <!--<Grid.Background>
-            <ImageBrush Stretch="Uniform" ImageSource="/imege/4.JPG"></ImageBrush>
-        </Grid.Background>-->
+        <Grid.Background>
+            <ImageBrush Stretch="Uniform" ImageSource="\imege\4.JPG"></ImageBrush>
+        </Grid.Background>
         <Button Foreground="#FFEB6145" x:Name="Admin" Content="Admin" HorizontalAlignment="Left" Margin="475,138,0,0" VerticalAlignment="Top" Height="54" Width="186" Click="Admin_Click" FontSize="20" FontFamily="Lucida Calligraphy" FontStyle="Italic" RenderTransformOrigin="0.5,0.5" FontWeight="Bold" BorderThickness="0,0,0,0" Background="White" />
         <Button  Foreground="#FFEB6145" x:Name="NewOrder" Content="New Order" HorizontalAlignment="Left" Margin="475,217,0,0" VerticalAlignment="Top" Height="54" Width="186" Click="NewOrder_Click" FontSize="20" FontStyle="Italic" FontFamily="Lucida Calligraphy" FontWeight="Bold" RenderTransformOrigin="0.557,-3.518"  BorderThickness="0,0,0,0" Background="White" />
         <Button  FontWeight="Bold" Foreground="#FFEB6145" x:Name="OrderTracking" Content="Order Tracking" HorizontalAlignment="Left" Margin="475,295,0,0" VerticalAlignment="Top" Height="54" Width="186" Click="OrderTracking_Click" FontFamily="Lucida Calligraphy" FontSize="20"  BorderThickness="0,0,0,0" Background="White" />
