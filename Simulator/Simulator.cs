@@ -7,47 +7,41 @@ public static class Simulator
 {
     private static string? previousState;
     private static string? afterState;
-    static bool finishFlag = false;
+    static bool finishTheSimulator = false;
     public static event EventHandler StopSimulator;
     public static event EventHandler ProgressChange;
-    public static void DoStop()
+    public static void stoping()
     {
-        finishFlag = true;
+        finishTheSimulator = true;
         if (StopSimulator != null)
             StopSimulator("", EventArgs.Empty);
     }
-    /// <summary>
-    /// the function runs the program using maun thread
-    /// </summary>
+    
     public static void run()
     {
-        Thread mainThreads = new Thread(new ThreadStart(chooseOrder));
+        Thread mainThreads = new Thread(new ThreadStart(updatingChosenOrder));
         mainThreads.Start();
         return;
     }
-    /// <summary>
-    /// the function choose the order that has to be cared now.
-    /// </summary>
-    public static void chooseOrder()
+
+    public static void updatingChosenOrder()
     {
         IBl bl = new BlImplementation.Bl();
         int? id;
-        while (!finishFlag)
+        while (!finishTheSimulator)
         {
             id = bl.Order.getOrderToPromote();
             if (id == null)
-                DoStop();
+                stoping();
             else
             {
                 try
                 {
-                    BO.Order o = bl.Order.GetOrderDetails((int)id);
-
-
-                    previousState = o.Status.ToString();
+                    BO.Order currentOrder = bl.Order.GetOrderDetails((int)id);
+                    previousState = currentOrder.Status.ToString();
                     Random rand = new Random();
                     int num = rand.Next(1000,5000);
-                    Details details = new Details(o, num);
+                    Details details = new Details(currentOrder, num);
                     if (ProgressChange != null)
                     {
                         ProgressChange(null, details);
@@ -63,19 +57,5 @@ public static class Simulator
             }
         }
         return;
-    }
-}
-
-/// <summary>
-/// class to define the things that are sended from the Simulator.cs to the window.
-/// </summary>
-public class Details : EventArgs
-{
-    public BO.Order order;
-    public int seconds;
-    public Details(BO.Order ord, int sec)
-    {
-        order = ord;
-        seconds = sec;
     }
 }
