@@ -317,15 +317,18 @@ public class Order : BlApi.IOrder
             orderList = Dal.Order.GetAll();
         }
         var minShipDate = (from o in orderList
-                           where o.Value.ShipDate is not null
+                           where o.Value.ShipDate is not null&&o.Value.DeliveryDate is null
                            orderby o.Value.ShipDate
                            select o.Value.ID).FirstOrDefault();
         var minOrderDate = (from o in orderList
                            where o.Value.ShipDate is null && o.Value.DeliveryDate is null
                             orderby o.Value.OrderDate
                            select o.Value.ID).FirstOrDefault();
-        return (minShipDate>minOrderDate)?minOrderDate:minShipDate;
-
+        if (minShipDate>0)
+            return (minShipDate > minOrderDate) ? minOrderDate : minShipDate;
+        else if(minOrderDate>0)
+            return minOrderDate;
+        return null;
     }
     #endregion
    #region bonus

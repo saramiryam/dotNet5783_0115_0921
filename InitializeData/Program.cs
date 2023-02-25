@@ -156,9 +156,9 @@ public static class Program
         addNewOrder("Mashuda", "david@gmail.com", "buksboim 12", DateTime.Now.AddDays(-(rnd.Next(9))), null, null);
         addNewOrder("Gila", "david@gmail.com", "buksboim 12", DateTime.Now.AddDays(-(rnd.Next(11))), DateTime.Now, null);
         addNewOrder("Chani", "david@gmail.com", "buksboim 12", DateTime.Now.AddDays(-(rnd.Next(13))), null,null);
+        addNewOrder("Yona", "Yona@gmail.com", "buksboim 12", DateTime.Now.AddDays(-(rnd.Next(13))), null, null);
         addNewOrder("Nadav", "david@gmail.com", "buksboim 12", DateTime.Now.AddDays(-(rnd.Next(9))), DateTime.Now, null);
         addNewOrder("Pnina", "david@gmail.com", "buksboim 12", DateTime.Now.AddDays(-(rnd.Next(5))), DateTime.Now.AddDays(-(rnd.Next(13))), null);
-        addNewOrder("Yona", "david@gmail.com", "buksboim 12", DateTime.Now, null, null);
         addNewOrder("Ayala rov", "Ayala@gmail.com", "חיים ויטאל");
         addNewOrder("David Levi", "david@gmail.com", "buksboim 12", DateTime.Now.AddDays(-(rnd.Next(18))), DateTime.Now.AddDays(-(rnd.Next(3))), DateTime.Now.AddDays(-(rnd.Next(5))));
 

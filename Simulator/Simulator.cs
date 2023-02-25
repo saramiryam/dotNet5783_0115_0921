@@ -1,6 +1,6 @@
 ﻿using BlApi;
 using BlImplementation;
-
+using BO;
 using System.Diagnostics;
 namespace Simulator;
 public static class Simulator
@@ -39,17 +39,27 @@ public static class Simulator
                 DoStop();
             else
             {
-                BO.Order o = bl.Order.GetOrderDetails((int)id);
-                previousState = o.Status.ToString();
-                Random rand = new Random();
-                int num = rand.Next(1000, 5000);
-                Details details = new Details(o, num);
-                if (ProgressChange != null)
+                try
                 {
-                    ProgressChange(null, details);
+                    BO.Order o = bl.Order.GetOrderDetails((int)id);
+
+
+                    previousState = o.Status.ToString();
+                    Random rand = new Random();
+                    int num = rand.Next(1000, 5000);
+                    Details details = new Details(o, num);
+                    if (ProgressChange != null)
+                    {
+                        ProgressChange(null, details);
+                    }
+                    Thread.Sleep(num);
+                    afterState = (previousState == "Done" ? bl.Order.UpdateShipDate((int)id) : bl.Order.UpdateDeliveryDate((int)id)).Status.ToString();
                 }
-                Thread.Sleep(num);
-                afterState = (previousState == "Done" ? bl.Order.UpdateShipDate((int)id) : bl.Order.UpdateDeliveryDate((int)id)).Status.ToString();
+                catch (NegativeIdException u)
+                {
+                    return;
+
+                }
             }
         }
         return;
