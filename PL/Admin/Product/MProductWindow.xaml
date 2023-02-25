@@ -12,9 +12,9 @@
     <Grid>
 
         <Grid x:Name="MainGrid" DataContext="{Binding ProductToUpOrAdd}">
-            <Grid.Background>
+            <!--<Grid.Background>
                 <ImageBrush Stretch="Uniform" ImageSource="C:\Users\2141s\source\repos\saramiryam\dotNet5783_0115_0921\PL\imege\5.JPG"></ImageBrush>
-            </Grid.Background>
+            </Grid.Background>-->
             <Button Background="White" FontWeight="ExtraBlack" Foreground="Black" Content="back"  HorizontalAlignment="Left" Margin="106,362,0,0" Padding="5" Width="89" Height="39" VerticalAlignment="Top" Click="Back_Click" FontSize="22" BorderThickness="0,0,0,0"/>
             <Label x:Name="idLabel" Content="id"   HorizontalAlignment="Left" Margin="247,65,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.775,-0.353" FontSize="16" FontWeight="Bold"/>
             <TextBox Background="White" PreviewTextInput="NumberValidationTextBox" x:Name="id" HorizontalAlignment="Left" Margin="289,69,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" IsReadOnly="False" TextChanged="id_TextChanged" BorderThickness="0,0,0,0"/>

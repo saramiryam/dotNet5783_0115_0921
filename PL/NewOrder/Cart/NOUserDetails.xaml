@@ -8,9 +8,9 @@
         Title="NOUserDetails" Height="450" Width="800"
     DataContext="{Binding RelativeSource={RelativeSource self}}">
     <Grid>
-        <Grid.Background>
+        <!--<Grid.Background>
             <ImageBrush Stretch="Uniform" ImageSource="C:\Users\2141s\source\repos\saramiryam\dotNet5783_0115_0921\PL\imege\6.JPG"></ImageBrush>
-        </Grid.Background>
+        </Grid.Background>-->
 
         <!--<Grid.Background>
                
