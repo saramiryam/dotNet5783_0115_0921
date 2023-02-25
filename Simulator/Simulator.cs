@@ -46,7 +46,7 @@ public static class Simulator
 
                     previousState = o.Status.ToString();
                     Random rand = new Random();
-                    int num = rand.Next(1000, 5000);
+                    int num = rand.Next(1000,5000);
                     Details details = new Details(o, num);
                     if (ProgressChange != null)
                     {

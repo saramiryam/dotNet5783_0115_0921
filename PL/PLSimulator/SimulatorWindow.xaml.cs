@@ -30,10 +30,13 @@ namespace PL.PLSimulator
     /// </summary>
     public partial class SimulatorWindow : Window
     {
+         private bool ableToClose =  false;
+
         BlApi.IBl bl;
         string nextStatus;
         string previousStatus;
         BackgroundWorker worker;
+        BO.Order MyOrder = new();
         Tuple<BO.Order, int, string, string> dcT;
         public static readonly DependencyProperty MyTimerProperty = DependencyProperty.Register(nameof(MyTimer),
                                                                                               typeof(string),
@@ -68,7 +71,7 @@ namespace PL.PLSimulator
         {
             InitializeComponent();
             bl = Bl;
-    //        Loaded += ToolWindow_Loaded;
+            //        Loaded += ToolWindow_Loaded;
             TimerStart();
         }
 
@@ -78,7 +81,7 @@ namespace PL.PLSimulator
 
             _timer = new DispatcherTimer(new TimeSpan(0, 0, 1), DispatcherPriority.Normal, delegate
             {
-              tbTime.Text= _time.ToString("c");
+                tbTime.Text = _time.ToString("c");
                 if (_time == TimeSpan.Zero) _timer.Stop();
                 _time = _time.Add(TimeSpan.FromSeconds(-1));
             }, Application.Current.Dispatcher);
@@ -134,14 +137,16 @@ namespace PL.PLSimulator
             this.previousStatus = (details.order.ShipDate == null) ? BO.Enums.EStatus.Done.ToString() : BO.Enums.EStatus.Sent.ToString();
             this.nextStatus = (details.order.ShipDate == null) ? BO.Enums.EStatus.Sent.ToString() : BO.Enums.EStatus.Provided.ToString();
             dcT = new Tuple<BO.Order, int, string, string>(details.order, details.seconds / 1000, previousStatus, nextStatus);
+            MyOrder=details.order;
             if (!CheckAccess())
             {
                 Dispatcher.BeginInvoke(changeOrder, sender, e);
             }
             else
             {
-                currentOrder.Text = details.order.ID.ToString();
-               // DataContext = dcT;
+               
+                //currentOrder.Text = details.order.ID.ToString();
+                DataContext = dcT;
                 countDownTimer(details.seconds / 1000);
 
                 ProgressBarStart(details.seconds / 1000);
@@ -186,8 +191,26 @@ namespace PL.PLSimulator
             }
             else
             {
+                ableToClose = true;
                 MessageBox.Show("complete updating");
                 this.Close();
+                ableToClose = false;
+
+            }
+        }
+
+
+
+        protected override void OnClosing(CancelEventArgs e)
+        {
+            base.OnClosing(e);
+            if (!ableToClose)
+            {
+                e.Cancel = true;
+            }
+            else
+            {
+                e.Cancel = false;
             }
         }
     }
@@ -212,7 +235,6 @@ namespace PL.PLSimulator
 //    /// </summary>
 //    public partial class SimulatorWindow : Window
 //    {
-//        private bool ableToClose =  false;
 //        public SimulatorWindow()
 //        {
 //            InitializeComponent();
@@ -220,23 +242,9 @@ namespace PL.PLSimulator
 
 //        private void Button_Click(object sender, RoutedEventArgs e)
 //        {
-//            ableToClose = true;
-//            this.Close();
-//            ableToClose = false;
+//           
 
 //        }
 
-//        protected override void OnClosing(CancelEventArgs e)
-//        {
-//            base.OnClosing(e);
-//            if (!ableToClose)
-//            {
-//                e.Cancel = true;
-//            }
-//            else
-//            {
-//                e.Cancel = false;
-//            }
-//        }
 //    }
 //}

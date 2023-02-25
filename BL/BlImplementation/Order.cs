@@ -324,9 +324,11 @@ public class Order : BlApi.IOrder
                            where o.Value.ShipDate is null && o.Value.DeliveryDate is null
                             orderby o.Value.OrderDate
                            select o.Value.ID).FirstOrDefault();
-        if (minShipDate>0)
+        if (minShipDate>0&&minOrderDate>0)
             return (minShipDate > minOrderDate) ? minOrderDate : minShipDate;
-        else if(minOrderDate>0)
+        else if(minShipDate>0)
+            return minShipDate;
+        else if ( minOrderDate > 0)
             return minOrderDate;
         return null;
     }
