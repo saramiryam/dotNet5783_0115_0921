@@ -9,9 +9,9 @@
         DataContext="{Binding RelativeSource={RelativeSource self}}">
     <Grid>
 
-        <!--<Grid.Background>
+        <Grid.Background>
             <ImageBrush Stretch="Uniform" ImageSource="C:\Users\2141s\source\repos\saramiryam\dotNet5783_0115_0921\PL\imege\2.JPG"></ImageBrush>
-        </Grid.Background>-->
+        </Grid.Background>
         <Grid x:Name="MainGrid"  DataContext="{Binding OrderToUp}">
             <Label  Content="id"   HorizontalAlignment="Left" Margin="259,20,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
             <TextBox Background="LightBlue"  HorizontalAlignment="Left" Margin="289,20,0,0" TextWrapping="Wrap" Text="{Binding ID,Mode=TwoWay}" VerticalAlignment="Top" Width="150" IsReadOnly="True" BorderBrush="White" BorderThickness="2,2,2,2" />
