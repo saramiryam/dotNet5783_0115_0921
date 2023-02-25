@@ -16,7 +16,10 @@ public class Order : BlApi.IOrder
     IDal? Dal = Factory.Get();
     //private static IDal? Dal = Factory.Get();
     #region method
-
+    /// <summary>
+    /// get the whole list of orders
+    /// </summary>
+    /// <returns> list of orders</returns>
     [MethodImpl(MethodImplOptions.Synchronized)]
     public IEnumerable<BO.OrderForList?> GetListOfOrders()
     {
@@ -40,6 +43,14 @@ public class Order : BlApi.IOrder
         return addOrder.ToList();
     }
 
+
+    /// <summary>
+    /// get one order by id
+    /// </summary>
+    /// <param name="id"> id of order demeded</param>
+    /// <returns>order demended</returns>
+    /// <exception cref="BO.NegativeIdException">Negative Id</exception>
+    /// <exception cref="BO.OrderNotExistsException">Order Not Exists</exception>
     [MethodImpl(MethodImplOptions.Synchronized)]
     public BO.Order GetOrderDetails(int id)
     {
@@ -68,6 +79,15 @@ public class Order : BlApi.IOrder
         }
     }
 
+
+    /// <summary>
+    /// get item details of demended order
+    /// </summary>
+    /// <param name="MyCart">from whitc catr</param>
+    /// <param name="ItemId">from whitc item</param>
+    /// <returns>the details</returns>
+    /// <exception cref="BO.NegativeIdException">Negative Id</exception>
+    /// <exception cref="BO.OrderNotExistsException">Order Not Exists</exception>
     [MethodImpl(MethodImplOptions.Synchronized)]
     public BO.OrderItem GetOrderItemDetails(BO.Cart MyCart, int ItemId)
     {
@@ -112,6 +132,14 @@ public class Order : BlApi.IOrder
         }
     }
 
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="id"></param>
+    /// <returns></returns>
+    /// <exception cref="BO.OrderNotExistsException"></exception>
+    /// <exception cref="BO.OrderHasAlreadySentException"></exception>
     [MethodImpl(MethodImplOptions.Synchronized)]
     public BO.Order UpdateShipDate(int id)
     {

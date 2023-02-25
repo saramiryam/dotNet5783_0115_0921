@@ -21,7 +21,7 @@ namespace BlImplementation
         #region methodes
 
         /// <summary>
-        /// get an item an try to add it to the cart
+        /// get an item and try to add it to the cart
         /// </summary>
         /// <param name="cart">add to this cart an item</param>
         /// <param name="itemId">id of item to add</param>
@@ -121,6 +121,18 @@ namespace BlImplementation
         }
 
 
+
+        /// <summary>
+        /// get an item and try to change the amout if it correct
+        /// </summary>
+        /// <param name="cart">the cart we want to change</param>
+        /// <param name="itemId">the item`s id we want to change</param>
+        /// <param name="amount">the amout to change</param>
+        /// <returns>the cart after update</returns>
+        /// <exception cref="ItemNotInCartException">Item Not In Cart</exception>
+        /// <exception cref="BO.ItemNotInCartException">Item Not In Cart</exception>
+        /// <exception cref="NegativeIdException">Negative Id</exception>
+        /// <exception cref="BO.NegativeAmountException">Negative Amount</exception>
         [MethodImpl(MethodImplOptions.Synchronized)]
         public BO.Cart UpdateAmount(BO.Cart cart, int itemId, int amount)
         {
@@ -177,6 +189,23 @@ namespace BlImplementation
         }
 
 
+
+        /// <summary>
+        /// submit a costemor with his cart and details
+        /// </summary>
+        /// <param name="cart">the costemor cart</param>
+        /// <param name="name">the costemor name</param>
+        /// <param name="email">the costemor email</param>
+        /// <param name="adress">the costemor adress</param>
+        /// <exception cref="BO.NameIsNullException">Name Is Null</exception>
+        /// <exception cref="BO.AdressIsNullException">Adress Is Null</exception>
+        /// <exception cref="BO.GetDulNullException">Get Dul Null</exception>
+        /// <exception cref="BO.NegativeAmountException">Negative Amount</exception>
+        /// <exception cref="BO.NotEnoughInStockException">Not Enough In Stock</exception>
+        /// <exception cref="BO.ItemInCartNotExistsAsProductException">Item In Cart Not Exists As Product</exception>
+        /// <exception cref="BO.ItemAlreadyExistsException">Item Already Exists</exception>
+        /// <exception cref="BO.OrderNotExistsException">Order No tExists</exception>
+        /// <exception cref="BO.FieldToGetProductException">Field To Get Product</exception>
         [MethodImpl(MethodImplOptions.Synchronized)]
         public void SubmitOrder(BO.Cart cart, string name, string email, string adress)
         {
@@ -301,7 +330,11 @@ namespace BlImplementation
 
         #endregion
         #region help methodes
-
+        /// <summary>
+        /// check if the email entered is valid
+        /// </summary>
+        /// <param name="email">the email to check</param>
+        /// <exception cref="BO.UncorrectEmailException">Uncorrect Email</exception>
         [MethodImpl(MethodImplOptions.Synchronized)]
         private void checkEmail(string email)
         {
