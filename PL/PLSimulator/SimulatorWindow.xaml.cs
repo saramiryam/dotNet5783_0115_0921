@@ -1,27 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
-using System;
-using System.ComponentModel;
 using System.Diagnostics;
 using System.Threading;
-using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Media.Animation;
 using System.Windows.Threading;
 using Simulator;
-using PL.NewOrder.ProductItem;
 
 namespace PL.PLSimulator
 {
@@ -38,7 +24,7 @@ namespace PL.PLSimulator
         public string PreviousStatus { get; set; } = "dfghii";
         BackgroundWorker worker;
        // BO.Order MyOrder = new();
-        Tuple<BO.Order, int, string, string,string> dcT;
+        Tuple<BO.Order, int, string, string,string> orderAndTime;
         public static readonly DependencyProperty MyTimerProperty = DependencyProperty.Register(nameof(MyTimer),
                                                                                               typeof(string),
                                                                                       typeof(SimulatorWindow));
@@ -99,18 +85,18 @@ namespace PL.PLSimulator
         {
             InitializeComponent();
             bl = Bl;
-            //        Loaded += ToolWindow_Loaded;
             TimerStart();
         }
 
         void countDownTimer(int sec)
         {
             _time = TimeSpan.FromSeconds(sec);
-            if(t is true)
-                _timer.Stop();
+
             _timer = new DispatcherTimer(new TimeSpan(0, 0, 1), DispatcherPriority.Normal, delegate
             {
-                t=true;
+                if (t is true)
+                    _timer.Stop();
+                t = true;
                 tbTime.Text = _time.ToString("c");
                 if (_time == TimeSpan.Zero) _timer.Stop();
                 _time = _time.Add(TimeSpan.FromSeconds(-1));
@@ -118,22 +104,7 @@ namespace PL.PLSimulator
 
             _timer.Start();
         }
-        void ProgressBarStart(int sec)
-        {
-            if (ProgressBar != null)
-            {
-                pBar.Items.Remove(ProgressBar);
-            }
-            ProgressBar = new ProgressBar();
-            ProgressBar.IsIndeterminate = false;
-            ProgressBar.Orientation = Orientation.Horizontal;
-            ProgressBar.Width = 500;
-            ProgressBar.Height = 30;
-            duration = new Duration(TimeSpan.FromSeconds(sec * 2));
-            doubleanimation = new DoubleAnimation(200.0, duration);
-            ProgressBar.BeginAnimation(ProgressBar.ValueProperty, doubleanimation);
-            pBar.Items.Add(ProgressBar);
-        }
+       
         void TimerStart()
         {
             stopWatch = new Stopwatch();
@@ -142,7 +113,6 @@ namespace PL.PLSimulator
             worker.ProgressChanged += TimerProgressChanged;
             worker.WorkerReportsProgress = true;
             worker.WorkerSupportsCancellation = true;
-            //Simulator.Simulator.StartSimulator();
             stopWatch.Restart();
             isTimerRun = true;
             worker.RunWorkerAsync();
@@ -167,18 +137,16 @@ namespace PL.PLSimulator
             PreviousStatus = (details.order.ShipDate == null) ? BO.Enums.EStatus.Done.ToString() : BO.Enums.EStatus.Sent.ToString();
             NextStatus = (details.order.ShipDate == null) ? BO.Enums.EStatus.Sent.ToString() : BO.Enums.EStatus.Provided.ToString();
 
-            dcT = new Tuple<BO.Order, int, string, string,string>(details.order, details.seconds / 1000, PreviousStatus, NextStatus, timerText);
-            //MyOrder = details.order;
+            orderAndTime = new Tuple<BO.Order, int, string, string,string>(details.order, details.seconds / 1000, PreviousStatus, NextStatus, timerText);
             if (!CheckAccess())
             {
                 Dispatcher.BeginInvoke(changeOrder, sender, e);
             }
             else
             {
-                DataContext = dcT;
+                DataContext = orderAndTime;
                 countDownTimer(details.seconds / 1000);
 
-                ProgressBarStart(details.seconds / 1000);
             }
         }
         void TimerProgressChanged(object sender, ProgressChangedEventArgs e)

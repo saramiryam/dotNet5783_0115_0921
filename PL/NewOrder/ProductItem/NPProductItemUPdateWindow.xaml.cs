@@ -21,7 +21,6 @@ namespace PL.NewOrder.ProductItem;
 /// </summary>
 public partial class NPProductItemUPdateWindow : Window
 {
-    Action<BO.ProductItem> AddNewProduct;
     BlApi.IBl? bl = BlApi.Factory.Get();
     public static string Action { get; set; } = "";
     //   public  int Amount { get; set; } = 0;
@@ -104,7 +103,7 @@ public partial class NPProductItemUPdateWindow : Window
     }
     private void Back_Click(object sender, RoutedEventArgs e)
     {
-        new PProductItemList(Cart).Show();
+    
         Close();
     }
     private void goCart_Click(object sender, RoutedEventArgs e)

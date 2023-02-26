@@ -48,10 +48,6 @@ public static class Program
             XElement rootElemO = new XElement(@"Product.xml");
             foreach (var u in _Products)
                 products.Add((DO.Product)u);
-            //FileStream file = new FileStream(dir + @"Product.xml", FileMode.Create);
-            //XmlSerializer p = new XmlSerializer(_Products.GetType());
-            //p.Serialize(file, _Products);
-            //file.Close();
             FileStream fileOI = new FileStream(dir + @"OrderItems.xml", FileMode.Create);
             XmlSerializer OI = new XmlSerializer(_arrOrderItem.GetType());
             OI.Serialize(fileOI, _arrOrderItem);
