@@ -32,7 +32,7 @@
             <TextBlock  Text="{Binding Item3}" Grid.Row="2" Margin="297,15,341,28" Grid.ColumnSpan="2" FontSize="16" FontFamily="Lucida Calligraphy"/>
             <TextBlock Text="Next Status:" Grid.Row="2" Grid.Column="0" Margin="136,55,120,0" Height="23" VerticalAlignment="Top" FontFamily="Lucida Calligraphy" FontSize="16" FontWeight="Bold"></TextBlock>
             <TextBlock  Text="{Binding Item4}" Grid.Row="2" Margin="297,55,103,90" Grid.ColumnSpan="2" Grid.RowSpan="2" FontFamily="Lucida Calligraphy" FontSize="16"/>
-            <TextBlock Text="Estimated time to complete:" Grid.Row="3" Grid.Column="0" Margin="136,20,0,48" FontFamily="Lucida Calligraphy" FontSize="16" FontWeight="Bold" HorizontalAlignment="Left" Width="235"/>
+            <TextBlock Text="Estimated time to complete:" Grid.Row="3" Grid.Column="0" Margin="136,20,0,48" FontFamily="Lucida Calligraphy" FontSize="16" FontWeight="Bold" HorizontalAlignment="Left" Width="245"/>
             <TextBlock x:Name="EstimatedTime" Text="{Binding Item2}" Grid.Row="3" Margin="4,20,208,42" FontSize="16" FontFamily="Lucida Calligraphy" Grid.Column="1"/>
             <TextBlock Name="tbTime" Margin="109,20,103,42" Grid.Row="3" Grid.Column="1" FontFamily="Lucida Calligraphy" FontSize="16"/>
         </Grid>

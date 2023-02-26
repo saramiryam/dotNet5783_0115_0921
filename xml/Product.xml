@@ -77,4 +77,11 @@
     <InStock>25</InStock>
     <Category>ArtMaterials</Category>
   </Product>
+  <Product>
+    <ID>100015</ID>
+    <Name>sdfghj</Name>
+    <Price>15</Price>
+    <InStock>150</InStock>
+    <Category>Pens</Category>
+  </Product>
 </Product.xml>

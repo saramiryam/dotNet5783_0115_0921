@@ -81,8 +81,6 @@ public partial class MProductListWindow : Window
             MessageBox.Show(ex.Message.ToString());
         }
         InitializeComponent();
-        //  ProductListView.ItemsSource = (bl?.Product.GetListOfProduct());
-        // CategorySelector.Items.Add("all products");
 
     }
 

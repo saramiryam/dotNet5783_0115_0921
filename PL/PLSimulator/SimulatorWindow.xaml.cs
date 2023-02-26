@@ -16,71 +16,19 @@ namespace PL.PLSimulator
     /// </summary>
     public partial class SimulatorWindow : Window
     {
-         private bool ableToClose =  false;
+        private bool ableToClose =  false;
         bool t=false;   
         BlApi.IBl bl;
         string timerText { get; set; }
         public string NextStatus { get; set; } = "cvbn";
         public string PreviousStatus { get; set; } = "dfghii";
-        BackgroundWorker worker;
-       // BO.Order MyOrder = new();
+        BackgroundWorker backgroundWorker;
         Tuple<BO.Order, int, string, string,string> orderAndTime;
-        public static readonly DependencyProperty MyTimerProperty = DependencyProperty.Register(nameof(MyTimer),
-                                                                                              typeof(string),
-                                                                                      typeof(SimulatorWindow));
-        public string MyTimer
-        {
-            get { return (string)GetValue(MyTimerProperty); }
-            set { SetValue(MyTimerProperty, value); }
-        }
-
-        //public static readonly DependencyProperty NextStatusProperty = DependencyProperty.Register(nameof(NextStatus),
-        //                                                                               typeof(string),
-        //                                                                       typeof(SimulatorWindow));
-        //public string NextStatus
-        //{
-        //    get { return (string)GetValue(NextStatusProperty); }
-        //    set { SetValue(NextStatusProperty, value); }
-        //}
-
-        //public static readonly DependencyProperty PreviousStatusProperty = DependencyProperty.Register(nameof(PreviousStatus),
-        //                                                                       typeof(string),
-        //                                                               typeof(SimulatorWindow));
-        //public string PreviousStatus
-        //{
-        //    get { return (string)GetValue(PreviousStatusProperty); }
-        //    set { SetValue(PreviousStatusProperty, value); }
-        //}
-
-        public static readonly DependencyProperty MyOrderProperty = DependencyProperty.Register(nameof(MyOrder),
-                                                                                         typeof(BO.Order),
-                                                                                 typeof(SimulatorWindow));
-        public BO.Order MyOrder
-        {
-            get { return (BO.Order)GetValue(MyOrderProperty); }
-            set { SetValue(MyOrderProperty, value); }
-        }
-
-
-        ////====== disable the option of closing the window =======
-        //private const int GWL_STYLE = -16;
-        //private const int WS_SYSMENU = 0x80000;
-        //[System.Runtime.InteropServices.DllImport("user32.dll", SetLastError = true)]
-        //private static extern int GetWindowLong(IntPtr hWnd, int nIndex);
-
-        //[System.Runtime.InteropServices.DllImport("user32.dll")]
-        //private static extern int SetWindowLong(IntPtr hWnd, int nIndex, int dwNewLong);
-        ////=====================================================
         private Stopwatch stopWatch;
-        private bool isTimerRun;
-        //=======progressBar variables
-        Duration duration;
-        DoubleAnimation doubleanimation;
-        ProgressBar ProgressBar;
-        //=======countdown timer variables
+        private bool IfTimerRunning;
+        //timer parameters
         DispatcherTimer _timer;
         TimeSpan _time;
-        //=======
         public SimulatorWindow(BlApi.IBl Bl)
         {
             InitializeComponent();
@@ -108,27 +56,27 @@ namespace PL.PLSimulator
         void TimerStart()
         {
             stopWatch = new Stopwatch();
-            worker = new BackgroundWorker();
-            worker.DoWork += TimerDoWork;
-            worker.ProgressChanged += TimerProgressChanged;
-            worker.WorkerReportsProgress = true;
-            worker.WorkerSupportsCancellation = true;
+            backgroundWorker = new BackgroundWorker();
+            backgroundWorker.DoWork += TimerDoWork;
+            backgroundWorker.ProgressChanged += TimerProgressChanged;
+            backgroundWorker.WorkerReportsProgress = true;
+            backgroundWorker.WorkerSupportsCancellation = true;
             stopWatch.Restart();
-            isTimerRun = true;
-            worker.RunWorkerAsync();
+            IfTimerRunning = true;
+            backgroundWorker.RunWorkerAsync();
         }
         void TimerDoWork(object sender, DoWorkEventArgs e)
         {
-            Simulator.Simulator.ProgressChange += changeOrder;
+            Simulator.Simulator.ProgressChange += ChooseOrder;
             Simulator.Simulator.StopSimulator += Stop;
             Simulator.Simulator.run();
-            while (isTimerRun)
+            while (IfTimerRunning)
             {
-                worker.ReportProgress(1);
+                backgroundWorker.ReportProgress(1);
                 Thread.Sleep(1000);
             }
         }
-        private void changeOrder(object sender, EventArgs e)
+        private void ChooseOrder(object sender, EventArgs e)
         {
             if (!(e is Details))
                 return;
@@ -140,7 +88,7 @@ namespace PL.PLSimulator
             orderAndTime = new Tuple<BO.Order, int, string, string,string>(details.order, details.seconds / 1000, PreviousStatus, NextStatus, timerText);
             if (!CheckAccess())
             {
-                Dispatcher.BeginInvoke(changeOrder, sender, e);
+                Dispatcher.BeginInvoke(ChooseOrder, sender, e);
             }
             else
             {
@@ -155,33 +103,21 @@ namespace PL.PLSimulator
             timerText = timerText.Substring(0, 8);
             SimulatorTXTB.Text = timerText;
         }
-        //void ToolWindow_Loaded(object sender, RoutedEventArgs e)
-        //{
-        //    // Code to remove close box from window
-        //    var hwnd = new System.Windows.Interop.WindowInteropHelper(this).Handle;
-        //    SetWindowLong(hwnd, GWL_STYLE, GetWindowLong(hwnd, GWL_STYLE) & ~WS_SYSMENU);
-        //}
 
         private void StopSimulatorBTN_Click(object sender, RoutedEventArgs e)
         {
-            if (isTimerRun)
+            if (IfTimerRunning)
             {
                 stopWatch.Stop();
-                isTimerRun = false;
+                IfTimerRunning = false;
             }
             Simulator.Simulator.stoping();
             this.Close();
         }
         public void Stop(object sender, EventArgs e)
         {
-            Simulator.Simulator.ProgressChange -= changeOrder;
+            Simulator.Simulator.ProgressChange -= ChooseOrder;
             Simulator.Simulator.StopSimulator -= Stop;
-            /*   while (!CheckAccess())
-             {
-                 Dispatcher.BeginInvoke(Stop, sender, e);
-             }
-             MessageBox.Show("successfully finish updating all orders");
-             this.Close();*/
             if (!CheckAccess())
             {
                 Dispatcher.BeginInvoke(Stop, sender, e);
@@ -215,33 +151,3 @@ namespace PL.PLSimulator
 
 
 
-
-
-
-
-
-
-
-
-
-
-//namespace PL.Simulator
-//{
-//    /// <summary>
-//    /// Interaction logic for SimulatorWindow.xaml
-//    /// </summary>
-//    public partial class SimulatorWindow : Window
-//    {
-//        public SimulatorWindow()
-//        {
-//            InitializeComponent();
-//        }
-
-//        private void Button_Click(object sender, RoutedEventArgs e)
-//        {
-//           
-
-//        }
-
-//    }
-//}

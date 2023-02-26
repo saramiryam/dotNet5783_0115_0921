@@ -16,7 +16,7 @@
                 <ImageBrush Stretch="Uniform" ImageSource="C:\Users\2141s\source\repos\saramiryam\dotNet5783_0115_0921\PL\imege\5.JPG"></ImageBrush>
             </Grid.Background>-->
             <Button Background="White" FontWeight="ExtraBlack" Foreground="Black" Content="back"  HorizontalAlignment="Left" Margin="106,362,0,0" Padding="5" Width="89" Height="39" VerticalAlignment="Top" Click="Back_Click" FontSize="22" BorderThickness="0,0,0,0"/>
-            <Label  Content="id"   HorizontalAlignment="Left" Margin="247,65,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.775,-0.353" FontSize="16" FontWeight="Bold"/>
+            <Label  Content="id"   HorizontalAlignment="Left" Margin="247,65,0,0" VerticalAlignment="Top"  RenderTransformOrigin="0.775,-0.353" FontSize="16" FontWeight="Bold"/>
             <TextBox Background="White" PreviewTextInput="NumberValidationTextBox"  Text="{Binding ID,Mode=TwoWay}" HorizontalAlignment="Left" Margin="289,69,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" IsReadOnly="False" TextChanged="id_TextChanged" BorderThickness="0,0,0,0"/>
             <Label   Content="category" HorizontalAlignment="Left" Margin="198,149,0,0" VerticalAlignment="Top" FontSize="16" FontWeight="Bold"/>
             <ComboBox x:Name="chooseCategoryToAdd" SelectedItem="{Binding Category,Mode=TwoWay}"  HorizontalAlignment="Left" Margin="289,154,0,0" ItemsSource="{Binding Source={x:Static local:MProductWindow.Categories}}" VerticalAlignment="Top" Width="120" SelectionChanged="chooseCategoryToAdd_SelectionChanged" BorderThickness="0,0,0,0">

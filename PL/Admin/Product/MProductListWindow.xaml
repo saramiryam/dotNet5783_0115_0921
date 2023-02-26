@@ -14,7 +14,7 @@
             <RowDefinition Height="500*"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        <Button  Content="back" FontWeight="ExtraBlack" Foreground="#FF2683B0" HorizontalAlignment="Left" Padding="5" Width="199" Click="Back_Click" Height="41" VerticalAlignment="Center" FontSize="20" RenderTransformOrigin="0.623,0.855" Margin="42,0,0,0" Grid.RowSpan="2" FontFamily="Lucida Calligraphy" BorderBrush="White">
+        <Button  Content="back" FontWeight="ExtraBlack" Foreground="#FF2683B0" HorizontalAlignment="Left" Padding="5" Width="199" Click="Back_Click" Height="41" VerticalAlignment="Center" FontSize="20" RenderTransformOrigin="0.623,0.855" Margin="42,0,0,0" Grid.RowSpan="2" BorderBrush="White">
             <Button.Background>
                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                     <GradientStop Color="Black"/>
@@ -68,7 +68,7 @@
             </ListView.View>
         </ListView>
 
-        <Button FontWeight="ExtraBlack" Foreground="#FF2683B0" x:Name="addOrUpdate" Content="Add new Product" Grid.Row="2" HorizontalAlignment="Left" Margin="549,401,0,0" Padding="5" Width="199" Click="Add_Click_" Height="71" VerticalAlignment="Top" FontSize="20" FontFamily="Lucida Calligraphy" BorderBrush="White" BorderThickness="0,0,0,0">
+        <Button FontWeight="ExtraBlack" Foreground="#FF2683B0" x:Name="addOrUpdate" Content="Add new Product" Grid.Row="2" HorizontalAlignment="Left" Margin="549,401,0,0" Padding="5" Width="199" Click="Add_Click_" Height="71" VerticalAlignment="Top" FontSize="20"  BorderBrush="White" BorderThickness="0,0,0,0">
             <Button.Background>
                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                     <GradientStop Color="Black"/>

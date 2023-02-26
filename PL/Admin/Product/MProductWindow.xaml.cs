@@ -27,6 +27,7 @@ namespace PL.Product
         #region prorerties
         BlApi.IBl? bl = BlApi.Factory.Get();
         public static string MyContent { get; set; } = "add";
+        public static bool validID { get; set; } =false;
         public BO.Product ProductToUpOrAdd
         {
             get { return (BO.Product)GetValue(ProductToUpOrAddProperty); }
@@ -62,6 +63,7 @@ namespace PL.Product
         {
             ProductToUpOrAdd = new();
             MyContent = "add";
+            validID=true;
             InitializeComponent();
             this.Action = Action;
         }
@@ -70,6 +72,7 @@ namespace PL.Product
         {
             try
             {
+                validID=false;
                 ProductToUpOrAdd = bl.Product.GetProductDetails(idToUpdate);
             }
             catch (ProductNotExistsException ex)
