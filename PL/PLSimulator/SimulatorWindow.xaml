@@ -5,13 +5,12 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL.PLSimulator"
         mc:Ignorable="d"
-        Title="SimulatorWindow" Height="500" Width="800"
-        DataContext="{Binding RelativeSource={RelativeSource self}}">
+        Title="SimulatorWindow" Height="500" Width="800">
     <Grid>
         <!--Style="{StaticResource BtnStyle}"-->
         <Button Content="Stop Simulation"  Height="35" Margin="641,0,0,434" VerticalAlignment="Bottom" Width="135" Click="StopSimulatorBTN_Click"/>
         <TextBlock x:Name="SimulatorTXTB" Text="00:00:00" HorizontalAlignment="Left" Height="80" Margin="22,10,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="230" FontSize="48" FontFamily="adam" FontWeight="Bold"/>
-        <Grid Margin="0,55,0,34">
+        <Grid Margin="0,55,0,34" DataContext="{Binding }">
             <Grid.RowDefinitions>
                 <RowDefinition Height="46*"/>
                 <RowDefinition Height="112*"/>
@@ -24,14 +23,14 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <TextBlock Text="Current Order:" Grid.Row="1" Grid.Column="0" Margin="200,79,120,3"/>
-            <TextBlock x:Name="currentOrder" Grid.Row="1" Grid.Column="1" Margin="10,76,228,3" Text="{Binding MyOrder.ID,Mode=TwoWay}"/>
+            <TextBlock x:Name="currentOrder" Grid.Row="1" Grid.Column="1" Margin="10,76,228,3" Text="{Binding Item1.ID}"/>
             <TextBlock Text="Previous Status:" Grid.Row="2" Grid.Column="0" Margin="200,5,12,28"/>
-            <TextBlock  Text="{Binding PreviousStatus,Mode=TwoWay}" Grid.Row="1" Grid.Column="1" Margin="0,109,238,47" Grid.RowSpan="2"/>
+            <TextBlock  Text="{Binding Item3}" Grid.Row="1" Grid.Column="1" Margin="0,109,238,47" Grid.RowSpan="2"/>
             <TextBlock Text="Next Status:" Grid.Row="2" Grid.Column="0" Margin="200,56,12,0" Height="23" VerticalAlignment="Top"></TextBlock>
-            <TextBlock  Text="{Binding NextStatus,Mode=TwoWay}" Grid.Row="2" Margin="393,44,7,105" Grid.ColumnSpan="2" Grid.RowSpan="2"/>
+            <TextBlock  Text="{Binding Item4}" Grid.Row="2" Margin="393,44,7,105" Grid.ColumnSpan="2" Grid.RowSpan="2"/>
             <TextBlock Text="Estimated time to complete:" Grid.Row="3" Grid.Column="0" Margin="200,20,12,45"/>
-            <TextBlock x:Name="EstimatedTime" Text="{Binding Item2}" Grid.Row="3" Grid.Column="1" Margin="0,10,0,55"/>
-            <TextBlock Name="tbTime" Grid.Column="1" Margin="0,78,113,72" Grid.RowSpan="2" Grid.Row="2"/>
+            <TextBlock x:Name="EstimatedTime" Text="{Binding Item2}" Grid.Row="3" Margin="365,20,247,45" Grid.ColumnSpan="2"/>
+            <TextBlock Name="tbTime" Margin="32,20,180,45" Grid.Row="3" Grid.Column="1"/>
         </Grid>
         <StatusBar Name="pBar" Grid.Column="0" Grid.Row="5" VerticalAlignment="Bottom" Background="Aquamarine">
             <StatusBarItem Height="80">
@@ -50,9 +49,11 @@
         mc:Ignorable="d"
         Title="SimulatorWindow" Height="450" Width="800">
     <Grid>
-        --><!--<Grid.Background>
+        -->
+<!--<Grid.Background>
             <ImageBrush Stretch="Uniform" ImageSource="C:\Users\2141s\source\repos\saramiryam\dotNet5783_0115_0921\PL\imege\1.JPG"></ImageBrush>
-        </Grid.Background>--><!--
+        </Grid.Background>-->
+<!--
         <Button Content="stop" HorizontalAlignment="Center" Margin="0,175,0,0" VerticalAlignment="Top" Width="126" Height="65" Click="Button_Click" Background="White" FontSize="22" FontWeight="Bold" FontFamily="Lucida Calligraphy" BorderBrush="White"/>
 
     </Grid>

@@ -172,10 +172,6 @@ namespace PL.PLSimulator
             }
             else
             {
-                //MyOrder = details.order;
-                //PreviousStatus = (details.order.ShipDate == null) ? BO.Enums.EStatus.Done.ToString() : BO.Enums.EStatus.Sent.ToString();
-               // NextStatus = (details.order.ShipDate == null) ? BO.Enums.EStatus.Sent.ToString() : BO.Enums.EStatus.Provided.ToString();
-                //currentOrder.Text = details.order.ID.ToString();
                 DataContext = dcT;
                 countDownTimer(details.seconds / 1000);
 
@@ -202,7 +198,7 @@ namespace PL.PLSimulator
                 stopWatch.Stop();
                 isTimerRun = false;
             }
-            Simulator.Simulator.DoStop();
+            Simulator.Simulator.stoping();
             this.Close();
         }
         public void Stop(object sender, EventArgs e)
