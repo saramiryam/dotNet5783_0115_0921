@@ -9,7 +9,7 @@
     DataContext="{Binding RelativeSource={RelativeSource self}}">
     <Grid Name="MainGrid">
         <Grid.Background>
-            <ImageBrush Stretch="Uniform" ImageSource="C:\Users\2141s\source\repos\saramiryam\dotNet5783_0115_0921\PL\imege\3.JPG"></ImageBrush>
+            <ImageBrush Stretch="Uniform" Opacity="0.2" ImageSource="C:\Users\2141s\source\repos\saramiryam\dotNet5783_0115_0921\PL\imege\3.JPG"></ImageBrush>
         </Grid.Background>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
@@ -36,7 +36,7 @@
 
         <Grid DataContext="{Binding Amount}">
             <Button Background="#FFFE8F1E" FontWeight="Bold" Foreground="White" x:Name="minus"  Content="-" HorizontalAlignment="Left" Margin="147,235,0,0" Click="minus_Click" Padding="5" Width="20" Height="28" VerticalAlignment="Top" BorderBrush="{x:Null}" FontSize="14" RenderTransformOrigin="5.202,0.755" />
-            <TextBlock  Text="{Binding}" TextAlignment="Center" HorizontalAlignment="Left" Margin="172,234,0,0" Width="50" TextWrapping="Wrap" VerticalAlignment="Top" Height="28" Foreground="White" FontSize="14"/>
+            <TextBlock  Text="{Binding}" TextAlignment="Center" HorizontalAlignment="Left" Margin="172,234,0,0" Width="50" TextWrapping="Wrap" VerticalAlignment="Top" Height="28" Foreground="Black" FontSize="14"/>
             <Button Background="#FFFE8F1E" FontWeight="Bold" Foreground="White" x:Name="plus"  Content="+" HorizontalAlignment="Right" Click="Plus_Click" Margin="0,234,553,0" Padding="5" Width="20" Height="28" VerticalAlignment="Top" FontSize="14" BorderBrush="{x:Null}" />
             <Button Background="#FFFE8F1E" FontWeight="Bold" Foreground="White"  Content="update amount" HorizontalAlignment="Left" Margin="288,222,0,0" Padding="5" Width="158" Height="53" VerticalAlignment="Top" Click="UpdateItem_Click" BorderBrush="{x:Null}" FontSize="18" />
             <Button Background="#FFFE8F1E" FontWeight="Bold" Foreground="White" Content="remove" HorizontalAlignment="Left" Margin="474,221,0,0" Padding="5" Width="100" Height="53" VerticalAlignment="Top" Click="RemoveItem_Click" BorderBrush="White" FontSize="18" RenderTransformOrigin="0.716,0.321" BorderThickness="0,0,0,0" />

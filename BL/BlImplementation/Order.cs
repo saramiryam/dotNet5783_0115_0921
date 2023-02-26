@@ -376,7 +376,6 @@ public class Order : BlApi.IOrder
         }
         else
         {
-            //didnt find
             try
             {
                 if (Dal != null)

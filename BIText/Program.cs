@@ -74,11 +74,6 @@ namespace BlTest
                     if (blVariable != null)
                     {
                         IEnumerable<ProductForList?> listFromMethod = blVariable.Product.GetListOfProduct();
-                        //foreach (var productForList in listFromMethod)
-                        //{
-                        //    if (productForList is not null)
-                        //        Console.WriteLine(productForList);
-                        //}
                         var productForList = (from ProductForList p in listFromMethod
                                               where p is not null
                                               select p).ToList();
