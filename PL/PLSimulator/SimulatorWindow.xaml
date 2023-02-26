@@ -22,8 +22,10 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <TextBlock Text="Current Order:" Grid.Row="1" Grid.Column="0" Margin="200,79,120,3"/>
-            <TextBlock x:Name="currentOrder" Grid.Row="1" Grid.Column="1" Margin="10,76,228,3" Text="{Binding Item1.ID}"/>
+            <TextBlock Text="Current Order:" Grid.Row="1" Grid.Column="0" Margin="200,41,120,41"/>
+            <TextBlock x:Name="currentOrder" Grid.Row="1" Margin="319,28,319,51" Text="{Binding Item1.ID}" Grid.ColumnSpan="2"/>
+            <TextBlock Text="begin time" Grid.Row="1" Grid.Column="0" Margin="200,71,120,11"/>
+            <TextBlock x:Name="beginTime" Grid.Row="1" Margin="297,62,341,17" Text="{Binding Item5}" Grid.ColumnSpan="2"/>
             <TextBlock Text="Previous Status:" Grid.Row="2" Grid.Column="0" Margin="200,5,12,28"/>
             <TextBlock  Text="{Binding Item3}" Grid.Row="1" Grid.Column="1" Margin="0,109,238,47" Grid.RowSpan="2"/>
             <TextBlock Text="Next Status:" Grid.Row="2" Grid.Column="0" Margin="200,56,12,0" Height="23" VerticalAlignment="Top"></TextBlock>

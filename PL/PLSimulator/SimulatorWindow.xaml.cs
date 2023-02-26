@@ -33,11 +33,12 @@ namespace PL.PLSimulator
          private bool ableToClose =  false;
 
         BlApi.IBl bl;
+        string timerText { get; set; }
         public string NextStatus { get; set; } = "cvbn";
         public string PreviousStatus { get; set; } = "dfghii";
         BackgroundWorker worker;
        // BO.Order MyOrder = new();
-        Tuple<BO.Order, int, string, string> dcT;
+        Tuple<BO.Order, int, string, string,string> dcT;
         public static readonly DependencyProperty MyTimerProperty = DependencyProperty.Register(nameof(MyTimer),
                                                                                               typeof(string),
                                                                                       typeof(SimulatorWindow));
@@ -164,7 +165,7 @@ namespace PL.PLSimulator
             PreviousStatus = (details.order.ShipDate == null) ? BO.Enums.EStatus.Done.ToString() : BO.Enums.EStatus.Sent.ToString();
             NextStatus = (details.order.ShipDate == null) ? BO.Enums.EStatus.Sent.ToString() : BO.Enums.EStatus.Provided.ToString();
 
-            dcT = new Tuple<BO.Order, int, string, string>(details.order, details.seconds / 1000, PreviousStatus, NextStatus);
+            dcT = new Tuple<BO.Order, int, string, string,string>(details.order, details.seconds / 1000, PreviousStatus, NextStatus, timerText);
             //MyOrder = details.order;
             if (!CheckAccess())
             {
@@ -180,7 +181,7 @@ namespace PL.PLSimulator
         }
         void TimerProgressChanged(object sender, ProgressChangedEventArgs e)
         {
-            string timerText = stopWatch.Elapsed.ToString();
+            timerText = stopWatch.Elapsed.ToString();
             timerText = timerText.Substring(0, 8);
             SimulatorTXTB.Text = timerText;
         }
