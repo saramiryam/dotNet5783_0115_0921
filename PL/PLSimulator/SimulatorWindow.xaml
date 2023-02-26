@@ -7,10 +7,12 @@
         mc:Ignorable="d"
         Title="SimulatorWindow" Height="500" Width="800">
     <Grid>
-        <!--Style="{StaticResource BtnStyle}"-->
-        <Button Content="Stop Simulation"  Height="35" Margin="641,0,0,434" VerticalAlignment="Bottom" Width="135" Click="StopSimulatorBTN_Click"/>
-        <TextBlock x:Name="SimulatorTXTB" Text="00:00:00" HorizontalAlignment="Left" Height="80" Margin="22,10,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="230" FontSize="48" FontFamily="adam" FontWeight="Bold"/>
-        <Grid Margin="0,55,0,34" DataContext="{Binding }">
+        <!--<Grid.Background>
+            <ImageBrush Stretch="Uniform" ImageSource="C:\Users\2141s\source\repos\saramiryam\dotNet5783_0115_0921\PL\imege\14.JPG"></ImageBrush>
+        </Grid.Background>-->
+        <Button Content="Stop Simulation"  Height="84" Margin="516,0,104,376" VerticalAlignment="Bottom" Click="StopSimulatorBTN_Click" FontSize="18" FontWeight="Bold" FontFamily="Lucida Calligraphy" Background="#FF465576" BorderThickness="0,0,0,0" Foreground="White"/>
+        <TextBlock x:Name="SimulatorTXTB" Text="00:00:00" HorizontalAlignment="Left" Height="80" Margin="99,24,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="230" FontSize="48" FontFamily="adam" FontWeight="Bold"/>
+        <Grid Margin="0,62,0,27" DataContext="{Binding }">
             <Grid.RowDefinitions>
                 <RowDefinition Height="46*"/>
                 <RowDefinition Height="112*"/>
@@ -22,17 +24,17 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <TextBlock Text="Current Order:" Grid.Row="1" Grid.Column="0" Margin="200,41,120,41"/>
-            <TextBlock x:Name="currentOrder" Grid.Row="1" Margin="319,28,319,51" Text="{Binding Item1.ID}" Grid.ColumnSpan="2"/>
-            <TextBlock Text="begin time" Grid.Row="1" Grid.Column="0" Margin="200,71,120,11"/>
-            <TextBlock x:Name="beginTime" Grid.Row="1" Margin="297,62,341,17" Text="{Binding Item5}" Grid.ColumnSpan="2"/>
-            <TextBlock Text="Previous Status:" Grid.Row="2" Grid.Column="0" Margin="200,5,12,28"/>
-            <TextBlock  Text="{Binding Item3}" Grid.Row="1" Grid.Column="1" Margin="0,109,238,47" Grid.RowSpan="2"/>
-            <TextBlock Text="Next Status:" Grid.Row="2" Grid.Column="0" Margin="200,56,12,0" Height="23" VerticalAlignment="Top"></TextBlock>
-            <TextBlock  Text="{Binding Item4}" Grid.Row="2" Margin="393,44,7,105" Grid.ColumnSpan="2" Grid.RowSpan="2"/>
-            <TextBlock Text="Estimated time to complete:" Grid.Row="3" Grid.Column="0" Margin="200,20,12,45"/>
-            <TextBlock x:Name="EstimatedTime" Text="{Binding Item2}" Grid.Row="3" Margin="365,20,247,45" Grid.ColumnSpan="2"/>
-            <TextBlock Name="tbTime" Margin="32,20,180,45" Grid.Row="3" Grid.Column="1"/>
+            <TextBlock Text="Current Order:" Grid.Row="1" Grid.Column="0" Margin="136,40,124,42" FontSize="16" FontWeight="Bold" FontFamily="Lucida Calligraphy"/>
+            <TextBlock x:Name="currentOrder" Grid.Row="1" Margin="297,40,341,39" Text="{Binding Item1.ID}" Grid.ColumnSpan="2" FontFamily="Lucida Calligraphy" FontSize="16"/>
+            <TextBlock Text="begin Time:" Grid.Row="1" Grid.Column="0" Margin="166,79,128,0" FontWeight="Bold" FontSize="16" FontFamily="Lucida Calligraphy" Height="30" VerticalAlignment="Top"/>
+            <TextBlock x:Name="beginTime" Grid.Row="1" Margin="297,83,341,75" Text="{Binding Item5}" Grid.ColumnSpan="2" Grid.RowSpan="2" FontFamily="Lucida Calligraphy" FontSize="16"/>
+            <TextBlock Text="Previous Status:" Grid.Row="2" Grid.Column="0" Margin="124,10,124,23" FontSize="16" FontWeight="Bold" FontFamily="Lucida Calligraphy"/>
+            <TextBlock  Text="{Binding Item3}" Grid.Row="2" Margin="297,16,341,28" Grid.ColumnSpan="2" FontSize="16" FontFamily="Lucida Calligraphy"/>
+            <TextBlock Text="Next Status:" Grid.Row="2" Grid.Column="0" Margin="157,56,120,0" Height="23" VerticalAlignment="Top" FontFamily="Lucida Calligraphy" FontSize="16" FontWeight="Bold"></TextBlock>
+            <TextBlock  Text="{Binding Item4}" Grid.Row="2" Margin="297,59,103,90" Grid.ColumnSpan="2" Grid.RowSpan="2" FontFamily="Lucida Calligraphy" FontSize="16"/>
+            <TextBlock Text="Estimated time to complete:" Grid.Row="3" Grid.Column="0" Margin="124,17,29,48" FontFamily="Lucida Calligraphy" FontSize="16" FontWeight="Bold"/>
+            <TextBlock x:Name="EstimatedTime" Text="{Binding Item2}" Grid.Row="3" Margin="378,23,234,42" Grid.ColumnSpan="2" FontSize="16" FontFamily="Lucida Calligraphy"/>
+            <TextBlock Name="tbTime" Margin="109,23,103,42" Grid.Row="3" Grid.Column="1" FontFamily="Lucida Calligraphy" FontSize="16"/>
         </Grid>
         <StatusBar Name="pBar" Grid.Column="0" Grid.Row="5" VerticalAlignment="Bottom" Background="Aquamarine">
             <StatusBarItem Height="80">
