@@ -31,7 +31,7 @@ namespace PL.PLSimulator
     public partial class SimulatorWindow : Window
     {
          private bool ableToClose =  false;
-
+        bool t=false;   
         BlApi.IBl bl;
         string timerText { get; set; }
         public string NextStatus { get; set; } = "cvbn";
@@ -106,9 +106,11 @@ namespace PL.PLSimulator
         void countDownTimer(int sec)
         {
             _time = TimeSpan.FromSeconds(sec);
-
+            if(t is true)
+                _timer.Stop();
             _timer = new DispatcherTimer(new TimeSpan(0, 0, 1), DispatcherPriority.Normal, delegate
             {
+                t=true;
                 tbTime.Text = _time.ToString("c");
                 if (_time == TimeSpan.Zero) _timer.Stop();
                 _time = _time.Add(TimeSpan.FromSeconds(-1));
