@@ -33,10 +33,10 @@ namespace PL.PLSimulator
          private bool ableToClose =  false;
 
         BlApi.IBl bl;
-        string nextStatus;
-        string previousStatus;
+        public string NextStatus { get; set; } = "cvbn";
+        public string PreviousStatus { get; set; } = "dfghii";
         BackgroundWorker worker;
-        BO.Order MyOrder = new();
+       // BO.Order MyOrder = new();
         Tuple<BO.Order, int, string, string> dcT;
         public static readonly DependencyProperty MyTimerProperty = DependencyProperty.Register(nameof(MyTimer),
                                                                                               typeof(string),
@@ -45,6 +45,33 @@ namespace PL.PLSimulator
         {
             get { return (string)GetValue(MyTimerProperty); }
             set { SetValue(MyTimerProperty, value); }
+        }
+
+        //public static readonly DependencyProperty NextStatusProperty = DependencyProperty.Register(nameof(NextStatus),
+        //                                                                               typeof(string),
+        //                                                                       typeof(SimulatorWindow));
+        //public string NextStatus
+        //{
+        //    get { return (string)GetValue(NextStatusProperty); }
+        //    set { SetValue(NextStatusProperty, value); }
+        //}
+
+        //public static readonly DependencyProperty PreviousStatusProperty = DependencyProperty.Register(nameof(PreviousStatus),
+        //                                                                       typeof(string),
+        //                                                               typeof(SimulatorWindow));
+        //public string PreviousStatus
+        //{
+        //    get { return (string)GetValue(PreviousStatusProperty); }
+        //    set { SetValue(PreviousStatusProperty, value); }
+        //}
+
+        public static readonly DependencyProperty MyOrderProperty = DependencyProperty.Register(nameof(MyOrder),
+                                                                                         typeof(BO.Order),
+                                                                                 typeof(SimulatorWindow));
+        public BO.Order MyOrder
+        {
+            get { return (BO.Order)GetValue(MyOrderProperty); }
+            set { SetValue(MyOrderProperty, value); }
         }
 
 
@@ -134,17 +161,20 @@ namespace PL.PLSimulator
                 return;
 
             Details details = e as Details;
-            this.previousStatus = (details.order.ShipDate == null) ? BO.Enums.EStatus.Done.ToString() : BO.Enums.EStatus.Sent.ToString();
-            this.nextStatus = (details.order.ShipDate == null) ? BO.Enums.EStatus.Sent.ToString() : BO.Enums.EStatus.Provided.ToString();
-            dcT = new Tuple<BO.Order, int, string, string>(details.order, details.seconds / 1000, previousStatus, nextStatus);
-            MyOrder=details.order;
+            PreviousStatus = (details.order.ShipDate == null) ? BO.Enums.EStatus.Done.ToString() : BO.Enums.EStatus.Sent.ToString();
+            NextStatus = (details.order.ShipDate == null) ? BO.Enums.EStatus.Sent.ToString() : BO.Enums.EStatus.Provided.ToString();
+
+            dcT = new Tuple<BO.Order, int, string, string>(details.order, details.seconds / 1000, PreviousStatus, NextStatus);
+            //MyOrder = details.order;
             if (!CheckAccess())
             {
                 Dispatcher.BeginInvoke(changeOrder, sender, e);
             }
             else
             {
-               
+                //MyOrder = details.order;
+                //PreviousStatus = (details.order.ShipDate == null) ? BO.Enums.EStatus.Done.ToString() : BO.Enums.EStatus.Sent.ToString();
+               // NextStatus = (details.order.ShipDate == null) ? BO.Enums.EStatus.Sent.ToString() : BO.Enums.EStatus.Provided.ToString();
                 //currentOrder.Text = details.order.ID.ToString();
                 DataContext = dcT;
                 countDownTimer(details.seconds / 1000);
