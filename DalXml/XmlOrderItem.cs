@@ -27,13 +27,12 @@ namespace Dal
 
             if (ListOrderItem.FirstOrDefault(e => e?.OrderID == _newOrderItem.ID && e?.ProductID == _newOrderItem.ProductID) != null)
                 throw new ItemAlreadyExistsException("order exists, can not add") { ItemAlreadyExists = _newOrderItem.ToString() };
-
-            //לשנות ID
             _newOrderItem.ID = XmlConfig.getOrderItemId();
             ListOrderItem.Add(_newOrderItem); //no need to Clone()
             XMLTools.SaveListToXMLSerializer(ListOrderItem, OrderItemPath);
             return _newOrderItem.ID;
         }
+
 
         /// <summary>
         /// return specific item by id and throw exception if it does not exist 
@@ -58,6 +57,8 @@ namespace Dal
 
 
         }
+
+
         /// <summary>
         /// return all order items and throw exception if it does not exist
         /// </summary>
@@ -78,6 +79,8 @@ namespace Dal
 
 
         }
+
+
         /// <summary>
         ///  delete order item and throw exception if it does not exist
         /// 
@@ -104,6 +107,8 @@ namespace Dal
 
 
         }
+
+
         /// <summary>
         ///  update date of product and throw exception if it does not exist
         /// </summary>

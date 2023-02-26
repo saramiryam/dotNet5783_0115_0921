@@ -21,9 +21,7 @@ public class OrderTracking
         public BO.Enums.EStatus? Statuss { get; set; }
 
             public override string ToString() => $@"
-            {Statuss}:  {Date}
-
-";
+            {Statuss}:  {Date}";
 
     }
 

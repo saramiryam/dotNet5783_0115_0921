@@ -84,9 +84,6 @@ public class XmlOrder : IOrder
         }
         else
         {
-            //List<Product?> _products = new List<Product?>();
-            //_products=DataSource._Products.FindAll(e=> predict(e)); 
-            //return _products;
             try
             {
                 IEnumerable<Order?> order = ListOrder.FindAll(p => predict(p));
@@ -98,6 +95,7 @@ public class XmlOrder : IOrder
             }
         }
     }
+
 
     /// <summary>
     /// check if the product demanded exist and delete it or throw an exception if not
@@ -129,6 +127,7 @@ public class XmlOrder : IOrder
 
 
     }
+
 
     /// <summary>
     /// update data of product and throw exception if it does not exist
@@ -201,8 +200,6 @@ public class XmlOrder : IOrder
         #endregion
 
     }
-
-
   
 
 }

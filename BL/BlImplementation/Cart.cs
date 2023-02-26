@@ -44,7 +44,6 @@ namespace BlImplementation
                     .Select(e => (BO.OrderItem?)e).FirstOrDefault();
                 if (exist is not null)
                 {
-                    //BO.OrderItem BOI = cart.ItemList.Find(e => e?.ID == itemId) ?? new BO.OrderItem();
                     var BOI = cart.ItemList
                         .Where(e => e?.ID == itemId)
                         .Select(e => (BO.OrderItem?)e!).FirstOrDefault();
@@ -141,16 +140,13 @@ namespace BlImplementation
             var exist = cart.ItemList
                        .Where(e => e?.ID == itemId)
                        .Select(e => (BO.OrderItem?)e).FirstOrDefault();
-            // cart.ItemList.Exists(e => e?.ID == itemId);
             if (exist is null)
             {
                 throw new BO.ItemNotInCartException("item not in cart") { ItemNotInCart = itemId.ToString() };
             }
-            // if(cart.ItemList.Find(e => e?.ID == itemId) is  null) throw new ItemNotInCartException("item list not exsist") { ItemNotInCart = cart.ToString() };
             if (itemId == 0) throw new NegativeIdException("negative id") { NegativeId = itemId.ToString() };
             Predicate<BO.OrderItem?> match = e => e?.ID == itemId;
             if (match is null) throw new ItemNotInCartException("item list is empty") { ItemNotInCart = null };
-            //BO.OrderItem BOI = cart.ItemList.Find(match) ?? new BO.OrderItem();
             var BOI = cart.ItemList
                   .Where(e => e?.ID == itemId)
                   .Select(e => (BO.OrderItem?)e!).FirstOrDefault();
@@ -182,8 +178,6 @@ namespace BlImplementation
                 BOI.sumItem -= (difference * BOI.Price);
                 cart.TotalSum -= (difference * BOI.Price);
             }
-            //BOI.Amount== amount
-            //amount didnt change
             return cart;
 
         }
@@ -327,6 +321,7 @@ namespace BlImplementation
             }
 
         }
+
 
         #endregion
         #region help methodes

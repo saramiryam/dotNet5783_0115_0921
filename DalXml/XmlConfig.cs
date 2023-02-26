@@ -16,7 +16,6 @@ public class XmlConfig
         id++;
         config.Element("idOrder")!.SetValue(id);
         XMLTools.SaveListToXMLElement(config, @"Config.xml");
-        // config.Save(@"Config.xml");
         return id;
 
     }

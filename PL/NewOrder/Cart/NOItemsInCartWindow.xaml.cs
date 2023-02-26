@@ -39,7 +39,6 @@ public partial class NOItemsInCartWindow : Window
     }
     private void Back_Click(object sender, RoutedEventArgs e)
     {
-        new PProductItemList(Cart).Show();
         Close();
     }
     private void Submit_Click(object sender, RoutedEventArgs e)

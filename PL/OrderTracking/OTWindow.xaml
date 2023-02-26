@@ -9,14 +9,14 @@
         DataContext="{Binding RelativeSource={RelativeSource self}}">
 
     <Grid>
-        <!--<Grid.Background>
+        <Grid.Background>
             <ImageBrush Stretch="Uniform" ImageSource="C:\Users\2141s\source\repos\saramiryam\dotNet5783_0115_0921\PL\imege\8.JPG"></ImageBrush>
-        </Grid.Background>-->
-        <Label Content="id:" HorizontalAlignment="Left" Margin="260,155,0,0" VerticalAlignment="Top" Width="68" Height="35" FontSize="22" FontWeight="Bold" FontFamily="Lucida Calligraphy"/>
+        </Grid.Background>
+        <Label Content="id:" HorizontalAlignment="Left" Margin="260,155,0,0" VerticalAlignment="Top" Width="68" Height="35" FontSize="22" FontWeight="Bold"/>
         <!--TextChanged="IdChange_TextChanged"-->
         <TextBox Background="White" HorizontalAlignment="Center" Margin="0,155,0,0" TextWrapping="Wrap" Text="{Binding MyId,Mode=TwoWay}" VerticalAlignment="Top" Width="152" PreviewTextInput="NumberValidationTextBox" IsReadOnly="False"  TextChanged="id_TextChanged" Height="35" BorderThickness="3,3,3,3" BorderBrush="Black" />
-        <Button Background="White" FontWeight="ExtraBlack" Foreground="Black" x:Name="get" HorizontalAlignment="Left" Content="get" Margin="500,155,0,0" VerticalAlignment="Top" Click="getButton_Click" Width="84" Height="33" FontSize="18" FontFamily="Lucida Calligraphy" BorderThickness="3,3,3,3" BorderBrush="Black" />
-        <Button  Background="White" FontWeight="ExtraBlack" x:Name="back"  Content="back" HorizontalAlignment="Left" Margin="500,242,0,0"  VerticalAlignment="Top" Click="backButton_Click" Width="84" Height="33" FontSize="18" FontFamily="Lucida Calligraphy" BorderThickness="3,3,3,3" BorderBrush="Black" />
+        <Button Background="White" FontWeight="ExtraBlack" Foreground="Black" x:Name="get" HorizontalAlignment="Left" Content="get" Margin="500,155,0,0" VerticalAlignment="Top" Click="getButton_Click" Width="84" Height="33" FontSize="18" BorderThickness="3,3,3,3" BorderBrush="Black" />
+        <Button  Background="White" FontWeight="ExtraBlack" x:Name="back"  Content="back" HorizontalAlignment="Left" Margin="500,242,0,0"  VerticalAlignment="Top" Click="backButton_Click" Width="84" Height="33" FontSize="18" BorderThickness="3,3,3,3" BorderBrush="Black" />
         <Label Content="{Binding ExceText,Mode=TwoWay}" HorizontalAlignment="Left" Margin="289,180,0,0" VerticalAlignment="Top"/>
 
 

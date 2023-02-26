@@ -9,9 +9,9 @@
          DataContext="{Binding RelativeSource={RelativeSource self}}">
 
     <Grid DataContext="{Binding orderTrackingToUp}">
-        <!--<Grid.Background>
+        <Grid.Background>
             <ImageBrush Stretch="Uniform" ImageSource="C:\Users\2141s\source\repos\saramiryam\dotNet5783_0115_0921\PL\imege\15.JPG"></ImageBrush>
-        </Grid.Background>-->
+        </Grid.Background>
         <Label Content="Id"   HorizontalAlignment="Left" Margin="250,91,0,0" VerticalAlignment="Top" FontSize="16" FontWeight="Bold" Foreground="White"/>
         <TextBox Background="LightBlue"  x:Name="id" HorizontalAlignment="Left" Margin="289,91,0,0" TextWrapping="Wrap" Text="{Binding ID}" VerticalAlignment="Top" Width="120" IsReadOnly="True" FontSize="14" BorderBrush="White" />
         <Label  Content="Status"   HorizontalAlignment="Left" Margin="219,118,0,0" VerticalAlignment="Top" FontSize="16" FontWeight="Bold" Foreground="White"/>
@@ -19,7 +19,7 @@
 
         <Button Background="#FFABCD5B" FontWeight="ExtraBlack" Foreground="White" Content="go to order" HorizontalAlignment="Left" Margin="599,242,0,0" Padding="10" VerticalAlignment="Top" Click="orderButton_Click" BorderBrush="{x:Null}" FontSize="16" />
         <TextBox Background="LightBlue" x:Name="status" HorizontalAlignment="Left" Margin="289,120,0,0" TextWrapping="Wrap" Text="{Binding Status}" VerticalAlignment="Top" Width="120" IsReadOnly="True" BorderBrush="White" FontSize="14" />
-        <ListView x:Name="OrderTrackingListView" Margin="289,150,250,100"  ItemsSource="{Binding listOfStatus}" FontSize="14" Foreground="#FFABCD5B" >
+        <ListView x:Name="OrderTrackingListView" Margin="189,155,257,54"  ItemsSource="{Binding listOfStatus}" FontSize="14" Foreground="#FFABCD5B" >
             <ListView.View>
                 <GridView>
                     <GridViewColumn/>

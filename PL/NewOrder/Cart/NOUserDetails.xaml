@@ -8,17 +8,11 @@
         Title="NOUserDetails" Height="450" Width="800"
     DataContext="{Binding RelativeSource={RelativeSource self}}">
     <Grid>
-        <!--<Grid.Background>
+        <Grid.Background>
             <ImageBrush Stretch="Uniform" ImageSource="C:\Users\2141s\source\repos\saramiryam\dotNet5783_0115_0921\PL\imege\6.JPG"></ImageBrush>
-        </Grid.Background>-->
+        </Grid.Background>
 
-        <!--<Grid.Background>
-               
-            <ImageBrush ImageSource="C:\Users\2141s\source\repos\saramiryam\dotNet5783_0115_0921\PL\imege\6.JPG"/>
-             
-        </Grid.Background>-->
-
-        <Grid DataContext="{Binding Cart}">
+            <Grid DataContext="{Binding Cart}">
             <Label  Content="name:"   HorizontalAlignment="Left" Margin="226,85,0,0" VerticalAlignment="Top" Width="90" Height="33" FontSize="18" FontWeight="Bold" FontFamily="Lucida Calligraphy" Foreground="White"/>
             <TextBox Background="White" HorizontalAlignment="Center" Margin="0,85,0,0" TextWrapping="Wrap" Text="{Binding CustomerName,Mode=TwoWay}" VerticalAlignment="Top" Width="157" Height="33" BorderThickness="0,0,0,0" FontSize="16"  />
             <Label Content="address:" HorizontalAlignment="Left" Margin="199,140,0,0" VerticalAlignment="Top" Width="91" Height="33" FontSize="18" FontWeight="Bold" FontFamily="Lucida Calligraphy" Foreground="White"/>

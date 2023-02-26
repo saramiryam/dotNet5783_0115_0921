@@ -26,6 +26,7 @@ public partial class MOrderListWindow : Window
     BlApi.IBl? bl = BlApi.Factory.Get();
     public BO.OrderForList? OrderToUp { get; set; } = new();
 
+    #region OrdersForListList Property
 
     public static readonly DependencyProperty OrdersForListListProperty = DependencyProperty.Register(nameof(OrdersForListList),
                                                                                                            typeof(ObservableCollection<OrderForList?>),
@@ -34,7 +35,9 @@ public partial class MOrderListWindow : Window
     {
         get { return (ObservableCollection<OrderForList?>)GetValue(OrdersForListListProperty); }
         set { SetValue(OrdersForListListProperty, value); }
-    }
+    }  
+    
+    #endregion
     public MOrderListWindow()
     {
         try
@@ -53,6 +56,7 @@ public partial class MOrderListWindow : Window
     {
 
     }
+
     private void ordersListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
     {
         if (OrderToUp is not null)
@@ -66,18 +70,15 @@ public partial class MOrderListWindow : Window
             {
                 MessageBox.Show(ex.Message.ToString());
             }
-            //Close();
         }
  
        
     }
+
     private void Back_Click(object sender, RoutedEventArgs e)
     {
         bl.Order.getOrderToPromote();
         new MWindow().Show();
-        //Close();
-        //if (bl != null)
-        //    OrdersForListList = new(bl.Order.GetListOfOrders());
         try
         {
             OrdersForListList = new(bl.Order.GetListOfOrders());

@@ -15,8 +15,6 @@ namespace BlImplementation
 
     public class Product : BlApi.IProduct
     {
-        //נראה שלא עושה את העבודה נכון
-        //להשוות עם מישהי
         private static IDal? Dal = Factory.Get();
 
         #region Methodes
@@ -25,7 +23,6 @@ namespace BlImplementation
         public IEnumerable<BO.ProductForList> GetListOfProduct()
         {
             IEnumerable<DO.Product?> productsList = new List<DO.Product?>();
-            // List<BO.ProductForList> productsForList = new List<BO.ProductForList>();
             if (Dal != null)
             {
                 productsList = Dal.Product.GetAll();
@@ -70,29 +67,10 @@ namespace BlImplementation
         public IEnumerable<BO.ProductForList> GetProductForListByCategory(BO.Enums.ECategory category)
         {
             IEnumerable<DO.Product?> productsList = new List<DO.Product?>();
-            //List<BO.ProductForList> productsForList = new List<BO.ProductForList>();
             if (Dal != null)
             {
                 productsList = Dal.Product.GetAll();
             }
-            //foreach (var item in productsList)
-            //{
-            //    if ((item != null) && (item.Value.Category != null))
-            //    {
-            //        if (item.Value.Category.ToString() == category.ToString())
-            //        {
-            //            productsForList.Add(new BO.ProductForList()
-            //            {
-            //                ID = item.Value.ID,
-            //                Name = item.Value.Name,
-            //                Price = item.Value.Price,
-            //                Category = (BO.Enums.ECategory)item.Value.Category
-            //            });
-            //        }
-            //    }
-
-            //}
-            //return productsForList;
             var listByCategory = productsList
                        .Where(item => (item != null) && (item.Value.Category != null) && (item.Value.Category.ToString() == category.ToString()))
                        .Select(item => new BO.ProductForList()
@@ -135,6 +113,7 @@ namespace BlImplementation
 
             }
         }
+
 
         [MethodImpl(MethodImplOptions.Synchronized)]
         public BO.ProductItem? GetProductItemDetails(BO.Cart MyCart, int id)
@@ -192,7 +171,6 @@ namespace BlImplementation
                         Category = (BO.Enums.ECategory)p?.Category,
                         Price = p.Value.Price,
                         InStock = p.Value.InStock > 0 ? true : false,
-                        //AmoutInYourCart = CostumerCart.ItemList.FindAll(e => e?.ID == id).Count()
                         AmoutInYourCart = ((from item in orderItemList
                                             group item by item?.ID into mygroup
                                             where mygroup.Key == p.Value.ID
@@ -252,7 +230,6 @@ namespace BlImplementation
                         Category = (BO.Enums.ECategory)p.Category,
                         Price = p.Price,
                         InStock = p.InStock > 0 ? true : false,
-                        //AmoutInYourCart = CostumerCart.ItemList.FindAll(e => e?.ID == id).Count()
                         AmoutInYourCart = (from item in CostumerCart.ItemList
                                            group item by item.ID into mygroup
                                            where mygroup.Key == id
@@ -272,8 +249,6 @@ namespace BlImplementation
         [MethodImpl(MethodImplOptions.Synchronized)]
         public int AddProduct(BO.Product p)
         {
-            //לדאוג שהפונקציה מתחת תבדוק גם את תקינות הקטגוריה
-            //להיזהר לר למחוק כדי שאם הוא לא יכיר את את הבדיקה נוכל להחזיר
             int MyID;
 
             CheckCorectData(p.ID, p.Name, p.Category, p.Price, p.InStock);
@@ -339,6 +314,7 @@ namespace BlImplementation
         }
 
 
+        //bonus
         [MethodImpl(MethodImplOptions.Synchronized)]
         public void DeleteProduct(int id)
         {
@@ -348,13 +324,6 @@ namespace BlImplementation
                 orderList = Dal.OrderItem.GetAll();
             }
 
-            //foreach (var OI in orderList)
-            //{
-            //    if (OI != null && OI.Value.ProductID == id)
-            //    {
-            //        flag = true;
-            //    }
-            //}
             var flag = orderList
                         .Where(oi => oi?.ProductID == id)
                         .Select(e => (DO.OrderItem?)e).FirstOrDefault();
@@ -377,7 +346,17 @@ namespace BlImplementation
         }
 
 
+        [MethodImpl(MethodImplOptions.Synchronized)]
+        public int getNextID()
+        {
+            int num = 0;
+            {
+                num = Dal.Product.GetAll().Count();
+            }
+            return 100000 + num;
 
+
+        }
 
 
         #endregion

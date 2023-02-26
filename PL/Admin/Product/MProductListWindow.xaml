@@ -68,6 +68,8 @@
             </ListView.View>
         </ListView>
 
+        <Button Content="show all" HorizontalAlignment="Left" Height="24" Margin="602,28,0,0" Grid.Row="1" VerticalAlignment="Top" Width="146" Click="Button_Click"/>
+
         <Button FontWeight="ExtraBlack" Foreground="#FF2683B0" x:Name="addOrUpdate" Content="Add new Product" Grid.Row="2" HorizontalAlignment="Left" Margin="549,401,0,0" Padding="5" Width="199" Click="Add_Click_" Height="71" VerticalAlignment="Top" FontSize="20"  BorderBrush="White" BorderThickness="0,0,0,0">
             <Button.Background>
                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">

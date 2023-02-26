@@ -8,9 +8,9 @@
         Title="NPProductItemUPdateWindow" Height="450" Width="800"
         DataContext="{Binding RelativeSource={RelativeSource self}}">
     <Grid Name="MainGrid">
-        <!--<Grid.Background>
+        <Grid.Background>
             <ImageBrush Stretch="Uniform" ImageSource="C:\Users\2141s\source\repos\saramiryam\dotNet5783_0115_0921\PL\imege\3.JPG"></ImageBrush>
-        </Grid.Background>-->
+        </Grid.Background>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="40*"/>
@@ -20,10 +20,14 @@
         <Button Background="#FFFE8F1E" FontWeight="ExtraBlack" Foreground="White" Content="back" Grid.Row="0" HorizontalAlignment="Left" Margin="110,15,0,0" Padding="5" Width="170" Height="40" VerticalAlignment="Top" Click="Back_Click" BorderBrush="{x:Null}" FontSize="18"/>
 
         <Grid DataContext="{Binding ProductToAdd}">
-            <TextBlock  Text="{Binding ID}" HorizontalAlignment="Left" Margin="200,80,0,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
-            <TextBlock  Text="{Binding Name}" HorizontalAlignment="Left" Margin="200,100,0,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
-            <TextBlock  Text="{Binding Category}" HorizontalAlignment="Left" Margin="200,120,0,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
-            <TextBlock  Text="{Binding AmoutInYourCart}" HorizontalAlignment="Left" Margin="200,140,0,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
+            <Label Content="id" HorizontalAlignment="Left" Margin="180,100,0,0" VerticalAlignment="Top"/>
+            <TextBlock  Text="{Binding ID}" HorizontalAlignment="Left" Margin="260,100,0,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
+            <Label Content="name" HorizontalAlignment="Left" Margin="180,130,0,0" VerticalAlignment="Top"/>
+            <TextBlock  Text="{Binding Name}" HorizontalAlignment="Left" Margin="260,135,0,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
+            <Label Content="category" HorizontalAlignment="Left" Margin="180,160,0,0" VerticalAlignment="Top"/>
+            <TextBlock  Text="{Binding Category}" HorizontalAlignment="Left" Margin="260,165,0,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
+            <Label Content="amont" HorizontalAlignment="Left" Margin="180,190,0,0" VerticalAlignment="Top"/>
+            <TextBlock  Text="{Binding AmoutInYourCart}" HorizontalAlignment="Left" Margin="260,195,0,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
         </Grid>
         <Grid>
             <Button Background="#FFFE8F1E" FontWeight="ExtraBlack" Foreground="White" x:Name="minus"  Content="-" HorizontalAlignment="Left" Margin="147,235,0,0" Click="minus_Click" Padding="5" Width="20" Height="28" VerticalAlignment="Top" FontSize="14" BorderBrush="{x:Null}" />

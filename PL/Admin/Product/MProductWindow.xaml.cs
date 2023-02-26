@@ -27,7 +27,7 @@ namespace PL.Product
         #region prorerties
         BlApi.IBl? bl = BlApi.Factory.Get();
         public static string MyContent { get; set; } = "add";
-        public static bool validID { get; set; } =false;
+        public static bool validID { get; set; } =true;
         public BO.Product ProductToUpOrAdd
         {
             get { return (BO.Product)GetValue(ProductToUpOrAddProperty); }
@@ -62,6 +62,7 @@ namespace PL.Product
         public MProductWindow(Action<ProductForList> Action)
         {
             ProductToUpOrAdd = new();
+            ProductToUpOrAdd.ID = bl.Product.getNextID();
             MyContent = "add";
             validID=true;
             InitializeComponent();
@@ -94,7 +95,6 @@ namespace PL.Product
 
         private void Back_Click(object sender, RoutedEventArgs e)
         {
-            //new MProductListWindow().Show();
             Close();
         }
 
@@ -115,7 +115,6 @@ namespace PL.Product
                     }
                     Action(bl.Product.GetProductForList(id));
                     MessageBox.Show("the product " + ProductToUpOrAdd.Name + " " + MyContent);
-                    //  new MProductListWindow().Show();
                     this.Close();
 
                 }
@@ -169,7 +168,7 @@ namespace PL.Product
             e.Handled = regex.IsMatch(e.Text);
         }
 
-
+        //bonus
         private void TextValidationTextBox(object sender, TextCompositionEventArgs e)
         {
             Regex regex = new Regex("[^a-zA-Zא-ת]+");

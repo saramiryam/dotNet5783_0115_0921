@@ -24,7 +24,6 @@ internal class DalOrder : IOrder
         if ((DataSource._Orders
                      .Where(e => e?.ID == _o.ID)
                      .Select(e => (DO.Order?)e).FirstOrDefault() is not null))
-            //if (DataSource._Orders.Exists(e => e?.CustomerName == _o.CustomerName && e?.CustomerAdress == _o.CustomerAdress && e?.CustomerEmail == _o.CustomerEmail && e?.OrderDate == _o.OrderDate))
             throw new ItemAlreadyExistsException("order exists, can not add") { ItemAlreadyExists = _o.ToString() };
         else
         {
@@ -36,6 +35,7 @@ internal class DalOrder : IOrder
             return _o.ID;
         }
     }
+
 
     /// <summary>
     /// check if the order demanded exist and return it or an exception if not
@@ -54,8 +54,6 @@ internal class DalOrder : IOrder
         {
             throw new GetPredictNullException("the predict is empty") { GetPredictNull = null };
         }
-        //Order? _orderToGet = new Order();
-        //_orderToGet = DataSource._Orders.Find(e=> predict(e)); 
         try
         {
             return DataSource._Orders
@@ -67,6 +65,7 @@ internal class DalOrder : IOrder
             throw new RequestedItemNotFoundException("order not exists,can not get") { RequestedItemNotFound = predict?.ToString() };
         }
     }
+
 
     /// <summary>
     /// cope the orders to a new arrey and return it
@@ -84,8 +83,6 @@ internal class DalOrder : IOrder
             return (IEnumerable<Order?>)DataSource._Orders;
         }
 
-        //List<Order?> _Orders = new List<Order?>();
-        //_Orders = DataSource._Orders.FindAll(e => predict(e));
         try
         {
             return DataSource._Orders
@@ -99,6 +96,7 @@ internal class DalOrder : IOrder
         }
     }
 
+
     /// <summary>
     /// check if the order demanded exist and delete it or throw an exception if not
     /// </summary>
@@ -108,8 +106,6 @@ internal class DalOrder : IOrder
     public void Delete(int _num)
     {
         if (DataSource._Orders == null) throw new RequestedItemNotFoundException("order not exists,can not delete") { RequestedItemNotFound = _num.ToString() };
-        //Order? _orderToDel = new Order();
-        //_orderToDel = DataSource._Orders.Find(e => e.HasValue && e!.Value.ID == _num);
         try
         {
             DataSource._Orders.Remove(DataSource._Orders
@@ -122,6 +118,7 @@ internal class DalOrder : IOrder
             throw new RequestedItemNotFoundException("order not exists,can not delete") { RequestedItemNotFound = _num.ToString() };
         }
     }
+
 
     /// <summary>
     /// update date of order and throw exception if it does not exist
@@ -137,8 +134,6 @@ internal class DalOrder : IOrder
 
         }
         if (DataSource._Orders == null) throw new RequestedUpdateItemNotFoundException("order not exists,can not update") { RequestedUpdateItemNotFound = _o.ToString() };
-        //Order? _orderToUpdate = new Order();
-        //_orderToUpdate = DataSource._Orders.Find(e => e.HasValue && e!.Value.ID == _o.ID);
 
         try
         {

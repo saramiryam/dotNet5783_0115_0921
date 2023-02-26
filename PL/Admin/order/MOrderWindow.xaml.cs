@@ -28,6 +28,8 @@ namespace PL.Admin.Order
         #region prorerties
         BlApi.IBl? bl = BlApi.Factory.Get();
 
+        #region OrderToUp Property
+       
         public BO.Order OrderToUp
         {
             get { return (BO.Order)GetValue(OrderToUpProperty); }
@@ -35,7 +37,11 @@ namespace PL.Admin.Order
         }
         public static readonly DependencyProperty OrderToUpProperty = DependencyProperty.Register(nameof(OrderToUp),
                                                                                                   typeof(BO.Order),
-                                                                                                  typeof(MOrderWindow));
+                                                                                                 typeof(MOrderWindow));
+        #endregion
+
+        #region Enable Property
+
         public bool Enable
         {
             get { return (bool)GetValue(EnableProperty); }
@@ -44,6 +50,11 @@ namespace PL.Admin.Order
         public static readonly DependencyProperty EnableProperty = DependencyProperty.Register(nameof(Enable),
                                                                                                   typeof(bool),
                                                                                                   typeof(MOrderWindow));
+        #endregion
+
+        #region MyContent Property
+
+        
         public string MyContent
         {
             get { return (string)GetValue(MyContentProperty); }
@@ -52,9 +63,8 @@ namespace PL.Admin.Order
         public static readonly DependencyProperty MyContentProperty = DependencyProperty.Register(nameof(MyContent),
                                                                                                   typeof(string),
                                                                                                   typeof(MOrderWindow));
-        // public static string MyContent { get; set; } = "";
 
-        //public static bool Enable { get; set; } = true;
+        #endregion
         public static bool fromOT { get; set; } = true;
         public int id { get; set; }
 
@@ -103,8 +113,6 @@ namespace PL.Admin.Order
             InitializeComponent();
         }
 
-
-
         private void ChengeButton_Click(object sender, RoutedEventArgs e)
         {
 
@@ -146,6 +154,11 @@ namespace PL.Admin.Order
 
             }
             this.Close();
+        }
+
+        private void OrderItemListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
         }
     }
 }

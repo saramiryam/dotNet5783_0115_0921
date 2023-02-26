@@ -35,7 +35,6 @@ public class XmlProduct : IProduct
 
         if (ifExsistPro != null)
               throw new DO.ItemAlreadyExistsException("Product exists, can not add") { ItemAlreadyExists = _p.ToString() };
-        //int id = XmlConfig.getProductId();
         XElement ProductElement = new XElement("Product", new XElement("ID", _p.ID.ToString()),
                                 new XElement("Name", _p.Name),
                                 new XElement("Price", _p.Price),
@@ -48,6 +47,8 @@ public class XmlProduct : IProduct
         #endregion
 
     }
+
+
     /// <summary>
     /// check if the order demanded exist and return it or an exception if not
     /// </summary>
@@ -90,47 +91,6 @@ public class XmlProduct : IProduct
             throw new RequestedItemNotFoundException("Product not exists,can not get") { RequestedItemNotFound = predict?.ToString() };
         }
 
-
-
-        #region temp
-        //List<DO.Order?> ListOrders = XMLTools.LoadListFromXMLSerializer<Order?>(OrderPath);
-        //if (predict == null)
-        //{
-        //    throw new GetPredictNullException("the predict is empty") { GetPredictNull = null };
-        //}
-        //DO.Order? order = ListOrders.Find(p => predict(p));
-
-        //if (order != null)
-        //    return (DO.Order)order; //no need to Clone()
-        //else
-
-        //    throw new RequestedItemNotFoundException("orderItem not exists,can not do get") { RequestedItemNotFound = predict.ToString() };
-
-
-        //if (predict == null)
-        //{
-        //    throw new GetPredictNullException("the predict is empty") { GetPredictNull = null };
-        //}
-
-        //try
-        //{
-        //    return (from order in OrdersRoot.Elements()
-        //            let o1 = new DO.Order()
-        //            {
-        //                ID = Int32.Parse(order.Element("ID").Value),
-        //                CustomerAdress = order.Element("CustomerAdress").Value,
-        //                CustomerEmail = order.Element("CustomerEmail").Value,
-        //                CustomerName = order.Element("CustomerName").Value,
-        //                ShipDate = DateTime.Parse(order.Element("ShipDate").Value),
-        //                DeliveryDate = DateTime.Parse(order.Element("DeliveryDate").Value),
-        //                OrderDate = DateTime.Parse(order.Element("OrderDate").Value)
-
-        //            }
-        //            where predict(o1)
-        //            select o1).FirstOrDefault();
-        //}
-        #endregion
-
     }
 
 
@@ -151,10 +111,14 @@ public class XmlProduct : IProduct
         }
         throw new CategoryNotExsistException(mycat) { CategoryNotExsist=mycat};
     }
+
+
     /// <summary>
     /// cope the orders to a new arrey and return it
     /// </summary>
     /// <returns>arrey with all the orders</returns>
+    /// 
+
     public IEnumerable<Product?> GetAll(Func<Product?, bool>? predict = null)
     {
 
@@ -180,66 +144,9 @@ public class XmlProduct : IProduct
         {
             throw new RequestedItemNotFoundException("Product not exists,can not get") { RequestedItemNotFound = predict?.ToString() };
         }
-        #region temp
-
-        //if (predict == null)
-        //{
-        //    try
-        //    {
-        //        var i= ((from order in OrdersRoot.Element()
-        //                                      select new DO.Order()
-        //                                      {
-        //                                          ID = Int32.Parse(order.Element("ID").Value.ToString()),
-        //                                          CustomerAdress = order.Element("CustomerAdress").Value.ToString(),
-        //                                          CustomerEmail = order.Element("CustomerEmail").Value.ToString(),
-        //                                          CustomerName = order.Element("CustomerName").Value.ToString(),
-        //                                          ShipDate = DateTime.Parse(order.Element("ShipDate").Value.ToString()),
-        //                                          DeliveryDate = DateTime.Parse(order.Element("DeliveryDate").Value.ToString()),
-        //                                          OrderDate = DateTime.Parse(order.Element("OrderDate").Value.ToString())
-
-        //                                      }));
-        //        return (IEnumerable<Order?>)i;
-        //    }
-        //    catch
-        //    {
-        //        throw new RequestedItemNotFoundException("order not exists,can not get") { RequestedItemNotFound = predict?.ToString() };
-        //    }
-        //}
-        //try
-        //{
-        //    return ((IEnumerable<Order?>)from order in OrdersRoot.Elements()
-        //                                 let o1 = new DO.Order()
-        //                                 {
-        //                                     ID = Int32.Parse(order.Element("ID").Value),
-        //                                     CustomerAdress = order.Element("CustomerAdress").Value,
-        //                                     CustomerEmail = order.Element("CustomerEmail").Value,
-        //                                     CustomerName = order.Element("CustomerName").Value,
-        //                                     ShipDate = DateTime.Parse(order.Element("ShipDate").Value),
-        //                                     DeliveryDate = DateTime.Parse(order.Element("DeliveryDate").Value),
-        //                                     OrderDate = DateTime.Parse(order.Element("OrderDate").Value)
-
-        //                                 }
-        //                                 where predict(o1)
-        //                                 select o1);
-        //}
-        //catch
-        //{
-        //    throw new RequestedItemNotFoundException("order not exists,can not get") { RequestedItemNotFound = predict?.ToString() };
-        //}
-        //List<DO.Order?> ListOrders = XMLTools.LoadListFromXMLSerializer<Order?>(OrderPath);
-        //if (predict == null)
-        //{
-        //    return (IEnumerable<Order?>)ListOrders;
-        //}
-        //IEnumerable<Order?> order = ListOrders.FindAll(p => predict(p));
-
-        //if (order is null)
-        //    throw new RequestedItemNotFoundException("order not exists,can not do get") { RequestedItemNotFound = predict.ToString() };
-
-        //return order;
-
-        #endregion
+        
     }
+
 
     /// <summary>
     /// check if the order demanded exist and delete it or throw an exception if not
@@ -269,6 +176,7 @@ public class XmlProduct : IProduct
       
     }
 
+
     /// <summary>
     /// update date of order and throw exception if it does not exist
     /// </summary>
@@ -296,37 +204,6 @@ public class XmlProduct : IProduct
 
             XMLTools.SaveListToXMLElement(ProductRoot, ProductPath);
         }
-       
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-      
 
     }
 }

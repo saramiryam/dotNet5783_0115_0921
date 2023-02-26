@@ -20,13 +20,12 @@ namespace PL.PLSimulator
         bool t=false;   
         BlApi.IBl bl;
         string timerText { get; set; }
-        public string NextStatus { get; set; } = "cvbn";
-        public string PreviousStatus { get; set; } = "dfghii";
+        public string NextStatus { get; set; } = "";
+        public string PreviousStatus { get; set; } = "";
         BackgroundWorker backgroundWorker;
         Tuple<BO.Order, int, string, string,string> orderAndTime;
         private Stopwatch stopWatch;
         private bool IfTimerRunning;
-        //timer parameters
         DispatcherTimer _timer;
         TimeSpan _time;
         public SimulatorWindow(BlApi.IBl Bl)

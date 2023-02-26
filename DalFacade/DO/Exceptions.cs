@@ -9,6 +9,7 @@ public class RequestedItemNotFoundException : Exception
     }
 
 }
+
 public class RequestedUpdateItemNotFoundException : Exception
 {
     public string? RequestedUpdateItemNotFound { get; set; }
@@ -19,7 +20,6 @@ public class RequestedUpdateItemNotFoundException : Exception
 
 }
 
-
 public class ItemAlreadyExistsException : Exception
 {
     public string? ItemAlreadyExists { get; set; }
@@ -29,7 +29,6 @@ public class ItemAlreadyExistsException : Exception
     }
 }
 
-
 public class GetPredictNullException : Exception
 {
     public string? GetPredictNull { get; set; }
@@ -38,6 +37,7 @@ public class GetPredictNullException : Exception
     {
     }
 }
+
 public class CategoryNotExsistException : Exception
 {
     public string? CategoryNotExsist { get; set; }

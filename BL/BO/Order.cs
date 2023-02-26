@@ -22,26 +22,14 @@ public class Order
 
     #endregion
 
+
+    //bonus
     #region ToString
 
     /// <summary>
     /// override the string function
     /// </summary>
     /// <returns>string with the properties of the Order struct</returns>
-//    public override string ToString() =>
-//        $@"
-//    Order ID={ID}: {CustomerName}, 
-//    Email - {CustomerEmail}
-//    Adress: {CustomerAdress}
-//    Status of order:{Status}
-//    Order Date: {OrderDate}
-//    Ship Date: {ShipDate}
-//    Delivery Date: {DeliveryDate}
-//    List of Item:{ItemList!.ToString()}
-//    Total sum:{TotalSum}
-//";
-
-    #endregion
     public override string ToString()
     {
         string itemsList = "";
@@ -66,17 +54,5 @@ public class Order
 
     }
 }
-//        return
-//    $@" order ID: {ID}
-//        customer name: {CustomerName}, 
-//        customer email: {CustomerEmail}
-//        customerAddress: {CustomerAdress}
-//        order status: {Status}
-//        orderDate: {OrderDate}
-//        shipDate: {ShipDate}
-//        all order items:{item}
-//        deliveryDate: {DeliveryDate}
-//        total order price: {TotalSum}";
-//    }
 
-//}
+#endregion

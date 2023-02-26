@@ -1,8 +1,4 @@
-﻿//להוסיף אופציה של בחירת כל המוצרים
-//לשנות את פונקציית קבלת המוצרים לפרדיקט
-//לתקןאת הBIDING של הID
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -35,16 +31,6 @@ public partial class MProductListWindow : Window
     public System.Array Categories { get; set; } = Enum.GetValues(typeof(BO.Enums.ECategory));
     public BO.Enums.ECategory? selectedCategory { get; set; } = null;
     public BO.ProductForList? productToUp { get; set; } = new();
-    #region הפרופרטי של בחירת קטגוריה
-    //public readonly DependencyProperty selectedCategoryProperty = DependencyProperty.Register(nameof(selectedCategory),
-    //                                                                                                typeof(Enums.ECategory?),
-    //                                                                                                typeof(MProductListWindow));
-    //public Enums.ECategory? selectedCategory
-    //{
-    //    get { return (Enums.ECategory?)GetValue(selectedCategoryProperty); }
-    //    set { SetValue(selectedCategoryProperty, value); }
-    //}
-    #endregion
     #region productsForListListProperty
     public static readonly DependencyProperty? productsForListListProperty = DependencyProperty.Register(nameof(productsForListList),
                                                                                                            typeof(ObservableCollection<ProductForList?>),
@@ -55,16 +41,7 @@ public partial class MProductListWindow : Window
         set { SetValue(productsForListListProperty, value); }
     }
     #endregion
-    #region product to up property
-    //public readonly DependencyProperty productToUpProperty = DependencyProperty.Register(nameof(productToUp),
-    //                                                                                                       typeof(BO.Product),
-    //                                                                                               typeof(MProductListWindow));
-    //public BO.Product productToUp
-    //{
-    //    get { return (BO.Product)GetValue(productToUpProperty); }
-    //    set { SetValue(productToUpProperty, value); }
-    //}
-    #endregion
+   
     #endregion
 
 
@@ -124,5 +101,10 @@ public partial class MProductListWindow : Window
     {
         new MWindow().Show();
         Close();
+    }
+
+    private void Button_Click(object sender, RoutedEventArgs e)
+    {
+        productsForListList = new(bl.Product.GetListOfProduct());
     }
 }

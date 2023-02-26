@@ -39,6 +39,7 @@ public class DalProduct:IProduct
         }
     }
 
+
     /// <summary>
     /// check if the product demanded exist and return it or an exception if not
     /// </summary>
@@ -56,7 +57,6 @@ public class DalProduct:IProduct
         {
             throw new GetPredictNullException("the predict is empty") { GetPredictNull = null };
         }
-        //Product? _newProduct = DataSource._Products.Find(e=> predict(e));
         try
         {
             return DataSource._Products
@@ -69,6 +69,7 @@ public class DalProduct:IProduct
         }
 
     }
+
 
     /// <summary>
     /// cope the products to a new arrey and return it
@@ -87,14 +88,10 @@ public class DalProduct:IProduct
         }
         else
         {
-            //List<Product?> _products = new List<Product?>();
-            //_products=DataSource._Products.FindAll(e=> predict(e)); 
-            //return _products;
             try
             {
                 return DataSource._Products.Where(p => predict(p))
                 .Select(e => (DO.Product?)e!).ToList();
-              //  return productToXml.GetAll(predict);
             }
             catch
             {
@@ -102,6 +99,7 @@ public class DalProduct:IProduct
             }
         }
     }
+
 
     /// <summary>
     /// check if the product demanded exist and delete it or throw an exception if not
@@ -111,10 +109,6 @@ public class DalProduct:IProduct
     [MethodImpl(MethodImplOptions.Synchronized)]
     public void Delete(int _num)
     {
-
-        //if (DataSource._Products == null) throw new RequestedItemNotFoundException("order not exists,can not get") { RequestedItemNotFound = _num.ToString() };
-        //Product? _productToDel = new Product();
-        //_productToDel = DataSource._Products.Find(e => e.HasValue && e!.Value.ID == _num);
         try
         {
             DataSource._Products.Remove(DataSource._Products
@@ -127,6 +121,7 @@ public class DalProduct:IProduct
         }
 
     }
+
 
     /// <summary>
     /// update data of product and throw exception if it does not exist
@@ -142,9 +137,6 @@ public class DalProduct:IProduct
 
         }
 
-        //if (DataSource._Products == null) throw new RequestedItemNotFoundException("order not exists,can not get") { RequestedItemNotFound = _p.ToString() };
-        ////Product? _productToUpdate = new Product();
-        ////_productToUpdate = DataSource._Products.Find(e => e.HasValue && e!.Value.ID == _p.ID);
         try
         {
             DataSource._Products.Remove(DataSource._Products

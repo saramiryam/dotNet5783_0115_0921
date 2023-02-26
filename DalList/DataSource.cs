@@ -32,7 +32,6 @@ public static class DataSource
     static private void s_initialize()
     {
         #region addNewProduct
-        //להוסיף לפונקציה שתקבל סטרינג
         addNewProduct("big_notebook", ECategory.Notebooks, 6.9, 50);     //10000 
         addNewProduct("small notebook", ECategory.Notebooks, 4.9, 0);       ///10001
         addNewProduct("Sudoku", ECategory.Games, 9.5, 41);                  //10010
@@ -133,6 +132,7 @@ public static class DataSource
         return;
     }
 
+
     /// <summary>
     /// get information of a product for update the products arrey
     /// </summary>
@@ -145,6 +145,7 @@ public static class DataSource
        Product newProducts = new() { ID = Config.CalNumOfProduct,Name=newName,Price=newPrice,Category=newCategory,InStock=newInStock };
         _Products.Add(newProducts);
     }
+
 
     /// <summary>
     /// get information of a order for update the orders arrey
@@ -170,6 +171,7 @@ public static class DataSource
         _Orders.Add(newOrder); 
     }
 
+   
     /// <summary>
     /// get information of a programmer order for update the orders arrey, with drawn dates
     /// </summary>
@@ -190,6 +192,7 @@ public static class DataSource
 
     }
 
+    
     /// <summary>
     /// get information of a order item for update the orderItems arrey
     /// </summary>

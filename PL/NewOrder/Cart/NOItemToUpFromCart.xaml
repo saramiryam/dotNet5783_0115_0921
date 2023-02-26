@@ -8,9 +8,9 @@
         Title="NOItemToUpFromCart" Height="450" Width="800"
     DataContext="{Binding RelativeSource={RelativeSource self}}">
     <Grid Name="MainGrid">
-        <!--<Grid.Background>
+        <Grid.Background>
             <ImageBrush Stretch="Uniform" ImageSource="C:\Users\2141s\source\repos\saramiryam\dotNet5783_0115_0921\PL\imege\3.JPG"></ImageBrush>
-        </Grid.Background>-->
+        </Grid.Background>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="40*"/>
@@ -20,12 +20,18 @@
         <Button Background="#FFFE8F1E" FontWeight="ExtraBlack" Foreground="White" Content="back" Grid.Row="0" HorizontalAlignment="Left" Margin="110,15,0,0" Padding="5" Width="170" Height="40" VerticalAlignment="Top" Click="Back_Click" FontSize="20" BorderBrush="{x:Null}"/>
 
         <Grid DataContext="{Binding ItemToChage}">
-            <TextBlock  Text="{Binding numInOrder}" HorizontalAlignment="Left" Margin="90,40,0,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
-            <TextBlock  Text="{Binding ID}" HorizontalAlignment="Left" Margin="90,60,0,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
-            <TextBlock  Text="{Binding Name}" HorizontalAlignment="Left" Margin="90,80,0,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
-            <TextBlock  Text="{Binding Price}" HorizontalAlignment="Left" Margin="90,100,0,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
-            <TextBlock  Text="{Binding Amount}" HorizontalAlignment="Left" Margin="90,120,0,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
-            <TextBlock  Text="{Binding sumItem}" HorizontalAlignment="Left" Margin="90,140,0,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
+            <Label Content="item num:" HorizontalAlignment="Left" Margin="180,80,0,0" VerticalAlignment="Top"/>
+            <TextBlock  Text="{Binding numInOrder}" HorizontalAlignment="Left" Margin="260,85,0,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
+            <Label Content="id" HorizontalAlignment="Left" Margin="180,100,0,0" VerticalAlignment="Top"/>
+            <TextBlock  Text="{Binding ID}" HorizontalAlignment="Left" Margin="260,105,0,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
+            <Label Content="name" HorizontalAlignment="Left" Margin="180,120,0,0" VerticalAlignment="Top"/>
+            <TextBlock  Text="{Binding Name}" HorizontalAlignment="Left" Margin="260,125,0,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
+            <Label Content="price" HorizontalAlignment="Left" Margin="180,140,0,0" VerticalAlignment="Top"/>
+            <TextBlock  Text="{Binding Price}" HorizontalAlignment="Left" Margin="260,145,0,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
+            <Label Content="amount" HorizontalAlignment="Left" Margin="180,160,0,0" VerticalAlignment="Top"/>
+            <TextBlock  Text="{Binding Amount}" HorizontalAlignment="Left" Margin="260,165,0,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
+            <Label Content="sum" HorizontalAlignment="Left" Margin="180,180,0,0" VerticalAlignment="Top"/>
+            <TextBlock  Text="{Binding sumItem}" HorizontalAlignment="Left" Margin="260,185,0,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
         </Grid>
 
         <Grid DataContext="{Binding Amount}">

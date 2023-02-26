@@ -21,4 +21,5 @@ public interface IOrder
     public BO.OrderTracking GetOrderTracking(int orderId);
 
     public int? getOrderToPromote();
+
 }

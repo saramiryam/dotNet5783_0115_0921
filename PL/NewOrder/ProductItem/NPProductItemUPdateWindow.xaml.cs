@@ -23,7 +23,6 @@ public partial class NPProductItemUPdateWindow : Window
 {
     BlApi.IBl? bl = BlApi.Factory.Get();
     public static string Action { get; set; } = "";
-    //   public  int Amount { get; set; } = 0;
     public BO.ProductItem? ProductToAdd { get; set; } = new();
     public static readonly DependencyProperty CartProperty = DependencyProperty.Register(nameof(Cart),
                                                                                                typeof(BO.Cart),

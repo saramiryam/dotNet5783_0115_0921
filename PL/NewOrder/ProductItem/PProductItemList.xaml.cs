@@ -22,6 +22,8 @@ namespace PL.NewOrder.ProductItem;
 /// </summary>
 public partial class PProductItemList : Window
 {
+    #region property
+
     BlApi.IBl? bl = BlApi.Factory.Get();
     public static string Action { get; set; } = "";
     public static int Amount { get; set; } = 0;
@@ -47,6 +49,7 @@ public partial class PProductItemList : Window
         get { return (BO.Cart)GetValue(CartProperty); }
         set { SetValue(CartProperty, value); }
     }
+    #endregion
 
     public PProductItemList()
     {
@@ -89,8 +92,6 @@ public partial class PProductItemList : Window
     private void goCart_Click(object sender, RoutedEventArgs e)
     {
         new NOItemsInCartWindow(Cart).Show();
-        Close();
-        // ProductToAdd.AddNewProduct += new Action<BO.ProductItem>(addNewProductToCart);
 
     }
 
@@ -145,17 +146,9 @@ public partial class PProductItemList : Window
         Close();
     }
 
-    //זה הפונקציה שמעדכנת את הרשימה
-    // תשלחי אותה כפרמטר לחלון שבו את מעדכנת (הייתי עושה את זה בכיף אבל אין לי מושג מה הולך פה עם החלונות)
-    //בחלון ההוא תגדירי משתנה מסוג ACTION 
-    //בבנאי תשוי את המשתנה לפונקציה שקיבלת בפרטמר
-    //תזמני אותה בסוף המתודה של העדכון
-    //זה יקרא לפונקציה שפה ויעדכן את הרשימה פה....
-    //רוב הצלחה שפע וברכה!
     private void updateList(BO.ProductItem p)
     {
         var item = ProductsItemList.FirstOrDefault(item => item.ID == p.ID);
-        //item.AmoutInYourCart = p.AmoutInYourCart;
         ProductsItemList[ProductsItemList.IndexOf(item)] = p;
     }
 }

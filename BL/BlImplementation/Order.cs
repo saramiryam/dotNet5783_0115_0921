@@ -14,7 +14,6 @@ namespace BlImplementation;
 public class Order : BlApi.IOrder
 {
     IDal? Dal = Factory.Get();
-    //private static IDal? Dal = Factory.Get();
     #region method
     /// <summary>
     /// get the whole list of orders
@@ -332,6 +331,7 @@ public class Order : BlApi.IOrder
             return minOrderDate;
         return null;
     }
+
     #endregion
    #region bonus
     public void ManagerActions(int orderId, int productId, int amount)
@@ -345,11 +345,8 @@ public class Order : BlApi.IOrder
         var flag = (ordersItem
                        .Where(e => e.ProductID == productId && e.OrderID == orderId)
                        .Select(e => (DO.OrderItem?)e).FirstOrDefault());
-        //ordersItem.Exists(e => e.ProductID == productId && e.OrderID == orderId);
         if (flag is not null)
         {
-            //find
-            //DO.OrderItem OI = ordersItem.Find(e => e.ProductID == productId && e.OrderID == orderId);
             DO.OrderItem OI = ordersItem
                 .Where(e => e.ProductID == productId && e.OrderID == orderId)
                 .Select(e => (DO.OrderItem)e!).First();
@@ -466,14 +463,6 @@ public class Order : BlApi.IOrder
             throw new BO.OrderNotExistsException("order not exists,can not get all orderItems") { OrderNotExists = id.ToString() };
 
         }
-        //int sum = 0;
-        //foreach (var item in orderItemList)
-        //{
-        //    if (item != null)
-        //        sum += item.Value.Amount;
-        //}
-        //return sum;
-
         return orderItemList
                        .Where(item => item != null)
                        .Sum(item => item!.Value.Amount);
@@ -488,16 +477,6 @@ public class Order : BlApi.IOrder
         if (Dal != null)
         {
             orderItemList = (IEnumerable<DO.OrderItem?>)Dal.OrderItem.GetAll(e => e?.OrderID == id);
-            //double sum = 0;
-            //foreach (var item in orderItemList)
-            //{
-            //    if (item != null)
-            //    {
-            //        sum = sum + item.Value.Price * item.Value.Amount;
-            //    }
-            //}
-
-            //return sum;
             return orderItemList
                      .Where(item => item != null)
                      .Sum(item => item!.Value.Price * item.Value.Amount);
@@ -514,26 +493,11 @@ public class Order : BlApi.IOrder
     public List<BO.OrderItem?> GetAllItemsToOrder(int id)
     {
         List<DO.OrderItem?> orderItemList = new List<DO.OrderItem?>();
-        //List<BO.OrderItem?> BOorderItemList = new List<BO.OrderItem?>();
         if (Dal != null)
         {
             orderItemList = (List<DO.OrderItem?>)Dal.OrderItem.GetAll(e => e?.OrderID == id);
         }
         int count = 1;
-        //foreach (var item in orderItemList)
-        //{
-        //    BOorderItemList.Add(new BO.OrderItem()
-        //    {
-        //        numInOrder = count++,
-        //        ID = item.ID,
-        //        Name = getOrderItemName(item.ProductID),
-        //        Price = item.Price,
-        //        Amount = item.Amount,
-        //        sumItem = item.Price * item.Amount
-
-        //    });
-        //}
-        //return BOorderItemList;
         var addOrderItem = orderItemList
             .Where(item => item is not null)
                           .Select(item => (BO.OrderItem?)new BO.OrderItem()

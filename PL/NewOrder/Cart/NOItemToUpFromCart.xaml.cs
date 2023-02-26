@@ -23,7 +23,6 @@ namespace PL.NewOrder.Cart
     {
         BlApi.IBl? bl = BlApi.Factory.Get();
         public static string Action { get; set; } = "";
-     //   public  BO.OrderItem ItemToChage { get; set; } = new();
         public static readonly DependencyProperty ItemToChageProperty = DependencyProperty.Register(nameof(ItemToChage),
                                                                                               typeof(BO.OrderItem),
                                                                                       typeof(NOItemToUpFromCart));

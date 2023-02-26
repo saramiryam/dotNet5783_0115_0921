@@ -23,6 +23,7 @@ namespace DalTest
                 "1-to product  " +
                 "2-to order  " +
                 "3-to order item  ");
+            //bonus
             int.TryParse(Console.ReadLine(), out choice);
             while (choice != 0)
             {
@@ -128,11 +129,6 @@ namespace DalTest
                 case 3:
                     if (IDalVariable != null)
                     {
-                        //foreach (var myproduct in Idalvariable.product.getall())
-                        //{
-                        //    console.writeline(myproduct);
-
-                        //}
                        var allProduct = (from Product? p in IDalVariable.Product.GetAll()
                                          select p).ToList();
                         Console.WriteLine(allProduct);
@@ -183,7 +179,6 @@ namespace DalTest
                         amountInStock = parse;
                         Product proTOUpdata = new Product() { ID = Id, Name = name, Price = price, InStock = amountInStock };
                         IDalVariable?.Product.Update(proTOUpdata);
-                        //}
                         break;
                     }
 
@@ -192,6 +187,9 @@ namespace DalTest
 
             }
         }
+
+
+
         /// <summary>
         ///  all the options about order
         /// 1-add,2-get one product, 3-get all products,4-delete,5-update 
@@ -240,10 +238,6 @@ namespace DalTest
                 case 3:
                     if (IDalVariable != null)
                     {
-                        //foreach (var myOrder in IDalVariable.Order.GetAll())
-                        //{
-                        //    Console.WriteLine(myOrder);
-                        //}
                         var allOrders = (from Order o in IDalVariable.Order.GetAll()
                                           select o).ToList();
                         Console.WriteLine(allOrders);
@@ -300,6 +294,7 @@ namespace DalTest
             }
 
         }
+
 
         /// <summary>
         /// 
@@ -358,10 +353,6 @@ namespace DalTest
                 case 3:
                     if (IDalVariable != null)
                     {
-                        //foreach (var myOrderItem in IDalVariable.OrderItem.GetAll())
-                        //{
-                        //    Console.WriteLine(myOrderItem);
-                        //}
                         var allOrderItems = (from OrderItem oi in IDalVariable.OrderItem.GetAll()
                                           select oi).ToList();
                         Console.WriteLine(allOrderItems);
@@ -420,10 +411,6 @@ namespace DalTest
                     {
                         if(IDalVariable != null)
                         {
-                            //foreach (var myOrderItem in IDalVariable.OrderItem.GetAll(e => e?.OrderID == IdOrder))
-                            //{
-                            //    Console.WriteLine(myOrderItem);
-                            //}
                             var allOrderItems = (from OrderItem oi in IDalVariable.OrderItem.GetAll()
                                                  where oi.OrderID.Equals(IdOrder)
                                                  select oi).ToList();

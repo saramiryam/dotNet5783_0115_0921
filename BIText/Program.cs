@@ -26,6 +26,7 @@ namespace BlTest
         public static void Main()
         {
             Console.WriteLine("Enter 1 for product, 2 - cart, 3 - order, 0 to exit:");
+            //bonus
             int.TryParse(Console.ReadLine(), out choice);
 
 
@@ -308,10 +309,6 @@ namespace BlTest
                 case 2:
                     {
                         Console.WriteLine("enter  your details ");
-                        //int.TryParse(Console.ReadLine(), out parse);
-                        //int productID = parse;
-                        //int.TryParse(Console.ReadLine(), out parse);
-                        //int newAmount = parse;
                         cart.CustomerName = Console.ReadLine();
                         cart.CustomerEmail = Console.ReadLine();
                         cart.CustomerAdress = Console.ReadLine();
@@ -458,11 +455,6 @@ namespace BlTest
                 case 1://get all orders
                     {
                         IEnumerable<OrderForList?> listFromMethod = blVariable.Order.GetListOfOrders();
-                        //foreach (var orderForList in listFromMethod)
-                        //{
-                        //    if(orderForList is not null)
-                        //    Console.WriteLine(orderForList);
-                        //}
                         var orderForList = (from OrderForList o in listFromMethod
                                               where o is not null
                                               select o).ToList();
@@ -485,8 +477,6 @@ namespace BlTest
                             Console.WriteLine(blVariable.Order.GetOrderDetails(order.ID).OrderDate);
                             Console.WriteLine(blVariable.Order.GetOrderDetails(order.ID).ShipDate);
                             Console.WriteLine(blVariable.Order.GetOrderDetails(order.ID).DeliveryDate);
-                            //foreach (var item in listFromMethod)
-                            //    Console.WriteLine(item);
                             var item = (from BO.OrderItem oi in listFromMethod
                                                   where oi is not null
                                                   select oi).ToList();
@@ -536,13 +526,6 @@ namespace BlTest
                     }
                 case 5://tracking order
                     {
-                        //Console.WriteLine("enter order ID");
-                        //int.TryParse(Console.ReadLine(), out parse);
-                        //orderTracking = bl.Order.OrderTrack(parse);
-                        //Console.WriteLine(orderTracking);
-
-
-
                         Console.WriteLine("Enter an Id of order:");
                         int.TryParse(Console.ReadLine(), out parse);
                         order.ID = parse;
@@ -551,11 +534,6 @@ namespace BlTest
 
                             orderTrackingFromMethod = blVariable.Order.GetOrderTracking(parse);
                             List<OrderTracking.StatusAndDate?> listFromMethod = orderTrackingFromMethod.listOfStatus!;
-                            //foreach (var item in listFromMethod)
-                            //{
-                            //    Console.WriteLine(item);
-
-                            //}
                             var items = (from BO.OrderItem oi in listFromMethod
                                                   where oi is not null
                                                   select oi).ToList();

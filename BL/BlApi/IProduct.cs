@@ -27,6 +27,8 @@ namespace BlApi
         public void UpdateProduct(BO.Product item);
 
         public void DeleteProduct(int id);
+        public int getNextID();
+
 
     }
 }
